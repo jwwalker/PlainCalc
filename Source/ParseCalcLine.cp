@@ -426,7 +426,8 @@ namespace
 					>> end_p;
 				
 				factor =
-					boost::spirit::ureal_p[ append(self.mState.mValStack) ]
+					(boost::spirit::str_p("0x") >> boost::spirit::hex_p[ append(self.mState.mValStack) ])
+					| boost::spirit::ureal_p[ append(self.mState.mValStack) ]
 					| self.mState.mConstants[ append(self.mState.mValStack) ]
 					| self.mState.mVariables[ append(self.mState.mValStack) ]
 					| '(' >> expression >> ')'
@@ -434,6 +435,8 @@ namespace
 						>> ')')[ DoUnaryFunc(self.mState) ]
 					| (lexeme_d[self.mState.mBinaryFuncs >> '('] >> expression
 						>> ',' >> expression >> ')')[ DoBinaryFunc(self.mState) ];
+					// Note: The hex part of factor must come before the real part, otherwise ureal_p
+					// will gobble the leading 0.
 				
 				power = (factor >>
 					!(
