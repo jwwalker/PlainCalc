@@ -18,6 +18,8 @@ namespace
 	const ResID		rMBAR_OSX_MainBar	= 129;
 	
 	const MenuCommand	kHelpCommandID	= 1001;
+	
+	const UInt32	kAutoDisableMenuItemFlag	= 'AutD';
 }
 
 #pragma mark class PlainCalcApp
@@ -37,8 +39,6 @@ private:
 						EventHandlerCallRef inHandlerCallRef,
 						EventRef inEvent );
 	
-	OSStatus	DocCommandStatus( const HICommand& inCmd );
-
 	OSStatus	NewProcess( const HICommand& );
 	OSStatus	AboutProcess( const HICommand& );
 	OSStatus	HelpProcess( const HICommand& );
@@ -67,13 +67,6 @@ PlainCalcApp::PlainCalcApp()
 	mCmdProcess( kEventClassCommand, kEventCommandProcess,
 		::GetApplicationEventTarget(), this, &PlainCalcApp::CmdProcess )
 {
-	mCmdUpdateStatusMap.RegisterCommand( kHICommandClose, &PlainCalcApp::DocCommandStatus );
-	mCmdUpdateStatusMap.RegisterCommand( kHICommandSave, &PlainCalcApp::DocCommandStatus );
-	mCmdUpdateStatusMap.RegisterCommand( kHICommandSaveAs, &PlainCalcApp::DocCommandStatus );
-	mCmdUpdateStatusMap.RegisterCommand( kCommandID_IntegersAsHex, &PlainCalcApp::DocCommandStatus );
-	mCmdUpdateStatusMap.RegisterCommand( kCommandID_IntegersAsDecimal, &PlainCalcApp::DocCommandStatus );
-
-
 	mCmdProcessMap.RegisterCommand( kHICommandNew, &PlainCalcApp::NewProcess );
 	mCmdProcessMap.RegisterCommand( kHICommandAbout, &PlainCalcApp::AboutProcess );
 	mCmdProcessMap.RegisterCommand( kHelpCommandID, &PlainCalcApp::HelpProcess );
@@ -126,6 +119,19 @@ OSStatus	PlainCalcApp::CmdUpdateStatus(
 					sizeof(HICommand), NULL, &command);
 	
 	err = mCmdUpdateStatusMap.DoMethod( command );
+	
+	if ( (err == eventNotHandledErr) and ((command.attributes & kHICommandFromMenu) != 0) )
+	{
+		UInt32	theRefCon;
+		::GetMenuItemRefCon( command.menu.menuRef, command.menu.menuItemIndex,
+			&theRefCon );
+		
+		if (theRefCon == kAutoDisableMenuItemFlag)
+		{
+			::DisableMenuCommand( NULL, command.commandID );
+			err = noErr;
+		}
+	}
 
 	return err;
 }
@@ -146,12 +152,6 @@ OSStatus	PlainCalcApp::CmdProcess(
 }
 
 
-
-OSStatus	PlainCalcApp::DocCommandStatus( const HICommand& inCmd )
-{
-	::DisableMenuCommand( NULL, inCmd.commandID );
-	return noErr;
-}
 
 OSStatus	PlainCalcApp::NewProcess( const HICommand& )
 {
