@@ -172,6 +172,12 @@ private:
 	OSStatus		SaveProcess( const HICommand& inCmd );
 	OSStatus		SaveAsProcess( const HICommand& inCmd );
 	
+	OSStatus		FormatHexStatus( const HICommand& inCmd );
+	OSStatus		FormatDecStatus( const HICommand& inCmd );
+	OSStatus		FormatHexProcess( const HICommand& inCmd );
+	OSStatus		FormatDecProcess( const HICommand& inCmd );
+	
+	
 	void			SaveFile( const FSSpec& inFile );
 	CFDictionaryRef	CreateDocDictionary() const;
 
@@ -198,6 +204,7 @@ private:
 	auto_MLTE		mMLTE;
 	CalcState		mCalculator;
 	ItemCount		mTextSaveChangeCount;
+	bool			mFormatIntegersAsHex;
 	
 	CCommandHandlerMap<XCalcWindowImp>	mCmdUpdateStatusMap;
 	CCommandHandlerMap<XCalcWindowImp>	mCmdProcessMap;
@@ -222,6 +229,7 @@ XCalcWindowImp::XCalcWindowImp( CCalcWindow* inSelf, const Rect& inWindowBounds 
 	mMLTE( mWindow.get() ),
 	mCalculator( CreateCalcState() ),
 	mTextSaveChangeCount( 0 ),
+	mFormatIntegersAsHex( false ),
 	mCmdUpdateStatusMap( this ),
 	mCmdProcessMap( this ),
 	mCmdProcess( kEventClassCommand, kEventCommandProcess,
@@ -257,6 +265,11 @@ XCalcWindowImp::XCalcWindowImp( CCalcWindow* inSelf, const Rect& inWindowBounds 
 	
 	mCmdProcessMap.RegisterCommand( kHICommandSave, &XCalcWindowImp::SaveProcess );
 	mCmdProcessMap.RegisterCommand( kHICommandSaveAs, &XCalcWindowImp::SaveAsProcess );
+
+	mCmdProcessMap.RegisterCommand( kCommandID_IntegersAsHex, &XCalcWindowImp::FormatHexProcess );
+	mCmdProcessMap.RegisterCommand( kCommandID_IntegersAsDecimal, &XCalcWindowImp::FormatDecProcess );
+	mCmdUpdateStatusMap.RegisterCommand( kCommandID_IntegersAsHex, &XCalcWindowImp::FormatHexStatus );
+	mCmdUpdateStatusMap.RegisterCommand( kCommandID_IntegersAsDecimal, &XCalcWindowImp::FormatDecStatus );
 
 	if (GetOSVersion() < 0x1020)
 	{
@@ -339,7 +352,16 @@ void	XCalcWindowImp::DoCalculate()
 			if (ParseCalcLine( theText.c_str(), mCalculator, &theValue, &stopOffset ))
 			{
 				std::ostringstream	oss;
-				oss << "= " << std::setprecision(12) << theValue << "\r";
+				if ( mFormatIntegersAsHex and
+					(std::abs(theValue - std::round(theValue)) < FLT_EPSILON) )
+				{
+					oss << "= 0x" << std::hex << std::uppercase <<
+						std::lround(theValue) << "\r";
+				}
+				else
+				{
+					oss << "= " << std::setprecision(12) << theValue << "\r";
+				}
 				newText += oss.str();
 				
 				SInt32 numUniChars = SetText( selStart, selEnd, newText );
@@ -834,6 +856,36 @@ OSStatus	XCalcWindowImp::SaveAsProcess( const HICommand& )
 	
 	return err;
 }
+
+
+OSStatus	XCalcWindowImp::FormatHexStatus( const HICommand& inCmd )
+{
+	::EnableMenuCommand( NULL, inCmd.commandID );
+	::CheckMenuItem( inCmd.menu.menuRef, inCmd.menu.menuItemIndex, mFormatIntegersAsHex );
+	return noErr;
+}
+
+OSStatus	XCalcWindowImp::FormatDecStatus( const HICommand& inCmd )
+{
+	::EnableMenuCommand( NULL, inCmd.commandID );
+	::CheckMenuItem( inCmd.menu.menuRef, inCmd.menu.menuItemIndex, not mFormatIntegersAsHex );
+	return noErr;
+}
+
+OSStatus	XCalcWindowImp::FormatHexProcess( const HICommand& inCmd )
+{
+#pragma unused( inCmd )
+	mFormatIntegersAsHex = true;
+	return noErr;
+}
+
+OSStatus	XCalcWindowImp::FormatDecProcess( const HICommand& inCmd )
+{
+#pragma unused( inCmd )
+	mFormatIntegersAsHex = false;
+	return noErr;
+}
+
 
 void	XCalcWindowImp::SpecifyFile( const FSSpec& inFile )
 {
