@@ -70,6 +70,8 @@ PlainCalcApp::PlainCalcApp()
 	mCmdUpdateStatusMap.RegisterCommand( kHICommandClose, &PlainCalcApp::DocCommandStatus );
 	mCmdUpdateStatusMap.RegisterCommand( kHICommandSave, &PlainCalcApp::DocCommandStatus );
 	mCmdUpdateStatusMap.RegisterCommand( kHICommandSaveAs, &PlainCalcApp::DocCommandStatus );
+	mCmdUpdateStatusMap.RegisterCommand( kCommandID_IntegersAsHex, &PlainCalcApp::DocCommandStatus );
+	mCmdUpdateStatusMap.RegisterCommand( kCommandID_IntegersAsDecimal, &PlainCalcApp::DocCommandStatus );
 
 
 	mCmdProcessMap.RegisterCommand( kHICommandNew, &PlainCalcApp::NewProcess );
