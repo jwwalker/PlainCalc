@@ -4,6 +4,10 @@
 #include <memory>
 class XCalcWindowImp;
 
+const MenuCommand	kCommandID_IntegersAsHex		= 'IHex';
+const MenuCommand	kCommandID_IntegersAsDecimal	= 'IDec';
+
+
 class CCalcWindow
 {
 public:
