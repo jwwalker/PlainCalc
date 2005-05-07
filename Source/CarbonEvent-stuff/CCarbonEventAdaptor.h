@@ -10,6 +10,8 @@
 	and delegates the handling of that event to a method of a given object.
 	When the adaptor is destroyed, the event handler is removed.
 	
+	The method can match any of several prototypes.
+	
 	Example:
 	
 	class MyController
@@ -17,10 +19,10 @@
 	public:
 					MyController( WindowRef inWindow );
 		
+	private:
 		OSStatus	ShowHandler( EventHandlerCallRef inHandlerCallRef,
 								EventRef inEvent );
 	
-	private:
 		WindowRef							mWindow;
 		CCarbonEventAdaptor<MyController>	mShowAdaptor;
 	};
@@ -33,6 +35,27 @@
 	{
 	}
 */
+class autoHandlerUPP
+{
+public:
+					autoHandlerUPP( EventHandlerProcPtr inProc )
+						: mUPP( NewEventHandlerUPP( inProc ) ) {}
+						
+					~autoHandlerUPP()
+						{
+							DisposeEventHandlerUPP( mUPP );
+						}
+					
+					operator EventHandlerUPP() const
+						{
+							return mUPP;
+						}
+
+private:
+	EventHandlerUPP	mUPP;
+};
+
+
 template <class T>
 class CCarbonEventAdaptor
 {
@@ -52,6 +75,17 @@ public:
 	typedef OSStatus (T::*HandlerMethod)(
 					EventHandlerCallRef inHandlerCallRef,
 					EventRef inEvent );
+					
+	typedef OSStatus (T::*HandlerMethod1)(
+					EventRef inEvent );
+
+	typedef OSStatus (T::*HandlerMethod0)();
+
+	typedef OSStatus (T::*HandlerMethodCmdExtended)(
+					const HICommandExtended& inCmd );
+					
+	typedef OSStatus (T::*HandlerMethodCmd)(
+					const HICommand& inCmd );
 
 
 							CCarbonEventAdaptor(
@@ -60,8 +94,39 @@ public:
 									EventTargetRef inTarget,
 									T* inObject,
 									HandlerMethod inMethod );
+
+							CCarbonEventAdaptor(
+									UInt32 inEventClass,
+									UInt32 inEventKind,
+									EventTargetRef inTarget,
+									T* inObject,
+									HandlerMethod1 inMethod );
+
+							CCarbonEventAdaptor(
+									UInt32 inEventClass,
+									UInt32 inEventKind,
+									EventTargetRef inTarget,
+									T* inObject,
+									HandlerMethod0 inMethod );
+
+							CCarbonEventAdaptor(
+									UInt32 inEventClass,
+									UInt32 inEventKind,
+									EventTargetRef inTarget,
+									T* inObject,
+									HandlerMethodCmd inMethod );
+
+							CCarbonEventAdaptor(
+									UInt32 inEventClass,
+									UInt32 inEventKind,
+									EventTargetRef inTarget,
+									T* inObject,
+									HandlerMethodCmdExtended inMethod );
+							
 							
 							~CCarbonEventAdaptor();
+
+	void					Remove();
 
 	static pascal OSStatus 	Callback(
 									EventHandlerCallRef inHandlerCallRef,
@@ -69,16 +134,95 @@ public:
 									void* inUserData );
 
 private:
+	void					Install(
+									UInt32 inEventClass,
+									UInt32 inEventKind,
+									EventTargetRef inTarget );
+	
 	// Unimplemented methods
 							CCarbonEventAdaptor( const CCarbonEventAdaptor& inOther );
 	CCarbonEventAdaptor&	operator=( const CCarbonEventAdaptor& inOther );
 	
-	T*				mObject;
-	HandlerMethod	mMethod;
-	EventHandlerUPP	mHandlerUPP;
-	EventHandlerRef	mHandlerRef;
+	T*					mObject;
+	HandlerMethod		mMethod;
+	HandlerMethod1		mMethod1;
+	HandlerMethod0		mMethod0;
+	HandlerMethodCmd	mMethodCmd;
+	autoHandlerUPP		mHandlerUPP;
+	EventHandlerRef		mHandlerRef;
 };
 
+template <class T>
+inline
+CCarbonEventAdaptor<T>::CCarbonEventAdaptor(
+							UInt32 inEventClass,
+							UInt32 inEventKind,
+							EventTargetRef inTarget,
+							T* inObject,
+							HandlerMethod1 inMethod )
+	: mObject( inObject ),
+	mMethod( NULL ),
+	mMethod1( inMethod ),
+	mMethod0( NULL ),
+	mMethodCmd( NULL ),
+	mHandlerUPP( Callback )
+{
+	Install( inEventClass, inEventKind, inTarget );
+}
+
+template <class T>
+inline
+CCarbonEventAdaptor<T>::CCarbonEventAdaptor(
+							UInt32 inEventClass,
+							UInt32 inEventKind,
+							EventTargetRef inTarget,
+							T* inObject,
+							HandlerMethod0 inMethod )
+	: mObject( inObject ),
+	mMethod( NULL ),
+	mMethod1( NULL ),
+	mMethod0( inMethod ),
+	mMethodCmd( NULL ),
+	mHandlerUPP( Callback )
+{
+	Install( inEventClass, inEventKind, inTarget );
+}
+
+template <class T>
+inline
+CCarbonEventAdaptor<T>::CCarbonEventAdaptor(
+							UInt32 inEventClass,
+							UInt32 inEventKind,
+							EventTargetRef inTarget,
+							T* inObject,
+							HandlerMethodCmd inMethod )
+	: mObject( inObject ),
+	mMethod( NULL ),
+	mMethod1( NULL ),
+	mMethod0( NULL ),
+	mMethodCmd( inMethod ),
+	mHandlerUPP( Callback )
+{
+	Install( inEventClass, inEventKind, inTarget );
+}
+
+template <class T>
+inline
+CCarbonEventAdaptor<T>::CCarbonEventAdaptor(
+							UInt32 inEventClass,
+							UInt32 inEventKind,
+							EventTargetRef inTarget,
+							T* inObject,
+							HandlerMethodCmdExtended inMethod )
+	: mObject( inObject ),
+	mMethod( NULL ),
+	mMethod1( NULL ),
+	mMethod0( NULL ),
+	mMethodCmd( (HandlerMethodCmd) inMethod ),
+	mHandlerUPP( Callback )
+{
+	Install( inEventClass, inEventKind, inTarget );
+}
 
 template <class T>
 inline
@@ -90,7 +234,20 @@ CCarbonEventAdaptor<T>::CCarbonEventAdaptor(
 							HandlerMethod inMethod )
 	: mObject( inObject ),
 	mMethod( inMethod ),
-	mHandlerUPP( ::NewEventHandlerUPP( Callback ) )
+	mMethod1( NULL ),
+	mMethod0( NULL ),
+	mMethodCmd( NULL ),
+	mHandlerUPP( Callback )
+{
+	Install( inEventClass, inEventKind, inTarget );
+}
+
+template <class T>
+inline
+void	CCarbonEventAdaptor<T>::Install(
+									UInt32 inEventClass,
+									UInt32 inEventKind,
+									EventTargetRef inTarget )
 {
 	EventTypeSpec	eventSpec = {
 		inEventClass, inEventKind
@@ -109,8 +266,18 @@ template <class T>
 inline
 CCarbonEventAdaptor<T>::~CCarbonEventAdaptor()
 {
-	::RemoveEventHandler( mHandlerRef );
-	::DisposeEventHandlerUPP( mHandlerUPP );
+	Remove();
+}
+
+template <class T>
+inline
+void	CCarbonEventAdaptor<T>::Remove()
+{
+	if (mHandlerRef != NULL)
+	{
+		::RemoveEventHandler( mHandlerRef );
+		mHandlerRef = NULL;
+	}
 }
 
 template <class T>
@@ -126,9 +293,35 @@ pascal OSStatus CCarbonEventAdaptor<T>::Callback(
 	try
 	{
 		T*	theObject = me->mObject;
-		HandlerMethod	theMethod = me->mMethod;
 		
-		err = (theObject->*theMethod)( inHandlerCallRef, inEvent );
+		if (me->mMethod != NULL)
+		{
+			HandlerMethod	theMethod = me->mMethod;
+			
+			err = (theObject->*theMethod)( inHandlerCallRef, inEvent );
+		}
+		else if (me->mMethod1 != NULL)
+		{
+			HandlerMethod1	theMethod = me->mMethod1;
+			
+			err = (theObject->*theMethod)( inEvent );
+		}
+		else if (me->mMethod0 != NULL)
+		{
+			HandlerMethod0	theMethod = me->mMethod0;
+			
+			err = (theObject->*theMethod)();
+		}
+		else if (me->mMethodCmd != NULL)
+		{
+			HICommand	theCmd;
+			::GetEventParameter( inEvent, kEventParamDirectObject, typeHICommand, NULL,
+				sizeof(theCmd), NULL, &theCmd );
+			
+			HandlerMethodCmd	theMethod = me->mMethodCmd;
+			
+			err = (theObject->*theMethod)( theCmd );
+		}
 	}
 	catch (...)
 	{
