@@ -114,7 +114,7 @@ OSStatus	PlainCalcApp::CmdUpdateStatus(
 {
 #pragma unused( inHandlerCallRef )
 	OSStatus err = eventNotHandledErr;
-	HICommand		command;
+	HICommandExtended		command;
 	::GetEventParameter(inEvent, kEventParamDirectObject, typeHICommand, NULL,
 					sizeof(HICommand), NULL, &command);
 	
@@ -123,7 +123,7 @@ OSStatus	PlainCalcApp::CmdUpdateStatus(
 	if ( (err == eventNotHandledErr) and ((command.attributes & kHICommandFromMenu) != 0) )
 	{
 		UInt32	theRefCon;
-		::GetMenuItemRefCon( command.menu.menuRef, command.menu.menuItemIndex,
+		::GetMenuItemRefCon( command.source.menu.menuRef, command.source.menu.menuItemIndex,
 			&theRefCon );
 		
 		if (theRefCon == kAutoDisableMenuItemFlag)
@@ -142,9 +142,9 @@ OSStatus	PlainCalcApp::CmdProcess(
 {
 #pragma unused( inHandlerCallRef )
 	OSStatus err = eventNotHandledErr;
-	HICommand		command;
+	HICommandExtended		command;
 	::GetEventParameter(inEvent, kEventParamDirectObject, typeHICommand, NULL,
-					sizeof(HICommand), NULL, &command);
+					sizeof(HICommandExtended), NULL, &command);
 
 	err = mCmdProcessMap.DoMethod( command );
 	
