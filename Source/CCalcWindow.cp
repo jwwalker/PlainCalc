@@ -2,6 +2,7 @@
 
 #include "autoCF.h"
 #include "CCarbonEventAdaptor.h"
+#include "CCommandHandler.h"
 #include "CCommandHandlerMap.h"
 #include "CFStringToUTF8.h"
 #include "GetOSVersion.h"
@@ -126,12 +127,6 @@ public:
 	void			SpecifyFile( const FSSpec& inFile );
 
 private:
-	OSStatus		CmdUpdateStatus(
-							EventHandlerCallRef inHandlerCallRef,
-							EventRef inEvent );
-	OSStatus		CmdProcess(
-							EventHandlerCallRef inHandlerCallRef,
-							EventRef inEvent );
 	OSStatus		KeyHandler(
 							EventHandlerCallRef inHandlerCallRef,
 							EventRef inEvent );
@@ -154,28 +149,28 @@ private:
 							EventHandlerCallRef inHandlerCallRef,
 							EventRef inEvent );
 
-	OSStatus		CloseStatus( const HICommand& inCmd );
-	OSStatus		CloseProcess( const HICommand& inCmd );
+	OSStatus		CloseStatus( const HICommandExtended& inCmd );
+	OSStatus		CloseProcess( const HICommandExtended& inCmd );
 	
-	OSStatus		EnableIfSelectionStatus( const HICommand& inCmd );
-	OSStatus		PasteStatus( const HICommand& inCmd );
-	OSStatus		SelectAllStatus( const HICommand& inCmd );
+	OSStatus		EnableIfSelectionStatus( const HICommandExtended& inCmd );
+	OSStatus		PasteStatus( const HICommandExtended& inCmd );
+	OSStatus		SelectAllStatus( const HICommandExtended& inCmd );
 	
-	OSStatus		CutProcess( const HICommand& );
-	OSStatus		CopyProcess( const HICommand& );
-	OSStatus		ClearProcess( const HICommand& );
-	OSStatus		PasteProcess( const HICommand& );
-	OSStatus		SelectAllProcess( const HICommand& );
+	OSStatus		CutProcess( const HICommandExtended& );
+	OSStatus		CopyProcess( const HICommandExtended& );
+	OSStatus		ClearProcess( const HICommandExtended& );
+	OSStatus		PasteProcess( const HICommandExtended& );
+	OSStatus		SelectAllProcess( const HICommandExtended& );
 	
-	OSStatus		SaveStatus( const HICommand& inCmd );
-	OSStatus		SaveAsStatus( const HICommand& inCmd );
-	OSStatus		SaveProcess( const HICommand& inCmd );
-	OSStatus		SaveAsProcess( const HICommand& inCmd );
+	OSStatus		SaveStatus( const HICommandExtended& inCmd );
+	OSStatus		SaveAsStatus( const HICommandExtended& inCmd );
+	OSStatus		SaveProcess( const HICommandExtended& inCmd );
+	OSStatus		SaveAsProcess( const HICommandExtended& inCmd );
 	
-	OSStatus		FormatHexStatus( const HICommand& inCmd );
-	OSStatus		FormatDecStatus( const HICommand& inCmd );
-	OSStatus		FormatHexProcess( const HICommand& inCmd );
-	OSStatus		FormatDecProcess( const HICommand& inCmd );
+	OSStatus		FormatHexStatus( const HICommandExtended& inCmd );
+	OSStatus		FormatDecStatus( const HICommandExtended& inCmd );
+	OSStatus		FormatHexProcess( const HICommandExtended& inCmd );
+	OSStatus		FormatDecProcess( const HICommandExtended& inCmd );
 	
 	
 	void			SaveFile( const FSSpec& inFile );
@@ -206,11 +201,8 @@ private:
 	ItemCount		mTextSaveChangeCount;
 	bool			mFormatIntegersAsHex;
 	
-	CCommandHandlerMap<XCalcWindowImp>	mCmdUpdateStatusMap;
-	CCommandHandlerMap<XCalcWindowImp>	mCmdProcessMap;
+	CCommandHandler<XCalcWindowImp>		mCmdAdaptor;
 
-	CCarbonEventAdaptor<XCalcWindowImp>	mCmdProcess;
-	CCarbonEventAdaptor<XCalcWindowImp>	mCmdUpdateStatus;
 	CCarbonEventAdaptor<XCalcWindowImp>	mKeyAdaptor;
 	CCarbonEventAdaptor<XCalcWindowImp>	mBoundsChanged;
 	CCarbonEventAdaptor<XCalcWindowImp>	mWindowClosed;
@@ -230,12 +222,7 @@ XCalcWindowImp::XCalcWindowImp( CCalcWindow* inSelf, const Rect& inWindowBounds 
 	mCalculator( CreateCalcState() ),
 	mTextSaveChangeCount( 0 ),
 	mFormatIntegersAsHex( false ),
-	mCmdUpdateStatusMap( this ),
-	mCmdProcessMap( this ),
-	mCmdProcess( kEventClassCommand, kEventCommandProcess,
-		::GetWindowEventTarget( mWindow.get() ), this, &XCalcWindowImp::CmdProcess ),
-	mCmdUpdateStatus( kEventClassCommand, kEventCommandUpdateStatus,
-		::GetWindowEventTarget( mWindow.get() ), this, &XCalcWindowImp::CmdUpdateStatus ),
+	mCmdAdaptor( this, ::GetWindowEventTarget( mWindow.get() ) ),
 	mKeyAdaptor( kEventClassTextInput, kEventTextInputUnicodeForKeyEvent,
 		::GetWindowEventTarget( mWindow.get() ), this, &XCalcWindowImp::KeyHandler ),
 	mBoundsChanged( kEventClassWindow, kEventWindowBoundsChanged,
@@ -246,30 +233,28 @@ XCalcWindowImp::XCalcWindowImp( CCalcWindow* inSelf, const Rect& inWindowBounds 
 	::RepositionWindow( mWindow.get(), NULL, kWindowCascadeOnMainScreen );
 	SetTextMargins();
 	
-	mCmdUpdateStatusMap.RegisterCommand( kHICommandClose, &XCalcWindowImp::CloseStatus );
-	mCmdUpdateStatusMap.RegisterCommand( kHICommandCut, &XCalcWindowImp::EnableIfSelectionStatus );
-	mCmdUpdateStatusMap.RegisterCommand( kHICommandCopy, &XCalcWindowImp::EnableIfSelectionStatus );
-	mCmdUpdateStatusMap.RegisterCommand( kHICommandClear, &XCalcWindowImp::EnableIfSelectionStatus );
-	mCmdUpdateStatusMap.RegisterCommand( kHICommandPaste, &XCalcWindowImp::PasteStatus );
-	mCmdUpdateStatusMap.RegisterCommand( kHICommandSelectAll, &XCalcWindowImp::SelectAllStatus );
+	mCmdAdaptor.RegisterCommand( kHICommandClose, &XCalcWindowImp::CloseProcess,
+		&XCalcWindowImp::CloseStatus );
+	mCmdAdaptor.RegisterCommand( kHICommandSave, &XCalcWindowImp::SaveProcess,
+		&XCalcWindowImp::SaveStatus );
+	mCmdAdaptor.RegisterCommand( kHICommandSaveAs, &XCalcWindowImp::SaveAsProcess,
+		&XCalcWindowImp::SaveAsStatus );
 
-	mCmdUpdateStatusMap.RegisterCommand( kHICommandSave, &XCalcWindowImp::SaveStatus );
-	mCmdUpdateStatusMap.RegisterCommand( kHICommandSaveAs, &XCalcWindowImp::SaveAsStatus );
+	mCmdAdaptor.RegisterCommand( kHICommandCut, &XCalcWindowImp::CutProcess,
+		&XCalcWindowImp::EnableIfSelectionStatus );
+	mCmdAdaptor.RegisterCommand( kHICommandCopy, &XCalcWindowImp::CopyProcess,
+		&XCalcWindowImp::EnableIfSelectionStatus );
+	mCmdAdaptor.RegisterCommand( kHICommandClear, &XCalcWindowImp::ClearProcess,
+		&XCalcWindowImp::EnableIfSelectionStatus );
+	mCmdAdaptor.RegisterCommand( kHICommandPaste, &XCalcWindowImp::PasteProcess,
+		&XCalcWindowImp::PasteStatus );
+	mCmdAdaptor.RegisterCommand( kHICommandSelectAll, &XCalcWindowImp::SelectAllProcess,
+		&XCalcWindowImp::SelectAllStatus );
 	
-	mCmdProcessMap.RegisterCommand( kHICommandClose, &XCalcWindowImp::CloseProcess );
-	mCmdProcessMap.RegisterCommand( kHICommandCut, &XCalcWindowImp::CutProcess );
-	mCmdProcessMap.RegisterCommand( kHICommandCopy, &XCalcWindowImp::CopyProcess );
-	mCmdProcessMap.RegisterCommand( kHICommandClear, &XCalcWindowImp::ClearProcess );
-	mCmdProcessMap.RegisterCommand( kHICommandPaste, &XCalcWindowImp::PasteProcess );
-	mCmdProcessMap.RegisterCommand( kHICommandSelectAll, &XCalcWindowImp::SelectAllProcess );
-	
-	mCmdProcessMap.RegisterCommand( kHICommandSave, &XCalcWindowImp::SaveProcess );
-	mCmdProcessMap.RegisterCommand( kHICommandSaveAs, &XCalcWindowImp::SaveAsProcess );
-
-	mCmdProcessMap.RegisterCommand( kCommandID_IntegersAsHex, &XCalcWindowImp::FormatHexProcess );
-	mCmdProcessMap.RegisterCommand( kCommandID_IntegersAsDecimal, &XCalcWindowImp::FormatDecProcess );
-	mCmdUpdateStatusMap.RegisterCommand( kCommandID_IntegersAsHex, &XCalcWindowImp::FormatHexStatus );
-	mCmdUpdateStatusMap.RegisterCommand( kCommandID_IntegersAsDecimal, &XCalcWindowImp::FormatDecStatus );
+	mCmdAdaptor.RegisterCommand( kCommandID_IntegersAsHex, &XCalcWindowImp::FormatHexProcess,
+		&XCalcWindowImp::FormatHexStatus );
+	mCmdAdaptor.RegisterCommand( kCommandID_IntegersAsDecimal, &XCalcWindowImp::FormatDecProcess,
+		&XCalcWindowImp::FormatDecStatus );
 
 	if (GetOSVersion() < 0x1020)
 	{
@@ -578,36 +563,6 @@ SInt32	XCalcWindowImp::FindPrevReturn( SInt32 inOffset )
 }
 
 
-OSStatus	XCalcWindowImp::CmdProcess(
-							EventHandlerCallRef inHandlerCallRef,
-							EventRef inEvent )
-{
-#pragma unused( inHandlerCallRef )
-	OSStatus err = eventNotHandledErr;
-	HICommand		command;
-	::GetEventParameter(inEvent, kEventParamDirectObject, typeHICommand, NULL,
-					sizeof(HICommand), NULL, &command);
-
-	err = mCmdProcessMap.DoMethod( command );
-	
-	return err;
-}
-
-OSStatus	XCalcWindowImp::CmdUpdateStatus(
-						EventHandlerCallRef inHandlerCallRef,
-						EventRef inEvent )
-{
-#pragma unused( inHandlerCallRef )
-	OSStatus err = eventNotHandledErr;
-	HICommand		command;
-	::GetEventParameter(inEvent, kEventParamDirectObject, typeHICommand, NULL,
-					sizeof(HICommand), NULL, &command);
-
-	err = mCmdUpdateStatusMap.DoMethod( command );
-	
-	return err;
-}
-
 OSStatus	XCalcWindowImp::KeyHandler(
 							EventHandlerCallRef inHandlerCallRef,
 							EventRef inEvent )
@@ -709,19 +664,19 @@ OSStatus	XCalcWindowImp::CloseHandler(
 	return noErr;
 }
 
-OSStatus	XCalcWindowImp::CloseStatus( const HICommand& inCmd )
+OSStatus	XCalcWindowImp::CloseStatus( const HICommandExtended& inCmd )
 {
 	::EnableMenuCommand( NULL, inCmd.commandID );
 	return noErr;
 }
 
-OSStatus	XCalcWindowImp::CloseProcess( const HICommand& /* inCmd */ )
+OSStatus	XCalcWindowImp::CloseProcess( const HICommandExtended& /* inCmd */ )
 {
 	delete mSelf;
 	return noErr;
 }
 
-OSStatus	XCalcWindowImp::EnableIfSelectionStatus( const HICommand& inCmd )
+OSStatus	XCalcWindowImp::EnableIfSelectionStatus( const HICommandExtended& inCmd )
 {
 	if (::TXNIsSelectionEmpty(mMLTE.get()))
 		::DisableMenuCommand(NULL, inCmd.commandID);
@@ -730,7 +685,7 @@ OSStatus	XCalcWindowImp::EnableIfSelectionStatus( const HICommand& inCmd )
 	return noErr;
 }
 
-OSStatus	XCalcWindowImp::PasteStatus( const HICommand& inCmd )
+OSStatus	XCalcWindowImp::PasteStatus( const HICommandExtended& inCmd )
 {
 	if (::TXNIsScrapPastable())
 		::EnableMenuCommand(NULL, inCmd.commandID);
@@ -740,7 +695,7 @@ OSStatus	XCalcWindowImp::PasteStatus( const HICommand& inCmd )
 	return noErr;
 }
 
-OSStatus	XCalcWindowImp::SelectAllStatus( const HICommand& inCmd )
+OSStatus	XCalcWindowImp::SelectAllStatus( const HICommandExtended& inCmd )
 {
 	if (::TXNDataSize(mMLTE.get()) > 0)
 		::EnableMenuCommand(NULL, inCmd.commandID);
@@ -750,37 +705,37 @@ OSStatus	XCalcWindowImp::SelectAllStatus( const HICommand& inCmd )
 	return noErr;
 }
 
-OSStatus	XCalcWindowImp::CutProcess( const HICommand& )
+OSStatus	XCalcWindowImp::CutProcess( const HICommandExtended& )
 {
 	::TXNCut( mMLTE.get() );
 	return noErr;
 }
 
-OSStatus	XCalcWindowImp::CopyProcess( const HICommand& )
+OSStatus	XCalcWindowImp::CopyProcess( const HICommandExtended& )
 {
 	::TXNCopy( mMLTE.get() );
 	return noErr;
 }
 
-OSStatus	XCalcWindowImp::ClearProcess( const HICommand& )
+OSStatus	XCalcWindowImp::ClearProcess( const HICommandExtended& )
 {
 	::TXNClear( mMLTE.get() );
 	return noErr;
 }
 
-OSStatus	XCalcWindowImp::PasteProcess( const HICommand& )
+OSStatus	XCalcWindowImp::PasteProcess( const HICommandExtended& )
 {
 	::TXNPaste( mMLTE.get() );
 	return noErr;
 }
 
-OSStatus	XCalcWindowImp::SelectAllProcess( const HICommand& )
+OSStatus	XCalcWindowImp::SelectAllProcess( const HICommandExtended& )
 {
 	::TXNSelectAll( mMLTE.get() );
 	return noErr;
 }
 
-OSStatus	XCalcWindowImp::SaveStatus( const HICommand& inCmd )
+OSStatus	XCalcWindowImp::SaveStatus( const HICommandExtended& inCmd )
 {
 	if (::TXNGetChangeCount( mMLTE.get() ) > mTextSaveChangeCount)
 	{
@@ -793,13 +748,13 @@ OSStatus	XCalcWindowImp::SaveStatus( const HICommand& inCmd )
 	return noErr;
 }
 
-OSStatus	XCalcWindowImp::SaveAsStatus( const HICommand& inCmd )
+OSStatus	XCalcWindowImp::SaveAsStatus( const HICommandExtended& inCmd )
 {
 	::EnableMenuCommand( NULL, inCmd.commandID );
 	return noErr;
 }
 
-OSStatus	XCalcWindowImp::SaveProcess( const HICommand& )
+OSStatus	XCalcWindowImp::SaveProcess( const HICommandExtended& )
 {
 	FSSpec	fileSpec;
 	OSStatus	err;
@@ -812,7 +767,7 @@ OSStatus	XCalcWindowImp::SaveProcess( const HICommand& )
 	}
 	else
 	{
-		HICommand	dummyCmd;
+		HICommandExtended	dummyCmd;
 		SaveAsProcess( dummyCmd );
 		err = noErr;
 	}
@@ -820,7 +775,7 @@ OSStatus	XCalcWindowImp::SaveProcess( const HICommand& )
 	return err;
 }
 
-OSStatus	XCalcWindowImp::SaveAsProcess( const HICommand& )
+OSStatus	XCalcWindowImp::SaveAsProcess( const HICommandExtended& )
 {
 	NavReplyRecord	theReply;
 	theReply.version = kNavReplyRecordVersion;
@@ -858,28 +813,28 @@ OSStatus	XCalcWindowImp::SaveAsProcess( const HICommand& )
 }
 
 
-OSStatus	XCalcWindowImp::FormatHexStatus( const HICommand& inCmd )
+OSStatus	XCalcWindowImp::FormatHexStatus( const HICommandExtended& inCmd )
 {
 	::EnableMenuCommand( NULL, inCmd.commandID );
-	::CheckMenuItem( inCmd.menu.menuRef, inCmd.menu.menuItemIndex, mFormatIntegersAsHex );
+	::CheckMenuItem( inCmd.source.menu.menuRef, inCmd.source.menu.menuItemIndex, mFormatIntegersAsHex );
 	return noErr;
 }
 
-OSStatus	XCalcWindowImp::FormatDecStatus( const HICommand& inCmd )
+OSStatus	XCalcWindowImp::FormatDecStatus( const HICommandExtended& inCmd )
 {
 	::EnableMenuCommand( NULL, inCmd.commandID );
-	::CheckMenuItem( inCmd.menu.menuRef, inCmd.menu.menuItemIndex, not mFormatIntegersAsHex );
+	::CheckMenuItem( inCmd.source.menu.menuRef, inCmd.source.menu.menuItemIndex, not mFormatIntegersAsHex );
 	return noErr;
 }
 
-OSStatus	XCalcWindowImp::FormatHexProcess( const HICommand& inCmd )
+OSStatus	XCalcWindowImp::FormatHexProcess( const HICommandExtended& inCmd )
 {
 #pragma unused( inCmd )
 	mFormatIntegersAsHex = true;
 	return noErr;
 }
 
-OSStatus	XCalcWindowImp::FormatDecProcess( const HICommand& inCmd )
+OSStatus	XCalcWindowImp::FormatDecProcess( const HICommandExtended& inCmd )
 {
 #pragma unused( inCmd )
 	mFormatIntegersAsHex = false;
