@@ -428,8 +428,8 @@ namespace
 				factor =
 					(boost::spirit::str_p("0x") >> boost::spirit::hex_p[ append(self.mState.mValStack) ])
 					| boost::spirit::ureal_p[ append(self.mState.mValStack) ]
-					| self.mState.mConstants[ append(self.mState.mValStack) ]
 					| self.mState.mVariables[ append(self.mState.mValStack) ]
+					| self.mState.mConstants[ append(self.mState.mValStack) ]
 					| '(' >> expression >> ')'
 					| (lexeme_d[self.mState.mUnaryFuncs >> '('] >> expression
 						>> ')')[ DoUnaryFunc(self.mState) ]
