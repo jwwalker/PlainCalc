@@ -36,6 +36,9 @@ namespace
 	typedef		std::vector<double>	 DblStack;
 	typedef		double (*UnaryFunc)( double );
 	typedef		double (*BinaryFunc)( double, double );
+	typedef		double (*TernaryFunc)( double, double, double );
+	
+	typedef		std::pair< std::string, std::string >	UnaryFuncDef;
 	
 	class CalcException : public std::exception
 	{
@@ -55,21 +58,35 @@ namespace
 #pragma mark struct SCalcState
 struct SCalcState
 {
-						SCalcState();
+							SCalcState();
 						
-	void				SetVariable( const char* inVarName );
+	void					SetVariable( const char* inVarName );
+	void					SetFunc( const std::string& inFuncName,
+									const std::string& inFormalParam,
+									const std::string& inValue );
 	
-	CFDictionaryRef		CopyVariables() const;
-	void				SetVariables( CFDictionaryRef inDict );
+	CFDictionaryRef			CopyVariables() const;
+	void					SetVariables( CFDictionaryRef inDict );
 	
-	DblStack			mValStack;
-	symbols<UnaryFunc>	mUnaryFuncs;
-	symbols<BinaryFunc>	mBinaryFuncs;
-	symbols<double>		mVariables;
-	symbols<double>		mConstants;
-	std::string			mIdentifier;
-	StringSet			mVariableSet;
+	DblStack				mValStack;
+	symbols<UnaryFunc>		mUnaryFuncs;
+	symbols<BinaryFunc>		mBinaryFuncs;
+	symbols<TernaryFunc>	mTernaryFuncs;
+	symbols<UnaryFuncDef>	mUnaryFuncDefs;
+	symbols<double>			mVariables;
+	symbols<double>			mConstants;
+	std::string				mIdentifier;
+	StringSet				mVariableSet;
+	std::string				mFuncName;
+	std::string				mFuncParam;
+	std::string				mFuncDef;
 };
+
+static double ifFunc( double condition, double trueValue, double falseValue )
+{
+	double	result = (condition > 0.0)? trueValue : falseValue;
+	return result;
+}
 
 SCalcState::SCalcState()
 {
@@ -100,6 +117,10 @@ SCalcState::SCalcState()
 		( "min", std::fmin )
 		;
 	
+	mTernaryFuncs.add
+		( "if", ifFunc )
+		;
+	
 	double	piVal = 4.0 * std::atan( 1.0 );
 	
 	mConstants.add
@@ -121,6 +142,22 @@ void	SCalcState::SetVariable( const char* inVarName )
 	else
 	{
 		*foundVar = mValStack.back();
+	}
+}
+
+void	SCalcState::SetFunc( const std::string& inFuncName,
+								const std::string& inFormalParam,
+								const std::string& inValue )
+{
+	UnaryFuncDef	thePair( inFormalParam, inValue );
+	UnaryFuncDef*	foundDef = find( mUnaryFuncDefs, inFuncName.c_str() );
+	if (foundDef == NULL)
+	{
+		mUnaryFuncDefs.add( inFuncName.c_str(), thePair );
+	}
+	else
+	{
+		*foundDef = thePair;
 	}
 }
 
@@ -271,6 +308,56 @@ namespace
 		SCalcState&		mState;
 	};
 	
+	#pragma mark DoUnaryFuncDef
+	struct DoUnaryFuncDef
+	{
+				DoUnaryFuncDef( SCalcState& ioState ) : mState( ioState ) {}
+				DoUnaryFuncDef( const DoUnaryFuncDef& inOther ) : mState( inOther.mState ) {}
+				
+		void	operator()( const char* inStart, const char* inEnd ) const
+				{
+					std::string	parsedText( inStart, inEnd );
+					std::string::size_type	parenLoc = parsedText.find( '(' );
+					if (parenLoc == std::string::npos)
+					{
+						throw CalcException();
+					}
+					parsedText.erase( parenLoc );
+					UnaryFuncDef*	foundFunc = find( mState.mUnaryFuncDefs, parsedText.c_str() );
+					if (foundFunc == NULL)
+					{
+						throw CalcException();
+					}
+					// In case the formal parameter is also in use as a variable,
+					// save its value.
+					double	savedValue = 0.0;
+					double*	foundVar = find( mState.mVariables, foundFunc->first.c_str() );
+					if (foundVar != NULL)
+					{
+						savedValue = *foundVar;
+					}
+					mState.SetVariable( foundFunc->first.c_str() );
+					double	funcVal;
+					long	stopOff;
+					bool	didParse = ParseCalcLine( foundFunc->second.c_str(), &mState,
+						&funcVal, &stopOff );
+					if (foundVar != NULL)
+					{
+						*foundVar = savedValue;
+					}
+					if (didParse)
+					{
+						mState.mValStack.back() = funcVal;
+					}
+					else
+					{
+						throw CalcException();
+					}
+				}
+		
+		SCalcState&		mState;
+	};
+	
 	#pragma mark DoNegate
 	/*!
 		@function	DoNegate
@@ -327,6 +414,45 @@ namespace
 	};
 
 	
+	#pragma mark DoTernaryFunc
+	/*!
+		@function	DoTernaryFunc
+		@abstract	Functor for a semantic action that computes a ternary function
+					stored in a symbol table.
+	*/
+	struct DoTernaryFunc
+	{
+				DoTernaryFunc( SCalcState& ioState ) : mState( ioState ) {}
+				DoTernaryFunc( const DoTernaryFunc& inOther ) : mState( inOther.mState ) {}
+		
+		void	operator()( const char* inStart, const char* inEnd ) const
+				{
+					std::string	parsedText( inStart, inEnd );
+					std::string::size_type	parenLoc = parsedText.find( '(' );
+					if (parenLoc == std::string::npos)
+					{
+						throw CalcException();
+					}
+					parsedText.erase( parenLoc );
+					TernaryFunc*	foundFunc = find( mState.mTernaryFuncs, parsedText.c_str() );
+					if (foundFunc == NULL)
+					{
+						throw CalcException();
+					}
+					double	param3 = mState.mValStack.back();
+					mState.mValStack.pop_back();
+					double	param2 = mState.mValStack.back();
+					mState.mValStack.pop_back();
+					double	param1 = mState.mValStack.back();
+					mState.mValStack.pop_back();
+					mState.mValStack.push_back( (*foundFunc)( param1, param2, param3 ) );
+				}
+		
+		
+		SCalcState&		mState;
+	};
+
+	
 	#pragma mark DoAssign
 	/*!
 		@function	DoAssign
@@ -342,6 +468,25 @@ namespace
 				{
 					mState.SetVariable( mState.mIdentifier.c_str() );
 					mState.SetVariable( "last" );
+				}
+		
+		SCalcState&		mState;
+	};
+	
+	#pragma mark DoDefFunc
+	struct DoDefFunc
+	{
+				DoDefFunc( SCalcState& ioState ) : mState( ioState ) {}
+				DoDefFunc( const DoDefFunc& inOther ) : mState( inOther.mState ) {}
+		
+		void	operator()( const char*, const char* ) const
+				{
+					mState.SetFunc( mState.mFuncName, mState.mFuncParam, mState.mFuncDef );
+					mState.mValStack.push_back(0.0);
+					std::cout << "DoDefFunc " << mState.mFuncName << ", " << mState.mFuncParam <<
+						", " << mState.mFuncDef << std::endl;
+					//mState.SetVariable( mState.mIdentifier.c_str() );
+					//mState.SetVariable( "last" );
 				}
 		
 		SCalcState&		mState;
@@ -407,6 +552,8 @@ namespace
 						|
 						self.mState.mUnaryFuncs
 						|
+						self.mState.mTernaryFuncs
+						|
 						self.mState.mConstants
 						);
 				// Note: it is important that mBinaryFuncs precedes
@@ -417,9 +564,15 @@ namespace
 				
 				assignment = identifier[ assign(self.mState.mIdentifier) ]
 					>> '=' >> expression;
+				
+				funcdef = identifier[ assign(self.mState.mFuncName) ]
+					>> '(' >> identifier[ assign(self.mState.mFuncParam) ] >> ')'
+					>> '=' >> lexeme_d[*anychar_p][ assign(self.mState.mFuncDef) ];
 					
 				statement = (
 					assignment[ DoAssign(self.mState) ]
+					|
+					funcdef[ DoDefFunc(self.mState) ]
 					|
 					expression[ DoEvaluation(self.mState) ]
 					)
@@ -433,8 +586,12 @@ namespace
 					| '(' >> expression >> ')'
 					| (lexeme_d[self.mState.mUnaryFuncs >> '('] >> expression
 						>> ')')[ DoUnaryFunc(self.mState) ]
+					| (lexeme_d[self.mState.mUnaryFuncDefs >> '('] >> expression
+						>> ')')[ DoUnaryFuncDef(self.mState) ]
 					| (lexeme_d[self.mState.mBinaryFuncs >> '('] >> expression
-						>> ',' >> expression >> ')')[ DoBinaryFunc(self.mState) ];
+						>> ',' >> expression >> ')')[ DoBinaryFunc(self.mState) ]
+					| (lexeme_d[self.mState.mTernaryFuncs >> '('] >> expression
+						>> ',' >> expression >> ',' >> expression >> ')')[ DoTernaryFunc(self.mState) ];
 					// Note: The hex part of factor must come before the real part, otherwise ureal_p
 					// will gobble the leading 0.
 				
@@ -472,7 +629,7 @@ namespace
 			}
 			
 			boost::spirit::rule<ScannerT>	factor, expression, term, power;
-			boost::spirit::rule<ScannerT>	identifier, assignment, statement;
+			boost::spirit::rule<ScannerT>	identifier, assignment, statement, funcdef;
 		};
 		
 		SCalcState&	mState;
