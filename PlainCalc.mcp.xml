@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<?codewarrior exportversion="1.0.1" ideversion="5.0" ?>
+<?codewarrior exportversion="2.0" ideversion="5.8" ?>
 
 <!DOCTYPE PROJECT [
 <!ELEMENT PROJECT (TARGETLIST, TARGETORDER, GROUPLIST, DESIGNLIST?)>
@@ -32,13 +32,17 @@
 <!ELEMENT BASEADDRESS (#PCDATA)>
 <!ELEMENT OVERLAY (NAME, FILEREF*)>
 <!ELEMENT SUBTARGETLIST (SUBTARGET+)>
-<!ELEMENT SUBTARGET (TARGETNAME, ATTRIBUTES?, FILEREF?)>
+<!ELEMENT TARGETOUTPUTNAME (#PCDATA)>
+<!ELEMENT TARGETOUTPUTDISPLAYNAME (#PCDATA)>
+<!ELEMENT TARGETOUTPUTPATHFORMAT (#PCDATA)>
+<!ELEMENT TARGETOUTPUTACCESSTYPE (#PCDATA)>
+<!ELEMENT SUBTARGET (TARGETNAME, ATTRIBUTES?, TARGETOUTPUTNAME?, TARGETOUTPUTDISPLAYNAME?, TARGETOUTPUTPATHFORMAT?, TARGETOUTPUTACCESSTYPE?, FILEREF?)>
 <!ELEMENT SUBPROJECTLIST (SUBPROJECT+)>
 <!ELEMENT SUBPROJECT (FILEREF, SUBPROJECTTARGETLIST)>
 <!ELEMENT SUBPROJECTTARGETLIST (SUBPROJECTTARGET*)>
 <!ELEMENT SUBPROJECTTARGET (TARGETNAME, ATTRIBUTES?, FILEREF?)>
 <!ELEMENT FRAMEWORKLIST (FRAMEWORK+)>
-<!ELEMENT FRAMEWORK (FILEREF, LIBRARYFILE?, VERSION?)>
+<!ELEMENT FRAMEWORK (FILEREF, DYNAMICLIBRARY?, VERSION?)>
 <!ELEMENT PACKAGEACTIONSLIST (PACKAGEACTION+)>
 <!ELEMENT PACKAGEACTION (#PCDATA)>
 <!ELEMENT LIBRARYFILE (FILEREF)>
@@ -611,6 +615,7 @@
                 <SETTING><NAME>ResultID</NAME><VALUE>128</VALUE></SETTING>
                 <SETTING><NAME>AddBuildDate</NAME><VALUE>-1</VALUE></SETTING>
                 <SETTING><NAME>SetBundleBit</NAME><VALUE>true</VALUE></SETTING>
+                <SETTING><NAME>ChecksumPEFMode</NAME><VALUE>true</VALUE></SETTING>
 
                 <!-- Settings for "C/C++ Compiler" panel -->
                 <SETTING><NAME>MWFrontEnd_C_cplusplus</NAME><VALUE>1</VALUE></SETTING>
@@ -631,12 +636,12 @@
                 <SETTING><NAME>MWFrontEnd_C_booltruefalse</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFrontEnd_C_inlinelevel</NAME><VALUE>0</VALUE></SETTING>
                 <SETTING><NAME>MWFrontEnd_C_ecplusplus</NAME><VALUE>0</VALUE></SETTING>
-                <SETTING><NAME>MWFrontEnd_C_defer_codegen</NAME><VALUE>0</VALUE></SETTING>
                 <SETTING><NAME>MWFrontEnd_C_templateparser</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFrontEnd_C_c99</NAME><VALUE>0</VALUE></SETTING>
                 <SETTING><NAME>MWFrontEnd_C_bottomupinline</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFrontEnd_C_gcc_extensions</NAME><VALUE>0</VALUE></SETTING>
                 <SETTING><NAME>MWFrontEnd_C_instance_manager</NAME><VALUE>1</VALUE></SETTING>
+                <SETTING><NAME>MWFrontEnd_C_ipa_mode</NAME><VALUE>0</VALUE></SETTING>
 
                 <!-- Settings for "C/C++ Preprocessor" panel -->
                 <SETTING><NAME>C_CPP_Preprocessor_EmitFile</NAME><VALUE>true</VALUE></SETTING>
@@ -1130,16 +1135,16 @@
                 </FILE>
                 <FILE>
                     <PATHTYPE>Name</PATHTYPE>
-                    <PATH>MSL_SIOUX_Carbon_D.Lib</PATH>
+                    <PATH>DataViewer_Carbon.Lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
                     <FILEFLAGS>Debug</FILEFLAGS>
                 </FILE>
                 <FILE>
                     <PATHTYPE>Name</PATHTYPE>
-                    <PATH>DataViewer_Carbon.Lib</PATH>
+                    <PATH>console_OS_X.c</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
-                    <FILEKIND>Library</FILEKIND>
+                    <FILEKIND>Text</FILEKIND>
                     <FILEFLAGS>Debug</FILEFLAGS>
                 </FILE>
             </FILELIST>
@@ -1221,12 +1226,12 @@
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>Name</PATHTYPE>
-                    <PATH>MSL_SIOUX_Carbon_D.Lib</PATH>
+                    <PATH>DataViewer_Carbon.Lib</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
                     <PATHTYPE>Name</PATHTYPE>
-                    <PATH>DataViewer_Carbon.Lib</PATH>
+                    <PATH>console_OS_X.c</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
             </LINKORDER>
@@ -1787,6 +1792,7 @@
                 <SETTING><NAME>ResultID</NAME><VALUE>128</VALUE></SETTING>
                 <SETTING><NAME>AddBuildDate</NAME><VALUE>-1</VALUE></SETTING>
                 <SETTING><NAME>SetBundleBit</NAME><VALUE>true</VALUE></SETTING>
+                <SETTING><NAME>ChecksumPEFMode</NAME><VALUE>true</VALUE></SETTING>
 
                 <!-- Settings for "C/C++ Compiler" panel -->
                 <SETTING><NAME>MWFrontEnd_C_cplusplus</NAME><VALUE>1</VALUE></SETTING>
@@ -1807,12 +1813,12 @@
                 <SETTING><NAME>MWFrontEnd_C_booltruefalse</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFrontEnd_C_inlinelevel</NAME><VALUE>6</VALUE></SETTING>
                 <SETTING><NAME>MWFrontEnd_C_ecplusplus</NAME><VALUE>0</VALUE></SETTING>
-                <SETTING><NAME>MWFrontEnd_C_defer_codegen</NAME><VALUE>0</VALUE></SETTING>
                 <SETTING><NAME>MWFrontEnd_C_templateparser</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFrontEnd_C_c99</NAME><VALUE>0</VALUE></SETTING>
                 <SETTING><NAME>MWFrontEnd_C_bottomupinline</NAME><VALUE>1</VALUE></SETTING>
                 <SETTING><NAME>MWFrontEnd_C_gcc_extensions</NAME><VALUE>0</VALUE></SETTING>
                 <SETTING><NAME>MWFrontEnd_C_instance_manager</NAME><VALUE>1</VALUE></SETTING>
+                <SETTING><NAME>MWFrontEnd_C_ipa_mode</NAME><VALUE>0</VALUE></SETTING>
 
                 <!-- Settings for "C/C++ Preprocessor" panel -->
                 <SETTING><NAME>C_CPP_Preprocessor_EmitFile</NAME><VALUE>true</VALUE></SETTING>
@@ -1890,7 +1896,7 @@
                 <SETTING><NAME>Label</NAME><VALUE>0</VALUE></SETTING>
                 <SETTING><NAME>Comments</NAME><VALUE></VALUE></SETTING>
                 <SETTING><NAME>HasCustomBadge</NAME><VALUE>false</VALUE></SETTING>
-                <SETTING><NAME>HasRoutingInfo</NAME><VALUE>true</VALUE></SETTING>
+                <SETTING><NAME>HasRoutingInfo</NAME><VALUE>false</VALUE></SETTING>
 
                 <!-- Settings for "PPC CodeGen" panel -->
                 <SETTING><NAME>MWCodeGen_PPC_structalignment</NAME><VALUE>PPC_mw</VALUE></SETTING>
@@ -2208,13 +2214,6 @@
                 </FILE>
                 <FILE>
                     <PATHTYPE>Name</PATHTYPE>
-                    <PATH>console.stubs.c</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
-                    <FILEKIND>Text</FILEKIND>
-                    <FILEFLAGS>Debug</FILEFLAGS>
-                </FILE>
-                <FILE>
-                    <PATHTYPE>Name</PATHTYPE>
                     <PATH>CarbonFrameworkLib</PATH>
                     <PATHFORMAT>MacOS</PATHFORMAT>
                     <FILEKIND>Library</FILEKIND>
@@ -2311,16 +2310,18 @@
                     <FILEKIND>Text</FILEKIND>
                     <FILEFLAGS>Debug</FILEFLAGS>
                 </FILE>
+                <FILE>
+                    <PATHTYPE>Name</PATHTYPE>
+                    <PATH>console_OS_X.c</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
+                    <FILEKIND>Text</FILEKIND>
+                    <FILEFLAGS>Debug</FILEFLAGS>
+                </FILE>
             </FILELIST>
             <LINKORDER>
                 <FILEREF>
                     <PATHTYPE>Name</PATHTYPE>
                     <PATH>CarbonLib</PATH>
-                    <PATHFORMAT>MacOS</PATHFORMAT>
-                </FILEREF>
-                <FILEREF>
-                    <PATHTYPE>Name</PATHTYPE>
-                    <PATH>console.stubs.c</PATH>
                     <PATHFORMAT>MacOS</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
@@ -2391,6 +2392,11 @@
                 <FILEREF>
                     <PATHTYPE>Name</PATHTYPE>
                     <PATH>FinalCEPrefix.pch++</PATH>
+                    <PATHFORMAT>Unix</PATHFORMAT>
+                </FILEREF>
+                <FILEREF>
+                    <PATHTYPE>Name</PATHTYPE>
+                    <PATH>console_OS_X.c</PATH>
                     <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
             </LINKORDER>
@@ -2477,10 +2483,10 @@
         </GROUP>
         <GROUP><NAME>&#165; Libraries</NAME>
             <FILEREF>
-                <TARGETNAME>Final</TARGETNAME>
+                <TARGETNAME>Debug</TARGETNAME>
                 <PATHTYPE>Name</PATHTYPE>
-                <PATH>console.stubs.c</PATH>
-                <PATHFORMAT>MacOS</PATHFORMAT>
+                <PATH>console_OS_X.c</PATH>
+                <PATHFORMAT>Unix</PATHFORMAT>
             </FILEREF>
             <GROUP><NAME>Carbon</NAME>
                 <FILEREF>
@@ -2506,12 +2512,6 @@
                     <PATHTYPE>Name</PATHTYPE>
                     <PATH>MSL_Runtime_PPC_D.Lib</PATH>
                     <PATHFORMAT>MacOS</PATHFORMAT>
-                </FILEREF>
-                <FILEREF>
-                    <TARGETNAME>Debug</TARGETNAME>
-                    <PATHTYPE>Name</PATHTYPE>
-                    <PATH>MSL_SIOUX_Carbon_D.Lib</PATH>
-                    <PATHFORMAT>Unix</PATHFORMAT>
                 </FILEREF>
                 <FILEREF>
                     <TARGETNAME>Debug</TARGETNAME>
