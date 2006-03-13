@@ -1,5 +1,10 @@
 #pragma once
 
+#if __MACH__
+	#include <CoreFoundation/CoreFoundation.h>
+#else
+	#include <CFDictionary.h>
+#endif
 
 /*!
 	@header		ParseCalcLine.h
