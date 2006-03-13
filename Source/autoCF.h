@@ -1,7 +1,5 @@
 #pragma once
 
-#include <mslconfig>
-
 /*!
 	@header		autoCF.h
 	
@@ -18,16 +16,16 @@ class autoCF
 public:
 	typedef X element_type;
 
-	explicit autoCF(X* p = 0) _MSL_THROW;
-	autoCF( const autoCF& inOther ) _MSL_THROW;
+	explicit autoCF(X* p = 0) throw();
+	autoCF( const autoCF& inOther ) throw();
 	
-	autoCF& operator=( const autoCF<X>& inOther ) _MSL_THROW;
+	autoCF& operator=( const autoCF<X>& inOther ) throw();
 
-	~autoCF() _MSL_THROW;
+	~autoCF() throw();
 
-	X* get() const _MSL_THROW;
-	X* release() _MSL_THROW;
-	void reset(X* p = 0) _MSL_THROW;
+	X* get() const throw();
+	X* release() throw();
+	void reset(X* p = 0) throw();
 
 private:
 	X* ptr_;
@@ -35,14 +33,14 @@ private:
 
 template<class X>
 inline
-autoCF<X>::autoCF(X* p) _MSL_THROW
+autoCF<X>::autoCF(X* p) throw()
 	: ptr_(p)
 {
 }
 
 template<class X>
 inline
-autoCF<X>::autoCF( const autoCF<X>& a ) _MSL_THROW
+autoCF<X>::autoCF( const autoCF<X>& a ) throw()
 	: ptr_(a.get())
 {
 	if (get() != NULL)
@@ -53,7 +51,7 @@ autoCF<X>::autoCF( const autoCF<X>& a ) _MSL_THROW
 
 template<class X>
 inline
-autoCF<X>& autoCF<X>::operator=( const autoCF<X>& inOther ) _MSL_THROW
+autoCF<X>& autoCF<X>::operator=( const autoCF<X>& inOther ) throw()
 {
 	reset( inOther.get() );
 	if (get() != NULL)
@@ -65,7 +63,7 @@ autoCF<X>& autoCF<X>::operator=( const autoCF<X>& inOther ) _MSL_THROW
 
 template<class X>
 inline
-autoCF<X>::~autoCF() _MSL_THROW
+autoCF<X>::~autoCF() throw()
 {
 	if (get() != NULL)
 	{
@@ -75,14 +73,14 @@ autoCF<X>::~autoCF() _MSL_THROW
 
 template <class X>
 inline
-X* autoCF<X>::get() const _MSL_THROW
+X* autoCF<X>::get() const throw()
 {
 	return ptr_;
 }
 
 template <class X>
 inline
-X* autoCF<X>::release() _MSL_THROW
+X* autoCF<X>::release() throw()
 {
 	X* tmp = ptr_;
 	ptr_ = NULL;
@@ -91,7 +89,7 @@ X* autoCF<X>::release() _MSL_THROW
 
 template <class X>
 inline
-void autoCF<X>::reset(X* p) _MSL_THROW
+void autoCF<X>::reset(X* p) throw()
 {
 	if (ptr_ != p)
 	{
