@@ -35,6 +35,8 @@ using namespace std;
 
 #define	ThrowIfCFFail_( x ) do { if ((x) == NULL) throw std::bad_alloc(); } while (false)
 
+#define	ThrowIfEmpty_( x ) do { if (x.empty()) throw CalcException(); } while (false)
+
 namespace
 {
 	typedef		std::set< std::string >		StringSet;
@@ -146,11 +148,13 @@ struct SCalcState
 	std::string				mFuncDef;
 	std::string				mIf1;
 	std::string				mIf2;
+	bool					mDidDefineFunction;
 };
 
 
 SCalcState::SCalcState()
 	: mFixed( GetFixedSyms() )
+	, mDidDefineFunction( false )
 {
 }
 
@@ -166,6 +170,7 @@ SCalcState::SCalcState( const SCalcState& inOther )
 	, mFuncDef( inOther.mFuncDef )
 	, mIf1( inOther.mIf1 )
 	, mIf2( inOther.mIf2 )
+	, mDidDefineFunction( inOther.mDidDefineFunction )
 {
 }
 
@@ -183,11 +188,56 @@ void	SCalcState::SetVariable( const char* inVarName )
 	}
 }
 
+static bool IsIdentifierChar( char inChar )
+{
+	return isalnum( inChar ) or (inChar == '_');
+}
+
+/*!
+	@function	FixFormalParam
+	@abstract	Prefix the formal parameter by an underscore, so it cannot be
+				confused with a normal variable.
+*/
+static void FixFormalParam( UnaryFuncDef& ioDef )
+{
+	std::string::size_type	startOff = 0;
+	std::string::size_type	foundOff, identStart, identEnd;
+	
+	while ( (foundOff = ioDef.second.find( ioDef.first, startOff )) != std::string::npos )
+	{
+		// We found a substring that looks like the formal parameter, but we
+		// must be sure that it is not just part of some other identifier.
+		identStart = foundOff;
+		identEnd = identStart + ioDef.first.size();
+		if ( (identEnd == ioDef.second.size()) or (not IsIdentifierChar(ioDef.second[identEnd])) )
+		{
+			// Looking to the left is trickier, e.g., while 12x is not an
+			// identifier, A12x is.
+			while ( (identStart > 0) and IsIdentifierChar(ioDef.second[ identStart - 1 ]) )
+			{
+				--identStart;
+			}
+			while (not isalpha( ioDef.second[ identStart ]))
+			{
+				++identStart;
+			}
+			if (identStart == foundOff)
+			{
+				ioDef.second.insert( foundOff, 1, '_' );
+				foundOff += 1;
+			}
+		}
+		startOff = foundOff + 1;
+	}
+	ioDef.first.insert( 0, 1, '_' );
+}
+
 void	SCalcState::SetFunc( const std::string& inFuncName,
 								const std::string& inFormalParam,
 								const std::string& inValue )
 {
 	UnaryFuncDef	thePair( inFormalParam, inValue );
+	FixFormalParam( thePair );
 	UnaryFuncDef*	foundDef = find( mUnaryFuncDefs, inFuncName.c_str() );
 	if (foundDef == NULL)
 	{
@@ -251,6 +301,15 @@ void	SCalcState::SetVariables( CFDictionaryRef inDict )
 	::CFDictionaryApplyFunction( inDict, VarSetter, this );
 }
 
+inline void DumpStack( const DblStack& inStack, const char* inTag )
+{
+	std::cout << inTag << ": ";
+	for (DblStack::const_iterator i = inStack.begin(); i != inStack.end(); ++i)
+	{
+		std::cout << *i << ", ";
+	}
+	std::cout << std::endl;
+}
 
 namespace
 {
@@ -287,19 +346,14 @@ namespace
 		
 		void	operator()( const char*, const char* ) const
 				{
-					if (mState.mValStack.size() < 2)
-					{
-						throw CalcException();
-					}
+					ThrowIfEmpty_( mState.mValStack );
 					double	rhs = mState.mValStack.back();
 					mState.mValStack.pop_back();
+					ThrowIfEmpty_( mState.mValStack );
 					double	lhs = mState.mValStack.back();
 					mState.mValStack.pop_back();
 					double	theVal = Op()( lhs, rhs );
 					mState.mValStack.push_back( theVal );
-					#if DebugParse
-						std::cout << "In DoBinOp." << std::endl;
-					#endif
 				}
 		
 		SCalcState&		mState;
@@ -370,9 +424,9 @@ namespace
 					tempState.SetVariable( foundFunc->first.c_str() );
 					double	funcVal;
 					long	stopOff;
-					bool	didParse = ParseCalcLine( foundFunc->second.c_str(), &tempState,
+					ECalcResult	didParse = ParseCalcLine( foundFunc->second.c_str(), &tempState,
 						&funcVal, &stopOff );
-					if (didParse)
+					if (didParse == kCalcResult_Calculated)
 					{
 						mState.mValStack.back() = funcVal;
 					}
@@ -429,8 +483,10 @@ namespace
 					{
 						throw CalcException();
 					}
+					ThrowIfEmpty_( mState.mValStack );
 					double	param2 = mState.mValStack.back();
 					mState.mValStack.pop_back();
+					ThrowIfEmpty_( mState.mValStack );
 					double	param1 = mState.mValStack.back();
 					mState.mValStack.pop_back();
 					mState.mValStack.push_back( (*foundFunc)( param1, param2 ) );
@@ -453,11 +509,9 @@ namespace
 		
 		void	operator()( const char* , const char*  ) const
 				{
+					ThrowIfEmpty_( mState.mValStack );
 					double	condition = mState.mValStack.back();
 					mState.mValStack.pop_back();
-					
-					//std::cout << "if: " << condition <<
-					//	" Ò" << mState.mIf1 << "Ó, Ò" << mState.mIf2 << "Ó" << std::endl;
 					
 					std::string	valueStr;
 					if (condition > 0.0)
@@ -471,9 +525,10 @@ namespace
 					
 					double	funcVal;
 					long	stopOff;
-					bool	didParse = ParseCalcLine( valueStr.c_str(), &mState,
+					SCalcState	tempState( mState );
+					ECalcResult	didParse = ParseCalcLine( valueStr.c_str(), &tempState,
 						&funcVal, &stopOff );
-					if (didParse)
+					if (didParse == kCalcResult_Calculated)
 					{
 						mState.mValStack.push_back( funcVal );
 					}
@@ -503,6 +558,7 @@ namespace
 				{
 					mState.SetVariable( mState.mIdentifier.c_str() );
 					mState.SetVariable( "last" );
+					mState.mDidDefineFunction = false;
 				}
 		
 		SCalcState&		mState;
@@ -518,8 +574,9 @@ namespace
 				{
 					mState.SetFunc( mState.mFuncName, mState.mFuncParam, mState.mFuncDef );
 					mState.mValStack.push_back(0.0);
-					std::cout << "DoDefFunc " << mState.mFuncName << ", " << mState.mFuncParam <<
-						", " << mState.mFuncDef << std::endl;
+					mState.mDidDefineFunction = true;
+					//std::cout << "DoDefFunc " << mState.mFuncName << ", " << mState.mFuncParam <<
+					//	", " << mState.mFuncDef << std::endl;
 					//mState.SetVariable( mState.mIdentifier.c_str() );
 					//mState.SetVariable( "last" );
 				}
@@ -541,6 +598,7 @@ namespace
 		void	operator()( const char*, const char* ) const
 				{
 					mState.SetVariable( "last" );
+					mState.mDidDefineFunction = false;
 				}
 		
 		SCalcState&		mState;
@@ -742,12 +800,12 @@ void		DisposeCalcState( CalcState ioState )
 							succeeded.
 	@param		outStop		Offset at which parsing stopped, which can be
 							helpful in spotting a syntax error.
-	@result		True if the line was parsed successfully.
+	@result		Whether we failed, calculated, or defined a function.
 */
-bool		ParseCalcLine( const char* inLine, CalcState ioState, double* outValue,
+ECalcResult		ParseCalcLine( const char* inLine, CalcState ioState, double* outValue,
 						long* outStop )
 {
-	bool	didParse = false;
+	ECalcResult	didParse = kCalcResult_Error;
 	
 	try
 	{
@@ -759,10 +817,14 @@ bool		ParseCalcLine( const char* inLine, CalcState ioState, double* outValue,
 		
 		if (parseResult.full)
 		{
-			if (ioState->mValStack.size() >= 1)
+			if (ioState->mDidDefineFunction)
+			{
+				didParse = kCalcResult_DefinedFunction;
+			}
+			else if (ioState->mValStack.size() >= 1)
 			{
 				*outValue = ioState->mValStack.back();
-				didParse = true;
+				didParse = kCalcResult_Calculated;
 			
 			#if DebugParse
 				std::cout << "Stack: ";
@@ -781,6 +843,7 @@ bool		ParseCalcLine( const char* inLine, CalcState ioState, double* outValue,
 		#if DebugParse
 			std::cout << "Exception thrown." << std::endl;
 		#endif
+		ioState->mDidDefineFunction = false;
 	}
 	return didParse;
 }
