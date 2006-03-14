@@ -334,7 +334,9 @@ void	XCalcWindowImp::DoCalculate()
 			double	theValue;
 			long	stopOffset;
 			
-			if (ParseCalcLine( theText.c_str(), mCalculator, &theValue, &stopOffset ))
+			ECalcResult	res = ParseCalcLine( theText.c_str(), mCalculator, &theValue, &stopOffset );
+			
+			if (res == kCalcResult_Calculated)
 			{
 				std::ostringstream	oss;
 				if ( mFormatIntegersAsHex and
@@ -352,6 +354,11 @@ void	XCalcWindowImp::DoCalculate()
 				SInt32 numUniChars = SetText( selStart, selEnd, newText );
 				
 				SetTextColor( selStart, selStart + numUniChars - 1, kAnswerColor );
+			}
+			else if (res == kCalcResult_DefinedFunction)
+			{
+				newText += "Defined function.\r";
+				SetText( selStart, selEnd, newText );
 			}
 			else
 			{
