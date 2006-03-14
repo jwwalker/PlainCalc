@@ -22,6 +22,18 @@
 */
 typedef struct SCalcState*	CalcState;
 
+/*!
+	@enum		ECalcResult
+	
+	@abstract	What was accomplished by a call to ParseCalcLine.
+*/
+enum ECalcResult
+{
+	kCalcResult_Error = 0,
+	kCalcResult_Calculated,
+	kCalcResult_DefinedFunction	
+};
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -49,9 +61,9 @@ void		DisposeCalcState( CalcState ioState );
 							succeeded.
 	@param		outStop		Offset at which parsing stopped, which can be
 							helpful in spotting a syntax error.
-	@result		True if the line was parsed successfully.
+	@result		Whether we failed, calculated, or defined a function.
 */
-bool		ParseCalcLine( const char* inLine, CalcState ioState,
+ECalcResult		ParseCalcLine( const char* inLine, CalcState ioState,
 				double* outValue,
 				long* outStop );
 
