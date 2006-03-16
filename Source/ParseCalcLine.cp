@@ -42,11 +42,13 @@ namespace
 	typedef		std::set< std::string >		StringSet;
 	
 	typedef		std::vector<double>	 		DblStack;
+	typedef		std::vector< std::string >	StringVec;
 	
 	typedef		double (*UnaryFunc)( double );
 	typedef		double (*BinaryFunc)( double, double );
 	
 	typedef		std::pair< std::string, std::string >	UnaryFuncDef;
+	typedef		std::pair< StringVec, std::string >		FuncDef;
 	
 	class CalcException : public std::exception
 	{
@@ -130,7 +132,7 @@ struct SCalcState
 						
 	void					SetVariable( const char* inVarName );
 	void					SetFunc( const std::string& inFuncName,
-									const std::string& inFormalParam,
+									const StringVec& inFormalParams,
 									const std::string& inValue );
 	
 	CFDictionaryRef			CopyVariables() const;
@@ -139,6 +141,8 @@ struct SCalcState
 	const SFixedSymbols&	mFixed;
 	
 	DblStack				mValStack;
+	StringVec				mParamStack;
+	symbols<FuncDef>		mFuncDefs;
 	symbols<UnaryFuncDef>	mUnaryFuncDefs;
 	symbols<double>			mVariables;
 	std::string				mIdentifier;
@@ -161,6 +165,8 @@ SCalcState::SCalcState()
 SCalcState::SCalcState( const SCalcState& inOther )
 	: mFixed( inOther.mFixed )
 	, mValStack( inOther.mValStack )
+	, mParamStack( inOther.mParamStack )
+	, mFuncDefs( inOther.mFuncDefs )
 	, mUnaryFuncDefs( inOther.mUnaryFuncDefs )
 	, mVariables( inOther.mVariables )
 	, mIdentifier( inOther.mIdentifier )
@@ -191,6 +197,53 @@ void	SCalcState::SetVariable( const char* inVarName )
 static bool IsIdentifierChar( char inChar )
 {
 	return isalnum( inChar ) or (inChar == '_');
+}
+
+/*!
+	@function	FixFormalParams
+	@abstract	Prefix each formal parameter by an underscore, so it cannot be
+				confused with a normal variable.
+*/
+static void FixFormalParams( FuncDef& ioDef )
+{
+	std::string&	rightHandSide( ioDef.second );
+	
+	for (StringVec::iterator i = ioDef.first.begin(); i != ioDef.first.end(); ++i)
+	{
+		std::string&	theParam( *i );
+		
+		std::string::size_type	startOff = 0;
+		std::string::size_type	foundOff, identStart, identEnd;
+		
+		while ( (foundOff = rightHandSide.find( theParam, startOff )) != std::string::npos )
+		{
+			// We found a substring that looks like the formal parameter, but we
+			// must be sure that it is not just part of some other identifier.
+			identStart = foundOff;
+			identEnd = identStart + theParam.size();
+			if ( (identEnd == rightHandSide.size()) or (not IsIdentifierChar(rightHandSide[identEnd])) )
+			{
+				// Looking to the left is trickier, e.g., while 12x is not an
+				// identifier, A12x is.
+				while ( (identStart > 0) and IsIdentifierChar(rightHandSide[ identStart - 1 ]) )
+				{
+					--identStart;
+				}
+				while (not isalpha( rightHandSide[ identStart ]))
+				{
+					++identStart;
+				}
+				if (identStart == foundOff)
+				{
+					rightHandSide.insert( foundOff, 1, '_' );
+					foundOff += 1;
+				}
+			}
+			startOff = foundOff + 1;
+		}
+		
+		theParam.insert( 0, 1, '_' );
+	}
 }
 
 /*!
@@ -233,15 +286,15 @@ static void FixFormalParam( UnaryFuncDef& ioDef )
 }
 
 void	SCalcState::SetFunc( const std::string& inFuncName,
-								const std::string& inFormalParam,
+								const StringVec& inFormalParams,
 								const std::string& inValue )
 {
-	UnaryFuncDef	thePair( inFormalParam, inValue );
-	FixFormalParam( thePair );
-	UnaryFuncDef*	foundDef = find( mUnaryFuncDefs, inFuncName.c_str() );
+	FuncDef	thePair( inFormalParams, inValue );
+	FixFormalParams( thePair );
+	FuncDef*	foundDef = find( mFuncDefs, inFuncName.c_str() );
 	if (foundDef == NULL)
 	{
-		mUnaryFuncDefs.add( inFuncName.c_str(), thePair );
+		mFuncDefs.add( inFuncName.c_str(), thePair );
 	}
 	else
 	{
@@ -400,14 +453,15 @@ namespace
 		SCalcState&		mState;
 	};
 	
-	#pragma mark DoUnaryFuncDef
-	struct DoUnaryFuncDef
+	#pragma mark DoDefinedFunc
+	struct DoDefinedFunc
 	{
-				DoUnaryFuncDef( SCalcState& ioState ) : mState( ioState ) {}
-				DoUnaryFuncDef( const DoUnaryFuncDef& inOther ) : mState( inOther.mState ) {}
+				DoDefinedFunc( SCalcState& ioState ) : mState( ioState ) {}
+				DoDefinedFunc( const DoDefinedFunc& inOther ) : mState( inOther.mState ) {}
 				
 		void	operator()( const char* inStart, const char* inEnd ) const
 				{
+					// Find the name of the function
 					std::string	parsedText( inStart, inEnd );
 					std::string::size_type	parenLoc = parsedText.find( '(' );
 					if (parenLoc == std::string::npos)
@@ -415,20 +469,38 @@ namespace
 						throw CalcException();
 					}
 					parsedText.erase( parenLoc );
-					UnaryFuncDef*	foundFunc = find( mState.mUnaryFuncDefs, parsedText.c_str() );
+					
+					// FInd the definition
+					FuncDef*	foundFunc = find( mState.mFuncDefs, parsedText.c_str() );
 					if (foundFunc == NULL)
 					{
 						throw CalcException();
 					}
+					
+					// Set values of the formal parameters in a temporary state
+					const StringVec&	formalParams( foundFunc->first );
+					if (mState.mValStack.size() < formalParams.size())
+					{
+						throw CalcException();
+					}
 					SCalcState	tempState( mState );
-					tempState.SetVariable( foundFunc->first.c_str() );
+					for (StringVec::const_reverse_iterator i = formalParams.rbegin();
+						i != formalParams.rend(); ++i)
+					{
+						const std::string&	theParam( *i );
+						tempState.SetVariable( theParam.c_str() );
+						tempState.mValStack.pop_back();
+						mState.mValStack.pop_back();
+					}
+					
+					// Evaluate
 					double	funcVal;
 					long	stopOff;
 					ECalcResult	didParse = ParseCalcLine( foundFunc->second.c_str(), &tempState,
 						&funcVal, &stopOff );
 					if (didParse == kCalcResult_Calculated)
 					{
-						mState.mValStack.back() = funcVal;
+						mState.mValStack.push_back( funcVal );
 					}
 					else
 					{
@@ -572,8 +644,8 @@ namespace
 		
 		void	operator()( const char*, const char* ) const
 				{
-					mState.SetFunc( mState.mFuncName, mState.mFuncParam, mState.mFuncDef );
-					mState.mValStack.push_back(0.0);
+					mState.SetFunc( mState.mFuncName, mState.mParamStack, mState.mFuncDef );
+					mState.mParamStack.clear();
 					mState.mDidDefineFunction = true;
 					//std::cout << "DoDefFunc " << mState.mFuncName << ", " << mState.mFuncParam <<
 					//	", " << mState.mFuncDef << std::endl;
@@ -660,7 +732,11 @@ namespace
 					>> '=' >> expression;
 				
 				funcdef = identifier[ assign(self.mState.mFuncName) ]
-					>> '(' >> identifier[ assign(self.mState.mFuncParam) ] >> ')'
+					>> '(' >> identifier[ push_back_a(self.mState.mParamStack) ]
+					>>	*(
+							',' >> identifier[ push_back_a(self.mState.mParamStack) ]
+						)
+					>> ')'
 					>> '=' >> lexeme_d[*anychar_p][ assign(self.mState.mFuncDef) ];
 					
 				statement = (
@@ -680,8 +756,9 @@ namespace
 					|	'(' >> expression >> ')'
 					|	(lexeme_d[self.mState.mFixed.mUnaryFuncs >> '('] >> expression
 							>> ')')[ DoUnaryFunc(self.mState) ]
-					|	(lexeme_d[self.mState.mUnaryFuncDefs >> '('] >> expression
-							>> ')')[ DoUnaryFuncDef(self.mState) ]
+					|	(lexeme_d[self.mState.mFuncDefs >> '('] >> expression
+							>> *( ',' >> expression )
+							>> ')')[ DoDefinedFunc(self.mState) ]
 					|	(lexeme_d[self.mState.mFixed.mBinaryFuncs >> '('] >> expression
 							>> ',' >> expression >> ')')[ DoBinaryFunc(self.mState) ]
 					|	( "if(" >> expression >> ','
@@ -700,7 +777,8 @@ namespace
 					|	'(' >> expressionNA >> ')'
 					|	(lexeme_d[self.mState.mFixed.mUnaryFuncs >> '('] >> expressionNA
 							>> ')')
-					|	(lexeme_d[self.mState.mUnaryFuncDefs >> '('] >> expressionNA
+					|	(lexeme_d[self.mState.mFuncDefs >> '('] >> expressionNA
+							>> *( ',' >> expressionNA )
 							>> ')')
 					|	(lexeme_d[self.mState.mFixed.mBinaryFuncs >> '('] >> expressionNA
 							>> ',' >> expressionNA >> ')')
