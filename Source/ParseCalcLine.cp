@@ -47,7 +47,6 @@ namespace
 	typedef		double (*UnaryFunc)( double );
 	typedef		double (*BinaryFunc)( double, double );
 	
-	typedef		std::pair< std::string, std::string >	UnaryFuncDef;
 	typedef		std::pair< StringVec, std::string >		FuncDef;
 	
 	class CalcException : public std::exception
@@ -143,7 +142,6 @@ struct SCalcState
 	DblStack				mValStack;
 	StringVec				mParamStack;
 	symbols<FuncDef>		mFuncDefs;
-	symbols<UnaryFuncDef>	mUnaryFuncDefs;
 	symbols<double>			mVariables;
 	std::string				mIdentifier;
 	StringSet				mVariableSet;
@@ -167,7 +165,6 @@ SCalcState::SCalcState( const SCalcState& inOther )
 	, mValStack( inOther.mValStack )
 	, mParamStack( inOther.mParamStack )
 	, mFuncDefs( inOther.mFuncDefs )
-	, mUnaryFuncDefs( inOther.mUnaryFuncDefs )
 	, mVariables( inOther.mVariables )
 	, mIdentifier( inOther.mIdentifier )
 	, mVariableSet( inOther.mVariableSet )
@@ -246,44 +243,6 @@ static void FixFormalParams( FuncDef& ioDef )
 	}
 }
 
-/*!
-	@function	FixFormalParam
-	@abstract	Prefix the formal parameter by an underscore, so it cannot be
-				confused with a normal variable.
-*/
-static void FixFormalParam( UnaryFuncDef& ioDef )
-{
-	std::string::size_type	startOff = 0;
-	std::string::size_type	foundOff, identStart, identEnd;
-	
-	while ( (foundOff = ioDef.second.find( ioDef.first, startOff )) != std::string::npos )
-	{
-		// We found a substring that looks like the formal parameter, but we
-		// must be sure that it is not just part of some other identifier.
-		identStart = foundOff;
-		identEnd = identStart + ioDef.first.size();
-		if ( (identEnd == ioDef.second.size()) or (not IsIdentifierChar(ioDef.second[identEnd])) )
-		{
-			// Looking to the left is trickier, e.g., while 12x is not an
-			// identifier, A12x is.
-			while ( (identStart > 0) and IsIdentifierChar(ioDef.second[ identStart - 1 ]) )
-			{
-				--identStart;
-			}
-			while (not isalpha( ioDef.second[ identStart ]))
-			{
-				++identStart;
-			}
-			if (identStart == foundOff)
-			{
-				ioDef.second.insert( foundOff, 1, '_' );
-				foundOff += 1;
-			}
-		}
-		startOff = foundOff + 1;
-	}
-	ioDef.first.insert( 0, 1, '_' );
-}
 
 void	SCalcState::SetFunc( const std::string& inFuncName,
 								const StringVec& inFormalParams,
@@ -470,7 +429,7 @@ namespace
 					}
 					parsedText.erase( parenLoc );
 					
-					// FInd the definition
+					// Find the definition
 					FuncDef*	foundFunc = find( mState.mFuncDefs, parsedText.c_str() );
 					if (foundFunc == NULL)
 					{
@@ -496,8 +455,8 @@ namespace
 					// Evaluate
 					double	funcVal;
 					long	stopOff;
-					ECalcResult	didParse = ParseCalcLine( foundFunc->second.c_str(), &tempState,
-						&funcVal, &stopOff );
+					ECalcResult	didParse = ParseCalcLine( foundFunc->second.c_str(),
+						&tempState, &funcVal, &stopOff );
 					if (didParse == kCalcResult_Calculated)
 					{
 						mState.mValStack.push_back( funcVal );
@@ -640,17 +599,49 @@ namespace
 	struct DoDefFunc
 	{
 				DoDefFunc( SCalcState& ioState ) : mState( ioState ) {}
-				DoDefFunc( const DoDefFunc& inOther ) : mState( inOther.mState ) {}
+				DoDefFunc( const DoDefFunc& inOther )
+					: mState( inOther.mState ) {}
 		
 		void	operator()( const char*, const char* ) const
 				{
-					mState.SetFunc( mState.mFuncName, mState.mParamStack, mState.mFuncDef );
-					mState.mParamStack.clear();
-					mState.mDidDefineFunction = true;
-					//std::cout << "DoDefFunc " << mState.mFuncName << ", " << mState.mFuncParam <<
-					//	", " << mState.mFuncDef << std::endl;
-					//mState.SetVariable( mState.mIdentifier.c_str() );
-					//mState.SetVariable( "last" );
+					// Before committing to the function, syntax check it.
+					SCalcState	tempState( mState );
+					tempState.SetFunc( mState.mFuncName, mState.mParamStack,
+						mState.mFuncDef );
+
+					// Find the definition
+					FuncDef*	foundFunc = find( tempState.mFuncDefs,
+						mState.mFuncName.c_str() );
+					if (foundFunc == NULL)
+					{
+						throw CalcException();
+					}
+
+					// Set values of the formal parameters in the temporary
+					// state.  It does not matter what I set them to, they
+					// just need to be recognized as variables.
+					const StringVec&	formalParams( foundFunc->first );
+					tempState.mValStack.push_back( 1.0 );
+					for (StringVec::const_iterator i = formalParams.begin();
+						i != formalParams.end(); ++i)
+					{
+						const std::string&	theParam( *i );
+						tempState.SetVariable( theParam.c_str() );
+					}
+
+					long	stopOff;
+					if (CheckExpressionSyntax( foundFunc->second.c_str(),
+						&tempState, &stopOff ))
+					{
+						mState.SetFunc( mState.mFuncName, mState.mParamStack,
+							mState.mFuncDef );
+						mState.mParamStack.clear();
+						mState.mDidDefineFunction = true;
+					}
+					else
+					{
+						throw CalcException();
+					}
 				}
 		
 		SCalcState&		mState;
@@ -698,17 +689,27 @@ namespace
 			theMatch.c_str() << "'." << std::endl;
 	#endif
 	}
+	
+	#pragma mark enum ECalcMode
+	enum ECalcMode
+	{
+		kCalcMode_Evaluate = 0,
+		kCalcMode_SyntaxCheckExpression
+	};
 
 	#pragma mark struct calculator
 	struct calculator : public boost::spirit::grammar<calculator>
 	{
-					calculator( SCalcState& inState )
-						: mState( inState ) {}
+					calculator( SCalcState& inState,
+								ECalcMode inMode )
+						: mState( inState ),
+						mMode( inMode ) {}
 
 		template <typename ScannerT>
 		struct definition
 		{
 			definition( const calculator& self )
+				: mMode( self.mMode )
 			{
 				identifier =
 					lexeme_d[ alpha_p >> *(alnum_p | '_') ] -
@@ -736,8 +737,8 @@ namespace
 					>>	*(
 							',' >> identifier[ push_back_a(self.mState.mParamStack) ]
 						)
-					>> ')'
-					>> '=' >> lexeme_d[*anychar_p][ assign(self.mState.mFuncDef) ];
+					>> ')' >> '='
+					>> lexeme_d[*anychar_p][ assign(self.mState.mFuncDef) ];
 					
 				statement = (
 					assignment[ DoAssign(self.mState) ]
@@ -836,15 +837,17 @@ namespace
 			
 			const boost::spirit::rule<ScannerT>& start() const
 			{
-				return statement;
+				return (mMode == kCalcMode_Evaluate)? statement : expressionNA;
 			}
 			
 			boost::spirit::rule<ScannerT>	factor, expression, term, power, identifier;
 			boost::spirit::rule<ScannerT>	factorNA, expressionNA, termNA, powerNA;
 			boost::spirit::rule<ScannerT>	assignment, statement, funcdef;
+			ECalcMode		mMode;
 		};
 		
-		SCalcState&	mState;
+		SCalcState&		mState;
+		ECalcMode		mMode;
 	};
 }
 
@@ -870,6 +873,41 @@ void		DisposeCalcState( CalcState ioState )
 }
 
 /*!
+	@function	CheckExpressionSyntax
+	@abstract	Check the syntax of an expression.
+	@param		inLine		A NUL-terminated line of text.
+	@param		inState		A calculator object reference.
+	@param		outStop		Offset at which parsing stopped, which can be
+							helpful in spotting a syntax error.
+	@result		True if the expression was parsed successfully.
+*/
+bool	CheckExpressionSyntax( const char* inLine, CalcState inState,
+					long* outStop )
+{
+	bool	isOK = false;
+	
+	try
+	{
+		calculator	theCalc( *inState, kCalcMode_SyntaxCheckExpression );
+		inState->mValStack.clear();
+		inState->mParamStack.clear();
+		
+		parse_info<>	parseResult = parse( inLine, theCalc, space_p );
+		*outStop = parseResult.stop - inLine;
+		
+		if (parseResult.full)
+		{
+			isOK = true;
+		}
+	}
+	catch (...)
+	{
+	}
+	
+	return isOK;
+}
+
+/*!
 	@function	ParseCalcLine
 	@abstract	Attempt to parse and compute an expression or assignment.
 	@param		inLine		A NUL-terminated line of text.
@@ -880,15 +918,16 @@ void		DisposeCalcState( CalcState ioState )
 							helpful in spotting a syntax error.
 	@result		Whether we failed, calculated, or defined a function.
 */
-ECalcResult		ParseCalcLine( const char* inLine, CalcState ioState, double* outValue,
-						long* outStop )
+ECalcResult		ParseCalcLine( const char* inLine, CalcState ioState,
+						double* outValue, long* outStop )
 {
 	ECalcResult	didParse = kCalcResult_Error;
 	
 	try
 	{
-		calculator	theCalc( *ioState );
+		calculator	theCalc( *ioState, kCalcMode_Evaluate );
 		ioState->mValStack.clear();
+		ioState->mParamStack.clear();
 		
 		parse_info<>	parseResult = parse( inLine, theCalc, space_p );
 		*outStop = parseResult.stop - inLine;
