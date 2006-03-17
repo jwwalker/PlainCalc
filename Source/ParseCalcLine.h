@@ -68,6 +68,18 @@ ECalcResult		ParseCalcLine( const char* inLine, CalcState ioState,
 				long* outStop );
 
 /*!
+	@function	CheckExpressionSyntax
+	@abstract	Check the syntax of an expression.
+	@param		inLine		A NUL-terminated line of text.
+	@param		inState		A calculator object reference.
+	@param		outStop		Offset at which parsing stopped, which can be
+							helpful in spotting a syntax error.
+	@result		True if the expression was parsed successfully.
+*/
+bool			CheckExpressionSyntax( const char* inLine, CalcState inState,
+					long* outStop );
+
+/*!
 	@function	CopyCalcVariables
 	@abstract	Create a dictionary containing the variables (as CFStringRef keys)
 				and their values (as CFNumberRef values).
