@@ -137,6 +137,9 @@ struct SCalcState
 	CFDictionaryRef			CopyVariables() const;
 	void					SetVariables( CFDictionaryRef inDict );
 	
+	CFDictionaryRef			CopyFuncDefs() const;
+	void					SetFuncDefs( CFDictionaryRef inDict );
+	
 	const SFixedSymbols&	mFixed;
 	
 	DblStack				mValStack;
@@ -145,6 +148,7 @@ struct SCalcState
 	symbols<double>			mVariables;
 	std::string				mIdentifier;
 	StringSet				mVariableSet;
+	StringSet				mFuncDefSet;
 	std::string				mFuncName;
 	std::string				mFuncParam;
 	std::string				mFuncDef;
@@ -168,6 +172,7 @@ SCalcState::SCalcState( const SCalcState& inOther )
 	, mVariables( inOther.mVariables )
 	, mIdentifier( inOther.mIdentifier )
 	, mVariableSet( inOther.mVariableSet )
+	, mFuncDefSet( inOther.mFuncDefSet )
 	, mFuncName( inOther.mFuncName )
 	, mFuncParam( inOther.mFuncParam )
 	, mFuncDef( inOther.mFuncDef )
@@ -254,6 +259,7 @@ void	SCalcState::SetFunc( const std::string& inFuncName,
 	if (foundDef == NULL)
 	{
 		mFuncDefs.add( inFuncName.c_str(), thePair );
+		mFuncDefSet.insert( inFuncName );
 	}
 	else
 	{
@@ -279,6 +285,45 @@ CFDictionaryRef		SCalcState::CopyVariables() const
 				foundVal ) );
 			ThrowIfCFFail_( cfValue.get() );
 			::CFDictionaryAddValue( theDict.get(), cfVarName.get(), cfValue.get() );
+		}
+	}
+	
+	return theDict.release();
+}
+
+CFDictionaryRef	SCalcState::CopyFuncDefs() const
+{
+	autoCFMutableDictionaryRef	theDict( ::CFDictionaryCreateMutable( NULL, 0,
+		&kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks ) );
+	ThrowIfCFFail_( theDict.get() );
+	
+	for (StringSet::iterator i = mFuncDefSet.begin(); i != mFuncDefSet.end(); ++i)
+	{
+		const std::string&	funcName( *i );
+		FuncDef*	theFunc = find( mFuncDefs, funcName.c_str() );
+		if (theFunc != NULL)
+		{
+			autoCFStringRef	cfFuncName( UTF8ToCFString( funcName.c_str() ) );
+			ThrowIfCFFail_( cfFuncName.get() );
+			
+			autoCFMutableArrayRef	theArray( ::CFArrayCreateMutable(
+				NULL, 0, &kCFTypeArrayCallBacks ) );
+			ThrowIfCFFail_( theArray.get() );
+
+			autoCFStringRef	cfFuncDef( UTF8ToCFString( theFunc->second.c_str() ) );
+			ThrowIfCFFail_( cfFuncDef.get() );
+			::CFArrayAppendValue( theArray.get(), cfFuncDef.get() );
+			
+			for (StringVec::iterator i = theFunc->first.begin();
+				i != theFunc->first.end(); ++i)
+			{
+				autoCFStringRef	cfParam( UTF8ToCFString( i->c_str() ) );
+				ThrowIfCFFail_( cfParam.get() );
+				::CFArrayAppendValue( theArray.get(), cfParam.get() );
+			}
+			
+			::CFDictionarySetValue( theDict.get(), cfFuncName.get(),
+				theArray.get() );
 		}
 	}
 	
@@ -311,6 +356,42 @@ static void VarSetter( const void *key, const void *value, void *context )
 void	SCalcState::SetVariables( CFDictionaryRef inDict )
 {
 	::CFDictionaryApplyFunction( inDict, VarSetter, this );
+}
+
+static void FuncSetter( const void *key, const void *value, void *context )
+{
+	SCalcState*	me = static_cast<SCalcState*>( context );
+	CFStringRef	theKey = static_cast<CFStringRef>( key );
+	CFArrayRef	theValueRef = static_cast<CFArrayRef>( value );
+	std::string	keyStr( CFStringToUTF8( theKey ) );
+	CFIndex	arraySize = ::CFArrayGetCount( theValueRef );
+	CFStringRef	funcDefRef = reinterpret_cast<CFStringRef>(
+		::CFArrayGetValueAtIndex( theValueRef, 0 ) );
+	FuncDef	theFunc;
+	theFunc.second = CFStringToUTF8( funcDefRef );
+	for (int i = 1; i < arraySize; ++i)
+	{
+		std::string	param( CFStringToUTF8( reinterpret_cast<CFStringRef>(
+			::CFArrayGetValueAtIndex( theValueRef, i ) ) ) );
+		theFunc.first.push_back( param );
+	}
+	
+	FuncDef*	foundFunc = find( me->mFuncDefs, keyStr.c_str() );
+	
+	if (foundFunc == NULL)
+	{
+		me->mFuncDefs.add( keyStr.c_str(), theFunc );
+		me->mFuncDefSet.insert( keyStr );
+	}
+	else
+	{
+		*foundFunc = theFunc;
+	}
+}
+
+void	SCalcState::SetFuncDefs( CFDictionaryRef inDict )
+{
+	::CFDictionaryApplyFunction( inDict, FuncSetter, this );
 }
 
 inline void DumpStack( const DblStack& inStack, const char* inTag )
@@ -885,6 +966,7 @@ bool	CheckExpressionSyntax( const char* inLine, CalcState inState,
 					long* outStop )
 {
 	bool	isOK = false;
+	*outStop = 0;
 	
 	try
 	{
@@ -922,6 +1004,7 @@ ECalcResult		ParseCalcLine( const char* inLine, CalcState ioState,
 						double* outValue, long* outStop )
 {
 	ECalcResult	didParse = kCalcResult_Error;
+	*outStop = 0;
 	
 	try
 	{
@@ -999,6 +1082,49 @@ void			SetCalcVariables( CFDictionaryRef inDict, CalcState ioState )
 	try
 	{
 		ioState->SetVariables( inDict );
+	}
+	catch (...)
+	{
+	}
+}
+
+/*!
+	@function	CopyCalcFunctions
+	@abstract	Create a dictionary recording user-defined functions.
+	@discussion	The keys of the dictionary are the function names.  Each value
+				is a CFArrray of CFStrings, being the function definition
+				followed by the formal parameters.
+	@param		inState		A calculator object reference.
+	@result		A dictionary reference, or NULL on failure.
+*/
+CFDictionaryRef	CopyCalcFunctions( CalcState inState )
+{
+	CFDictionaryRef	theDict = NULL;
+	
+	try
+	{
+		theDict = inState->CopyFuncDefs();
+	}
+	catch (...)
+	{
+	}
+	return theDict;
+}
+
+/*!
+	@function	SetCalcFunctions
+	@abstract	Add defined functions to the calculator.
+	@discussion	The keys of the dictionary are the function names.  Each value
+				is a CFArrray of CFStrings, being the function definition
+				followed by the formal parameters.
+	@param		inDict		A dictionary recording functions.
+	@param		inState		A calculator object reference.
+*/
+void			SetCalcFunctions( CFDictionaryRef inDict, CalcState ioState )
+{
+	try
+	{
+		ioState->SetFuncDefs( inDict );
 	}
 	catch (...)
 	{
