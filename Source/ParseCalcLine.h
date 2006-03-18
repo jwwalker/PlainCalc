@@ -98,6 +98,28 @@ CFDictionaryRef	CopyCalcVariables( CalcState inState );
 */
 void			SetCalcVariables( CFDictionaryRef inDict, CalcState ioState );
 
+/*!
+	@function	CopyCalcFunctions
+	@abstract	Create a dictionary recording user-defined functions.
+	@discussion	The keys of the dictionary are the function names.  Each value
+				is a CFArrray of CFStrings, being the function definition
+				followed by the formal parameters.
+	@param		inState		A calculator object reference.
+	@result		A dictionary reference, or NULL on failure.
+*/
+CFDictionaryRef	CopyCalcFunctions( CalcState inState );
+
+/*!
+	@function	SetCalcFunctions
+	@abstract	Add defined functions to the calculator.
+	@discussion	The keys of the dictionary are the function names.  Each value
+				is a CFArrray of CFStrings, being the function definition
+				followed by the formal parameters.
+	@param		inDict		A dictionary recording functions.
+	@param		inState		A calculator object reference.
+*/
+void			SetCalcFunctions( CFDictionaryRef inDict, CalcState ioState );
+
 #ifdef __cplusplus
 }
 #endif
