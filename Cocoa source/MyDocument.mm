@@ -52,8 +52,8 @@
 			count: 1] retain];
 		
 		attValues[0] = [NSColor colorWithDeviceRed: 0.0
-			green: 0.0
-			blue: 0.7
+			green: 0.6
+			blue: 0.0
 			alpha: 1.0];
 		mSuccessColorAtt = [[NSDictionary
 			dictionaryWithObjects: attValues
@@ -267,6 +267,10 @@
 					
 					[self insertString: @"\n"
 						withAttributes: mNormalColorAtt ];
+					
+					[textView setSelectedRange:
+						NSMakeRange( lineStart + stopOffset,
+							lineEnd - lineStart - stopOffset) ];
 				}
 				else if (calcRes == kCalcResult_DefinedFunction)
 				{
