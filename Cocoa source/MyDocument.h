@@ -29,7 +29,10 @@
 	// after the text has been loaded.
 }
 
+- (void) showDefinedVariables: (id) sender;
+- (void) showDefinedFunctions: (id) sender;
 - (void) setIntegerFormat: (id) sender;
+
 
 - (void) setString: (NSAttributedString *) value;
 
