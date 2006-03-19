@@ -10,6 +10,12 @@
 	to another, the CF object is retained.
 */
 
+#if __MACH__
+	#include <CoreFoundation/CoreFoundation.h>
+#else
+	#include <CFBase.h>
+#endif
+
 template <class X>
 class autoCF
 {
