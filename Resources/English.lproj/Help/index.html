@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name="AppleTitle" content="PlainCalc Help">
+	<title>PlainCalc Help</title>
+	
+	<style TYPE="text/css" MEDIA=screen>
+	<!--
+	span.response { color: #009900 }
+	span.error { color: #FF0000 }
+	p.example { font-family: monospace; margin-left: 5em }
+	td { padding-right: 3em }
+	-->
+	</style>
+</head>
+<body>
+
+<h1>Getting Started</h1>
+
+<p>To use PlainCalc, type an expression, assignment, or function definition, and press Return or Enter.  An expression can involve numbers, variables, constants, arithmetic operators, and mathematical functions.  For example, if you type
+</p>
+
+<p class="example">2+3/5
+</p>
+
+<p>and press Return, PlainCalc will display the value of the expression:</p>
+
+<p class="example">2+3/5 =<br>
+<span class="response">2.6</span>
+</p>
+
+<p>If you make a mistake, you will instead be told that there is a syntax error:</p>
+
+<p class="example">
+2+3++5 =<br>
+<span class="error">Syntax Error</span>
+</p>
+
+<p>In some cases, PlainCalc can help you narrow down the location of the error by highlighting the suspicious part of the expression.</p>
+
+<h1>Constants</h1>
+
+<p>A number (literal constant) may be written in scientific notation, e.g., 1.2e-2 is the same as 0.012.  A positive integer may also be written as a C-style hexadecimal number, e.g., 0xBE4 is the same as 3044.  The x must be lower case, but the letters used as hexadecimal digits may be in either case.</p>
+
+<p>There are two special built-in constants, &pi; (which can also be written pi), and e (the base of the natural logarithms).</p>
+
+<h1>Arithmetic</h1>
+
+<p>The arithmetic operators are the usual +, -, *, / plus the symbol ^ for raising to a power.  The power operator has higher precedence than the others, and associates from right to left.  For example, the expression 2*5^4^3 evaluates to the same number as 2*(5^(4^3)).</p>
+
+<p>Unlike most calculators, PlainCalc lets you indicate multiplication by juxtaposition (i.e., writing two things next to each other) as is common in mathematics on paper.  Thus, PlainCalc will happily evaluate expressions such as (3+5)(6-7) or 2&pi;.</p>
+
+<p>There is a slight cost to the use of multiplication by juxtaposition.  Most calculators and programming languages use the + and - signs as unary operators as well as binary operators.  For example, in the expression -5-3, the first minus is a unary operator, since it is not combining two different numbers.  Unary operators create a problem with multiplication by juxtaposition, because an expression like -5-3 could be interpreted as the product (-5)(-3).  To remove this ambiguity, PlainCalc only allows a unary minus at the beginning of an expression (where you really need it), and does not allow a unary plus at all.</p>
+
+<h1>Variables</h1>
+
+<p>You can define variables to store numbers. You set the value of a variable using an <em>assignment</em>, which is the variable name, an equal sign, and an expression.  It sets the value of the variable, in that window only, until changed by another assignment.  For example:</p>
+
+<p class="example">
+cmPerInch=2.54 =<br>
+<span class="response">2.54</span><br>
+inchesPerM = 100/cmPerInch =<br>
+<span class="response">39.3700787402</span><br>
+</p>
+
+<p>A variable must begin with an ASCII letter (no accented letters), but can be followed by letters, digits, and underscores.  A built-in variable, <em>last</em>, holds the result of the last calculation.</p>
+
+<h1>Built-in Functions</h1>
+
+<p>A function is written in the usual way, for instance abs(x) represents the absolute value of x.  There must not be any space between the function name and the left parenthesis.</p>
+
+<h2>Unary Functions:</h2>
+
+<table style="margin-left: 2em">
+	<tr> <td>abs</td> <td>absolute value</td> </tr>
+	<tr> <td>acos</td> <td>arc cosine</td> </tr>
+	<tr> <td>asin</td> <td>arc sine</td> </tr>
+	<tr> <td>atan</td> <td>arc tangent</td> </tr>
+	<tr> <td>ceil</td> <td>ceiling (round in the positive direction)</td> </tr>
+	<tr> <td>cos</td> <td>cosine</td> </tr>
+	<tr> <td>exp</td> <td>natural exponential function</td> </tr>
+	<tr> <td>fabs</td> <td>another name for absolute value</td> </tr>
+	<tr> <td>floor</td> <td>floor (round in the negative direction)</td> </tr>
+	<tr> <td>log</td> <td>natural logarithm</td> </tr>
+	<tr> <td>log10</td> <td>common logarithm</td> </tr>
+	<tr> <td>log2</td> <td>base 2 logarithm</td> </tr>
+	<tr> <td>round</td> <td>round to nearest integer</td> </tr>
+	<tr> <td>sin</td> <td>sine</td> </tr>
+	<tr> <td>sqrt</td> <td>square root</td> </tr>
+	<tr> <td>√</td> <td>square root</td> </tr>
+	<tr> <td>tan</td> <td>tangent</td> </tr>
+</table>
+
+<h2>Binary Functions:</h2>
+
+<table style="margin-left: 2em">
+	<tr> <td>atan2</td> <td>two-variable arc tangent</td> </tr>
+	<tr> <td>max</td> <td>maximum</td> </tr>
+	<tr> <td>min</td> <td>minimum</td> </tr>
+</table>
+
+<h2>Ternary Functions:</h2>
+
+<table style="margin-left: 2em">
+	<tr> <td>if</td> <td>if x &gt; 0, f(x,y,z) equals y, otherwise it is z</td> </tr>
+</table>
+
+<p>The <em>if</em> function has a special "short-circuit" property: It does not evaluate the branch not taken.  This fact makes recursive user-defined functions possible.</p>
+
+<h1>User-Defined Functions</h1>
+
+<p>You can define your own functions in much the same way as you define your own variables.  For example, here is the definition of a function to convert temperatures from Fahrenheit to Celsius.</p>
+
+<p class="example">
+F2C(t) = 5/9(t-32) =<br>
+<span class="response">Defined Function</span>
+</p>
+
+<p>If the right hand side of the function definition uses any variables or user-defined functions, it will be evaluated using the values of the variables and functions at the time you <em>use</em> the function, not at the time you define it.</p>
+
+<p class="example">
+n=5 =<br>
+<span class="response">5</span><br>
+f(x)= n x =<br>
+<span class="response">Defined Function</span><br>
+n=2 =<br>
+<span class="response">2</span><br>
+f(10) =<br>
+<span class="response">20</span><br>
+</p>
+
+<p>If you’re careful, you can define recursive functions.  (If you’re not careful, attempted recursive functions can easily cause PlainCalc to hang.)  For example, here is a recursive definition for the well-known Fibonacci sequence.</p>
+
+<p class="example">
+F(n)= if( n-1, F(n-1) + F(n-2), if( n, 1, 0 ) ) =<br>
+<span class="response">Defined Function</span><br>
+F(10) =<br>
+<span class="response">55</span><br>
+</p>
+
+<p>Be warned that this is not an efficient way to compute Fibonacci numbers.  In fact, the amount of time to compute F(n) by this method is roughly proportional to 2^n.</p>
+
+<h1>Saving Files</h1>
+
+<p>A PlainCalc worksheet can be saved as a file.  When you open it later, the variables and user-defined functions will be just as you left them.</p>
+
+<h1>About PlainCalc and its Author</h1>
+
+<p>PlainCalc is freeware by James W. Walker, whose home page is <a href="http://www.jwwalker.com">http://www.jwwalker.com</a>.  The calculating engine uses the <a href="http://spirit.sourceforge.net/">Spirit</a> parser, an open-source project started by Joel de Guzman.</p>
+
+</body>
+</html>
