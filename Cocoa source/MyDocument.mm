@@ -110,21 +110,23 @@
 		initWithBytes: [theRTF bytes]
 		length: [theRTF length]
 		encoding: NSUTF8StringEncoding];
+	NSDictionary*	varDict = (NSDictionary*)CopyCalcVariables( mCalcState );
+	NSDictionary*	funcDict = (NSDictionary*)CopyCalcFunctions( mCalcState );
 	
 	id	theKeys[3] = {
 		@"text", @"variables", @"functions"
 	};
 	id	theValues[3] = {
 		theRTFString,
-		[NSDictionary dictionary],
-		[NSDictionary dictionary]
+		varDict,
+		funcDict
 	};
-	// Currently I write an empty dictionary for variables and functions.
-	// Eventually this will be a real dictionary.
 	NSDictionary*	docDict = [NSDictionary dictionaryWithObjects: theValues
 		forKeys: theKeys
 		count: 3];
 	[theRTFString release];
+	[varDict release];
+	[funcDict release];
 	NSString*	theError = nil;
 	NSData*	data = [NSPropertyListSerialization
 		dataFromPropertyList: docDict
@@ -139,18 +141,10 @@
     return data;
 }
 
-- (BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)aType
+// Load data in our native document format
+- (BOOL) loadNativeData:(NSData *)data
 {
-	BOOL	didLoad;
-	didLoad = NO;
-    // Insert code here to read your document from the given data.  You can also
-	// choose to override -loadFileWrapperRepresentation:ofType: or
-	// -readFromFile:ofType: instead.
-    
-    // For applications targeted for Tiger or later systems, you should use the
-	// new Tiger API readFromData:ofType:error:.  In this case you can also
-	// choose to override -readFromURL:ofType:error: or
-	// -readFromFileWrapper:ofType:error: instead.
+	BOOL	didLoad = NO;
 	
 	NSString*	errStr = nil;
 	NSDictionary*	theDict = [NSPropertyListSerialization
@@ -183,8 +177,68 @@
 				}
 			}
 		}
+		NSDictionary*	varDict = [theDict objectForKey: @"variables"];
+		if (varDict != NULL)
+		{
+			SetCalcVariables( (CFDictionaryRef)varDict, mCalcState );
+		}
+		NSDictionary*	funcDict = [theDict objectForKey: @"functions"];
+		if (funcDict != NULL)
+		{
+			SetCalcFunctions( (CFDictionaryRef)funcDict, mCalcState );
+		}
 	}
     
+	return didLoad;
+}
+
+- (BOOL) loadPlainTextData: (NSData *)data
+{
+	BOOL	didLoad = NO;
+	NSString*	textStr = [[NSString alloc] initWithData: data
+		encoding: NSUTF8StringEncoding ];
+	NSAttributedString*	theAttStr = [[NSAttributedString alloc]
+		initWithString: textStr ];
+	[textStr release];
+	[self setString: theAttStr];
+	didLoad = YES;
+	[theAttStr release];
+	
+	return didLoad;
+}
+
+- (BOOL) loadRTFData: (NSData *)data
+{
+	BOOL	didLoad = NO;
+	NSAttributedString*	theAttStr = [[NSAttributedString alloc]
+		initWithRTF: data
+		documentAttributes: NULL];
+	if (theAttStr != NULL)
+	{
+		[self setString: theAttStr];
+		didLoad = YES;
+		[theAttStr release];
+	}
+	return didLoad;
+}
+
+- (BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)aType
+{
+	BOOL	didLoad = NO;
+	
+	if ([aType compare: @"DocumentType"] == NSOrderedSame)
+	{
+		didLoad = [self loadNativeData: data];
+	}
+	else if ([aType compare: NSStringPboardType] == NSOrderedSame)
+	{
+		didLoad = [self loadPlainTextData: data];
+	}
+ 	else if ([aType compare: NSRTFPboardType] == NSOrderedSame)
+	{
+		didLoad = [self loadRTFData: data];
+	}
+   
 	return didLoad;
 }
 
@@ -207,10 +261,10 @@
 {
 	std::ostringstream	oss;
 	if ( mFormatIntegersAsHex and
-					(std::abs(value - round(value)) < FLT_EPSILON) )
+		(std::abs(value - round(value)) < FLT_EPSILON) )
 	{
 		oss << "0x" << std::hex << std::uppercase <<
-						lround(value);
+						llround(value);
 	}
 	else
 	{
@@ -318,6 +372,77 @@
 		}
 	}
 }
+
+- (void) showDefinedVariables: (id) sender
+{
+	NSDictionary*	varDict = (NSDictionary*)CopyCalcVariables( mCalcState );
+	NSArray*	theKeys = [[varDict allKeys]
+		sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+	NSEnumerator *enumerator = [theKeys objectEnumerator];
+	
+	NSMutableString* theStr = [[NSMutableString alloc] initWithCapacity:100];
+	[theStr appendString: @"Defined Variables:" ];
+	
+	id key;
+	while ((key = [enumerator nextObject]) != nil)
+	{
+		id theValue = [varDict valueForKey: key];
+		if (theValue != nil)
+		{
+			NSString*	valueStr = [self formatCalculatedResult:
+				[theValue doubleValue] ];
+			[theStr appendFormat: @"\n%@ = %@", key, valueStr ];
+		}
+	}
+	[varDict release];
+	
+	[self insertString: theStr
+		withAttributes: mSuccessColorAtt ];
+	[theStr release];
+	
+	[self insertString: @"\n"
+		withAttributes: mNormalColorAtt ];
+}
+
+- (void) showDefinedFunctions: (id) sender
+{
+	NSDictionary*	funcDict = (NSDictionary*)CopyCalcFunctions( mCalcState );
+	NSArray*	theKeys = [[funcDict allKeys]
+		sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
+	NSEnumerator *enumerator = [theKeys objectEnumerator];
+	
+	NSMutableString* theStr = [[NSMutableString alloc] initWithCapacity:100];
+	[theStr appendString: @"Defined Functions:" ];
+
+	id key;
+	while ((key = [enumerator nextObject]) != nil)
+	{
+		[theStr appendFormat: @"\n%@( ", key ];
+		NSArray* theValue = (NSArray*)[funcDict valueForKey: key];
+		for (int i = 1; i < [theValue count]; ++i)
+		{
+			if (i > 1)
+			{
+				[theStr appendFormat: @", %@", [theValue objectAtIndex: i] ];
+			}
+			else
+			{
+				[theStr appendFormat: @"%@", [theValue objectAtIndex: i] ];
+			}
+		}
+		[theStr appendFormat: @" ) = %@", [theValue objectAtIndex: 0] ];
+	}
+	
+	[funcDict release];
+
+	[self insertString: theStr
+		withAttributes: mSuccessColorAtt ];
+	[theStr release];
+	
+	[self insertString: @"\n"
+		withAttributes: mNormalColorAtt ];
+}
+
 
 - (void) setString: (NSAttributedString*) newValue
 {
