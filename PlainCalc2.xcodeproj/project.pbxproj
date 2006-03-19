@@ -15,6 +15,9 @@
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		BECE6C1609C3A10300DD10E1 /* ParseCalcLine.cp in Sources */ = {isa = PBXBuildFile; fileRef = BECE6C1509C3A10300DD10E1 /* ParseCalcLine.cp */; };
+		BEE0020A09CC87EE00E7C5E6 /* UTF8ToCFString.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */; };
+		BEE0020B09CC87EE00E7C5E6 /* CFStringToUTF8.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020809CC87EE00E7C5E6 /* CFStringToUTF8.cp */; };
+		BEE002FB09CCE9AF00E7C5E6 /* Help in Resources */ = {isa = PBXBuildFile; fileRef = BEE002F709CCE9AF00E7C5E6 /* Help */; };
 		BEE0962809C52C600087035A /* doc.icns in Resources */ = {isa = PBXBuildFile; fileRef = BEE0962609C52C600087035A /* doc.icns */; };
 		BEE0962909C52C600087035A /* app.icns in Resources */ = {isa = PBXBuildFile; fileRef = BEE0962709C52C600087035A /* app.icns */; };
 /* End PBXBuildFile section */
@@ -51,6 +54,11 @@
 		8D15AC370486D014006FF6A4 /* PlainCalc2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlainCalc2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BECE6C1409C3A10300DD10E1 /* ParseCalcLine.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ParseCalcLine.h; path = Source/ParseCalcLine.h; sourceTree = "<group>"; };
 		BECE6C1509C3A10300DD10E1 /* ParseCalcLine.cp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = ParseCalcLine.cp; path = Source/ParseCalcLine.cp; sourceTree = "<group>"; };
+		BEE0020609CC87EE00E7C5E6 /* UTF8ToCFString.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = UTF8ToCFString.h; path = Source/UTF8ToCFString.h; sourceTree = "<group>"; };
+		BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = UTF8ToCFString.cp; path = Source/UTF8ToCFString.cp; sourceTree = "<group>"; };
+		BEE0020809CC87EE00E7C5E6 /* CFStringToUTF8.cp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = CFStringToUTF8.cp; path = Source/CFStringToUTF8.cp; sourceTree = "<group>"; };
+		BEE0020909CC87EE00E7C5E6 /* CFStringToUTF8.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CFStringToUTF8.h; path = Source/CFStringToUTF8.h; sourceTree = "<group>"; };
+		BEE002F809CCE9AF00E7C5E6 /* English */ = {isa = PBXFileReference; lastKnownFileType = folder; name = English; path = Resources/English.lproj/Help; sourceTree = "<group>"; };
 		BEE0962609C52C600087035A /* doc.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = doc.icns; path = Resources/doc.icns; sourceTree = "<group>"; };
 		BEE0962709C52C600087035A /* app.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = app.icns; path = Resources/app.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -121,6 +129,10 @@
 				BECE6C1509C3A10300DD10E1 /* ParseCalcLine.cp */,
 				32DBCF750370BD2300C91783 /* PlainCalc2_Prefix.pch */,
 				2A37F4B0FDCFA73011CA2CEA /* main.m */,
+				BEE0020609CC87EE00E7C5E6 /* UTF8ToCFString.h */,
+				BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */,
+				BEE0020809CC87EE00E7C5E6 /* CFStringToUTF8.cp */,
+				BEE0020909CC87EE00E7C5E6 /* CFStringToUTF8.h */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -130,6 +142,7 @@
 			children = (
 				BEE0962609C52C600087035A /* doc.icns */,
 				BEE0962709C52C600087035A /* app.icns */,
+				BEE002F709CCE9AF00E7C5E6 /* Help */,
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
 				2A37F4B6FDCFA73011CA2CEA /* MainMenu.nib */,
 				2A37F4B4FDCFA73011CA2CEA /* MyDocument.nib */,
@@ -203,6 +216,7 @@
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
 				BEE0962809C52C600087035A /* doc.icns in Resources */,
 				BEE0962909C52C600087035A /* app.icns in Resources */,
+				BEE002FB09CCE9AF00E7C5E6 /* Help in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +230,8 @@
 				8D15AC310486D014006FF6A4 /* MyDocument.mm in Sources */,
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
 				BECE6C1609C3A10300DD10E1 /* ParseCalcLine.cp in Sources */,
+				BEE0020A09CC87EE00E7C5E6 /* UTF8ToCFString.cp in Sources */,
+				BEE0020B09CC87EE00E7C5E6 /* CFStringToUTF8.cp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,13 +270,20 @@
 			name = Credits.rtf;
 			sourceTree = "<group>";
 		};
+		BEE002F709CCE9AF00E7C5E6 /* Help */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BEE002F809CCE9AF00E7C5E6 /* English */,
+			);
+			name = Help;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		C05733C808A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -268,7 +291,6 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = PlainCalc2;
 				WRAPPER_EXTENSION = app;
-				ZERO_LINK = YES;
 			};
 			name = Debug;
 		};
@@ -281,9 +303,9 @@
 				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
-				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = PlainCalc2;
+				STRIP_INSTALLED_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -310,10 +332,16 @@
 		C05733CD08A9546B00998B17 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(Boost)";
+				INFOPLIST_FILE = Resources/Info.plist;
 				PREBINDING = NO;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SYMROOT = ../../build;
 			};
 			name = Release;
 		};
