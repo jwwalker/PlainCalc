@@ -203,7 +203,7 @@ static bool IsIdentifierChar( char inChar )
 
 /*!
 	@function	FixFormalParams
-	@abstract	Prefix each formal parameter by an underscore, so it cannot be
+	@abstract	Prefix each formal parameter by an @, so it cannot be
 				confused with a normal variable.
 */
 static void FixFormalParams( FuncDef& ioDef )
@@ -217,17 +217,20 @@ static void FixFormalParams( FuncDef& ioDef )
 		std::string::size_type	startOff = 0;
 		std::string::size_type	foundOff, identStart, identEnd;
 		
-		while ( (foundOff = rightHandSide.find( theParam, startOff )) != std::string::npos )
+		while ( (foundOff = rightHandSide.find( theParam, startOff )) !=
+			std::string::npos )
 		{
 			// We found a substring that looks like the formal parameter, but we
 			// must be sure that it is not just part of some other identifier.
 			identStart = foundOff;
 			identEnd = identStart + theParam.size();
-			if ( (identEnd == rightHandSide.size()) or (not IsIdentifierChar(rightHandSide[identEnd])) )
+			if ( (identEnd == rightHandSide.size()) or
+				(not IsIdentifierChar(rightHandSide[identEnd])) )
 			{
 				// Looking to the left is trickier, e.g., while 12x is not an
 				// identifier, A12x is.
-				while ( (identStart > 0) and IsIdentifierChar(rightHandSide[ identStart - 1 ]) )
+				while ( (identStart > 0) and
+					IsIdentifierChar(rightHandSide[ identStart - 1 ]) )
 				{
 					--identStart;
 				}
@@ -237,14 +240,14 @@ static void FixFormalParams( FuncDef& ioDef )
 				}
 				if (identStart == foundOff)
 				{
-					rightHandSide.insert( foundOff, 1, '_' );
+					rightHandSide.insert( foundOff, 1, '@' );
 					foundOff += 1;
 				}
 			}
 			startOff = foundOff + 1;
 		}
 		
-		theParam.insert( 0, 1, '_' );
+		theParam.insert( 0, 1, '@' );
 	}
 }
 
@@ -291,6 +294,20 @@ CFDictionaryRef		SCalcState::CopyVariables() const
 	return theDict.release();
 }
 
+/*!
+	@function	UnfixParams
+	@abstract	Remove @ characters from names
+*/
+static void UnfixParams( std::string& ioParam )
+{
+	std::string::size_type	atLoc;
+	
+	while ((atLoc = ioParam.find('@')) != std::string::npos)
+	{
+		ioParam.erase( atLoc, 1 );
+	}
+}
+
 CFDictionaryRef	SCalcState::CopyFuncDefs() const
 {
 	autoCFMutableDictionaryRef	theDict( ::CFDictionaryCreateMutable( NULL, 0,
@@ -299,24 +316,33 @@ CFDictionaryRef	SCalcState::CopyFuncDefs() const
 	
 	for (StringSet::iterator i = mFuncDefSet.begin(); i != mFuncDefSet.end(); ++i)
 	{
+		// Find the function definition.
 		const std::string&	funcName( *i );
-		FuncDef*	theFunc = find( mFuncDefs, funcName.c_str() );
-		if (theFunc != NULL)
+		FuncDef*	theFuncPtr = find( mFuncDefs, funcName.c_str() );
+		if (theFuncPtr != NULL)
 		{
+			// Make a copy so we can change it
+			FuncDef	theFunc( *theFuncPtr );
+		
+			// Get name as CFString
 			autoCFStringRef	cfFuncName( UTF8ToCFString( funcName.c_str() ) );
 			ThrowIfCFFail_( cfFuncName.get() );
 			
+			// Create an emtpy array
 			autoCFMutableArrayRef	theArray( ::CFArrayCreateMutable(
 				NULL, 0, &kCFTypeArrayCallBacks ) );
 			ThrowIfCFFail_( theArray.get() );
 
-			autoCFStringRef	cfFuncDef( UTF8ToCFString( theFunc->second.c_str() ) );
+			// Put the RHS in the array
+			UnfixParams( theFunc.second );
+			autoCFStringRef	cfFuncDef( UTF8ToCFString( theFunc.second.c_str() ) );
 			ThrowIfCFFail_( cfFuncDef.get() );
 			::CFArrayAppendValue( theArray.get(), cfFuncDef.get() );
 			
-			for (StringVec::iterator i = theFunc->first.begin();
-				i != theFunc->first.end(); ++i)
+			for (StringVec::iterator i = theFunc.first.begin();
+				i != theFunc.first.end(); ++i)
 			{
+				UnfixParams( *i );
 				autoCFStringRef	cfParam( UTF8ToCFString( i->c_str() ) );
 				ThrowIfCFFail_( cfParam.get() );
 				::CFArrayAppendValue( theArray.get(), cfParam.get() );
@@ -340,17 +366,9 @@ static void VarSetter( const void *key, const void *value, void *context )
 	double	theValue;
 	::CFNumberGetValue( theValueRef, kCFNumberDoubleType, &theValue );
 	
-	double*	foundVar = find( me->mVariables, keyStr.c_str() );
-	
-	if (foundVar == NULL)
-	{
-		me->mVariables.add( keyStr.c_str(), theValue );
-		me->mVariableSet.insert( keyStr );
-	}
-	else
-	{
-		*foundVar = theValue;
-	}
+	me->mValStack.push_back( theValue );
+	me->SetVariable( keyStr.c_str() );
+	me->mValStack.pop_back();
 }
 
 void	SCalcState::SetVariables( CFDictionaryRef inDict )
@@ -376,17 +394,7 @@ static void FuncSetter( const void *key, const void *value, void *context )
 		theFunc.first.push_back( param );
 	}
 	
-	FuncDef*	foundFunc = find( me->mFuncDefs, keyStr.c_str() );
-	
-	if (foundFunc == NULL)
-	{
-		me->mFuncDefs.add( keyStr.c_str(), theFunc );
-		me->mFuncDefSet.insert( keyStr );
-	}
-	else
-	{
-		*foundFunc = theFunc;
-	}
+	me->SetFunc( keyStr, theFunc.first, theFunc.second );
 }
 
 void	SCalcState::SetFuncDefs( CFDictionaryRef inDict )
