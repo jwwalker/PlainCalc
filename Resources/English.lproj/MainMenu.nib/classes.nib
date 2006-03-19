@@ -1,13 +1,13 @@
 {
     IBClasses = (
         {
-            ACTIONS = {setIntegerFormat = id; }; 
+            ACTIONS = {setIntegerFormat = id; showDefinedFunctions = id; showDefinedVariables = id; }; 
             CLASS = FirstResponder; 
             LANGUAGE = ObjC; 
             SUPERCLASS = NSObject; 
         }, 
         {
-            ACTIONS = {setIntegerFormat = id; }; 
+            ACTIONS = {setIntegerFormat = id; showDefinedFunctions = id; showDefinedVariables = id; }; 
             CLASS = MyDocument; 
             LANGUAGE = ObjC; 
             OUTLETS = {textView = NSTextView; }; 
