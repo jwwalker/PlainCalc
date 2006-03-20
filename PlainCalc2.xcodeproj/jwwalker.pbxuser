@@ -70,8 +70,14 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 164223397;
-			PBXWorkspaceStateSaveDate = 164223397;
+			PBXPerProjectTemplateStateSaveDate = 164490238;
+			PBXWorkspaceStateSaveDate = 164490238;
+		};
+		perUserProjectItems = {
+			BE4BD1FC09CDEC0900DEB573 /* PBXBookmark */ = BE4BD1FC09CDEC0900DEB573 /* PBXBookmark */;
+			BE4BD25309CE292500DEB573 /* PBXTextBookmark */ = BE4BD25309CE292500DEB573 /* PBXTextBookmark */;
+			BE4BD27D09CE4E9500DEB573 /* PBXTextBookmark */ = BE4BD27D09CE4E9500DEB573 /* PBXTextBookmark */;
+			BE4BD27E09CE4E9500DEB573 /* PBXTextBookmark */ = BE4BD27E09CE4E9500DEB573 /* PBXTextBookmark */;
 		};
 		sourceControlManager = BECE6BFB09C39E6300DD10E1 /* Source Control */;
 		userBuildSettings = {
@@ -80,18 +86,18 @@
 	};
 	2A37F4ACFDCFA73011CA2CEA /* MyDocument.mm */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1172, 6412}}";
-			sepNavSelRange = "{6546, 0}";
-			sepNavVisRect = "{{0, 3331}, {662, 604}}";
-			sepNavWindowFrame = "{{189, 39}, {707, 733}}";
+			sepNavIntBoundsRect = "{{0, 0}, {662, 7126}}";
+			sepNavSelRange = "{1967, 0}";
+			sepNavVisRect = "{{0, 1160}, {662, 604}}";
+			sepNavWindowFrame = "{{149, 14}, {707, 733}}";
 		};
 	};
 	2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {865, 560}}";
-			sepNavSelRange = "{921, 88}";
-			sepNavVisRect = "{{0, 65}, {865, 467}}";
-			sepNavWindowFrame = "{{25, 236}, {910, 596}}";
+			sepNavIntBoundsRect = "{{0, 0}, {850, 588}}";
+			sepNavSelRange = "{1083, 0}";
+			sepNavVisRect = "{{0, 51}, {850, 537}}";
+			sepNavWindowFrame = "{{83, 126}, {895, 666}}";
 		};
 	};
 	2A37F4B0FDCFA73011CA2CEA /* main.m */ = {
@@ -128,9 +134,66 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {686, 1498}}";
 			sepNavSelRange = "{2740, 0}";
-			sepNavVisRect = "{{0, 932}, {663, 566}}";
+			sepNavVisRect = "{{0, 0}, {663, 566}}";
 			sepNavWindowFrame = "{{38, 111}, {708, 695}}";
 		};
+	};
+	BE4BD1A509CD4F8600DEB573 /* MyDocument.mm:101 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		continueAfterActions = 0;
+		delayBeforeContinue = 0;
+		fileReference = 2A37F4ACFDCFA73011CA2CEA /* MyDocument.mm */;
+		functionName = "-windowControllerDidLoadNib:";
+		hitCount = 1;
+		lineNumber = 101;
+		modificationTime = 164491529.586336;
+		state = 1;
+	};
+	BE4BD1D309CD516500DEB573 /* MyDocument.mm:101 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		continueAfterActions = 0;
+		delayBeforeContinue = 0;
+		fileReference = 2A37F4ACFDCFA73011CA2CEA /* MyDocument.mm */;
+		functionName = "-windowControllerDidLoadNib:";
+		hitCount = 1;
+		lineNumber = 101;
+		modificationTime = 164491527.886206;
+		state = 1;
+	};
+	BE4BD1FC09CDEC0900DEB573 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */;
+	};
+	BE4BD25309CE292500DEB573 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2A37F4ACFDCFA73011CA2CEA /* MyDocument.mm */;
+		rLen = 0;
+		rLoc = "-2147483550";
+		rType = 0;
+	};
+	BE4BD27D09CE4E9500DEB573 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2A37F4ACFDCFA73011CA2CEA /* MyDocument.mm */;
+		name = "MyDocument.mm: 94";
+		rLen = 0;
+		rLoc = 1967;
+		rType = 0;
+		vrLen = 1546;
+		vrLoc = 1687;
+	};
+	BE4BD27E09CE4E9500DEB573 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */;
+		name = "MyDocument.h: 38";
+		rLen = 0;
+		rLoc = 1083;
+		rType = 0;
+		vrLen = 1105;
+		vrLoc = 35;
 	};
 	BECE6BF709C39E4400DD10E1 /* PlainCalc2 */ = {
 		isa = PBXExecutable;
@@ -180,9 +243,9 @@
 	};
 	BECE6C1509C3A10300DD10E1 /* ParseCalcLine.cp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {651, 15974}}";
+			sepNavIntBoundsRect = "{{0, 0}, {651, 16030}}";
 			sepNavSelRange = "{9223, 0}";
-			sepNavVisRect = "{{0, 4843}, {651, 632}}";
+			sepNavVisRect = "{{0, 383}, {651, 632}}";
 			sepNavWindowFrame = "{{294, 21}, {696, 761}}";
 		};
 	};
@@ -190,6 +253,13 @@
 		isa = XCBreakpointsBucket;
 		name = "Project Breakpoints";
 		objects = (
+			BEE0017F09CA9AA300E7C5E6 /* ParseCalcLine.cp:706 */,
+			BEE0018009CA9AD100E7C5E6 /* PBXCPPExceptionBreakpoint */,
+			BEE0034409CD37C000E7C5E6 /* MyDocument.mm:481 */,
+			BEE0035E09CD383000E7C5E6 /* MyDocument.mm:477 */,
+			BEE0036909CD3A5C00E7C5E6 /* MyDocument.mm:100 */,
+			BE4BD1A509CD4F8600DEB573 /* MyDocument.mm:101 */,
+			BE4BD1D309CD516500DEB573 /* MyDocument.mm:101 */,
 		);
 	};
 	BEE0017F09CA9AA300E7C5E6 /* ParseCalcLine.cp:706 */ = {
@@ -202,7 +272,7 @@
 		functionName = "operator()";
 		hitCount = 1;
 		lineNumber = 706;
-		modificationTime = 164421793.530283;
+		modificationTime = 164506105.386974;
 		state = 1;
 	};
 	BEE0018009CA9AD100E7C5E6 /* PBXCPPExceptionBreakpoint */ = {
@@ -215,7 +285,7 @@
 		exceptionName = $;
 		hitCount = 1;
 		isThrow = 1;
-		modificationTime = 164421793.530828;
+		modificationTime = 164506105.419633;
 		state = 1;
 	};
 	BEE0018409CA9AE800E7C5E6 /* XCCPPCondition */ = {
@@ -237,5 +307,44 @@
 			sepNavVisRect = "{{0, 0}, {584, 381}}";
 			sepNavWindowFrame = "{{107, 233}, {629, 510}}";
 		};
+	};
+	BEE0034409CD37C000E7C5E6 /* MyDocument.mm:481 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		continueAfterActions = 0;
+		delayBeforeContinue = 0;
+		fileReference = 2A37F4ACFDCFA73011CA2CEA /* MyDocument.mm */;
+		functionName = "-printShowingPrintPanel:";
+		hitCount = 2;
+		lineNumber = 481;
+		modificationTime = 164491608.573737;
+		state = 1;
+	};
+	BEE0035E09CD383000E7C5E6 /* MyDocument.mm:477 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		continueAfterActions = 0;
+		delayBeforeContinue = 0;
+		fileReference = 2A37F4ACFDCFA73011CA2CEA /* MyDocument.mm */;
+		functionName = "-printShowingPrintPanel:";
+		hitCount = 1;
+		lineNumber = 477;
+		modificationTime = 164491607.199343;
+		state = 1;
+	};
+	BEE0036909CD3A5C00E7C5E6 /* MyDocument.mm:100 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		continueAfterActions = 0;
+		delayBeforeContinue = 0;
+		fileReference = 2A37F4ACFDCFA73011CA2CEA /* MyDocument.mm */;
+		functionName = "-windowControllerDidLoadNib:";
+		hitCount = 1;
+		lineNumber = 100;
+		modificationTime = 164491526.736843;
+		state = 2;
 	};
 }
