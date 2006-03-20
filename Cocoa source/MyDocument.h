@@ -12,6 +12,8 @@
 @interface MyDocument : NSDocument
 {
 	IBOutlet NSTextView *textView;
+	IBOutlet NSWindow* docWindow;
+	
 	NSAttributedString *mString;
 	struct SCalcState* mCalcState;
 	BOOL mFormatIntegersAsHex;
