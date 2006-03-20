@@ -49,6 +49,10 @@ namespace
 	
 	typedef		std::pair< StringVec, std::string >		FuncDef;
 	
+	uint_parser<unsigned long long, 16> const
+        bighex_p   = uint_parser<unsigned long long, 16>();
+
+	
 	class CalcException : public std::exception
 	{
 	public:
@@ -839,7 +843,7 @@ namespace
 					>> end_p;
 				
 				factor
-					=	lexeme_d[ str_p("0x") >> hex_p[ append(self.mState.mValStack) ]]
+					=	lexeme_d[ str_p("0x") >> bighex_p[ append(self.mState.mValStack) ]]
 					|	ureal_p[ append(self.mState.mValStack) ]
 					|	self.mState.mVariables[ append(self.mState.mValStack) ]
 					|	self.mState.mFixed.mConstants[ append(self.mState.mValStack) ]
@@ -860,7 +864,7 @@ namespace
 					// will gobble the leading 0.
 				
 				factorNA
-					=	lexeme_d[ str_p("0x") >> hex_p ]
+					=	lexeme_d[ str_p("0x") >> bighex_p ]
 					|	ureal_p
 					|	self.mState.mVariables
 					|	self.mState.mFixed.mConstants
