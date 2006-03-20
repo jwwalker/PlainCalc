@@ -13,6 +13,9 @@
 #import <iomanip>
 #import <cmath>
 
+const OSType	kMyAppCreatorCode = 'PlCl';
+const OSType	kMyNativeDocTypeCode = 'PlCl';
+
 @implementation MyDocument
 
 - (id)init
@@ -76,17 +79,22 @@
 
 - (NSString *)windowNibName
 {
-    // Override returning the nib file name of the document
-    // If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this method and override -makeWindowControllers instead.
     return @"MyDocument";
 }
+
 
 - (void)windowControllerDidLoadNib:(NSWindowController *) aController
 {
     [super windowControllerDidLoadNib:aController];
-    // Add any code here that needs to be executed once the windowController has loaded the document's window.
+    // Add any code here that needs to be executed once the windowController
+	// has loaded the document's window.
 	
-	if (mString != nil) {
+	if (mString == nil)	// new doc
+	{
+		[textView setFont: [NSFont userFontOfSize: 14] ];
+	}
+	else	// opened existing doc
+	{
 		[[textView textStorage] setAttributedString: mString];
 		[self setString: nil];	// no further need for the mString member
 	}
@@ -226,17 +234,17 @@
 {
 	BOOL	didLoad = NO;
 	
-	if ([aType compare: @"DocumentType"] == NSOrderedSame)
-	{
-		didLoad = [self loadNativeData: data];
-	}
-	else if ([aType compare: NSStringPboardType] == NSOrderedSame)
+	if ([aType compare: NSStringPboardType] == NSOrderedSame)
 	{
 		didLoad = [self loadPlainTextData: data];
 	}
  	else if ([aType compare: NSRTFPboardType] == NSOrderedSame)
 	{
 		didLoad = [self loadRTFData: data];
+	}
+	else
+	{
+		didLoad = [self loadNativeData: data];
 	}
    
 	return didLoad;
@@ -453,5 +461,48 @@
 	}
 }
 
+- (void)printOperationDidRun:(NSPrintOperation *)printOperation
+                success:(BOOL)success
+                contextInfo:(void *)info
+{
+	
+}
+
+- (void)printShowingPrintPanel:(BOOL)flag
+{
+	NSPrintInfo*	thePrintInfo = [self printInfo];
+	
+	[thePrintInfo setVerticallyCentered: NO ];
+	
+	NSPrintOperation *op = [NSPrintOperation
+                printOperationWithView: textView
+                printInfo: thePrintInfo ];
+
+	[op runOperationModalForWindow: docWindow
+                delegate: self
+                didRunSelector:
+                    @selector(printOperationDidRun:success:contextInfo:)
+                contextInfo: self];
+}
+
+- (NSDictionary *)fileAttributesToWriteToURL:(NSURL *)absoluteURL
+    ofType:(NSString *)typeName
+    forSaveOperation:(NSSaveOperationType)saveOperation
+    originalContentsURL:(NSURL *)absoluteOriginalContentsURL
+    error:(NSError **)outError
+{
+    NSMutableDictionary *fileAttributes =
+            [[super fileAttributesToWriteToURL:absoluteURL
+             ofType:typeName forSaveOperation:saveOperation
+             originalContentsURL:absoluteOriginalContentsURL
+             error:outError] mutableCopy];
+    [fileAttributes
+		setObject: [NSNumber numberWithUnsignedInt: kMyAppCreatorCode]
+        forKey: NSFileHFSCreatorCode];
+    [fileAttributes
+		setObject: [NSNumber numberWithUnsignedInt: kMyNativeDocTypeCode]
+        forKey: NSFileHFSTypeCode];
+    return [fileAttributes autorelease];
+}
 
 @end
