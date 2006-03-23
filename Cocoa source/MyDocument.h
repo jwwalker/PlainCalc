@@ -17,7 +17,8 @@
 	NSAttributedString *mString;
 	struct SCalcState* mCalcState;
 	BOOL mFormatIntegersAsHex;
-	NSMenuItem* mCurFormatItem;
+	NSMenuItem*		mDecFormatItem;
+	NSMenuItem*		mHexFormatItem;
 	NSDictionary*	mErrorColorAtt;
 	NSDictionary*	mSuccessColorAtt;
 	NSDictionary*	mNormalColorAtt;
