@@ -16,6 +16,10 @@
 const OSType	kMyAppCreatorCode = 'PlCl';
 const OSType	kMyNativeDocTypeCode = 'PlCl';
 
+const int		kMenuTag_Options			= 500;
+const int		kMenuItemTag_DecimalFormat	= 100;
+const int		kMenuItemTag_HexFormat		= 101;
+
 @implementation MyDocument
 
 - (id)init
@@ -26,14 +30,19 @@ const OSType	kMyNativeDocTypeCode = 'PlCl';
         // Add your subclass-specific initialization here.
         // If an error occurs here, send a [self release] message and return nil.
 		mCalcState = CreateCalcState();
+		
 		mFormatIntegersAsHex = NO;
-		NSMenuItem*	optionsItem = [[NSApp mainMenu] itemWithTag: 500];
+		NSMenuItem*	optionsItem = [[NSApp mainMenu]
+			itemWithTag: kMenuTag_Options ];
 		if (optionsItem != nil)
 		{
 			NSMenu*	optionsMenu = [optionsItem submenu];
 			if (optionsMenu != nil)
 			{
-				mCurFormatItem = [optionsMenu itemWithTag: 100];
+				mDecFormatItem = [optionsMenu
+					itemWithTag: kMenuItemTag_DecimalFormat];
+				mHexFormatItem = [optionsMenu
+					itemWithTag: kMenuItemTag_HexFormat];
 			}
 		}
 		
@@ -269,7 +278,9 @@ const OSType	kMyNativeDocTypeCode = 'PlCl';
 {
 	std::ostringstream	oss;
 	if ( mFormatIntegersAsHex and
-		(std::abs(value - round(value)) < FLT_EPSILON) )
+		(value > 0.0) and
+		(value < 4.6e+15) and
+		(fabs(value - round(value)) < FLT_EPSILON) )
 	{
 		oss << "0x" << std::hex << std::uppercase <<
 						llround(value);
@@ -361,16 +372,32 @@ const OSType	kMyNativeDocTypeCode = 'PlCl';
 	return didHandle;
 }
 
+- (void)setIntegerFormatChecks
+{
+	if (mFormatIntegersAsHex)
+	{
+		[mDecFormatItem setState: NSOffState];
+		[mHexFormatItem setState: NSOnState];
+	}
+	else
+	{
+		[mDecFormatItem setState: NSOnState];
+		[mHexFormatItem setState: NSOffState];
+	}
+}
+
+- (void)windowDidBecomeMain:(NSNotification *)aNotification
+{
+	[self setIntegerFormatChecks];
+}
+
 - (void) setIntegerFormat: (id) sender
 {
 	if ([sender isKindOfClass:[NSMenuItem class]])
 	{
 		NSMenuItem*	theItem = sender;
-		[mCurFormatItem setState: NSOffState ];
-		[theItem setState: NSOnState];
-		mCurFormatItem = theItem;
-		
-		if ([theItem tag] == 101)
+
+		if ([theItem tag] == kMenuItemTag_HexFormat)
 		{
 			mFormatIntegersAsHex = YES;
 		}
@@ -378,6 +405,8 @@ const OSType	kMyNativeDocTypeCode = 'PlCl';
 		{
 			mFormatIntegersAsHex = NO;
 		}
+		
+		[self setIntegerFormatChecks];
 	}
 }
 
