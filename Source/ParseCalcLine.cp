@@ -406,6 +406,7 @@ void	SCalcState::SetFuncDefs( CFDictionaryRef inDict )
 	::CFDictionaryApplyFunction( inDict, FuncSetter, this );
 }
 
+#if DebugParse
 inline void DumpStack( const DblStack& inStack, const char* inTag )
 {
 	std::cout << inTag << ": ";
@@ -415,6 +416,7 @@ inline void DumpStack( const DblStack& inStack, const char* inTag )
 	}
 	std::cout << std::endl;
 }
+#endif
 
 namespace
 {
@@ -845,8 +847,6 @@ namespace
 				factor
 					=	lexeme_d[ str_p("0x") >> bighex_p[ append(self.mState.mValStack) ]]
 					|	ureal_p[ append(self.mState.mValStack) ]
-					|	self.mState.mVariables[ append(self.mState.mValStack) ]
-					|	self.mState.mFixed.mConstants[ append(self.mState.mValStack) ]
 					|	'(' >> expression >> ')'
 					|	(lexeme_d[self.mState.mFixed.mUnaryFuncs >> '('] >> expression
 							>> ')')[ DoUnaryFunc(self.mState) ]
@@ -859,6 +859,8 @@ namespace
 							>> expressionNA[ assign(self.mState.mIf1) ] >> ','
 							>> expressionNA[ assign(self.mState.mIf2) ] >> ')'
 						)[ DoIf( self.mState ) ]
+					|	self.mState.mVariables[ append(self.mState.mValStack) ]
+					|	self.mState.mFixed.mConstants[ append(self.mState.mValStack) ]
 					;
 					// Note: The hex part of factor must come before the real part, otherwise ureal_p
 					// will gobble the leading 0.
@@ -866,8 +868,6 @@ namespace
 				factorNA
 					=	lexeme_d[ str_p("0x") >> bighex_p ]
 					|	ureal_p
-					|	self.mState.mVariables
-					|	self.mState.mFixed.mConstants
 					|	'(' >> expressionNA >> ')'
 					|	(lexeme_d[self.mState.mFixed.mUnaryFuncs >> '('] >> expressionNA
 							>> ')')
@@ -877,7 +877,10 @@ namespace
 					|	(lexeme_d[self.mState.mFixed.mBinaryFuncs >> '('] >> expressionNA
 							>> ',' >> expressionNA >> ')')
 					|	"if(" >> expressionNA >> ',' >> expressionNA >> ','
-							>> expressionNA >> ')';
+							>> expressionNA >> ')'
+					|	self.mState.mVariables
+					|	self.mState.mFixed.mConstants
+					;
 				
 				power = (
 					factor >>
