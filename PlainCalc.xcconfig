@@ -1,5 +1,5 @@
 SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk
-SYMROOT = ../../build
+SYMROOT = ../build
 HEADER_SEARCH_PATHS = $(Boost)
 PREBINDING = NO
 INFOPLIST_FILE = Resources/Info.plist
