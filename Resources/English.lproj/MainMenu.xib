@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="341"/>
+			<integer value="169"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -369,15 +369,6 @@
 									<string key="NSTitle">Paste</string>
 									<string key="NSKeyEquiv">v</string>
 									<int key="NSKeyEquivModMask">1048576</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="91815954"/>
-									<reference key="NSMixedImage" ref="147273397"/>
-								</object>
-								<object class="NSMenuItem" id="714862670">
-									<reference key="NSMenu" ref="566415032"/>
-									<string key="NSTitle">Paste and Match Style</string>
-									<string key="NSKeyEquiv">V</string>
-									<int key="NSKeyEquivModMask">1572864</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="91815954"/>
 									<reference key="NSMixedImage" ref="147273397"/>
@@ -1085,14 +1076,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">paste:</string>
-						<reference key="source" ref="737728945"/>
-						<reference key="destination" ref="515982021"/>
-					</object>
-					<int key="connectionID">176</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">redo:</string>
 						<reference key="source" ref="737728945"/>
 						<reference key="destination" ref="100366819"/>
@@ -1258,14 +1241,6 @@
 						<reference key="destination" ref="739110809"/>
 					</object>
 					<int key="connectionID">209</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">pasteAsPlainText:</string>
-						<reference key="source" ref="737728945"/>
-						<reference key="destination" ref="714862670"/>
-					</object>
-					<int key="connectionID">211</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -1445,14 +1420,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">setIntegerFormat:</string>
-						<reference key="source" ref="737728945"/>
-						<reference key="destination" ref="137438421"/>
-					</object>
-					<int key="connectionID">347</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">showDefinedVariables:</string>
 						<reference key="source" ref="737728945"/>
 						<reference key="destination" ref="39922165"/>
@@ -1466,6 +1433,22 @@
 						<reference key="destination" ref="108773025"/>
 					</object>
 					<int key="connectionID">352</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setIntegerFormat:</string>
+						<reference key="source" ref="737728945"/>
+						<reference key="destination" ref="137438421"/>
+					</object>
+					<int key="connectionID">355</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">pasteAsPlainText:</string>
+						<reference key="source" ref="737728945"/>
+						<reference key="destination" ref="515982021"/>
+					</object>
+					<int key="connectionID">356</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1775,7 +1758,6 @@
 							<reference ref="100366819"/>
 							<reference ref="117624911"/>
 							<reference ref="671063957"/>
-							<reference ref="714862670"/>
 						</object>
 						<reference key="parent" ref="918496953"/>
 					</object>
@@ -1905,11 +1887,6 @@
 						<int key="objectID">191</int>
 						<reference key="object" ref="142919059"/>
 						<reference key="parent" ref="906879227"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">210</int>
-						<reference key="object" ref="714862670"/>
-						<reference key="parent" ref="566415032"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">286</int>
@@ -2197,6 +2174,7 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="NSArray" key="dict.sortedKeys">
 					<bool key="EncodedWithXMLCoder">YES</bool>
+					<string>-3.IBPluginDependency</string>
 					<string>103.IBPluginDependency</string>
 					<string>103.ImportedFromIB2</string>
 					<string>106.IBPluginDependency</string>
@@ -2253,6 +2231,7 @@
 					<string>167.ImportedFromIB2</string>
 					<string>168.IBPluginDependency</string>
 					<string>168.ImportedFromIB2</string>
+					<string>169.IBEditorWindowLastContentRect</string>
 					<string>169.IBPluginDependency</string>
 					<string>169.ImportedFromIB2</string>
 					<string>171.IBPluginDependency</string>
@@ -2279,8 +2258,6 @@
 					<string>202.ImportedFromIB2</string>
 					<string>203.IBPluginDependency</string>
 					<string>203.ImportedFromIB2</string>
-					<string>210.IBPluginDependency</string>
-					<string>210.ImportedFromIB2</string>
 					<string>23.IBPluginDependency</string>
 					<string>23.ImportedFromIB2</string>
 					<string>24.IBPluginDependency</string>
@@ -2407,7 +2384,6 @@
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2464,6 +2440,7 @@
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
+					<string>{{138, 611}, {151, 203}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2630,13 +2607,14 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">353</int>
+			<int key="maxID">356</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
 					<string key="className">FirstResponder</string>
+					<string key="superclassName">NSObject</string>
 					<object class="NSMutableDictionary" key="actions">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
