@@ -86,76 +86,14 @@ const int		kMenuItemTag_HexFormat		= 101;
 	[super dealloc];
 }
 
-- (NSString *)windowNibName
+
+- (void) setString: (NSAttributedString*) newValue
 {
-    return @"MyDocument";
-}
-
-
-- (void)windowControllerDidLoadNib:(NSWindowController *) aController
-{
-    [super windowControllerDidLoadNib:aController];
-    // Add any code here that needs to be executed once the windowController
-	// has loaded the document's window.
-	
-	if (mString == nil)	// new doc
+	if (newValue != mString)
 	{
-		[textView setFont: [NSFont userFontOfSize: 14] ];
+		[mString release];
+		mString = [newValue copy];
 	}
-	else	// opened existing doc
-	{
-		[[textView textStorage] setAttributedString: mString];
-		[self setString: nil];	// no further need for the mString member
-	}
-}
-
-- (NSData *)dataRepresentationOfType:(NSString *)aType
-{
-    // Insert code here to write your document from the given data.  You can
-	// also choose to override -fileWrapperRepresentationOfType: or
-	// -writeToFile:ofType: instead.
-    
-    // For applications targeted for Tiger or later systems, you should use the
-	// new Tiger API -dataOfType:error:.  In this case you can also choose to
-	// override -writeToURL:ofType:error:, -fileWrapperOfType:error:, or
-	// -writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
-	NSTextStorage*	theStorage = [textView textStorage];
-	NSData*	theRTF = [theStorage
-		RTFFromRange: NSMakeRange(0, [theStorage length])
-		documentAttributes: nil];
-	NSString*	theRTFString = [[NSString alloc]
-		initWithBytes: [theRTF bytes]
-		length: [theRTF length]
-		encoding: NSUTF8StringEncoding];
-	NSDictionary*	varDict = (NSDictionary*)CopyCalcVariables( mCalcState );
-	NSDictionary*	funcDict = (NSDictionary*)CopyCalcFunctions( mCalcState );
-	
-	id	theKeys[3] = {
-		@"text", @"variables", @"functions"
-	};
-	id	theValues[3] = {
-		theRTFString,
-		varDict,
-		funcDict
-	};
-	NSDictionary*	docDict = [NSDictionary dictionaryWithObjects: theValues
-		forKeys: theKeys
-		count: 3];
-	[theRTFString release];
-	[varDict release];
-	[funcDict release];
-	NSString*	theError = nil;
-	NSData*	data = [NSPropertyListSerialization
-		dataFromPropertyList: docDict
-		format: NSPropertyListXMLFormat_v1_0
-		errorDescription: &theError ];
-	if (theError != nil)
-	{
-		NSLog( theError );
-		[theError release];
-	}
-
-    return data;
 }
 
 // Load data in our native document format
@@ -239,31 +177,6 @@ const int		kMenuItemTag_HexFormat		= 101;
 	return didLoad;
 }
 
-- (BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)aType
-{
-	BOOL	didLoad = NO;
-	
-	if ([aType compare: NSStringPboardType] == NSOrderedSame)
-	{
-		didLoad = [self loadPlainTextData: data];
-	}
- 	else if ([aType compare: NSRTFPboardType] == NSOrderedSame)
-	{
-		didLoad = [self loadRTFData: data];
-	}
-	else
-	{
-		didLoad = [self loadNativeData: data];
-	}
-   
-	return didLoad;
-}
-
-- (void) textDidChange: (NSNotification *) notification
-{
-	[self updateChangeCount: NSChangeDone];
-}
-
 - (void) insertString: (NSString*)string withAttributes: (NSDictionary*)dict
 {
 	NSAttributedString*	attStr = [[NSAttributedString alloc]
@@ -292,6 +205,167 @@ const int		kMenuItemTag_HexFormat		= 101;
 	return [NSString stringWithUTF8String: oss.str().c_str() ];
 }
 
+
+- (void)setIntegerFormatChecks
+{
+	if (mFormatIntegersAsHex)
+	{
+		[mDecFormatItem setState: NSOffState];
+		[mHexFormatItem setState: NSOnState];
+	}
+	else
+	{
+		[mDecFormatItem setState: NSOnState];
+		[mHexFormatItem setState: NSOffState];
+	}
+}
+
+
+- (void)printOperationDidRun:(NSPrintOperation *)printOperation
+                success:(BOOL)success
+                contextInfo:(void *)info
+{
+	
+}
+
+#pragma mark NSDocument overloads
+
+- (NSString *)windowNibName
+{
+    return @"MyDocument";
+}
+
+- (void)windowControllerDidLoadNib:(NSWindowController *) aController
+{
+    [super windowControllerDidLoadNib:aController];
+    // Add any code here that needs to be executed once the windowController
+	// has loaded the document's window.
+	
+	if (mString == nil)	// new doc
+	{
+		[textView setFont: [NSFont userFontOfSize: 14] ];
+	}
+	else	// opened existing doc
+	{
+		[[textView textStorage] setAttributedString: mString];
+		[self setString: nil];	// no further need for the mString member
+	}
+}
+
+- (NSData *)dataRepresentationOfType:(NSString *)aType
+{
+    // Insert code here to write your document from the given data.  You can
+	// also choose to override -fileWrapperRepresentationOfType: or
+	// -writeToFile:ofType: instead.
+    
+    // For applications targeted for Tiger or later systems, you should use the
+	// new Tiger API -dataOfType:error:.  In this case you can also choose to
+	// override -writeToURL:ofType:error:, -fileWrapperOfType:error:, or
+	// -writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
+	NSTextStorage*	theStorage = [textView textStorage];
+	NSData*	theRTF = [theStorage
+		RTFFromRange: NSMakeRange(0, [theStorage length])
+		documentAttributes: nil];
+	NSString*	theRTFString = [[NSString alloc]
+		initWithBytes: [theRTF bytes]
+		length: [theRTF length]
+		encoding: NSUTF8StringEncoding];
+	NSDictionary*	varDict = (NSDictionary*)CopyCalcVariables( mCalcState );
+	NSDictionary*	funcDict = (NSDictionary*)CopyCalcFunctions( mCalcState );
+	
+	id	theKeys[3] = {
+		@"text", @"variables", @"functions"
+	};
+	id	theValues[3] = {
+		theRTFString,
+		varDict,
+		funcDict
+	};
+	NSDictionary*	docDict = [NSDictionary dictionaryWithObjects: theValues
+		forKeys: theKeys
+		count: 3];
+	[theRTFString release];
+	[varDict release];
+	[funcDict release];
+	NSString*	theError = nil;
+	NSData*	data = [NSPropertyListSerialization
+		dataFromPropertyList: docDict
+		format: NSPropertyListXMLFormat_v1_0
+		errorDescription: &theError ];
+	if (theError != nil)
+	{
+		NSLog( theError );
+		[theError release];
+	}
+
+    return data;
+}
+
+- (BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)aType
+{
+	BOOL	didLoad = NO;
+	
+	if ([aType compare: NSStringPboardType] == NSOrderedSame)
+	{
+		didLoad = [self loadPlainTextData: data];
+	}
+ 	else if ([aType compare: NSRTFPboardType] == NSOrderedSame)
+	{
+		didLoad = [self loadRTFData: data];
+	}
+	else
+	{
+		didLoad = [self loadNativeData: data];
+	}
+   
+	return didLoad;
+}
+
+- (NSDictionary *)fileAttributesToWriteToURL:(NSURL *)absoluteURL
+    ofType:(NSString *)typeName
+    forSaveOperation:(NSSaveOperationType)saveOperation
+    originalContentsURL:(NSURL *)absoluteOriginalContentsURL
+    error:(NSError **)outError
+{
+    NSMutableDictionary *fileAttributes =
+            [[super fileAttributesToWriteToURL:absoluteURL
+             ofType:typeName forSaveOperation:saveOperation
+             originalContentsURL:absoluteOriginalContentsURL
+             error:outError] mutableCopy];
+    [fileAttributes
+		setObject: [NSNumber numberWithUnsignedInt: kMyAppCreatorCode]
+        forKey: NSFileHFSCreatorCode];
+    [fileAttributes
+		setObject: [NSNumber numberWithUnsignedInt: kMyNativeDocTypeCode]
+        forKey: NSFileHFSTypeCode];
+    return [fileAttributes autorelease];
+}
+
+- (void)printShowingPrintPanel:(BOOL)flag
+{
+	NSPrintInfo*	thePrintInfo = [self printInfo];
+	
+	[thePrintInfo setVerticallyCentered: NO ];
+	
+	NSPrintOperation *op = [NSPrintOperation
+                printOperationWithView: textView
+                printInfo: thePrintInfo ];
+
+	[op runOperationModalForWindow: docWindow
+                delegate: self
+                didRunSelector:
+                    @selector(printOperationDidRun:success:contextInfo:)
+                contextInfo: self];
+}
+
+#pragma mark NSText delegate
+
+- (void) textDidChange: (NSNotification *) notification
+{
+	[self updateChangeCount: NSChangeDone];
+}
+
+#pragma mark NSTextView delegate
 
 - (BOOL)textView:(NSTextView *)aTextView doCommandBySelector:(SEL)aSelector
 {
@@ -372,26 +446,18 @@ const int		kMenuItemTag_HexFormat		= 101;
 	return didHandle;
 }
 
-- (void)setIntegerFormatChecks
-{
-	if (mFormatIntegersAsHex)
-	{
-		[mDecFormatItem setState: NSOffState];
-		[mHexFormatItem setState: NSOnState];
-	}
-	else
-	{
-		[mDecFormatItem setState: NSOnState];
-		[mHexFormatItem setState: NSOffState];
-	}
-}
+
+#pragma mark NSWindow delegate
 
 - (void)windowDidBecomeMain:(NSNotification *)aNotification
 {
 	[self setIntegerFormatChecks];
 }
 
-- (void) setIntegerFormat: (id) sender
+
+#pragma mark Actions
+
+- (IBAction) setIntegerFormat: (id) sender
 {
 	if ([sender isKindOfClass:[NSMenuItem class]])
 	{
@@ -410,7 +476,8 @@ const int		kMenuItemTag_HexFormat		= 101;
 	}
 }
 
-- (void) showDefinedVariables: (id) sender
+
+- (IBAction) showDefinedVariables: (id) sender
 {
 	NSDictionary*	varDict = (NSDictionary*)CopyCalcVariables( mCalcState );
 	NSArray*	theKeys = [[varDict allKeys]
@@ -441,7 +508,7 @@ const int		kMenuItemTag_HexFormat		= 101;
 		withAttributes: mNormalColorAtt ];
 }
 
-- (void) showDefinedFunctions: (id) sender
+- (IBAction) showDefinedFunctions: (id) sender
 {
 	NSDictionary*	funcDict = (NSDictionary*)CopyCalcFunctions( mCalcState );
 	NSArray*	theKeys = [[funcDict allKeys]
@@ -480,58 +547,5 @@ const int		kMenuItemTag_HexFormat		= 101;
 		withAttributes: mNormalColorAtt ];
 }
 
-
-- (void) setString: (NSAttributedString*) newValue
-{
-	if (newValue != mString)
-	{
-		[mString release];
-		mString = [newValue copy];
-	}
-}
-
-- (void)printOperationDidRun:(NSPrintOperation *)printOperation
-                success:(BOOL)success
-                contextInfo:(void *)info
-{
-	
-}
-
-- (void)printShowingPrintPanel:(BOOL)flag
-{
-	NSPrintInfo*	thePrintInfo = [self printInfo];
-	
-	[thePrintInfo setVerticallyCentered: NO ];
-	
-	NSPrintOperation *op = [NSPrintOperation
-                printOperationWithView: textView
-                printInfo: thePrintInfo ];
-
-	[op runOperationModalForWindow: docWindow
-                delegate: self
-                didRunSelector:
-                    @selector(printOperationDidRun:success:contextInfo:)
-                contextInfo: self];
-}
-
-- (NSDictionary *)fileAttributesToWriteToURL:(NSURL *)absoluteURL
-    ofType:(NSString *)typeName
-    forSaveOperation:(NSSaveOperationType)saveOperation
-    originalContentsURL:(NSURL *)absoluteOriginalContentsURL
-    error:(NSError **)outError
-{
-    NSMutableDictionary *fileAttributes =
-            [[super fileAttributesToWriteToURL:absoluteURL
-             ofType:typeName forSaveOperation:saveOperation
-             originalContentsURL:absoluteOriginalContentsURL
-             error:outError] mutableCopy];
-    [fileAttributes
-		setObject: [NSNumber numberWithUnsignedInt: kMyAppCreatorCode]
-        forKey: NSFileHFSCreatorCode];
-    [fileAttributes
-		setObject: [NSNumber numberWithUnsignedInt: kMyNativeDocTypeCode]
-        forKey: NSFileHFSTypeCode];
-    return [fileAttributes autorelease];
-}
 
 @end
