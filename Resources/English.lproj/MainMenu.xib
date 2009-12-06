@@ -373,6 +373,15 @@
 									<reference key="NSOnImage" ref="91815954"/>
 									<reference key="NSMixedImage" ref="147273397"/>
 								</object>
+								<object class="NSMenuItem" id="953542724">
+									<reference key="NSMenu" ref="566415032"/>
+									<string key="NSTitle">Paste Cleaned</string>
+									<string key="NSKeyEquiv">v</string>
+									<int key="NSKeyEquivModMask">1572864</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="91815954"/>
+									<reference key="NSMixedImage" ref="147273397"/>
+								</object>
 								<object class="NSMenuItem" id="781354767">
 									<reference key="NSMenu" ref="566415032"/>
 									<string key="NSTitle">Delete</string>
@@ -1450,6 +1459,14 @@
 					</object>
 					<int key="connectionID">356</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">pasteCleaned:</string>
+						<reference key="source" ref="737728945"/>
+						<reference key="destination" ref="953542724"/>
+					</object>
+					<int key="connectionID">359</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -1758,6 +1775,7 @@
 							<reference ref="100366819"/>
 							<reference ref="117624911"/>
 							<reference ref="671063957"/>
+							<reference ref="953542724"/>
 						</object>
 						<reference key="parent" ref="918496953"/>
 					</object>
@@ -2168,6 +2186,11 @@
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Application</string>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">357</int>
+						<reference key="object" ref="953542724"/>
+						<reference key="parent" ref="566415032"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -2348,6 +2371,8 @@
 					<string>349.ImportedFromIB2</string>
 					<string>350.IBPluginDependency</string>
 					<string>350.ImportedFromIB2</string>
+					<string>357.IBPluginDependency</string>
+					<string>357.ImportedFromIB2</string>
 					<string>5.IBPluginDependency</string>
 					<string>5.ImportedFromIB2</string>
 					<string>56.IBPluginDependency</string>
@@ -2440,7 +2465,7 @@
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
-					<string>{{138, 611}, {151, 203}}</string>
+					<string>{{138, 591}, {184, 223}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2589,6 +2614,8 @@
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<boolean value="YES"/>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -2607,7 +2634,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">356</int>
+			<int key="maxID">359</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2642,12 +2669,14 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>pasteCleaned:</string>
 							<string>setIntegerFormat:</string>
 							<string>showDefinedFunctions:</string>
 							<string>showDefinedVariables:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>

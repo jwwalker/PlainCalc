@@ -35,6 +35,7 @@
 - (IBAction) showDefinedVariables: (id) sender;
 - (IBAction) showDefinedFunctions: (id) sender;
 - (IBAction) setIntegerFormat: (id) sender;
+- (IBAction) pasteCleaned: (id) sender;
 
 
 @end

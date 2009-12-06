@@ -547,5 +547,38 @@ const int		kMenuItemTag_HexFormat		= 101;
 		withAttributes: mNormalColorAtt ];
 }
 
+- (IBAction) pasteCleaned: (id) sender
+{
+	NSString* dataType = [[NSPasteboard generalPasteboard]
+		availableTypeFromArray:
+			[NSArray arrayWithObject: NSStringPboardType] ];
+	
+	if (dataType != nil)
+	{
+		NSString* theData = [[NSPasteboard generalPasteboard]
+			stringForType: NSStringPboardType ];
+		
+		NSCharacterSet* badChars = [NSCharacterSet
+			characterSetWithCharactersInString: @",$"];
+		
+		const unsigned int kNumChars = [theData length];
+		
+		NSMutableString* cleanData = [NSMutableString stringWithCapacity:
+			kNumChars ];
+		
+		for (unsigned int i = 0; i < kNumChars; ++i)
+		{
+			unichar aChar = [theData characterAtIndex: i];
+			
+			if (not [badChars characterIsMember: aChar])
+			{
+				[cleanData appendString:
+					[NSString stringWithCharacters: &aChar length: 1] ];
+			}
+		}
+		
+		[textView insertText: cleanData];
+	}
+}
 
 @end
