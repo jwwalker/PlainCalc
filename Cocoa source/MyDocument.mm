@@ -252,16 +252,9 @@ const int		kMenuItemTag_HexFormat		= 101;
 	}
 }
 
-- (NSData *)dataRepresentationOfType:(NSString *)aType
+- (NSData *)dataOfType:(NSString *)typeName
+			error:(NSError **)outError
 {
-    // Insert code here to write your document from the given data.  You can
-	// also choose to override -fileWrapperRepresentationOfType: or
-	// -writeToFile:ofType: instead.
-    
-    // For applications targeted for Tiger or later systems, you should use the
-	// new Tiger API -dataOfType:error:.  In this case you can also choose to
-	// override -writeToURL:ofType:error:, -fileWrapperOfType:error:, or
-	// -writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
 	NSTextStorage*	theStorage = [textView textStorage];
 	NSData*	theRTF = [theStorage
 		RTFFromRange: NSMakeRange(0, [theStorage length])
@@ -296,30 +289,49 @@ const int		kMenuItemTag_HexFormat		= 101;
 	{
 		NSLog( theError );
 		[theError release];
+		
+		if (outError)
+		{
+			*outError = [NSError errorWithDomain: NSCocoaErrorDomain
+								code: NSFileWriteUnknownError
+								userInfo: nil];
+		}
 	}
 
     return data;
 }
 
-- (BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)aType
+- (BOOL)readFromData:(NSData *)data
+		ofType:(NSString *)typeName
+		error:(NSError **)outError
 {
 	BOOL	didLoad = NO;
 	
-	if ([aType compare: NSStringPboardType] == NSOrderedSame)
+	if ([typeName isEqualToString: NSStringPboardType])
 	{
 		didLoad = [self loadPlainTextData: data];
 	}
- 	else if ([aType compare: NSRTFPboardType] == NSOrderedSame)
+ 	else if ([typeName isEqualToString: NSRTFPboardType])
 	{
 		didLoad = [self loadRTFData: data];
 	}
-	else
+	else if ([typeName isEqualToString: @"PlainCalc worksheet"])
 	{
 		didLoad = [self loadNativeData: data];
+	}
+	else
+	{
+		if (outError)
+		{
+			*outError = [NSError errorWithDomain: NSCocoaErrorDomain
+								code: NSFileReadCorruptFileError
+								userInfo: nil];
+		}
 	}
    
 	return didLoad;
 }
+
 
 - (NSDictionary *)fileAttributesToWriteToURL:(NSURL *)absoluteURL
     ofType:(NSString *)typeName
