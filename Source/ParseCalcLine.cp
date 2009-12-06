@@ -16,7 +16,11 @@
 #define BOOST_SPIRIT_RULE_SCANNERTYPE_LIMIT 1
 
 #pragma warn_unusedarg	off
-#include "boost/spirit.hpp"
+//#include "boost/spirit.hpp"
+#if !defined(BOOST_SPIRIT_USE_OLD_NAMESPACE)
+#define BOOST_SPIRIT_USE_OLD_NAMESPACE
+#endif
+#include "boost/spirit/include/classic.hpp"
 #pragma warn_unusedarg	reset
 
 using namespace boost::spirit;
