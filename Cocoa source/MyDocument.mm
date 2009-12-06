@@ -358,6 +358,32 @@ const int		kMenuItemTag_HexFormat		= 101;
                 contextInfo: self];
 }
 
+- (void)canCloseDocumentWithDelegate:(id)delegate
+		shouldCloseSelector:(SEL)shouldCloseSelector
+		contextInfo:(void *)contextInfo;
+{
+	if ( (not [self isDocumentEdited]) or
+		([self fileURL] == nil) )
+	{
+		NSMethodSignature* theSig = [delegate methodSignatureForSelector:
+			shouldCloseSelector];
+		NSInvocation* invoc = [NSInvocation invocationWithMethodSignature: theSig];
+		[invoc setSelector: shouldCloseSelector];
+		[invoc setTarget: delegate];
+		[invoc setArgument: &self atIndex: 2];
+		BOOL shouldClose = YES;
+		[invoc setArgument: &shouldClose atIndex: 3];
+		[invoc setArgument: &contextInfo atIndex: 4];
+		[invoc invoke];
+	}
+	else
+	{
+		[super canCloseDocumentWithDelegate: delegate
+				shouldCloseSelector: shouldCloseSelector
+				contextInfo: contextInfo];
+	}
+}
+
 #pragma mark NSText delegate
 
 - (void) textDidChange: (NSNotification *) notification
