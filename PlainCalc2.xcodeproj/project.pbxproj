@@ -14,6 +14,8 @@
 		BE47DB500B12DE6C00081BDA /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE47DB4E0B12DE6C00081BDA /* Carbon.framework */; };
 		BE47DB510B12DE6C00081BDA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE47DB4F0B12DE6C00081BDA /* Cocoa.framework */; };
 		BECE6C1609C3A10300DD10E1 /* ParseCalcLine.cp in Sources */ = {isa = PBXBuildFile; fileRef = BECE6C1509C3A10300DD10E1 /* ParseCalcLine.cp */; };
+		BEDD549410D619090095FA75 /* PrefController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDD549310D619090095FA75 /* PrefController.m */; };
+		BEDD54CE10D625680095FA75 /* GetDefaultFont.m in Sources */ = {isa = PBXBuildFile; fileRef = BEDD54CD10D625680095FA75 /* GetDefaultFont.m */; };
 		BEE0020A09CC87EE00E7C5E6 /* UTF8ToCFString.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */; };
 		BEE0020B09CC87EE00E7C5E6 /* CFStringToUTF8.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020809CC87EE00E7C5E6 /* CFStringToUTF8.cp */; };
 		BEE002FB09CCE9AF00E7C5E6 /* Help in Resources */ = {isa = PBXBuildFile; fileRef = BEE002F709CCE9AF00E7C5E6 /* Help */; };
@@ -37,6 +39,10 @@
 		BE47DB5D0B12DF3200081BDA /* PlainCalc.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlainCalc.xcconfig; sourceTree = "<group>"; };
 		BECE6C1409C3A10300DD10E1 /* ParseCalcLine.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ParseCalcLine.h; path = Source/ParseCalcLine.h; sourceTree = "<group>"; };
 		BECE6C1509C3A10300DD10E1 /* ParseCalcLine.cp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = ParseCalcLine.cp; path = Source/ParseCalcLine.cp; sourceTree = "<group>"; };
+		BEDD549210D619090095FA75 /* PrefController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrefController.h; path = Source/PrefController.h; sourceTree = "<group>"; };
+		BEDD549310D619090095FA75 /* PrefController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrefController.m; path = Source/PrefController.m; sourceTree = "<group>"; };
+		BEDD54CC10D625680095FA75 /* GetDefaultFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GetDefaultFont.h; path = Source/GetDefaultFont.h; sourceTree = "<group>"; };
+		BEDD54CD10D625680095FA75 /* GetDefaultFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetDefaultFont.m; path = Source/GetDefaultFont.m; sourceTree = "<group>"; };
 		BEE0020609CC87EE00E7C5E6 /* UTF8ToCFString.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = UTF8ToCFString.h; path = Source/UTF8ToCFString.h; sourceTree = "<group>"; };
 		BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = UTF8ToCFString.cp; path = Source/UTF8ToCFString.cp; sourceTree = "<group>"; };
 		BEE0020809CC87EE00E7C5E6 /* CFStringToUTF8.cp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = CFStringToUTF8.cp; path = Source/CFStringToUTF8.cp; sourceTree = "<group>"; };
@@ -96,6 +102,8 @@
 			children = (
 				2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */,
 				2A37F4ACFDCFA73011CA2CEA /* MyDocument.mm */,
+				BEDD549210D619090095FA75 /* PrefController.h */,
+				BEDD549310D619090095FA75 /* PrefController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -107,6 +115,8 @@
 				BECE6C1509C3A10300DD10E1 /* ParseCalcLine.cp */,
 				32DBCF750370BD2300C91783 /* PlainCalc2_Prefix.pch */,
 				2A37F4B0FDCFA73011CA2CEA /* main.m */,
+				BEDD54CC10D625680095FA75 /* GetDefaultFont.h */,
+				BEDD54CD10D625680095FA75 /* GetDefaultFont.m */,
 				BEE0020609CC87EE00E7C5E6 /* UTF8ToCFString.h */,
 				BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */,
 				BEE0020809CC87EE00E7C5E6 /* CFStringToUTF8.cp */,
@@ -203,6 +213,8 @@
 				BECE6C1609C3A10300DD10E1 /* ParseCalcLine.cp in Sources */,
 				BEE0020A09CC87EE00E7C5E6 /* UTF8ToCFString.cp in Sources */,
 				BEE0020B09CC87EE00E7C5E6 /* CFStringToUTF8.cp in Sources */,
+				BEDD549410D619090095FA75 /* PrefController.m in Sources */,
+				BEDD54CE10D625680095FA75 /* GetDefaultFont.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

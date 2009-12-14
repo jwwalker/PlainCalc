@@ -7,6 +7,7 @@
 //
 
 #import "MyDocument.h"
+#import "GetDefaultFont.h"
 #import "ParseCalcLine.h"
 
 #import <sstream>
@@ -243,7 +244,9 @@ const int		kMenuItemTag_HexFormat		= 101;
 	
 	if (mString == nil)	// new doc
 	{
-		[textView setFont: [NSFont userFontOfSize: 14] ];
+		NSFont* myFont = GetDefaultFont();
+
+		[textView setFont: myFont ];
 	}
 	else	// opened existing doc
 	{
