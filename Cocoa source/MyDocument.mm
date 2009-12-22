@@ -487,6 +487,23 @@ const int		kMenuItemTag_HexFormat		= 101;
 	return didHandle;
 }
 
+- (NSDictionary *)textView:(NSTextView *)textView
+				shouldChangeTypingAttributes:(NSDictionary *) oldTypingAttributes
+				toAttributes:(NSDictionary *)newTypingAttributes
+{
+	NSDictionary * attsToUse = newTypingAttributes;
+	
+	NSColor* colorAtt = [attsToUse valueForKey: NSForegroundColorAttributeName];
+	
+	if ( (colorAtt != nil) and (not [colorAtt isEqual: [NSColor blackColor]]) )
+	{
+		attsToUse = [NSMutableDictionary dictionaryWithDictionary: attsToUse];
+		[attsToUse setValue:[NSColor blackColor]
+					forKey: NSForegroundColorAttributeName];
+	}
+	
+	return attsToUse;
+}
 
 #pragma mark NSWindow delegate
 
