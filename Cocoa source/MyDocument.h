@@ -15,6 +15,7 @@
 	IBOutlet NSWindow* docWindow;
 	
 	NSAttributedString *mString;
+	NSFont*			mInitialTypingFont;
 	struct SCalcState* mCalcState;
 	BOOL mFormatIntegersAsHex;
 	NSMenuItem*		mDecFormatItem;

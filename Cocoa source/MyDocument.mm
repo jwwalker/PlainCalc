@@ -80,6 +80,7 @@ const int		kMenuItemTag_HexFormat		= 101;
 {
 	DisposeCalcState( mCalcState );
 	
+	[mInitialTypingFont release];
 	[mNormalColorAtt release];
 	[mErrorColorAtt release];
 	[mSuccessColorAtt release];
@@ -142,6 +143,22 @@ const int		kMenuItemTag_HexFormat		= 101;
 		if (funcDict != NULL)
 		{
 			SetCalcFunctions( (CFDictionaryRef)funcDict, mCalcState );
+		}
+		
+		NSString* fontName = [theDict objectForKey: @"fontName"];
+		NSNumber* fontSize = [theDict objectForKey: @"fontSize"];
+		if ( (fontName != nil) and (fontSize != nil) )
+		{
+			NSFontManager*	fontMgr = [NSFontManager sharedFontManager];
+			NSFont* typingFont = [fontMgr
+				fontWithFamily: fontName
+				traits: 0
+				weight: 5
+				size: [fontSize floatValue] ];
+			if (typingFont != nil)
+			{
+				mInitialTypingFont = [typingFont retain];
+			}
 		}
 	}
     
@@ -252,6 +269,12 @@ const int		kMenuItemTag_HexFormat		= 101;
 	{
 		[[textView textStorage] setAttributedString: mString];
 		[self setString: nil];	// no further need for the mString member
+		
+		NSMutableDictionary* typingAtts = [NSMutableDictionary
+			dictionaryWithDictionary: [textView typingAttributes] ];
+		[typingAtts setValue: mInitialTypingFont
+					forKey: NSFontAttributeName];
+		[textView setTypingAttributes: typingAtts];
 	}
 }
 
@@ -266,20 +289,28 @@ const int		kMenuItemTag_HexFormat		= 101;
 		initWithBytes: [theRTF bytes]
 		length: [theRTF length]
 		encoding: NSUTF8StringEncoding];
+	
 	NSDictionary*	varDict = (NSDictionary*)CopyCalcVariables( mCalcState );
 	NSDictionary*	funcDict = (NSDictionary*)CopyCalcFunctions( mCalcState );
 	
-	id	theKeys[3] = {
-		@"text", @"variables", @"functions"
+	NSDictionary*	typingAtts = [textView typingAttributes];
+	NSFont* typingFont = [typingAtts valueForKey: NSFontAttributeName];
+	NSString* typingFontName = [typingFont familyName];
+	NSNumber* typingFontSize = [NSNumber numberWithFloat: [typingFont pointSize] ];
+	
+	id	theKeys[] = {
+		@"text", @"variables", @"functions", @"fontName", @"fontSize"
 	};
-	id	theValues[3] = {
+	id	theValues[] = {
 		theRTFString,
 		varDict,
-		funcDict
+		funcDict,
+		typingFontName,
+		typingFontSize
 	};
 	NSDictionary*	docDict = [NSDictionary dictionaryWithObjects: theValues
 		forKeys: theKeys
-		count: 3];
+		count: 5];
 	[theRTFString release];
 	[varDict release];
 	[funcDict release];
