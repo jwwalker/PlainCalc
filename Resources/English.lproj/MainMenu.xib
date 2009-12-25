@@ -13,6 +13,7 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="361"/>
+			<integer value="81"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -268,6 +269,14 @@
 									<string key="NSTitle">Save</string>
 									<string key="NSKeyEquiv">s</string>
 									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="91815954"/>
+									<reference key="NSMixedImage" ref="147273397"/>
+								</object>
+								<object class="NSMenuItem" id="815030965">
+									<reference key="NSMenu" ref="446744237"/>
+									<string key="NSTitle">Save as New Document Content</string>
+									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="91815954"/>
 									<reference key="NSMixedImage" ref="147273397"/>
@@ -1294,14 +1303,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">saveDocument:</string>
-						<reference key="source" ref="737728945"/>
-						<reference key="destination" ref="641381518"/>
-					</object>
-					<int key="connectionID">196</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">saveDocumentAs:</string>
 						<reference key="source" ref="737728945"/>
 						<reference key="destination" ref="835074977"/>
@@ -1620,6 +1621,22 @@
 					</object>
 					<int key="connectionID">373</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">saveDocument:</string>
+						<reference key="source" ref="737728945"/>
+						<reference key="destination" ref="641381518"/>
+					</object>
+					<int key="connectionID">377</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">saveAsNewDocumentContent:</string>
+						<reference key="source" ref="737728945"/>
+						<reference key="destination" ref="815030965"/>
+					</object>
+					<int key="connectionID">378</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -1806,6 +1823,7 @@
 							<reference ref="753793763"/>
 							<reference ref="587377060"/>
 							<reference ref="202924349"/>
+							<reference ref="815030965"/>
 						</object>
 						<reference key="parent" ref="248146295"/>
 					</object>
@@ -2423,6 +2441,11 @@
 						<reference key="object" ref="408038301"/>
 						<reference key="parent" ref="733303497"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">374</int>
+						<reference key="object" ref="815030965"/>
+						<reference key="parent" ref="446744237"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -2612,13 +2635,14 @@
 					<string>361.IBPluginDependency</string>
 					<string>362.IBPluginDependency</string>
 					<string>363.IBPluginDependency</string>
-					<string>365.IBPluginDependency</string>
 					<string>366.IBPluginDependency</string>
 					<string>367.IBPluginDependency</string>
 					<string>368.IBPluginDependency</string>
 					<string>369.IBPluginDependency</string>
 					<string>370.IBPluginDependency</string>
 					<string>371.IBPluginDependency</string>
+					<string>374.IBPluginDependency</string>
+					<string>374.ImportedFromIB2</string>
 					<string>5.IBPluginDependency</string>
 					<string>5.ImportedFromIB2</string>
 					<string>56.IBPluginDependency</string>
@@ -2644,6 +2668,7 @@
 					<string>79.ImportedFromIB2</string>
 					<string>80.IBPluginDependency</string>
 					<string>80.ImportedFromIB2</string>
+					<string>81.IBEditorWindowLastContentRect</string>
 					<string>81.IBPluginDependency</string>
 					<string>81.ImportedFromIB2</string>
 					<string>82.IBPluginDependency</string>
@@ -2845,6 +2870,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2870,6 +2896,7 @@
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
+					<string>{{96, 591}, {307, 223}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2896,7 +2923,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">373</int>
+			<int key="maxID">378</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2932,12 +2959,14 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>pasteCleaned:</string>
+							<string>saveAsNewDocumentContent:</string>
 							<string>setIntegerFormat:</string>
 							<string>showDefinedFunctions:</string>
 							<string>showDefinedVariables:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>

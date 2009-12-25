@@ -246,6 +246,63 @@ const int		kMenuItemTag_HexFormat		= 101;
 	
 }
 
+- (NSData*) newDocData
+{
+	NSString* thePath = [@"~/Library/Preferences/com.jwwalker.PlainCalc2.plaincalc"
+		stringByExpandingTildeInPath];
+	NSData* theData = [NSData dataWithContentsOfFile: thePath];
+	return theData;
+}
+
+- (void) setLoadedDocData
+{
+	[[textView textStorage] setAttributedString: mString];
+	[self setString: nil];	// no further need for the mString member
+	
+	NSMutableDictionary* typingAtts = [NSMutableDictionary
+		dictionaryWithDictionary: [textView typingAttributes] ];
+	[typingAtts setValue: mInitialTypingFont
+				forKey: NSFontAttributeName];
+	[textView setTypingAttributes: typingAtts];
+}
+
+- (void) infoAlertEnd:(NSAlert *)alert
+		retCode:(int)returnCode
+		ctx:(void *)contextInfo
+{
+	
+}
+
+- (void) saveAsNewConfirmEnd:(NSAlert *)alert
+		retCode:(int)returnCode
+		ctx:(void *)contextInfo
+{
+	if (returnCode == NSAlertFirstButtonReturn)
+	{
+		[[alert window] orderOut: self];
+		
+		NSString* thePath = [@"~/Library/Preferences/com.jwwalker.PlainCalc2.plaincalc"
+			stringByExpandingTildeInPath];
+		NSData* theData = [self dataOfType: @"PlainCalc worksheet" error: nil];
+		
+		if (theData)
+		{
+			NSError* theErr = nil;
+			
+			if (not [theData writeToFile: thePath
+							options: NSAtomicWrite
+							error: &theErr ])
+			{
+				NSAlert* errAlert = [NSAlert alertWithError: theErr];
+				[errAlert beginSheetModalForWindow: docWindow
+							modalDelegate: self
+							didEndSelector: @selector(infoAlertEnd:retCode:ctx:)
+							contextInfo: nil];
+			}
+		}
+	}
+}
+
 #pragma mark NSDocument overloads
 
 - (NSString *)windowNibName
@@ -261,20 +318,22 @@ const int		kMenuItemTag_HexFormat		= 101;
 	
 	if (mString == nil)	// new doc
 	{
-		NSFont* myFont = GetDefaultFont();
+		NSData* theData = [self newDocData];
+		
+		if ( (theData != nil) and [self loadNativeData: theData] )
+		{
+			[self setLoadedDocData];
+		}
+		else
+		{
+			NSFont* myFont = GetDefaultFont();
 
-		[textView setFont: myFont ];
+			[textView setFont: myFont ];
+		}
 	}
 	else	// opened existing doc
 	{
-		[[textView textStorage] setAttributedString: mString];
-		[self setString: nil];	// no further need for the mString member
-		
-		NSMutableDictionary* typingAtts = [NSMutableDictionary
-			dictionaryWithDictionary: [textView typingAttributes] ];
-		[typingAtts setValue: mInitialTypingFont
-					forKey: NSFontAttributeName];
-		[textView setTypingAttributes: typingAtts];
+		[self setLoadedDocData];
 	}
 }
 
@@ -669,5 +728,20 @@ const int		kMenuItemTag_HexFormat		= 101;
 		[textView insertText: cleanData];
 	}
 }
+
+- (IBAction) saveAsNewDocumentContent: (id) sender
+{
+	NSAlert* theAlert = [[[NSAlert alloc] init] autorelease];
+	[theAlert setMessageText: NSLocalizedString( @"ConfirmSaveNew", nil )];
+	[theAlert setInformativeText: NSLocalizedString( @"ConfirmSaveNew_detail", nil )];
+	[theAlert addButtonWithTitle: NSLocalizedString( @"ConfirmSaveNew_ok", nil )];
+	[theAlert addButtonWithTitle: NSLocalizedString( @"ConfirmSaveNew_cancel", nil )];
+	
+	[theAlert beginSheetModalForWindow: docWindow
+		modalDelegate: self
+		didEndSelector: @selector(saveAsNewConfirmEnd:retCode:ctx:)
+		contextInfo: nil];
+}
+
 
 @end

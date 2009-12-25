@@ -37,6 +37,7 @@
 - (IBAction) showDefinedFunctions: (id) sender;
 - (IBAction) setIntegerFormat: (id) sender;
 - (IBAction) pasteCleaned: (id) sender;
+- (IBAction) saveAsNewDocumentContent: (id) sender;
 
 
 @end
