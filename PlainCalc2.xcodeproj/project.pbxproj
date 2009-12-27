@@ -14,10 +14,10 @@
 		BE03EC9B10E476B10035BF0E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE03EC9910E476B10035BF0E /* Localizable.strings */; };
 		BE47DB500B12DE6C00081BDA /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE47DB4E0B12DE6C00081BDA /* Carbon.framework */; };
 		BE47DB510B12DE6C00081BDA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE47DB4F0B12DE6C00081BDA /* Cocoa.framework */; };
+		BEA2656810E7DBFE00040424 /* Help in Resources */ = {isa = PBXBuildFile; fileRef = BEA2656310E7DBFE00040424 /* Help */; };
 		BECE6C1609C3A10300DD10E1 /* ParseCalcLine.cp in Sources */ = {isa = PBXBuildFile; fileRef = BECE6C1509C3A10300DD10E1 /* ParseCalcLine.cp */; };
 		BEE0020A09CC87EE00E7C5E6 /* UTF8ToCFString.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */; };
 		BEE0020B09CC87EE00E7C5E6 /* CFStringToUTF8.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020809CC87EE00E7C5E6 /* CFStringToUTF8.cp */; };
-		BEE002FB09CCE9AF00E7C5E6 /* Help in Resources */ = {isa = PBXBuildFile; fileRef = BEE002F709CCE9AF00E7C5E6 /* Help */; };
 		BEE0962809C52C600087035A /* doc.icns in Resources */ = {isa = PBXBuildFile; fileRef = BEE0962609C52C600087035A /* doc.icns */; };
 		BEE0962909C52C600087035A /* app.icns in Resources */ = {isa = PBXBuildFile; fileRef = BEE0962709C52C600087035A /* app.icns */; };
 		BEF3631F10CB32950047ED77 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEF3631D10CB32950047ED77 /* MainMenu.xib */; };
@@ -37,13 +37,13 @@
 		BE47DB4E0B12DE6C00081BDA /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		BE47DB4F0B12DE6C00081BDA /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		BE47DB5D0B12DF3200081BDA /* PlainCalc.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlainCalc.xcconfig; sourceTree = "<group>"; };
+		BEA2656410E7DBFE00040424 /* English */ = {isa = PBXFileReference; lastKnownFileType = folder; name = English; path = Resources/English.lproj/Help; sourceTree = "<group>"; };
 		BECE6C1409C3A10300DD10E1 /* ParseCalcLine.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ParseCalcLine.h; path = Source/ParseCalcLine.h; sourceTree = "<group>"; };
 		BECE6C1509C3A10300DD10E1 /* ParseCalcLine.cp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = ParseCalcLine.cp; path = Source/ParseCalcLine.cp; sourceTree = "<group>"; };
 		BEE0020609CC87EE00E7C5E6 /* UTF8ToCFString.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = UTF8ToCFString.h; path = Source/UTF8ToCFString.h; sourceTree = "<group>"; };
 		BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = UTF8ToCFString.cp; path = Source/UTF8ToCFString.cp; sourceTree = "<group>"; };
 		BEE0020809CC87EE00E7C5E6 /* CFStringToUTF8.cp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = CFStringToUTF8.cp; path = Source/CFStringToUTF8.cp; sourceTree = "<group>"; };
 		BEE0020909CC87EE00E7C5E6 /* CFStringToUTF8.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CFStringToUTF8.h; path = Source/CFStringToUTF8.h; sourceTree = "<group>"; };
-		BEE002F809CCE9AF00E7C5E6 /* English */ = {isa = PBXFileReference; lastKnownFileType = folder; name = English; path = Resources/English.lproj/Help; sourceTree = "<group>"; };
 		BEE0962609C52C600087035A /* doc.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = doc.icns; path = Resources/doc.icns; sourceTree = "<group>"; };
 		BEE0962709C52C600087035A /* app.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = app.icns; path = Resources/app.icns; sourceTree = "<group>"; };
 		BEF3631E10CB32950047ED77 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -122,10 +122,10 @@
 			children = (
 				BEE0962609C52C600087035A /* doc.icns */,
 				BEE0962709C52C600087035A /* app.icns */,
+				BEA2656310E7DBFE00040424 /* Help */,
 				BE03EC9910E476B10035BF0E /* Localizable.strings */,
 				BEF3632F10CB32CC0047ED77 /* MyDocument.xib */,
 				BEF3631D10CB32950047ED77 /* MainMenu.xib */,
-				BEE002F709CCE9AF00E7C5E6 /* Help */,
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
 				8D15AC360486D014006FF6A4 /* Info.plist */,
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
@@ -188,10 +188,10 @@
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
 				BEE0962809C52C600087035A /* doc.icns in Resources */,
 				BEE0962909C52C600087035A /* app.icns in Resources */,
-				BEE002FB09CCE9AF00E7C5E6 /* Help in Resources */,
 				BEF3631F10CB32950047ED77 /* MainMenu.xib in Resources */,
 				BEF3633110CB32CC0047ED77 /* MyDocument.xib in Resources */,
 				BE03EC9B10E476B10035BF0E /* Localizable.strings in Resources */,
+				BEA2656810E7DBFE00040424 /* Help in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,10 +237,10 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
-		BEE002F709CCE9AF00E7C5E6 /* Help */ = {
+		BEA2656310E7DBFE00040424 /* Help */ = {
 			isa = PBXVariantGroup;
 			children = (
-				BEE002F809CCE9AF00E7C5E6 /* English */,
+				BEA2656410E7DBFE00040424 /* English */,
 			);
 			name = Help;
 			sourceTree = "<group>";
