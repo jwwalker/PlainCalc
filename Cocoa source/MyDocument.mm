@@ -740,5 +740,76 @@ const int		kMenuItemTag_HexFormat		= 101;
 		contextInfo: nil];
 }
 
+- (IBAction) forgetFunction: (id) sender
+{
+	mForgettingFunction = YES;
+	[oForgetSymbolPopup removeAllItems];
+	NSDictionary*	funcDict = (NSDictionary*)CopyCalcFunctions( mCalcState );
+	[funcDict autorelease];
+	NSArray*	theKeys = [[funcDict allKeys]
+		sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
+	[oForgetSymbolPopup addItemsWithTitles: theKeys];
+	
+	[NSApp beginSheet: oForgetSymbolSheet
+			modalForWindow: docWindow
+			modalDelegate: nil
+			didEndSelector: nil
+			contextInfo: NULL ];
+}
+
+- (IBAction) forgetVariable: (id) sender
+{
+	mForgettingFunction = NO;
+	[oForgetSymbolPopup removeAllItems];
+	NSDictionary*	varDict = (NSDictionary*)CopyCalcVariables( mCalcState );
+	[varDict autorelease];
+	NSArray*	theKeys = [[varDict allKeys]
+		sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
+	[oForgetSymbolPopup addItemsWithTitles: theKeys];
+	
+	[NSApp beginSheet: oForgetSymbolSheet
+			modalForWindow: docWindow
+			modalDelegate: nil
+			didEndSelector: nil
+			contextInfo: NULL ];
+}
+
+- (IBAction) forgetSheetOK: (id) sender
+{
+	NSDictionary*	funcDict = (NSDictionary*)CopyCalcFunctions( mCalcState );
+	[funcDict autorelease];
+	NSDictionary*	varDict = (NSDictionary*)CopyCalcVariables( mCalcState );
+	[varDict autorelease];
+	NSString* symbolName = [oForgetSymbolPopup titleOfSelectedItem];
+	
+	if (mForgettingFunction)
+	{
+		NSMutableDictionary* funcsMutable = [[funcDict mutableCopy] autorelease];
+		[funcsMutable removeObjectForKey: symbolName];
+		funcDict = funcsMutable;
+	}
+	else
+	{
+		NSMutableDictionary* varsMutable = [[varDict mutableCopy] autorelease];
+		[varsMutable removeObjectForKey: symbolName];
+		varDict = varsMutable;
+	}
+	
+	CalcState newCalcState = CreateCalcState();
+	SetCalcVariables( (CFDictionaryRef)varDict, newCalcState );
+	SetCalcFunctions( (CFDictionaryRef)funcDict, newCalcState );
+	DisposeCalcState( mCalcState );
+	mCalcState = newCalcState;
+
+	[NSApp endSheet: oForgetSymbolSheet];
+	[oForgetSymbolSheet orderOut: self];
+}
+
+- (IBAction) forgetSheetCancel: (id) sender
+{
+	[NSApp endSheet: oForgetSymbolSheet];
+	[oForgetSymbolSheet orderOut: self];
+}
+
 
 @end

@@ -14,6 +14,9 @@
 	IBOutlet NSTextView *textView;
 	IBOutlet NSWindow* docWindow;
 	
+	IBOutlet NSWindow*		oForgetSymbolSheet;
+	IBOutlet NSPopUpButton*	oForgetSymbolPopup;
+	
 	NSAttributedString *mString;
 	NSFont*			mInitialTypingFont;
 	struct SCalcState* mCalcState;
@@ -23,6 +26,7 @@
 	NSDictionary*	mErrorColorAtt;
 	NSDictionary*	mSuccessColorAtt;
 	NSDictionary*	mNormalColorAtt;
+	BOOL			mForgettingFunction;
 	
 	// Remark: I was wondering why we would need mString as well as textView,
 	// since textView has a string as storage.   The reason seems to be that the
@@ -38,6 +42,11 @@
 - (IBAction) setIntegerFormat: (id) sender;
 - (IBAction) pasteCleaned: (id) sender;
 - (IBAction) saveAsNewDocumentContent: (id) sender;
+- (IBAction) forgetFunction: (id) sender;
+- (IBAction) forgetVariable: (id) sender;
+- (IBAction) forgetSheetOK: (id) sender;
+- (IBAction) forgetSheetCancel: (id) sender;
+
 
 
 @end
