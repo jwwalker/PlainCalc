@@ -12,13 +12,30 @@
 	span.response { color: #009900 }
 	span.error { color: #FF0000 }
 	p.example { font-family: monospace; margin-left: 5em }
+	table { margin-left: 2em }
 	td { padding-right: 3em }
+	ol.contents { margin-left: 10%; margin-top: 5px; padding-left: 0; }
+	p.contents { font-weight: bold; margin-left: 10%; margin-bottom: 0 }
 	-->
 	</style>
 </head>
 <body>
 
-<h1>Getting Started</h1>
+<p class="contents">Contents</p>
+<ol class="contents">
+	<li><a href="#intro">Getting Started</a></li>
+	<li><a href="#constants">Constants</a></li>
+	<li><a href="#arithmetic">Arithmetic</a></li>
+	<li><a href="#variables">Variables</a></li>
+	<li><a href="#builtin">Built-in Functions</a></li>
+	<li><a href="#userfuncs">User-Defined Functions</a></li>
+	<li><a href="#saving">Saving Files</a></li>
+	<li><a href="#newdoc">Setting the State of New Documents</a></li>
+	<li><a href="#about">About PlainCalc and its Author</a></li>
+	<li><a href="#license">License</a></li>
+</ol>
+
+<h1><a name="intro">Getting Started</a></h1>
 
 <p>To use PlainCalc, type an expression, assignment, or function definition, and press Return or Enter.  An expression can involve numbers, variables, constants, arithmetic operators, and mathematical functions.  For example, if you type
 </p>
@@ -41,13 +58,13 @@
 
 <p>In some cases, PlainCalc can help you narrow down the location of the error by highlighting the suspicious part of the expression.</p>
 
-<h1>Constants</h1>
+<h1><a name="constants">Constants</a></h1>
 
 <p>A number (literal constant) may be written in scientific notation, e.g., 1.2e-2 is the same as 0.012.  A positive integer may also be written as a C-style hexadecimal number, e.g., 0xBE4 is the same as 3044.  The x must be lower case, but the letters used as hexadecimal digits may be in either case.</p>
 
 <p>There are two special built-in constants, &pi; (which can also be written pi), and e (the base of the natural logarithms).</p>
 
-<h1>Arithmetic</h1>
+<h1><a name="arithmetic">Arithmetic</a></h1>
 
 <p>The arithmetic operators are the usual +, -, *, / plus the symbol ^ for raising to a power.  The power operator has higher precedence than the others, and associates from right to left.  For example, the expression 2*5^4^3 evaluates to the same number as 2*(5^(4^3)).</p>
 
@@ -55,7 +72,7 @@
 
 <p>There is a slight cost to the use of multiplication by juxtaposition.  Most calculators and programming languages use the + and - signs as unary operators as well as binary operators.  For example, in the expression -5-3, the first minus is a unary operator, since it is not combining two different numbers.  Unary operators create a problem with multiplication by juxtaposition, because an expression like -5-3 could be interpreted as the product (-5)(-3).  To remove this ambiguity, PlainCalc only allows a unary minus at the beginning of an expression (where you really need it), and does not allow a unary plus at all.</p>
 
-<h1>Variables</h1>
+<h1><a name="variables">Variables</a></h1>
 
 <p>You can define variables to store numbers. You set the value of a variable using an <em>assignment</em>, which is the variable name, an equal sign, and an expression.  It sets the value of the variable, in that window only, until changed by another assignment.  For example:</p>
 
@@ -68,13 +85,13 @@ inchesPerM = 100/cmPerInch =<br>
 
 <p>A variable must begin with an ASCII letter (no accented letters), but can be followed by letters, digits, and underscores.  A built-in variable, <em>last</em>, holds the result of the last calculation.</p>
 
-<h1>Built-in Functions</h1>
+<h1><a name="builtin">Built-in Functions</a></h1>
 
 <p>A function is written in the usual way, for instance abs(x) represents the absolute value of x.  There must not be any space between the function name and the left parenthesis.</p>
 
 <h2>Unary Functions:</h2>
 
-<table style="margin-left: 2em">
+<table>
 	<tr> <td>abs</td> <td>absolute value</td> </tr>
 	<tr> <td>acos</td> <td>arc cosine</td> </tr>
 	<tr> <td>asin</td> <td>arc sine</td> </tr>
@@ -96,7 +113,7 @@ inchesPerM = 100/cmPerInch =<br>
 
 <h2>Binary Functions:</h2>
 
-<table style="margin-left: 2em">
+<table>
 	<tr> <td>atan2</td> <td>two-variable arc tangent</td> </tr>
 	<tr> <td>max</td> <td>maximum</td> </tr>
 	<tr> <td>min</td> <td>minimum</td> </tr>
@@ -104,13 +121,13 @@ inchesPerM = 100/cmPerInch =<br>
 
 <h2>Ternary Functions:</h2>
 
-<table style="margin-left: 2em">
-	<tr> <td>if</td> <td>if x &gt; 0, if(x,y,z) equals y, otherwise it is z</td> </tr>
+<table>
+	<tr> <td>if&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>if x &gt; 0, if(x,y,z) equals y, otherwise it is z</td> </tr>
 </table>
 
 <p>The <em>if</em> function has a special "short-circuit" property: It does not evaluate the branch not taken.  This fact makes recursive user-defined functions possible.</p>
 
-<h1>User-Defined Functions</h1>
+<h1><a name="userfuncs">User-Defined Functions</a></h1>
 
 <p>You can define your own functions in much the same way as you define your own variables.  For example, here is the definition of a function to convert temperatures from Fahrenheit to Celsius.</p>
 
@@ -150,21 +167,21 @@ F(10) =<br>
 
 <p>Be warned that this is not an efficient way to compute Fibonacci numbers.  In fact, the amount of time to compute F(n) by this method grows exponentially, like F(n).</p>
 
-<h1>Saving Files</h1>
+<h1><a name="saving">Saving Files</a></h1>
 
 <p>A PlainCalc worksheet can be saved as a file.  When you open it later, the variables and user-defined functions will be just as you left them.</p>
 
-<h1>Setting the State of New Documents</h1>
+<h1><a name="newdoc">Setting the State of New Documents</a></h1>
 
 <p>You may want certain functions or variables to be predefined in all new worksheets, or you may want all new worksheets to use a certain font and size.  To accomplish this, you can set up a worksheet the way you like, and then use the <strong>Save as New Document Content</strong> menu command.</p>
 
 <p>Erasing the text of a function or variable definition does not make the worksheet forget its value.  If you do want to forget a function or variable from a worksheet before saving a worksheet as the content of new documents, you can use the <strong>Forget Defined Variable...</strong> and <strong>Forget Defined Function...</strong> menu commands.</p>
 
-<h1>About PlainCalc and its Author</h1>
+<h1><a name="about">About PlainCalc and its Author</a></h1>
 
-<p>PlainCalc was written by James W. Walker, whose home page is <a href="http://www.jwwalker.com">http://www.jwwalker.com</a>.  The calculating engine uses the <a href="http://spirit.sourceforge.net/">Spirit</a> parser, an open-source project started by Joel de Guzman.</p>
+<p>PlainCalc was written by James W. Walker, whose home page is <a href="http://www.jwwalker.com">http://www.jwwalker.com</a>.  The calculating engine uses the <a href="http://boost-spirit.com/home/">Spirit</a> parser, an open-source project started by Joel de Guzman.</p>
 
-<h1>License</h1>
+<h1><a name="license">License</a></h1>
 
 <p>PlainCalc is copyrighted freeware.  This means you can use it and give it to a friend without paying, but you may not make changes to the program or its documentation, nor are you allowed to sell PlainCalc.  The software is provided “as is”, without warranty.</p>
 
