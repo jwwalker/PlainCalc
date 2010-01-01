@@ -20,6 +20,7 @@
 	NSAttributedString *mString;
 	NSFont*			mInitialTypingFont;
 	struct SCalcState* mCalcState;
+	NSString*		mLoadedWindowFrame;
 	BOOL mFormatIntegersAsHex;
 	NSMenuItem*		mDecFormatItem;
 	NSMenuItem*		mHexFormatItem;
