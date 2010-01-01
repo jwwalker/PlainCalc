@@ -10,3 +10,8 @@ ConfirmSaveNew = "Really Save as New Document?";
 ConfirmSaveNew_detail = "Are you sure you want to save this as the content of all new documents?  This will replace any previously-saved new document state.";
 ConfirmSaveNew_ok = "Save";
 ConfirmSaveNew_cancel = "Cancel";
+
+DefFuns = "Defined Functions:";
+DefVars = "Defined Variables:";
+DefFun = "Defined Function";
+SynErr = "Syntax Error";

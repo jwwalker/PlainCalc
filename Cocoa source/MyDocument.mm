@@ -221,11 +221,15 @@ const int		kMenuItemTag_HexFormat		= 101;
 	
 }
 
+- (NSString*) newDocStatePath
+{
+	return [@"~/Library/Preferences/com.jwwalker.PlainCalc2.plaincalc"
+		stringByExpandingTildeInPath];
+}
+
 - (NSData*) newDocData
 {
-	NSString* thePath = [@"~/Library/Preferences/com.jwwalker.PlainCalc2.plaincalc"
-		stringByExpandingTildeInPath];
-	NSData* theData = [NSData dataWithContentsOfFile: thePath];
+	NSData* theData = [NSData dataWithContentsOfFile: [self newDocStatePath]];
 	return theData;
 }
 
@@ -256,15 +260,13 @@ const int		kMenuItemTag_HexFormat		= 101;
 	{
 		[[alert window] orderOut: self];
 		
-		NSString* thePath = [@"~/Library/Preferences/com.jwwalker.PlainCalc2.plaincalc"
-			stringByExpandingTildeInPath];
 		NSData* theData = [self dataOfType: @"PlainCalc worksheet" error: nil];
 		
 		if (theData)
 		{
 			NSError* theErr = nil;
 			
-			if (not [theData writeToFile: thePath
+			if (not [theData writeToFile: [self newDocStatePath]
 							options: NSAtomicWrite
 							error: &theErr ])
 			{
@@ -521,7 +523,7 @@ const int		kMenuItemTag_HexFormat		= 101;
 				
 				if (calcRes == kCalcResult_Error)
 				{
-					[self insertString: @"Syntax Error"
+					[self insertString: NSLocalizedString( @"SynErr", nil )
 						withAttributes: [AppController errorAtts] ];
 					
 					[self insertString: @"\n"
@@ -533,7 +535,7 @@ const int		kMenuItemTag_HexFormat		= 101;
 				}
 				else if (calcRes == kCalcResult_DefinedFunction)
 				{
-					[self insertString: @"Defined Function"
+					[self insertString: NSLocalizedString( @"DefFun", nil )
 						withAttributes: [AppController successAtts] ];
 					
 					[self insertString: @"\n"
@@ -614,7 +616,7 @@ const int		kMenuItemTag_HexFormat		= 101;
 	NSEnumerator *enumerator = [theKeys objectEnumerator];
 	
 	NSMutableString* theStr = [[NSMutableString alloc] initWithCapacity:100];
-	[theStr appendString: @"Defined Variables:" ];
+	[theStr appendString: NSLocalizedString( @"DefVars", nil ) ];
 	
 	id key;
 	while ((key = [enumerator nextObject]) != nil)
@@ -645,7 +647,7 @@ const int		kMenuItemTag_HexFormat		= 101;
 	NSEnumerator *enumerator = [theKeys objectEnumerator];
 	
 	NSMutableString* theStr = [[NSMutableString alloc] initWithCapacity:100];
-	[theStr appendString: @"Defined Functions:" ];
+	[theStr appendString: NSLocalizedString( @"DefFuns", nil ) ];
 
 	id key;
 	while ((key = [enumerator nextObject]) != nil)
