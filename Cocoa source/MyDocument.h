@@ -24,9 +24,6 @@
 	BOOL mFormatIntegersAsHex;
 	NSMenuItem*		mDecFormatItem;
 	NSMenuItem*		mHexFormatItem;
-	NSDictionary*	mErrorColorAtt;
-	NSDictionary*	mSuccessColorAtt;
-	NSDictionary*	mNormalColorAtt;
 	BOOL			mForgettingFunction;
 	
 	// Remark: I was wondering why we would need mString as well as textView,

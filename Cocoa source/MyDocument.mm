@@ -8,6 +8,8 @@
 
 #import "MyDocument.h"
 #import "ParseCalcLine.h"
+#import "AppController.h"
+
 
 #import <sstream>
 #import <iomanip>
@@ -45,32 +47,6 @@ const int		kMenuItemTag_HexFormat		= 101;
 					itemWithTag: kMenuItemTag_HexFormat];
 			}
 		}
-		
-		id attKeys[1] = {
-			NSForegroundColorAttributeName
-		};
-		id attValues[1] = {
-			[NSColor blackColor]
-		};
-		mNormalColorAtt = [[NSDictionary
-			dictionaryWithObjects: attValues
-			forKeys: attKeys
-			count: 1] retain];
-		
-		attValues[0] = [NSColor redColor];
-		mErrorColorAtt = [[NSDictionary
-			dictionaryWithObjects: attValues
-			forKeys: attKeys
-			count: 1] retain];
-		
-		attValues[0] = [NSColor colorWithDeviceRed: 0.0
-			green: 0.6
-			blue: 0.0
-			alpha: 1.0];
-		mSuccessColorAtt = [[NSDictionary
-			dictionaryWithObjects: attValues
-			forKeys: attKeys
-			count: 1] retain];
     }
     return self;
 }
@@ -80,9 +56,6 @@ const int		kMenuItemTag_HexFormat		= 101;
 	DisposeCalcState( mCalcState );
 	
 	[mInitialTypingFont release];
-	[mNormalColorAtt release];
-	[mErrorColorAtt release];
-	[mSuccessColorAtt release];
 	[mLoadedWindowFrame release];
 	
 	[super dealloc];
@@ -513,7 +486,7 @@ const int		kMenuItemTag_HexFormat		= 101;
 	if ( (aTextView == textView) && (aSelector == @selector(insertNewline:)) )
 	{
 		NSRange	theRange = [textView selectedRange];
-		if ((theRange.length == 0) && (theRange.location > 1))
+		if ((theRange.length == 0) && (theRange.location > 0))
 		{
 			NSTextStorage*	theStorage = [textView textStorage];
 			NSString*	thePlainText = [theStorage string];
@@ -549,10 +522,10 @@ const int		kMenuItemTag_HexFormat		= 101;
 				if (calcRes == kCalcResult_Error)
 				{
 					[self insertString: @"Syntax Error"
-						withAttributes: mErrorColorAtt ];
+						withAttributes: [AppController errorAtts] ];
 					
 					[self insertString: @"\n"
-						withAttributes: mNormalColorAtt ];
+						withAttributes: [AppController normalAtts] ];
 					
 					[textView setSelectedRange:
 						NSMakeRange( lineStart + stopOffset,
@@ -561,20 +534,20 @@ const int		kMenuItemTag_HexFormat		= 101;
 				else if (calcRes == kCalcResult_DefinedFunction)
 				{
 					[self insertString: @"Defined Function"
-						withAttributes: mSuccessColorAtt ];
+						withAttributes: [AppController successAtts] ];
 					
 					[self insertString: @"\n"
-						withAttributes: mNormalColorAtt ];
+						withAttributes: [AppController normalAtts] ];
 				}
 				else
 				{
 					[self
 						insertString:
 							[self formatCalculatedResult: calculatedValue]
-						withAttributes: mSuccessColorAtt ];
+						withAttributes: [AppController successAtts] ];
 					
 					[self insertString: @"\n"
-						withAttributes: mNormalColorAtt ];
+						withAttributes: [AppController normalAtts] ];
 				}
 				
 				didHandle = YES;
@@ -657,11 +630,11 @@ const int		kMenuItemTag_HexFormat		= 101;
 	[varDict release];
 	
 	[self insertString: theStr
-		withAttributes: mSuccessColorAtt ];
+		withAttributes: [AppController successAtts] ];
 	[theStr release];
 	
 	[self insertString: @"\n"
-		withAttributes: mNormalColorAtt ];
+		withAttributes: [AppController normalAtts] ];
 }
 
 - (IBAction) showDefinedFunctions: (id) sender
@@ -696,11 +669,11 @@ const int		kMenuItemTag_HexFormat		= 101;
 	[funcDict release];
 
 	[self insertString: theStr
-		withAttributes: mSuccessColorAtt ];
+		withAttributes: [AppController successAtts] ];
 	[theStr release];
 	
 	[self insertString: @"\n"
-		withAttributes: mNormalColorAtt ];
+		withAttributes: [AppController normalAtts] ];
 }
 
 - (IBAction) pasteCleaned: (id) sender

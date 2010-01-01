@@ -15,6 +15,8 @@
 		BE47DB500B12DE6C00081BDA /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE47DB4E0B12DE6C00081BDA /* Carbon.framework */; };
 		BE47DB510B12DE6C00081BDA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE47DB4F0B12DE6C00081BDA /* Cocoa.framework */; };
 		BEA2656810E7DBFE00040424 /* Help in Resources */ = {isa = PBXBuildFile; fileRef = BEA2656310E7DBFE00040424 /* Help */; };
+		BEB483B410ED969D00A5FBCD /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB483B310ED969D00A5FBCD /* AppController.m */; };
+		BEB483D310ED9B9400A5FBCD /* NSUserDefaults_JWColorSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB483D210ED9B9400A5FBCD /* NSUserDefaults_JWColorSupport.m */; };
 		BECE6C1609C3A10300DD10E1 /* ParseCalcLine.cp in Sources */ = {isa = PBXBuildFile; fileRef = BECE6C1509C3A10300DD10E1 /* ParseCalcLine.cp */; };
 		BEE0020A09CC87EE00E7C5E6 /* UTF8ToCFString.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */; };
 		BEE0020B09CC87EE00E7C5E6 /* CFStringToUTF8.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020809CC87EE00E7C5E6 /* CFStringToUTF8.cp */; };
@@ -38,6 +40,10 @@
 		BE47DB4F0B12DE6C00081BDA /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		BE47DB5D0B12DF3200081BDA /* PlainCalc.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlainCalc.xcconfig; sourceTree = "<group>"; };
 		BEA2656410E7DBFE00040424 /* English */ = {isa = PBXFileReference; lastKnownFileType = folder; name = English; path = Resources/English.lproj/Help; sourceTree = "<group>"; };
+		BEB483B210ED969D00A5FBCD /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = "Cocoa source/AppController.h"; sourceTree = "<group>"; };
+		BEB483B310ED969D00A5FBCD /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppController.m; path = "Cocoa source/AppController.m"; sourceTree = "<group>"; };
+		BEB483D110ED9B9400A5FBCD /* NSUserDefaults_JWColorSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSUserDefaults_JWColorSupport.h; path = "Cocoa source/NSUserDefaults_JWColorSupport.h"; sourceTree = "<group>"; };
+		BEB483D210ED9B9400A5FBCD /* NSUserDefaults_JWColorSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSUserDefaults_JWColorSupport.m; path = "Cocoa source/NSUserDefaults_JWColorSupport.m"; sourceTree = "<group>"; };
 		BECE6C1409C3A10300DD10E1 /* ParseCalcLine.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ParseCalcLine.h; path = Source/ParseCalcLine.h; sourceTree = "<group>"; };
 		BECE6C1509C3A10300DD10E1 /* ParseCalcLine.cp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = ParseCalcLine.cp; path = Source/ParseCalcLine.cp; sourceTree = "<group>"; };
 		BEE0020609CC87EE00E7C5E6 /* UTF8ToCFString.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = UTF8ToCFString.h; path = Source/UTF8ToCFString.h; sourceTree = "<group>"; };
@@ -98,6 +104,10 @@
 			children = (
 				2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */,
 				2A37F4ACFDCFA73011CA2CEA /* MyDocument.mm */,
+				BEB483B210ED969D00A5FBCD /* AppController.h */,
+				BEB483B310ED969D00A5FBCD /* AppController.m */,
+				BEB483D110ED9B9400A5FBCD /* NSUserDefaults_JWColorSupport.h */,
+				BEB483D210ED9B9400A5FBCD /* NSUserDefaults_JWColorSupport.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -207,6 +217,8 @@
 				BECE6C1609C3A10300DD10E1 /* ParseCalcLine.cp in Sources */,
 				BEE0020A09CC87EE00E7C5E6 /* UTF8ToCFString.cp in Sources */,
 				BEE0020B09CC87EE00E7C5E6 /* CFStringToUTF8.cp in Sources */,
+				BEB483B410ED969D00A5FBCD /* AppController.m in Sources */,
+				BEB483D310ED9B9400A5FBCD /* NSUserDefaults_JWColorSupport.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
