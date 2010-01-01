@@ -83,6 +83,7 @@ const int		kMenuItemTag_HexFormat		= 101;
 	[mNormalColorAtt release];
 	[mErrorColorAtt release];
 	[mSuccessColorAtt release];
+	[mLoadedWindowFrame release];
 	
 	[super dealloc];
 }
@@ -159,6 +160,8 @@ const int		kMenuItemTag_HexFormat		= 101;
 				mInitialTypingFont = [typingFont retain];
 			}
 		}
+		
+		mLoadedWindowFrame = [[theDict objectForKey: @"windowFrame"] retain];
 	}
     
 	return didLoad;
@@ -332,6 +335,11 @@ const int		kMenuItemTag_HexFormat		= 101;
 	{
 		[self setLoadedDocData];
 	}
+	
+	if (mLoadedWindowFrame)
+	{
+		[docWindow setFrameFromString: mLoadedWindowFrame];
+	}
 }
 
 - (NSData *)dataOfType:(NSString *)typeName
@@ -355,18 +363,21 @@ const int		kMenuItemTag_HexFormat		= 101;
 	NSNumber* typingFontSize = [NSNumber numberWithFloat: [typingFont pointSize] ];
 	
 	id	theKeys[] = {
-		@"text", @"variables", @"functions", @"fontName", @"fontSize"
+		@"text", @"variables", @"functions", @"fontName", @"fontSize",
+		@"windowFrame"
 	};
 	id	theValues[] = {
 		theRTFString,
 		varDict,
 		funcDict,
 		typingFontName,
-		typingFontSize
+		typingFontSize,
+		[docWindow stringWithSavedFrame]
 	};
-	NSDictionary*	docDict = [NSDictionary dictionaryWithObjects: theValues
+	NSDictionary*	docDict = [NSDictionary
+		dictionaryWithObjects: theValues
 		forKeys: theKeys
-		count: 5];
+		count: 6];
 	[theRTFString release];
 	[varDict release];
 	[funcDict release];
