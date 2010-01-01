@@ -115,7 +115,7 @@ SFixedSymbols::SFixedSymbols()
 	
 	mConstants.add
 		( "pi", piVal )
-		( "¹", piVal )
+		( "%", 0.01 )
 		( "\xCF\x80", piVal )	// the pi character in UTF-8
 		( "e", std::exp(1.0) )
 		;
