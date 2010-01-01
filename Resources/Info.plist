@@ -105,8 +105,8 @@
 	<key>CFBundleShortVersionString</key>
 	<string>2.2</string>
 	<key>CFBundleGetInfoString</key>
-	<string>2.2 © James W. Walker, 2006-2009</string>
+	<string>2.2 © James W. Walker, 2006-2010</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>© James W. Walker, 2006-2009</string>
+	<string>© James W. Walker, 2006-2010</string>
 </dict>
 </plist>
