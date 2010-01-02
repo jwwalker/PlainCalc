@@ -162,6 +162,7 @@ struct SCalcState
 	std::string				mFuncDef;
 	std::string				mIf1;
 	std::string				mIf2;
+	std::string				mDefinedSymbol;
 	bool					mDidDefineFunction;
 };
 
@@ -689,6 +690,7 @@ namespace
 					mState.SetVariable( mState.mIdentifier.c_str() );
 					mState.SetVariable( "last" );
 					mState.mDidDefineFunction = false;
+					mState.mDefinedSymbol = mState.mIdentifier;
 				}
 		
 		SCalcState&		mState;
@@ -736,6 +738,7 @@ namespace
 							mState.mFuncDef );
 						mState.mParamStack.clear();
 						mState.mDidDefineFunction = true;
+						mState.mDefinedSymbol = mState.mFuncName;
 					}
 					else
 					{
@@ -761,6 +764,7 @@ namespace
 				{
 					mState.SetVariable( "last" );
 					mState.mDidDefineFunction = false;
+					mState.mDefinedSymbol.clear();
 				}
 		
 		SCalcState&		mState;
@@ -1017,10 +1021,14 @@ bool	CheckExpressionSyntax( const char* inLine, CalcState inState,
 							succeeded.
 	@param		outStop		Offset at which parsing stopped, which can be
 							helpful in spotting a syntax error.
+	@param		outSymbol	If a function was defined, this receives the name of
+							the function.  If a variable was assigned, this
+							receives the name of the variable.  Otherwise, this
+							receives the empty string.
 	@result		Whether we failed, calculated, or defined a function.
 */
 ECalcResult		ParseCalcLine( const char* inLine, CalcState ioState,
-						double* outValue, long* outStop )
+						double* outValue, long* outStop, const char** outSymbol )
 {
 	ECalcResult	didParse = kCalcResult_Error;
 	*outStop = 0;
@@ -1054,6 +1062,11 @@ ECalcResult		ParseCalcLine( const char* inLine, CalcState ioState,
 				}
 				std::cout << std::endl;
 			#endif
+			}
+			
+			if (outSymbol != NULL)
+			{
+				*outSymbol = ioState->mDefinedSymbol.c_str();
 			}
 		}
 	}
