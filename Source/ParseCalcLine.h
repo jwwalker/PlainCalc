@@ -61,11 +61,16 @@ void		DisposeCalcState( CalcState ioState );
 							succeeded.
 	@param		outStop		Offset at which parsing stopped, which can be
 							helpful in spotting a syntax error.
+	@param		outSymbol	If a function was defined, this receives the name of
+							the function.  If a variable was assigned, this
+							receives the name of the variable.  Otherwise, this
+							receives the empty string.
 	@result		Whether we failed, calculated, or defined a function.
 */
 ECalcResult		ParseCalcLine( const char* inLine, CalcState ioState,
 				double* outValue,
-				long* outStop );
+				long* outStop,
+				const char** outSymbol = NULL );
 
 /*!
 	@function	CheckExpressionSyntax
