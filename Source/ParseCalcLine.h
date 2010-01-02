@@ -104,6 +104,16 @@ CFDictionaryRef	CopyCalcVariables( CalcState inState );
 void			SetCalcVariables( CFDictionaryRef inDict, CalcState ioState );
 
 /*!
+	@function	SetCalcVariable
+	@abstract	Add or change a variable value in a calculator.
+	@param		inVarName	Name of a variable (UTF-8).
+	@param		inValue		Value to be assigned to the variable.
+	@param		ioState		A calculator object reference.
+*/
+void			SetCalcVariable( const char* inVarName, double inValue,
+								CalcState ioState );
+
+/*!
 	@function	CopyCalcFunctions
 	@abstract	Create a dictionary recording user-defined functions.
 	@discussion	The keys of the dictionary are the function names.  Each value
