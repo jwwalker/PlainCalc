@@ -44,6 +44,7 @@
 		BEB483B310ED969D00A5FBCD /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppController.m; path = "Cocoa source/AppController.m"; sourceTree = "<group>"; };
 		BEB483D110ED9B9400A5FBCD /* NSUserDefaults_JWColorSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSUserDefaults_JWColorSupport.h; path = "Cocoa source/NSUserDefaults_JWColorSupport.h"; sourceTree = "<group>"; };
 		BEB483D210ED9B9400A5FBCD /* NSUserDefaults_JWColorSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSUserDefaults_JWColorSupport.m; path = "Cocoa source/NSUserDefaults_JWColorSupport.m"; sourceTree = "<group>"; };
+		BEB4844410EE7EAE00A5FBCD /* Notes.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Notes.rtf; sourceTree = "<group>"; };
 		BECE6C1409C3A10300DD10E1 /* ParseCalcLine.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ParseCalcLine.h; path = Source/ParseCalcLine.h; sourceTree = "<group>"; };
 		BECE6C1509C3A10300DD10E1 /* ParseCalcLine.cp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = ParseCalcLine.cp; path = Source/ParseCalcLine.cp; sourceTree = "<group>"; };
 		BEE0020609CC87EE00E7C5E6 /* UTF8ToCFString.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = UTF8ToCFString.h; path = Source/UTF8ToCFString.h; sourceTree = "<group>"; };
@@ -95,6 +96,7 @@
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
 				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
 				19C28FB0FE9D524F11CA2CBB /* Products */,
+				BEB4844410EE7EAE00A5FBCD /* Notes.rtf */,
 			);
 			name = PlainCalc2;
 			sourceTree = "<group>";
