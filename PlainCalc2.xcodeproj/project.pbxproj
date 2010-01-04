@@ -14,6 +14,13 @@
 		BE03EC9B10E476B10035BF0E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE03EC9910E476B10035BF0E /* Localizable.strings */; };
 		BE47DB500B12DE6C00081BDA /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE47DB4E0B12DE6C00081BDA /* Carbon.framework */; };
 		BE47DB510B12DE6C00081BDA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE47DB4F0B12DE6C00081BDA /* Cocoa.framework */; };
+		BE6F18ED10F159D400C0FF7F /* tool-main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE6F18EC10F159D400C0FF7F /* tool-main.cpp */; };
+		BE6F18EE10F15B3300C0FF7F /* ParseCalcLine.cp in Sources */ = {isa = PBXBuildFile; fileRef = BECE6C1509C3A10300DD10E1 /* ParseCalcLine.cp */; };
+		BE6F18F110F15BE100C0FF7F /* UTF8ToCFString.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */; };
+		BE6F18F210F15BE400C0FF7F /* CFStringToUTF8.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020809CC87EE00E7C5E6 /* CFStringToUTF8.cp */; };
+		BE6F18F410F15BFB00C0FF7F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE6F18F310F15BFB00C0FF7F /* CoreFoundation.framework */; };
+		BE6F192B10F15C5700C0FF7F /* PreventCrashes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE6F192A10F15C5700C0FF7F /* PreventCrashes.cpp */; };
+		BE6F196F10F16E4000C0FF7F /* CalcTool in Copy Helper Tool */ = {isa = PBXBuildFile; fileRef = BE6F18E410F158A900C0FF7F /* CalcTool */; };
 		BEA2656810E7DBFE00040424 /* Help in Resources */ = {isa = PBXBuildFile; fileRef = BEA2656310E7DBFE00040424 /* Help */; };
 		BEB483B410ED969D00A5FBCD /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB483B310ED969D00A5FBCD /* AppController.m */; };
 		BEB483D310ED9B9400A5FBCD /* NSUserDefaults_JWColorSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB483D210ED9B9400A5FBCD /* NSUserDefaults_JWColorSupport.m */; };
@@ -25,6 +32,30 @@
 		BEF3631F10CB32950047ED77 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEF3631D10CB32950047ED77 /* MainMenu.xib */; };
 		BEF3633110CB32CC0047ED77 /* MyDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEF3632F10CB32CC0047ED77 /* MyDocument.xib */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BE6F196C10F16E1000C0FF7F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BE6F18E310F158A900C0FF7F /* CalcTool */;
+			remoteInfo = CalcTool;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BE6F197010F16E5E00C0FF7F /* Copy Helper Tool */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				BE6F196F10F16E4000C0FF7F /* CalcTool in Copy Helper Tool */,
+			);
+			name = "Copy Helper Tool";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		089C1660FE840EACC02AAC07 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = Resources/English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -39,6 +70,12 @@
 		BE47DB4E0B12DE6C00081BDA /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		BE47DB4F0B12DE6C00081BDA /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		BE47DB5D0B12DF3200081BDA /* PlainCalc.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlainCalc.xcconfig; sourceTree = "<group>"; };
+		BE6F18E410F158A900C0FF7F /* CalcTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CalcTool; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE6F18EB10F159D400C0FF7F /* tool-main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "tool-main.h"; path = "Source/tool-main.h"; sourceTree = "<group>"; };
+		BE6F18EC10F159D400C0FF7F /* tool-main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "tool-main.cpp"; path = "Source/tool-main.cpp"; sourceTree = "<group>"; };
+		BE6F18F310F15BFB00C0FF7F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		BE6F192910F15C5700C0FF7F /* PreventCrashes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreventCrashes.h; path = Source/PreventCrashes.h; sourceTree = "<group>"; };
+		BE6F192A10F15C5700C0FF7F /* PreventCrashes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PreventCrashes.cpp; path = Source/PreventCrashes.cpp; sourceTree = "<group>"; };
 		BEA2656410E7DBFE00040424 /* English */ = {isa = PBXFileReference; lastKnownFileType = folder; name = English; path = Resources/English.lproj/Help; sourceTree = "<group>"; };
 		BEB483B210ED969D00A5FBCD /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = "Cocoa source/AppController.h"; sourceTree = "<group>"; };
 		BEB483B310ED969D00A5FBCD /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppController.m; path = "Cocoa source/AppController.m"; sourceTree = "<group>"; };
@@ -67,12 +104,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BE6F18E210F158A900C0FF7F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE6F18F410F15BFB00C0FF7F /* CoreFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BE6F18F310F15BFB00C0FF7F /* CoreFoundation.framework */,
 				BE47DB4E0B12DE6C00081BDA /* Carbon.framework */,
 				BE47DB4F0B12DE6C00081BDA /* Cocoa.framework */,
 			);
@@ -83,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				8D15AC370486D014006FF6A4 /* PlainCalc.app */,
+				BE6F18E410F158A900C0FF7F /* CalcTool */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -125,6 +172,10 @@
 				BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */,
 				BEE0020809CC87EE00E7C5E6 /* CFStringToUTF8.cp */,
 				BEE0020909CC87EE00E7C5E6 /* CFStringToUTF8.h */,
+				BE6F18EB10F159D400C0FF7F /* tool-main.h */,
+				BE6F18EC10F159D400C0FF7F /* tool-main.cpp */,
+				BE6F192910F15C5700C0FF7F /* PreventCrashes.h */,
+				BE6F192A10F15C5700C0FF7F /* PreventCrashes.cpp */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -162,17 +213,35 @@
 			buildPhases = (
 				8D15AC2B0486D014006FF6A4 /* Resources */,
 				8D15AC300486D014006FF6A4 /* Sources */,
+				BE6F197010F16E5E00C0FF7F /* Copy Helper Tool */,
 				8D15AC330486D014006FF6A4 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				BE6F196D10F16E1000C0FF7F /* PBXTargetDependency */,
 			);
 			name = PlainCalc2;
 			productInstallPath = "$(HOME)/Applications";
 			productName = PlainCalc2;
 			productReference = 8D15AC370486D014006FF6A4 /* PlainCalc.app */;
 			productType = "com.apple.product-type.application";
+		};
+		BE6F18E310F158A900C0FF7F /* CalcTool */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE6F18E810F158CE00C0FF7F /* Build configuration list for PBXNativeTarget "CalcTool" */;
+			buildPhases = (
+				BE6F18E110F158A900C0FF7F /* Sources */,
+				BE6F18E210F158A900C0FF7F /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CalcTool;
+			productName = CalcTool;
+			productReference = BE6F18E410F158A900C0FF7F /* CalcTool */;
+			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
@@ -187,6 +256,7 @@
 			projectRoot = "";
 			targets = (
 				8D15AC270486D014006FF6A4 /* PlainCalc2 */,
+				BE6F18E310F158A900C0FF7F /* CalcTool */,
 			);
 		};
 /* End PBXProject section */
@@ -224,7 +294,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BE6F18E110F158A900C0FF7F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE6F18ED10F159D400C0FF7F /* tool-main.cpp in Sources */,
+				BE6F18EE10F15B3300C0FF7F /* ParseCalcLine.cp in Sources */,
+				BE6F18F110F15BE100C0FF7F /* UTF8ToCFString.cp in Sources */,
+				BE6F18F210F15BE400C0FF7F /* CFStringToUTF8.cp in Sources */,
+				BE6F192B10F15C5700C0FF7F /* PreventCrashes.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BE6F196D10F16E1000C0FF7F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BE6F18E310F158A900C0FF7F /* CalcTool */;
+			targetProxy = BE6F196C10F16E1000C0FF7F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		089C165FFE840EACC02AAC07 /* InfoPlist.strings */ = {
@@ -278,6 +368,42 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		BE6F18E610F158AA00C0FF7F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ONLY_ACTIVE_ARCH_PRE_XCODE_3_1)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = YES;
+				GCC_ENABLE_SYMBOL_SEPARATION = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_THREADSAFE_STATICS = NO;
+				INSTALL_PATH = /usr/local/bin;
+				ONLY_ACTIVE_ARCH_PRE_XCODE_3_1 = "$(NATIVE_ARCH)";
+				PREBINDING = NO;
+				PRODUCT_NAME = CalcTool;
+			};
+			name = Debug;
+		};
+		BE6F18E710F158AA00C0FF7F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/bin;
+				PREBINDING = NO;
+				PRODUCT_NAME = CalcTool;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		C05733C808A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -325,6 +451,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		BE6F18E810F158CE00C0FF7F /* Build configuration list for PBXNativeTarget "CalcTool" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE6F18E610F158AA00C0FF7F /* Debug */,
+				BE6F18E710F158AA00C0FF7F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "PlainCalc2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
