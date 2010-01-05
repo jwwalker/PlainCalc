@@ -25,6 +25,8 @@
 	NSMenuItem*		mDecFormatItem;
 	NSMenuItem*		mHexFormatItem;
 	BOOL			mForgettingFunction;
+	NSTask*			mCalcTask;
+	NSMutableData*	mResultBuffer;
 	
 	// Remark: I was wondering why we would need mString as well as textView,
 	// since textView has a string as storage.   The reason seems to be that the

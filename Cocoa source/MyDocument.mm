@@ -22,6 +22,12 @@ const int		kMenuTag_Options			= 500;
 const int		kMenuItemTag_DecimalFormat	= 100;
 const int		kMenuItemTag_HexFormat		= 101;
 
+@interface MyDocument ()
+
+- (void) startCalcTask;
+
+@end
+
 @implementation MyDocument
 
 - (id)init
@@ -47,16 +53,23 @@ const int		kMenuItemTag_HexFormat		= 101;
 					itemWithTag: kMenuItemTag_HexFormat];
 			}
 		}
+		
+		mResultBuffer = [[NSMutableData alloc] init];
     }
     return self;
 }
 
 - (void)dealloc
 {
+	[[NSNotificationCenter defaultCenter] removeObserver: self];
+	
 	DisposeCalcState( mCalcState );
+	[mCalcTask terminate];
 	
 	[mInitialTypingFont release];
 	[mLoadedWindowFrame release];
+	[mCalcTask release];
+	[mResultBuffer release];
 	
 	[super dealloc];
 }
@@ -245,6 +258,113 @@ const int		kMenuItemTag_HexFormat		= 101;
 	[textView setTypingAttributes: typingAtts];
 }
 
+- (void) receiveDataFromTask: (NSNotification *)aNotification
+{
+	NSDictionary* userInfo = [aNotification userInfo];
+	NSData *data = [userInfo objectForKey: NSFileHandleNotificationDataItem];
+	if ([data length])
+	{
+		[mResultBuffer appendData: data];
+		NSString* replyStr = [[[NSString alloc]
+			initWithData: mResultBuffer
+			encoding: NSUTF8StringEncoding] autorelease];
+		NSRange foundRange = [replyStr rangeOfString: @"</plist>"
+										options: NSBackwardsSearch];
+		if (foundRange.length > 0)
+		{
+			NSString* errDesc = nil;
+			NSDictionary* replyDict = (NSDictionary*)
+				[NSPropertyListSerialization
+					propertyListFromData: mResultBuffer
+					mutabilityOption: NSPropertyListImmutable
+					format: NULL
+					errorDescription: &errDesc];
+			[errDesc release];
+			[mResultBuffer setLength: 0];
+			if (replyDict != nil)
+			{
+				// TODO
+			}
+		}
+	}
+}
+
+- (void) taskEnded: (NSNotification *)aNote
+{
+	NSTask* theTask = [aNote object];
+	int status = [theTask terminationStatus];
+	if (status != 0)
+	{
+		// TODO?
+	}
+	
+	[mCalcTask release];
+	[self startCalcTask];
+}
+
+- (void) startCalcTask
+{
+	mCalcTask = [[NSTask alloc] init];
+	NSString* toolPath = [[[[NSBundle mainBundle] executablePath]
+		stringByDeletingLastPathComponent]
+		stringByAppendingPathComponent: @"CalcTool"];
+	[mCalcTask setLaunchPath: toolPath];
+
+	NSDictionary*	varDict = (NSDictionary*)CopyCalcVariables( mCalcState );
+	[varDict autorelease];
+	NSString* errDesc = nil;
+	NSData* varData = [NSPropertyListSerialization
+		dataFromPropertyList: varDict
+		format: NSPropertyListXMLFormat_v1_0
+		errorDescription: &errDesc];
+	[errDesc release];
+	NSString* varXMLStr = [[[NSString alloc]
+		initWithData: varData
+		encoding: NSUTF8StringEncoding] autorelease];
+	NSDictionary*	funcDict = (NSDictionary*)CopyCalcFunctions( mCalcState );
+	[funcDict autorelease];
+	NSData* funData = [NSPropertyListSerialization
+		dataFromPropertyList: funcDict
+		format: NSPropertyListXMLFormat_v1_0
+		errorDescription: &errDesc];
+	[errDesc release];
+	NSString* funXMLStr = [[[NSString alloc]
+		initWithData: funData
+		encoding: NSUTF8StringEncoding] autorelease];
+	NSArray* argArray = [NSArray arrayWithObjects:
+		varXMLStr, funXMLStr, nil ];
+	[mCalcTask setArguments: argArray];
+	
+	[mCalcTask setStandardInput: [NSPipe pipe] ];
+	[mCalcTask setStandardOutput: [NSPipe pipe] ];
+	
+	// Wait for output in the background, and notify when data is ready.
+	NSFileHandle* outFileHandle = [[mCalcTask standardOutput] fileHandleForReading];
+    [[NSNotificationCenter defaultCenter]
+		addObserver: self 
+        selector: @selector(receiveDataFromTask:) 
+        name: NSFileHandleReadCompletionNotification 
+        object: outFileHandle ];
+	[outFileHandle readInBackgroundAndNotify];
+	
+	[[NSNotificationCenter defaultCenter]
+		addObserver: self
+		selector: @selector(taskEnded:)
+		name: NSTaskDidTerminateNotification
+		object: nil ];
+	
+	@try
+	{
+		[mCalcTask launch];
+	}
+	@catch (NSException *exception)
+	{
+		NSLog(@"Caught %@: %@", [exception name], [exception  reason]);
+	}
+}
+
+#pragma mark Sheet end callbacks
+
 - (void) infoAlertEnd:(NSAlert *)alert
 		retCode:(int)returnCode
 		ctx:(void *)contextInfo
@@ -315,6 +435,8 @@ const int		kMenuItemTag_HexFormat		= 101;
 	{
 		[docWindow setFrameFromString: mLoadedWindowFrame];
 	}
+	
+	[self startCalcTask];
 }
 
 - (NSData *)dataOfType:(NSString *)typeName
