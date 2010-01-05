@@ -11,11 +11,12 @@
 
 #import <signal.h>
 #import <cstdlib>
+#import <unistd.h>
 
 
 static void sighandler( int theSig )
 {
-	exit( theSig );
+	_exit( theSig );
 }
 
 
