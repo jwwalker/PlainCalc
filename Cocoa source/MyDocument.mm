@@ -55,23 +55,30 @@ const int		kMenuItemTag_HexFormat		= 101;
 		}
 		
 		mResultBuffer = [[NSMutableData alloc] init];
+		mLineToCalculate = [[NSMutableString alloc] init];
     }
     return self;
 }
 
 - (void)dealloc
 {
+	NSLog(@"dealloc 1");
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 	
 	DisposeCalcState( mCalcState );
+	NSLog(@"dealloc 2");
 	[mCalcTask terminate];
+	NSLog(@"dealloc 3");
 	
 	[mInitialTypingFont release];
 	[mLoadedWindowFrame release];
 	[mCalcTask release];
 	[mResultBuffer release];
+	[mLineToCalculate release];
+	NSLog(@"dealloc 4");
 	
 	[super dealloc];
+	NSLog(@"dealloc 5");
 }
 
 
@@ -258,6 +265,65 @@ const int		kMenuItemTag_HexFormat		= 101;
 	[textView setTypingAttributes: typingAtts];
 }
 
+- (void) handleTaskResult: (NSDictionary*) dict
+{
+	[textView setEditable: YES];
+	[NSObject cancelPreviousPerformRequestsWithTarget: self];
+
+	NSRange	theRange = [textView selectedRange];
+	unsigned int	lineEnd = theRange.location;
+	unsigned int	lineStart = lineEnd - [mLineToCalculate length];
+	
+	ECalcResult resultKind = (ECalcResult) [[dict valueForKey: @"ResultKind"]
+		intValue];
+	
+	if (resultKind == kCalcResult_Error)
+	{
+		long	stopOffset = [[dict valueForKey: @"Stop"] intValue];
+		[self insertString: NSLocalizedString( @"SynErr", nil )
+			withAttributes: [AppController errorAtts] ];
+		
+		[self insertString: @"\n"
+			withAttributes: [AppController normalAtts] ];
+		
+		[textView setSelectedRange:
+			NSMakeRange( lineStart + stopOffset,
+				lineEnd - lineStart - stopOffset) ];
+	}
+	else if (resultKind == kCalcResult_DefinedFunction)
+	{
+		[self insertString: NSLocalizedString( @"DefFun", nil )
+			withAttributes: [AppController successAtts] ];
+		
+		[self insertString: @"\n"
+			withAttributes: [AppController normalAtts] ];
+
+		// Shadow the function in the app's calculator
+		double	calculatedValue;
+		long	stopOffset;
+		(void) ParseCalcLine( [mLineToCalculate UTF8String],
+			mCalcState, &calculatedValue, &stopOffset );
+	}
+	else // kCalcResult_Calculated
+	{
+		double result = [[dict valueForKey: @"Result"] doubleValue];
+
+		[self	insertString: [self formatCalculatedResult: result]
+				withAttributes: [AppController successAtts] ];
+		
+		[self insertString: @"\n"
+			withAttributes: [AppController normalAtts] ];
+
+		// Shadow the value in the app's calculator
+		SetCalcVariable( "last", result, mCalcState );
+		NSString* symbol = [dict valueForKey: @"Symbol"];
+		if ([symbol length] > 0)
+		{
+			SetCalcVariable( [symbol UTF8String], result, mCalcState );
+		}
+	}
+}
+
 - (void) receiveDataFromTask: (NSNotification *)aNotification
 {
 	NSDictionary* userInfo = [aNotification userInfo];
@@ -283,23 +349,51 @@ const int		kMenuItemTag_HexFormat		= 101;
 			[mResultBuffer setLength: 0];
 			if (replyDict != nil)
 			{
-				// TODO
+				[self handleTaskResult: replyDict];
 			}
 		}
+		
+		// we need to schedule the file handle go read more data in the background again.
+		[[aNotification object] readInBackgroundAndNotify];  
 	}
 }
 
 - (void) taskEnded: (NSNotification *)aNote
 {
 	NSTask* theTask = [aNote object];
-	int status = [theTask terminationStatus];
-	if (status != 0)
+	if (theTask == mCalcTask)
 	{
-		// TODO?
+		int status = [theTask terminationStatus];
+		[NSObject cancelPreviousPerformRequestsWithTarget: self];
+		if ( (status != 0) and (status != SIGTERM) )
+		{
+			[textView setEditable: YES];
+			
+			[self insertString: NSLocalizedString( @"Crash", nil )
+				withAttributes: [AppController errorAtts] ];
+			
+			[self insertString: @"\n"
+				withAttributes: [AppController normalAtts] ];
+		}
+		
+		[mCalcTask release];
+		mCalcTask = nil;
+		[self startCalcTask];
 	}
-	
-	[mCalcTask release];
-	[self startCalcTask];
+}
+
+- (NSString*) xmlStringFromDictionary: (NSDictionary*) dict
+{
+	NSString* errDesc = nil;
+	NSData* xmlData = [NSPropertyListSerialization
+		dataFromPropertyList: dict
+		format: NSPropertyListXMLFormat_v1_0
+		errorDescription: &errDesc];
+	[errDesc release];
+	NSString* theXMLStr = [[[NSString alloc]
+		initWithData: xmlData
+		encoding: NSUTF8StringEncoding] autorelease];
+	return theXMLStr;
 }
 
 - (void) startCalcTask
@@ -312,25 +406,12 @@ const int		kMenuItemTag_HexFormat		= 101;
 
 	NSDictionary*	varDict = (NSDictionary*)CopyCalcVariables( mCalcState );
 	[varDict autorelease];
-	NSString* errDesc = nil;
-	NSData* varData = [NSPropertyListSerialization
-		dataFromPropertyList: varDict
-		format: NSPropertyListXMLFormat_v1_0
-		errorDescription: &errDesc];
-	[errDesc release];
-	NSString* varXMLStr = [[[NSString alloc]
-		initWithData: varData
-		encoding: NSUTF8StringEncoding] autorelease];
+	NSString* varXMLStr = [self xmlStringFromDictionary: varDict];
+	
 	NSDictionary*	funcDict = (NSDictionary*)CopyCalcFunctions( mCalcState );
 	[funcDict autorelease];
-	NSData* funData = [NSPropertyListSerialization
-		dataFromPropertyList: funcDict
-		format: NSPropertyListXMLFormat_v1_0
-		errorDescription: &errDesc];
-	[errDesc release];
-	NSString* funXMLStr = [[[NSString alloc]
-		initWithData: funData
-		encoding: NSUTF8StringEncoding] autorelease];
+	NSString* funXMLStr = [self xmlStringFromDictionary: funcDict];
+
 	NSArray* argArray = [NSArray arrayWithObjects:
 		varXMLStr, funXMLStr, nil ];
 	[mCalcTask setArguments: argArray];
@@ -361,6 +442,39 @@ const int		kMenuItemTag_HexFormat		= 101;
 	{
 		NSLog(@"Caught %@: %@", [exception name], [exception  reason]);
 	}
+}
+
+- (void) sendCommandToTask: (NSString*) calcStr
+{
+	NSString* commandStr = [calcStr stringByAppendingString: @"\n"];
+	const char* theCString = [commandStr UTF8String];
+	int theLen = strlen( theCString );
+	NSData* theData = [NSData dataWithBytes: theCString length: theLen ];
+	
+	NSPipe* thePipe = [mCalcTask standardInput];
+	NSFileHandle* theFileHandle = [thePipe fileHandleForWriting];
+	[theFileHandle writeData: theData ];
+}
+
+- (void) calcTimedOut
+{
+	[[NSNotificationCenter defaultCenter] removeObserver: self];
+	
+	[mCalcTask terminate];
+	[mCalcTask release];
+	mCalcTask = nil;
+	
+	[self startCalcTask];
+	
+	[mResultBuffer setLength: 0];
+	
+	[textView setEditable: YES];
+	
+	[self insertString: NSLocalizedString( @"Timeout", nil )
+		withAttributes: [AppController errorAtts] ];
+	
+	[self insertString: @"\n"
+		withAttributes: [AppController normalAtts] ];
 }
 
 #pragma mark Sheet end callbacks
@@ -588,9 +702,11 @@ const int		kMenuItemTag_HexFormat		= 101;
 	}
 	else
 	{
+		NSLog(@"canCloseDocumentWithDelegate 1");
 		[super canCloseDocumentWithDelegate: delegate
 				shouldCloseSelector: shouldCloseSelector
 				contextInfo: contextInfo];
+		NSLog(@"canCloseDocumentWithDelegate 2");
 	}
 }
 
@@ -632,47 +748,17 @@ const int		kMenuItemTag_HexFormat		= 101;
 				NSRange	lineRange = NSMakeRange( lineStart, lineEnd - lineStart );
 				NSString*	theLine = [thePlainText
 					substringWithRange: lineRange];
-				const char*	lineCStr = [theLine UTF8String];
+				[mLineToCalculate setString: theLine];
 
 				// insert = and then line break
 				[textView insertText: @" =\n"];
+				[textView setEditable: NO];
 				
-				// Pass the line to the calculator
-				double	calculatedValue;
-				long	stopOffset;
-				ECalcResult	calcRes = ParseCalcLine( lineCStr, mCalcState,
-					&calculatedValue, &stopOffset );
+				[self sendCommandToTask: theLine];
 				
-				if (calcRes == kCalcResult_Error)
-				{
-					[self insertString: NSLocalizedString( @"SynErr", nil )
-						withAttributes: [AppController errorAtts] ];
-					
-					[self insertString: @"\n"
-						withAttributes: [AppController normalAtts] ];
-					
-					[textView setSelectedRange:
-						NSMakeRange( lineStart + stopOffset,
-							lineEnd - lineStart - stopOffset) ];
-				}
-				else if (calcRes == kCalcResult_DefinedFunction)
-				{
-					[self insertString: NSLocalizedString( @"DefFun", nil )
-						withAttributes: [AppController successAtts] ];
-					
-					[self insertString: @"\n"
-						withAttributes: [AppController normalAtts] ];
-				}
-				else
-				{
-					[self
-						insertString:
-							[self formatCalculatedResult: calculatedValue]
-						withAttributes: [AppController successAtts] ];
-					
-					[self insertString: @"\n"
-						withAttributes: [AppController normalAtts] ];
-				}
+				[self performSelector: @selector(calcTimedOut)
+						withObject: nil
+						afterDelay: 1.0];
 				
 				didHandle = YES;
 			}
