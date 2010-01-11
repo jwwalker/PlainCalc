@@ -9,6 +9,9 @@
 #import "AppController.h"
 
 #import "NSUserDefaults_JWColorSupport.h"
+#import "ExponentialTransformer.h"
+
+#import <math.h>
 
 static AppController* sMe;
 
@@ -47,6 +50,8 @@ static AppController* sMe;
 		@"ErrorColor",
 		[NSArchiver archivedDataWithRootObject: [self defaultGreen]],
 		@"SuccessColor",
+		[NSNumber numberWithFloat: 0.0f],
+		@"TimeoutExponent",
 		nil];
 	
 	[[NSUserDefaults standardUserDefaults] registerDefaults: defPrefs];
@@ -55,6 +60,19 @@ static AppController* sMe;
 + (void) initialize
 {
 	[AppController setDefaultPrefs];
+	
+	ExponentialTransformer* powerOf2 = [[[ExponentialTransformer alloc]
+		initWithBase: 2.0] autorelease];
+	[NSValueTransformer setValueTransformer: powerOf2
+						forName: @"PowerOf2" ];
+}
+
+- (double) prefTimeout
+{
+	double theExp = [[NSUserDefaults standardUserDefaults] floatForKey:
+			@"TimeoutExponent" ];
+	double theTime = pow( 2.0, theExp );
+	return theTime;
 }
 
 - (id) init
@@ -69,6 +87,7 @@ static AppController* sMe;
 								withDefault: [NSColor redColor] ] retain];
 		mSuccessColorAtt = [[self colorAttsforPref: @"SuccessColor"
 								withDefault: [AppController defaultGreen] ] retain];
+		mCalcTimeout = [self prefTimeout];
 		
 		[[NSUserDefaults standardUserDefaults]
 			addObserver: self
@@ -78,6 +97,11 @@ static AppController* sMe;
 		[[NSUserDefaults standardUserDefaults]
 			addObserver: self
 			forKeyPath: @"SuccessColor"
+			options: 0
+			context: NULL];
+		[[NSUserDefaults standardUserDefaults]
+			addObserver: self
+			forKeyPath: @"TimeoutExponent"
 			options: 0
 			context: NULL];
 	}
@@ -104,6 +128,11 @@ static AppController* sMe;
 	return sMe->mSuccessColorAtt;
 }
 
++ (double) calcTimeout
+{
+	return sMe->mCalcTimeout;
+}
+
 - (void) observeValueForKeyPath:(NSString *)keyPath
 		ofObject:(id)object
 		change:(NSDictionary *)change
@@ -120,6 +149,10 @@ static AppController* sMe;
 		[mErrorColorAtt release];
 		mErrorColorAtt = [[self colorAttsforPref: keyPath
 								withDefault: [NSColor redColor] ] retain];
+	}
+	else if ([keyPath isEqualToString: @"TimeoutExponent"])
+	{
+		mCalcTimeout = [self prefTimeout];
 	}
 }
 

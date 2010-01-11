@@ -758,7 +758,7 @@ const int		kMenuItemTag_HexFormat		= 101;
 				
 				[self performSelector: @selector(calcTimedOut)
 						withObject: nil
-						afterDelay: 1.0];
+						afterDelay: [AppController calcTimeout]];
 				
 				didHandle = YES;
 			}

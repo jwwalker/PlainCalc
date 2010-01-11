@@ -14,6 +14,7 @@
 	NSDictionary*	mErrorColorAtt;
 	NSDictionary*	mSuccessColorAtt;
 	NSDictionary*	mNormalColorAtt;
+	double			mCalcTimeout;
 }
 
 + (AppController*) sharedController;
@@ -24,5 +25,6 @@
 
 + (NSDictionary*) successAtts;
 
++ (double) calcTimeout;
 
 @end
