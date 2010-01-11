@@ -21,6 +21,7 @@
 		BE6F18F410F15BFB00C0FF7F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE6F18F310F15BFB00C0FF7F /* CoreFoundation.framework */; };
 		BE6F192B10F15C5700C0FF7F /* PreventCrashes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE6F192A10F15C5700C0FF7F /* PreventCrashes.cpp */; };
 		BE6F196F10F16E4000C0FF7F /* CalcTool in Copy Helper Tool */ = {isa = PBXBuildFile; fileRef = BE6F18E410F158A900C0FF7F /* CalcTool */; };
+		BE7AA16310FAD22F00FB0522 /* ExponentialTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = BE7AA16210FAD22F00FB0522 /* ExponentialTransformer.m */; };
 		BEA2656810E7DBFE00040424 /* Help in Resources */ = {isa = PBXBuildFile; fileRef = BEA2656310E7DBFE00040424 /* Help */; };
 		BEB483B410ED969D00A5FBCD /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB483B310ED969D00A5FBCD /* AppController.m */; };
 		BEB483D310ED9B9400A5FBCD /* NSUserDefaults_JWColorSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB483D210ED9B9400A5FBCD /* NSUserDefaults_JWColorSupport.m */; };
@@ -76,6 +77,8 @@
 		BE6F18F310F15BFB00C0FF7F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		BE6F192910F15C5700C0FF7F /* PreventCrashes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreventCrashes.h; path = Source/PreventCrashes.h; sourceTree = "<group>"; };
 		BE6F192A10F15C5700C0FF7F /* PreventCrashes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PreventCrashes.cpp; path = Source/PreventCrashes.cpp; sourceTree = "<group>"; };
+		BE7AA16110FAD22F00FB0522 /* ExponentialTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExponentialTransformer.h; path = "Cocoa source/ExponentialTransformer.h"; sourceTree = "<group>"; };
+		BE7AA16210FAD22F00FB0522 /* ExponentialTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExponentialTransformer.m; path = "Cocoa source/ExponentialTransformer.m"; sourceTree = "<group>"; };
 		BEA2656410E7DBFE00040424 /* English */ = {isa = PBXFileReference; lastKnownFileType = folder; name = English; path = Resources/English.lproj/Help; sourceTree = "<group>"; };
 		BEB483B210ED969D00A5FBCD /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = "Cocoa source/AppController.h"; sourceTree = "<group>"; };
 		BEB483B310ED969D00A5FBCD /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppController.m; path = "Cocoa source/AppController.m"; sourceTree = "<group>"; };
@@ -157,6 +160,8 @@
 				BEB483B310ED969D00A5FBCD /* AppController.m */,
 				BEB483D110ED9B9400A5FBCD /* NSUserDefaults_JWColorSupport.h */,
 				BEB483D210ED9B9400A5FBCD /* NSUserDefaults_JWColorSupport.m */,
+				BE7AA16110FAD22F00FB0522 /* ExponentialTransformer.h */,
+				BE7AA16210FAD22F00FB0522 /* ExponentialTransformer.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -291,6 +296,7 @@
 				BEE0020B09CC87EE00E7C5E6 /* CFStringToUTF8.cp in Sources */,
 				BEB483B410ED969D00A5FBCD /* AppController.m in Sources */,
 				BEB483D310ED9B9400A5FBCD /* NSUserDefaults_JWColorSupport.m in Sources */,
+				BE7AA16310FAD22F00FB0522 /* ExponentialTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
