@@ -9,6 +9,7 @@
 #import "MyDocument.h"
 #import "ParseCalcLine.h"
 #import "AppController.h"
+#import "NSString_JW.h"
 
 
 #import <sstream>
@@ -29,6 +30,32 @@ const int		kMenuItemTag_HexFormat		= 101;
 @end
 
 @implementation MyDocument
+
+- (NSString*) standardizeString: (NSString*) localStr
+{
+	NSString* stdString = localStr;
+	
+	if ([AppController isCommaDecimal])
+	{
+		NSString* workStr = [localStr stringByReplacingChar: ',' byChar: '.'];
+		stdString = [workStr stringByReplacingChar: ';' byChar: ','];
+	}
+	
+	return stdString;
+}
+
+- (NSString*) localizeString: (NSString*) stdString
+{
+	NSString* locString = stdString;
+	
+	if ([AppController isCommaDecimal])
+	{
+		NSString* workStr = [stdString stringByReplacingChar: ',' byChar: ';'];
+		locString = [workStr stringByReplacingChar: '.' byChar: ','];
+	}
+	
+	return locString;
+}
 
 - (id)init
 {
@@ -215,7 +242,8 @@ const int		kMenuItemTag_HexFormat		= 101;
 	{
 		oss << std::setprecision(12) << value;
 	}
-	return [NSString stringWithUTF8String: oss.str().c_str() ];
+	return [self localizeString:
+		[NSString stringWithUTF8String: oss.str().c_str() ] ];
 }
 
 
@@ -748,6 +776,7 @@ const int		kMenuItemTag_HexFormat		= 101;
 				NSRange	lineRange = NSMakeRange( lineStart, lineEnd - lineStart );
 				NSString*	theLine = [thePlainText
 					substringWithRange: lineRange];
+				theLine = [self standardizeString: theLine];
 				[mLineToCalculate setString: theLine];
 
 				// insert = and then line break
@@ -856,6 +885,9 @@ const int		kMenuItemTag_HexFormat		= 101;
 	
 	NSMutableString* theStr = [[NSMutableString alloc] initWithCapacity:100];
 	[theStr appendString: NSLocalizedString( @"DefFuns", nil ) ];
+	
+	NSString* fmtWithSep = [AppController isCommaDecimal]?
+		@"; %@" : @", %@";
 
 	id key;
 	while ((key = [enumerator nextObject]) != nil)
@@ -866,7 +898,7 @@ const int		kMenuItemTag_HexFormat		= 101;
 		{
 			if (i > 1)
 			{
-				[theStr appendFormat: @", %@", [theValue objectAtIndex: i] ];
+				[theStr appendFormat: fmtWithSep, [theValue objectAtIndex: i] ];
 			}
 			else
 			{

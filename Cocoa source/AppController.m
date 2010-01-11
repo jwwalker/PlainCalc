@@ -89,6 +89,10 @@ static AppController* sMe;
 								withDefault: [AppController defaultGreen] ] retain];
 		mCalcTimeout = [self prefTimeout];
 		
+		NSString* decimalSep = [[NSLocale currentLocale] objectForKey:
+			NSLocaleDecimalSeparator ];
+		mCommaIsDecimal = [decimalSep isEqualToString: @","];
+
 		[[NSUserDefaults standardUserDefaults]
 			addObserver: self
 			forKeyPath: @"ErrorColor"
@@ -131,6 +135,11 @@ static AppController* sMe;
 + (double) calcTimeout
 {
 	return sMe->mCalcTimeout;
+}
+
++ (BOOL) isCommaDecimal
+{
+	return sMe->mCommaIsDecimal;
 }
 
 - (void) observeValueForKeyPath:(NSString *)keyPath
