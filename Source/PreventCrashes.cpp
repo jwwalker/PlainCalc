@@ -12,11 +12,20 @@
 #import <signal.h>
 #import <cstdlib>
 #import <unistd.h>
+#import <setjmp.h>
+#import <cstdio>
 
+
+static sigjmp_buf                   jmpbuf;
+static volatile sig_atomic_t        canjump;
 
 static void sighandler( int theSig )
 {
-	_exit( theSig );
+	if (canjump == 0)
+		return;
+	
+	canjump = 0;
+	siglongjmp( jmpbuf, theSig );
 }
 
 
@@ -28,6 +37,8 @@ static void sighandler( int theSig )
 */
 void PreventCrashes()
 {
+	canjump = 0;
+	
 	// Set up alternate stack for stack overflow case
 	stack_t sigstk;
 	sigstk.ss_sp = malloc(SIGSTKSZ);
@@ -56,5 +67,14 @@ void PreventCrashes()
 	{
 		sigaction( excepCodes[i], &act, NULL );
 	}
+	
+	// Jump back here if there is an exception
+	int exCode = sigsetjmp( jmpbuf, 1 );
+	if (exCode != 0)
+	{
+		fprintf( stderr, "Exiting CalcTool with code %d\n", exCode );
+		exit( exCode );
+	}
+	canjump = 1;
 }
 

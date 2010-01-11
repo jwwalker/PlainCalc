@@ -19,6 +19,15 @@
 
 #import <CoreFoundation/CoreFoundation.h>
 
+#if DEBUGGING
+	#define		DPRINTF(...)	do {	\
+									std::fprintf( stderr, __VA_ARGS__ );	\
+									std::fprintf( stderr, "\n" );	\
+								} while (0)
+#else
+	#define		DPRINTF(...)
+#endif
+
 
 static void ProcessLine( const char* inLine, CalcState ioCalc )
 {
@@ -81,12 +90,15 @@ static CFDictionaryRef CreateDictFromXML( const char* inDictXML )
 
 static void InitVariables( const char* inVarDictXML, CalcState ioCalc )
 {
+	DPRINTF( "Tool 3.1" );
 	autoCFDictionaryRef varDict( CreateDictFromXML( inVarDictXML ) );
+	DPRINTF( "Tool 3.5" );
 	
 	if (varDict.get() != NULL)
 	{
 		SetCalcVariables( varDict.get(), ioCalc );
 	}
+	DPRINTF( "Tool 3.8" );
 }
 
 
@@ -103,21 +115,26 @@ static void InitFunctions( const char* inFunDictXML, CalcState ioCalc )
 int main (int argc, char * const argv[])
 {
 	int	returnCode = 0;
+	DPRINTF( "Tool 1" );
 	
 	PreventCrashes();
+	DPRINTF( "Tool 2\n" );
 	
 	try
 	{
 		CalcState calculator = CreateCalcState();
+		DPRINTF( "Tool 3" );
 		
 		if (argc >= 2)
 		{
 			InitVariables( argv[1], calculator );
 		}
+		DPRINTF( "Tool 4" );
 		if (argc >= 3)
 		{
 			InitFunctions( argv[2], calculator );
 		}
+		DPRINTF( "Tool 5" );
 		
 		std::string inBuf;
 		char inputChar;
@@ -126,6 +143,14 @@ int main (int argc, char * const argv[])
 		{
 			if ( (inputChar == '\0') or (inputChar == '\n') )
 			{
+			#if DEBUGGING
+				if (inBuf == "exit")	// DEBUG
+				{
+					int z = 1 - 1;
+					exit( 1/z );
+				}
+				DPRINTF( "Tool got line '%s'", inBuf.c_str() );
+			#endif
 				ProcessLine( inBuf.c_str(), calculator );
 				inBuf.clear();
 			}
@@ -144,7 +169,9 @@ int main (int argc, char * const argv[])
 	catch (...)
 	{
 		returnCode = -666;
+		fprintf( stderr, "CalcTool unexpected C++ exception\n" );
 	}
+	DPRINTF( "Tool end" );
 	
     return 0;
 }
