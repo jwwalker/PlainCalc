@@ -15,3 +15,5 @@ DefFuns = "Defined Functions:";
 DefVars = "Defined Variables:";
 DefFun = "Defined Function";
 SynErr = "Syntax Error";
+Crash = "Calculation Crashed";
+Timeout = "Timed Out";
