@@ -15,6 +15,7 @@
 	NSDictionary*	mSuccessColorAtt;
 	NSDictionary*	mNormalColorAtt;
 	double			mCalcTimeout;
+	BOOL			mCommaIsDecimal;
 }
 
 + (AppController*) sharedController;
@@ -26,5 +27,7 @@
 + (NSDictionary*) successAtts;
 
 + (double) calcTimeout;
+
++ (BOOL) isCommaDecimal;
 
 @end
