@@ -14,6 +14,9 @@
 #import <unistd.h>
 #import <setjmp.h>
 #import <cstdio>
+#import <mach/exception_types.h>
+#import <mach/mach_init.h>
+#import <mach/task.h>
 
 
 static sigjmp_buf                   jmpbuf;
@@ -38,6 +41,13 @@ static void sighandler( int theSig )
 void PreventCrashes()
 {
 	canjump = 0;
+	
+	task_set_exception_ports(
+		mach_task_self(),
+		EXC_MASK_BAD_ACCESS | EXC_MASK_BAD_INSTRUCTION | EXC_MASK_ARITHMETIC,
+		MACH_PORT_NULL,
+		EXCEPTION_STATE_IDENTITY,
+		MACHINE_THREAD_STATE );
 	
 	// Set up alternate stack for stack overflow case
 	stack_t sigstk;
