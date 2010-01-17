@@ -152,8 +152,17 @@ Sometimes there are weird debugger messages:\
 \f2\fs24 \cf0 \CocoaLigature0 The program is not being run.\
 \
 Previous frame inner to this frame (gdb could not unwind past this frame)\
+\pard\tx480\tx960\tx1440\tx1920\tx2400\tx2880\tx3360\tx3840\tx4320\tx4800\tx5280\tx5760\tx6240\tx6720\tx7200\tx7680\tx8160\tx8640\tx9120\tx9600\tx10080\tx10560\tx11040\tx11520\tx12000\tx12480\tx12960\tx13440\tx13920\tx14400\tx14880\tx15360\tx15840\tx16320\tx16800\tx17280\tx17760\tx18240\tx18720\tx19200\tx19680\tx20160\tx20640\tx21120\tx21600\tx22080\tx22560\tx23040\tx23520\tx24000\tx24480\tx24960\tx25440\tx25920\tx26400\tx26880\tx27360\tx27840\tx28320\tx28800\tx29280\tx29760\tx30240\tx30720\tx31200\tx31680\tx32160\tx32640\tx33120\tx33600\tx34080\tx34560\tx35040\tx35520\tx36000\tx36480\tx36960\tx37440\tx37920\tx38400\tx38880\tx39360\tx39840\tx40320\tx40800\tx41280\tx41760\tx42240\tx42720\tx43200\tx43680\tx44160\tx44640\tx45120\tx45600\tx46080\tx46560\tx47040\tx47520\tx48000\ql\qnatural\pardirnatural
 
-\f0\fs20 \CocoaLigature1 \
+\f0\fs20 \cf0 \CocoaLigature1 \
 \pard\pardeftab720\ql\qnatural
-\cf0 \
+\cf0 New in version 2.3:\
+\
+* The size and position of the window is now stored with documents.\
+* There is a Preferences dialog where you can set text colors and a timeout.\
+* The % sign is a built-in constant whose value is 0.01, so that for instance you can write 73% instead of 0.73.\
+* Improper recursive functions will no longer freeze or crash PlainCalc; instead, you will get a message saying "Timed Out" or "Calculation Crashed".\
+* If your language preferences specify that the decimal separator is a comma rather than a period, then PlainCalc expects you to enter decimals using the comma, and reports results that way.  In this case, you must separate the parameters of a multi-parameter function using semicolons rather than commas.\
+\
+\
 }
