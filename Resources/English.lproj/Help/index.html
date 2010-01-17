@@ -9,8 +9,8 @@
 	
 	<style TYPE="text/css" MEDIA=screen>
 	<!--
-	span.response { color: #009900 }
-	span.error { color: #FF0000 }
+	span.response { font-family: monospace; color: #009900 }
+	span.error { font-family: monospace; color: #FF0000 }
 	p.example { font-family: monospace; margin-left: 5em }
 	table { margin-left: 2em }
 	td { padding-right: 3em }
@@ -156,7 +156,7 @@ f(10) =<br>
 <span class="response">20</span><br>
 </p>
 
-<p>If you’re careful, you can define recursive functions.  (If you’re not careful, attempted recursive functions can easily cause PlainCalc to hang.)  For example, here is a recursive definition for the well-known Fibonacci sequence.</p>
+<p>If you’re careful, you can define recursive functions.  (If you’re not careful, attempted recursive functions can easily cause PlainCalc return the result <span class="error">Calculation Crashed</span>.)  For example, here is a recursive definition for the well-known Fibonacci sequence.</p>
 
 <p class="example">
 F(n)= if( n-1, F(n-1) + F(n-2), if( n, 1, 0 ) ) =<br>
@@ -165,7 +165,7 @@ F(10) =<br>
 <span class="response">55</span><br>
 </p>
 
-<p>Be warned that this is not an efficient way to compute Fibonacci numbers.  In fact, the amount of time to compute F(n) by this method grows exponentially, like F(n).</p>
+<p>Be warned that this is not an efficient way to compute Fibonacci numbers.  In fact, the amount of time to compute F(n) by this method grows exponentially, like F(n).  If the calculation takes too long, PlainCalc will say <span class="error">Timed Out</span>.  You can use the Preferences dialog to specify how long PlainCalc will compute before it times out.</p>
 
 <h1><a name="saving">Saving Files</a></h1>
 
