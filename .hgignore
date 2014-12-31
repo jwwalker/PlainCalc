@@ -1,0 +1,4 @@
+syntax: glob
+
+*.xcodeproj/xcuserdata/**
+*.xcodeproj/project.xcworkspace/**

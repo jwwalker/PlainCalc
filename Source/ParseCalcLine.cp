@@ -101,7 +101,6 @@ SFixedSymbols::SFixedSymbols()
 		( "log2", log2 )
 		( "exp", std::exp )
 		( "sqrt", std::sqrt )
-		( "Ã", std::sqrt )
 		( "\xE2\x88\x9A", std::sqrt )	// sqrt character in UTF-8
 		;
 	
