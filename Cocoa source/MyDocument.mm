@@ -131,7 +131,7 @@ const int		kMenuItemTag_HexFormat		= 101;
 		errorDescription: &errStr ];
 	if (errStr != nil)
 	{
-		NSLog( errStr );
+		NSLog( @"Error: %@", errStr );
 		[errStr release];
 	}
 	if (theDict != nil)
@@ -269,15 +269,15 @@ const int		kMenuItemTag_HexFormat		= 101;
 	
 }
 
-- (NSString*) newDocStatePath
+- (NSString*) pathOfNewDocState
 {
 	return [@"~/Library/Preferences/com.jwwalker.PlainCalc2.plaincalc"
 		stringByExpandingTildeInPath];
 }
 
-- (NSData*) newDocData
+- (NSData*) dataOfNewDoc
 {
-	NSData* theData = [NSData dataWithContentsOfFile: [self newDocStatePath]];
+	NSData* theData = [NSData dataWithContentsOfFile: [self pathOfNewDocState]];
 	return theData;
 }
 
@@ -528,7 +528,7 @@ const int		kMenuItemTag_HexFormat		= 101;
 		{
 			NSError* theErr = nil;
 			
-			if (not [theData writeToFile: [self newDocStatePath]
+			if (not [theData writeToFile: [self pathOfNewDocState]
 							options: NSAtomicWrite
 							error: &theErr ])
 			{
@@ -557,7 +557,7 @@ const int		kMenuItemTag_HexFormat		= 101;
 	
 	if (mString == nil)	// new doc
 	{
-		NSData* theData = [self newDocData];
+		NSData* theData = [self dataOfNewDoc];
 		
 		if ( (theData != nil) and [self loadNativeData: theData] )
 		{
@@ -627,7 +627,7 @@ const int		kMenuItemTag_HexFormat		= 101;
 		errorDescription: &theError ];
 	if (theError != nil)
 	{
-		NSLog( theError );
+		NSLog( @"Error: %@", theError );
 		[theError release];
 		
 		if (outError)
