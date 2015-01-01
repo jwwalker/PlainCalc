@@ -12,15 +12,14 @@
 		8D15AC310486D014006FF6A4 /* MyDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* MyDocument.mm */; settings = {ATTRIBUTES = (); }; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		BE03EC9B10E476B10035BF0E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE03EC9910E476B10035BF0E /* Localizable.strings */; };
-		BE47DB500B12DE6C00081BDA /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE47DB4E0B12DE6C00081BDA /* Carbon.framework */; };
-		BE47DB510B12DE6C00081BDA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE47DB4F0B12DE6C00081BDA /* Cocoa.framework */; };
+		BE1FA5421A55A31C0004741D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE1FA5411A55A31C0004741D /* Cocoa.framework */; };
 		BE6F18ED10F159D400C0FF7F /* tool-main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE6F18EC10F159D400C0FF7F /* tool-main.cpp */; };
 		BE6F18EE10F15B3300C0FF7F /* ParseCalcLine.cp in Sources */ = {isa = PBXBuildFile; fileRef = BECE6C1509C3A10300DD10E1 /* ParseCalcLine.cp */; };
 		BE6F18F110F15BE100C0FF7F /* UTF8ToCFString.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */; };
 		BE6F18F210F15BE400C0FF7F /* CFStringToUTF8.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020809CC87EE00E7C5E6 /* CFStringToUTF8.cp */; };
 		BE6F18F410F15BFB00C0FF7F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE6F18F310F15BFB00C0FF7F /* CoreFoundation.framework */; };
 		BE6F192B10F15C5700C0FF7F /* PreventCrashes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE6F192A10F15C5700C0FF7F /* PreventCrashes.cpp */; };
-		BE6F196F10F16E4000C0FF7F /* CalcTool in Copy Helper Tool */ = {isa = PBXBuildFile; fileRef = BE6F18E410F158A900C0FF7F /* CalcTool */; };
+		BE6F196F10F16E4000C0FF7F /* CalcTool in Copy Helper Tool */ = {isa = PBXBuildFile; fileRef = BE6F18E410F158A900C0FF7F /* CalcTool */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		BE7AA16310FAD22F00FB0522 /* ExponentialTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = BE7AA16210FAD22F00FB0522 /* ExponentialTransformer.m */; };
 		BE7AA18610FAFAC600FB0522 /* NSString_JW.m in Sources */ = {isa = PBXBuildFile; fileRef = BE7AA18510FAFAC600FB0522 /* NSString_JW.m */; };
 		BEA2656810E7DBFE00040424 /* Help in Resources */ = {isa = PBXBuildFile; fileRef = BEA2656310E7DBFE00040424 /* Help */; };
@@ -69,8 +68,7 @@
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* PlainCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlainCalc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE03EC9A10E476B10035BF0E /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = Resources/English.lproj/Localizable.strings; sourceTree = "<group>"; };
-		BE47DB4E0B12DE6C00081BDA /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
-		BE47DB4F0B12DE6C00081BDA /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /Developer/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		BE1FA5411A55A31C0004741D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BE47DB5D0B12DF3200081BDA /* PlainCalc.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlainCalc.xcconfig; sourceTree = "<group>"; };
 		BE6F18E410F158A900C0FF7F /* CalcTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CalcTool; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE6F18EB10F159D400C0FF7F /* tool-main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "tool-main.h"; path = "Source/tool-main.h"; sourceTree = "<group>"; };
@@ -105,8 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE47DB500B12DE6C00081BDA /* Carbon.framework in Frameworks */,
-				BE47DB510B12DE6C00081BDA /* Cocoa.framework in Frameworks */,
+				BE1FA5421A55A31C0004741D /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,9 +121,8 @@
 		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BE1FA5411A55A31C0004741D /* Cocoa.framework */,
 				BE6F18F310F15BFB00C0FF7F /* CoreFoundation.framework */,
-				BE47DB4E0B12DE6C00081BDA /* Carbon.framework */,
-				BE47DB4F0B12DE6C00081BDA /* Cocoa.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -259,6 +255,7 @@
 		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0610;
 			};
 			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "PlainCalc2" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -413,6 +410,7 @@
 		C05733C808A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -422,6 +420,7 @@
 		C05733C908A9546B00998B17 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				INSTALL_PATH = "$(HOME)/Applications";
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -436,6 +435,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};
