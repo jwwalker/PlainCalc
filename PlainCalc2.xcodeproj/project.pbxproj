@@ -69,6 +69,7 @@
 		8D15AC370486D014006FF6A4 /* PlainCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlainCalc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE03EC9A10E476B10035BF0E /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = Resources/English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BE1FA5411A55A31C0004741D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		BE1FA5431A55AB940004741D /* autoCF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = autoCF.h; path = Source/autoCF.h; sourceTree = "<group>"; };
 		BE47DB5D0B12DF3200081BDA /* PlainCalc.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlainCalc.xcconfig; sourceTree = "<group>"; };
 		BE6F18E410F158A900C0FF7F /* CalcTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CalcTool; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE6F18EB10F159D400C0FF7F /* tool-main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "tool-main.h"; path = "Source/tool-main.h"; sourceTree = "<group>"; };
@@ -170,6 +171,7 @@
 		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				BE1FA5431A55AB940004741D /* autoCF.h */,
 				BECE6C1409C3A10300DD10E1 /* ParseCalcLine.h */,
 				BECE6C1509C3A10300DD10E1 /* ParseCalcLine.cp */,
 				32DBCF750370BD2300C91783 /* PlainCalc2_Prefix.pch */,
