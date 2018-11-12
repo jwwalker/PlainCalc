@@ -1,6 +1,6 @@
 # README #
 
-PlainCalc is a buttonless, algebraic-entry, mathematical calculator for Mac OS X with variables and functions. To use PlainCalc, type an expression or assignment and press Return or Enter. Unlike most calculators I've seen, PlainCalc allows you to indicate multiplication by juxtaposition, e.g., you can write 2πr instead of 2*π*r.
+PlainCalc is a buttonless, algebraic-entry, mathematical calculator for Mac OS X with variables and functions. To use PlainCalc, type an expression or assignment and press Return or Enter. Unlike most calculators I've seen, PlainCalc allows you to indicate multiplication by juxtaposition, e.g., you can write 2πr instead of 2 * π * r.
 
 To build this project with Xcode, you will also need [Boost](http://www.boost.org), whose Spirit parsing library is used in the calculation engine.  In Xcode's preferences, you will need to define a source tree named "Boost" pointing at your Boost hierarchy.
 
