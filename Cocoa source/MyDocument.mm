@@ -607,7 +607,7 @@ const int		kMenuItemTag_HexFormat		= 101;
 	NSTextStorage*	theStorage = [textView textStorage];
 	NSData*	theRTF = [theStorage
 		RTFFromRange: NSMakeRange(0, [theStorage length])
-		documentAttributes: nil];
+		documentAttributes: @{}];
 	NSString*	theRTFString = [[NSString alloc]
 		initWithBytes: [theRTF bytes]
 		length: [theRTF length]
