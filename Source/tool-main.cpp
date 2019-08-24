@@ -88,7 +88,7 @@ static void ProcessLine( const char* inLine, CalcState ioCalc )
 		&kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks ) );
 	
 	autoCFDataRef theData( CFPropertyListCreateXMLData( NULL, theDict.get() ) );
-	int dataLen = CFDataGetLength( theData.get() );
+	CFIndex dataLen = CFDataGetLength( theData.get() );
 	const char* dataBytes = reinterpret_cast<const char*>(
 		CFDataGetBytePtr( theData.get() ) );
 	

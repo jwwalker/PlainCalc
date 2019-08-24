@@ -319,8 +319,8 @@ const int		kMenuItemTag_HexFormat		= 101;
 	[NSObject cancelPreviousPerformRequestsWithTarget: self];
 
 	NSRange	theRange = [textView selectedRange];
-	unsigned int	lineEnd = theRange.location;
-	unsigned int	lineStart = lineEnd - [mLineToCalculate length];
+	NSUInteger	lineEnd = theRange.location;
+	NSUInteger	lineStart = lineEnd - [mLineToCalculate length];
 	
 	ECalcResult resultKind = (ECalcResult) [[dict valueForKey: @"ResultKind"]
 		intValue];
@@ -496,7 +496,7 @@ const int		kMenuItemTag_HexFormat		= 101;
 {
 	NSString* commandStr = [calcStr stringByAppendingString: @"\n"];
 	const char* theCString = [commandStr UTF8String];
-	int theLen = strlen( theCString );
+	size_t theLen = strlen( theCString );
 	NSData* theData = [NSData dataWithBytes: theCString length: theLen ];
 	
 	NSPipe* thePipe = [mCalcTask standardInput];
@@ -713,7 +713,11 @@ const int		kMenuItemTag_HexFormat		= 101;
     return [fileAttributes autorelease];
 }
 
-- (void)printShowingPrintPanel:(BOOL)flag
+- (void)printDocumentWithSettings:(NSDictionary<NSPrintInfoAttributeKey, id> *)printSettings
+	showPrintPanel:(BOOL)showPrintPanel
+	delegate:(id)delegate
+	didPrintSelector:(SEL)didPrintSelector
+	contextInfo:(void *)contextInfo
 {
 	NSPrintInfo*	thePrintInfo = [self printInfo];
 	
@@ -724,10 +728,9 @@ const int		kMenuItemTag_HexFormat		= 101;
                 printInfo: thePrintInfo ];
 
 	[op runOperationModalForWindow: docWindow
-                delegate: self
-                didRunSelector:
-                    @selector(printOperationDidRun:success:contextInfo:)
-                contextInfo: self];
+                delegate: delegate
+                didRunSelector:  didPrintSelector
+                contextInfo: contextInfo];
 }
 
 - (void)canCloseDocumentWithDelegate:(id)delegate
@@ -779,8 +782,8 @@ const int		kMenuItemTag_HexFormat		= 101;
 			NSTextStorage*	theStorage = [textView textStorage];
 			NSString*	thePlainText = [theStorage string];
 
-			unsigned int	lineStart = 0;
-			unsigned int	lineEnd = theRange.location;
+			NSUInteger	lineStart = 0;
+			NSUInteger	lineEnd = theRange.location;
 			NSCharacterSet*	linefeedSet = [NSCharacterSet
 				characterSetWithCharactersInString: @"\n"];
 			NSRange	prevBreak = [thePlainText
@@ -952,7 +955,7 @@ const int		kMenuItemTag_HexFormat		= 101;
 		NSCharacterSet* badChars = [NSCharacterSet
 			characterSetWithCharactersInString: @",$"];
 		
-		const unsigned int kNumChars = [theData length];
+		const NSUInteger kNumChars = [theData length];
 		
 		NSMutableString* cleanData = [NSMutableString stringWithCapacity:
 			kNumChars ];
