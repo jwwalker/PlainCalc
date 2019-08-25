@@ -37,4 +37,5 @@
 
 // Signing
 	ENABLE_HARDENED_RUNTIME = YES
+	CODE_SIGN_STYLE = Manual
 
