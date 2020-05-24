@@ -34,7 +34,7 @@
 - (NSString*) stringByReplacingChar: (unichar) toReplace
 			byChar: (unichar) replaceWith
 {
-	NSMutableString* resultStr = [[self mutableCopy] autorelease];
+	NSMutableString* resultStr = [self mutableCopy];
 	
 	NSString* toRep = [NSString stringWithCharacters: &toReplace
 								length: 1 ];

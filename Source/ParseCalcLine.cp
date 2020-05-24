@@ -63,6 +63,16 @@ using namespace std;
 
 #define	ThrowIfEmpty_( x ) do { if (x.empty()) throw CalcException(); } while (false)
 
+static double rad( double inDegrees )
+{
+	return inDegrees * (M_PI / 180.0);
+}
+
+static double deg( double inRadians )
+{
+	return inRadians * (180.0 / M_PI);
+}
+
 namespace
 {
 	typedef		std::set< std::string >		StringSet;
@@ -122,6 +132,8 @@ SFixedSymbols::SFixedSymbols()
 		( "log10", std::log10 )
 		( "log2", log2 )
 		( "exp", std::exp )
+		( "rad", rad )
+		( "deg", deg )
 		( "sqrt", std::sqrt )
 		( "\xE2\x88\x9A", std::sqrt )	// sqrt character in UTF-8
 		;
@@ -130,6 +142,7 @@ SFixedSymbols::SFixedSymbols()
 		( "atan2", std::atan2 )
 		( "max", fmax )
 		( "min", fmin )
+		( "hypot", hypot )
 		;
 	
 	double	piVal = 4.0 * std::atan( 1.0 );

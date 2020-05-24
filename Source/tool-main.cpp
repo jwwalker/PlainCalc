@@ -87,7 +87,8 @@ static void ProcessLine( const char* inLine, CalcState ioCalc )
 		sizeof(theValues)/sizeof(theValues[0]),
 		&kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks ) );
 	
-	autoCFDataRef theData( CFPropertyListCreateXMLData( NULL, theDict.get() ) );
+	autoCFDataRef theData( CFPropertyListCreateData( NULL, theDict.get(),
+		kCFPropertyListXMLFormat_v1_0, 0, NULL ) );
 	CFIndex dataLen = CFDataGetLength( theData.get() );
 	const char* dataBytes = reinterpret_cast<const char*>(
 		CFDataGetBytePtr( theData.get() ) );
@@ -102,8 +103,8 @@ static CFDictionaryRef CreateDictFromXML( const char* inDictXML )
 		reinterpret_cast<const UInt8*>(inDictXML), strlen(inDictXML) ) );
 	
 	CFDictionaryRef theDict( static_cast<CFDictionaryRef>(
-		CFPropertyListCreateFromXMLData( NULL, xmlData.get(),
-			kCFPropertyListImmutable, NULL ) ) );
+		CFPropertyListCreateWithData( NULL, xmlData.get(),
+			kCFPropertyListImmutable, NULL, NULL ) ) );
 	
 	return theDict;
 }

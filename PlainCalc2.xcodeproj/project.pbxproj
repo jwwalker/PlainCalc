@@ -20,11 +20,10 @@
 		BE6F18F410F15BFB00C0FF7F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE6F18F310F15BFB00C0FF7F /* CoreFoundation.framework */; };
 		BE6F192B10F15C5700C0FF7F /* PreventCrashes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE6F192A10F15C5700C0FF7F /* PreventCrashes.cpp */; };
 		BE6F196F10F16E4000C0FF7F /* CalcTool in Copy Helper Tool */ = {isa = PBXBuildFile; fileRef = BE6F18E410F158A900C0FF7F /* CalcTool */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		BE7AA16310FAD22F00FB0522 /* ExponentialTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = BE7AA16210FAD22F00FB0522 /* ExponentialTransformer.m */; };
 		BE7AA18610FAFAC600FB0522 /* NSString_JW.m in Sources */ = {isa = PBXBuildFile; fileRef = BE7AA18510FAFAC600FB0522 /* NSString_JW.m */; };
 		BEA2656810E7DBFE00040424 /* Help in Resources */ = {isa = PBXBuildFile; fileRef = BEA2656310E7DBFE00040424 /* Help */; };
+		BEA862FD247B185100F296B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEA862FC247B185100F296B1 /* Assets.xcassets */; };
 		BEB483B410ED969D00A5FBCD /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB483B310ED969D00A5FBCD /* AppController.m */; };
-		BEB483D310ED9B9400A5FBCD /* NSUserDefaults_JWColorSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB483D210ED9B9400A5FBCD /* NSUserDefaults_JWColorSupport.m */; };
 		BECE6C1609C3A10300DD10E1 /* ParseCalcLine.cp in Sources */ = {isa = PBXBuildFile; fileRef = BECE6C1509C3A10300DD10E1 /* ParseCalcLine.cp */; };
 		BEE0020A09CC87EE00E7C5E6 /* UTF8ToCFString.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */; };
 		BEE0020B09CC87EE00E7C5E6 /* CFStringToUTF8.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020809CC87EE00E7C5E6 /* CFStringToUTF8.cp */; };
@@ -74,20 +73,17 @@
 		BE6F18F310F15BFB00C0FF7F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		BE6F192910F15C5700C0FF7F /* PreventCrashes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreventCrashes.h; path = Source/PreventCrashes.h; sourceTree = "<group>"; };
 		BE6F192A10F15C5700C0FF7F /* PreventCrashes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PreventCrashes.cpp; path = Source/PreventCrashes.cpp; sourceTree = "<group>"; };
-		BE7AA16110FAD22F00FB0522 /* ExponentialTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExponentialTransformer.h; path = "Cocoa source/ExponentialTransformer.h"; sourceTree = "<group>"; };
-		BE7AA16210FAD22F00FB0522 /* ExponentialTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExponentialTransformer.m; path = "Cocoa source/ExponentialTransformer.m"; sourceTree = "<group>"; };
 		BE7AA18410FAFAC600FB0522 /* NSString_JW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSString_JW.h; path = "Cocoa source/NSString_JW.h"; sourceTree = "<group>"; };
 		BE7AA18510FAFAC600FB0522 /* NSString_JW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSString_JW.m; path = "Cocoa source/NSString_JW.m"; sourceTree = "<group>"; };
 		BEA072092311EC590037BB53 /* en */ = {isa = PBXFileReference; lastKnownFileType = folder; name = en; path = Resources/en.lproj/Help; sourceTree = "<group>"; };
 		BEA0720A2311EC930037BB53 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		BEA0720B2311ECA00037BB53 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/MyDocument.xib; sourceTree = "<group>"; };
-		BEA0720C2311ECAB0037BB53 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Resources/en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		BEA0720D2311ECB70037BB53 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = Resources/en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		BEA0720E2311ECC40037BB53 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		BEA862FC247B185100F296B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
+		BEA862FE247B39CB00F296B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Resources/Base.lproj/MyDocument.xib; sourceTree = "<group>"; };
+		BEA862FF247B39CB00F296B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Resources/Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		BEB483B210ED969D00A5FBCD /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = "Cocoa source/AppController.h"; sourceTree = "<group>"; };
 		BEB483B310ED969D00A5FBCD /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppController.m; path = "Cocoa source/AppController.m"; sourceTree = "<group>"; };
-		BEB483D110ED9B9400A5FBCD /* NSUserDefaults_JWColorSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSUserDefaults_JWColorSupport.h; path = "Cocoa source/NSUserDefaults_JWColorSupport.h"; sourceTree = "<group>"; };
-		BEB483D210ED9B9400A5FBCD /* NSUserDefaults_JWColorSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSUserDefaults_JWColorSupport.m; path = "Cocoa source/NSUserDefaults_JWColorSupport.m"; sourceTree = "<group>"; };
 		BEB4844410EE7EAE00A5FBCD /* Notes.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Notes.rtf; sourceTree = "<group>"; };
 		BECE6C1409C3A10300DD10E1 /* ParseCalcLine.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ParseCalcLine.h; path = Source/ParseCalcLine.h; sourceTree = "<group>"; };
 		BECE6C1509C3A10300DD10E1 /* ParseCalcLine.cp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = ParseCalcLine.cp; path = Source/ParseCalcLine.cp; sourceTree = "<group>"; };
@@ -158,12 +154,8 @@
 				2A37F4ACFDCFA73011CA2CEA /* MyDocument.mm */,
 				BEB483B210ED969D00A5FBCD /* AppController.h */,
 				BEB483B310ED969D00A5FBCD /* AppController.m */,
-				BEB483D110ED9B9400A5FBCD /* NSUserDefaults_JWColorSupport.h */,
-				BEB483D210ED9B9400A5FBCD /* NSUserDefaults_JWColorSupport.m */,
 				BE7AA18410FAFAC600FB0522 /* NSString_JW.h */,
 				BE7AA18510FAFAC600FB0522 /* NSString_JW.m */,
-				BE7AA16110FAD22F00FB0522 /* ExponentialTransformer.h */,
-				BE7AA16210FAD22F00FB0522 /* ExponentialTransformer.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -192,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				BEE0962609C52C600087035A /* doc.icns */,
+				BEA862FC247B185100F296B1 /* Assets.xcassets */,
 				BEE0962709C52C600087035A /* app.icns */,
 				BEA2656310E7DBFE00040424 /* Help */,
 				BE03EC9910E476B10035BF0E /* Localizable.strings */,
@@ -274,6 +267,7 @@
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* PlainCalc2 */;
 			projectDirPath = "";
@@ -297,6 +291,7 @@
 				BEF3631F10CB32950047ED77 /* MainMenu.xib in Resources */,
 				BEF3633110CB32CC0047ED77 /* MyDocument.xib in Resources */,
 				BE03EC9B10E476B10035BF0E /* Localizable.strings in Resources */,
+				BEA862FD247B185100F296B1 /* Assets.xcassets in Resources */,
 				BEA2656810E7DBFE00040424 /* Help in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,8 +309,6 @@
 				BEE0020A09CC87EE00E7C5E6 /* UTF8ToCFString.cp in Sources */,
 				BEE0020B09CC87EE00E7C5E6 /* CFStringToUTF8.cp in Sources */,
 				BEB483B410ED969D00A5FBCD /* AppController.m in Sources */,
-				BEB483D310ED9B9400A5FBCD /* NSUserDefaults_JWColorSupport.m in Sources */,
-				BE7AA16310FAD22F00FB0522 /* ExponentialTransformer.m in Sources */,
 				BE7AA18610FAFAC600FB0522 /* NSString_JW.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,7 +371,7 @@
 		BEF3631D10CB32950047ED77 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				BEA0720C2311ECAB0037BB53 /* en */,
+				BEA862FF247B39CB00F296B1 /* Base */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -386,7 +379,7 @@
 		BEF3632F10CB32CC0047ED77 /* MyDocument.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				BEA0720B2311ECA00037BB53 /* en */,
+				BEA862FE247B39CB00F296B1 /* Base */,
 			);
 			name = MyDocument.xib;
 			sourceTree = "<group>";
@@ -428,7 +421,7 @@
 		C05733C808A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = FDHC2KMZ6V;
@@ -442,7 +435,7 @@
 		C05733C908A9546B00998B17 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = FDHC2KMZ6V;

@@ -31,9 +31,8 @@
 
 @interface AppController : NSObject
 {
-	NSDictionary*	mErrorColorAtt;
-	NSDictionary*	mSuccessColorAtt;
-	NSDictionary*	mNormalColorAtt;
+	__strong NSDictionary*	mErrorColorAtt;
+	__strong NSDictionary*	mNormalColorAtt;
 	double			mCalcTimeout;
 	BOOL			mCommaIsDecimal;
 }

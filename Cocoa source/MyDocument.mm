@@ -117,15 +117,13 @@ const int		kMenuItemTag_HexFormat		= 101;
 	[mCalcTask terminate];
 	NSLog(@"dealloc 3");
 	
-	[mInitialTypingFont release];
-	[mLoadedWindowFrame release];
-	[mCalcTask release];
-	[mResultBuffer release];
-	[mLineToCalculate release];
+	mInitialTypingFont = nil;
+	mLoadedWindowFrame = nil;
+	mCalcTask = nil;
+	mResultBuffer = nil;
+	mLineToCalculate = nil;
+	mLineToCalculate = nil;
 	NSLog(@"dealloc 4");
-	
-	[super dealloc];
-	NSLog(@"dealloc 5");
 }
 
 
@@ -133,7 +131,7 @@ const int		kMenuItemTag_HexFormat		= 101;
 {
 	if (newValue != mString)
 	{
-		[mString release];
+		mString = nil;
 		mString = [newValue copy];
 	}
 }
@@ -143,21 +141,20 @@ const int		kMenuItemTag_HexFormat		= 101;
 {
 	BOOL	didLoad = NO;
 	
-	NSString*	errStr = nil;
+	NSError* err = nil;
 	NSDictionary*	theDict = [NSPropertyListSerialization
-		propertyListFromData: data
-		mutabilityOption: NSPropertyListImmutable
+		propertyListWithData: data
+		options: NSPropertyListImmutable
 		format: NULL
-		errorDescription: &errStr ];
-	if (errStr != nil)
+		error: &err ];
+	if (err != nil)
 	{
-		NSLog( @"Error: %@", errStr );
-		[errStr release];
+		NSLog( @"Error: %@", err );
 	}
 	if (theDict != nil)
 	{
 		NSString*	theRTFStr = [theDict objectForKey:@"text"];
-		if (theRTFStr != NULL)
+		if (theRTFStr != nil)
 		{
 			NSData*	theRTFdata = [theRTFStr
 				dataUsingEncoding: NSUTF8StringEncoding];
@@ -170,19 +167,18 @@ const int		kMenuItemTag_HexFormat		= 101;
 				{
 					[self setString: theAttStr];
 					didLoad = YES;
-					[theAttStr release];
 				}
 			}
 		}
 		NSDictionary*	varDict = [theDict objectForKey: @"variables"];
-		if (varDict != NULL)
+		if (varDict != nil)
 		{
-			SetCalcVariables( (CFDictionaryRef)varDict, mCalcState );
+			SetCalcVariables( (__bridge CFDictionaryRef)varDict, mCalcState );
 		}
 		NSDictionary*	funcDict = [theDict objectForKey: @"functions"];
-		if (funcDict != NULL)
+		if (funcDict != nil)
 		{
-			SetCalcFunctions( (CFDictionaryRef)funcDict, mCalcState );
+			SetCalcFunctions( (__bridge CFDictionaryRef)funcDict, mCalcState );
 		}
 		
 		NSString* fontName = [theDict objectForKey: @"fontName"];
@@ -197,11 +193,11 @@ const int		kMenuItemTag_HexFormat		= 101;
 				size: [fontSize floatValue] ];
 			if (typingFont != nil)
 			{
-				mInitialTypingFont = [typingFont retain];
+				mInitialTypingFont = typingFont;
 			}
 		}
 		
-		mLoadedWindowFrame = [[theDict objectForKey: @"windowFrame"] retain];
+		mLoadedWindowFrame = [theDict objectForKey: @"windowFrame"];
 	}
     
 	return didLoad;
@@ -214,10 +210,8 @@ const int		kMenuItemTag_HexFormat		= 101;
 		encoding: NSUTF8StringEncoding ];
 	NSAttributedString*	theAttStr = [[NSAttributedString alloc]
 		initWithString: textStr ];
-	[textStr release];
 	[self setString: theAttStr];
 	didLoad = YES;
-	[theAttStr release];
 	
 	return didLoad;
 }
@@ -232,7 +226,6 @@ const int		kMenuItemTag_HexFormat		= 101;
 	{
 		[self setString: theAttStr];
 		didLoad = YES;
-		[theAttStr release];
 	}
 	return didLoad;
 }
@@ -242,8 +235,8 @@ const int		kMenuItemTag_HexFormat		= 101;
 	NSAttributedString*	attStr = [[NSAttributedString alloc]
 		initWithString: string
 		attributes: dict ];
-	[textView insertText: attStr];
-	[attStr release];
+	[textView insertText: attStr
+		replacementRange: textView.selectedRange];
 }
 
 
@@ -310,6 +303,8 @@ const int		kMenuItemTag_HexFormat		= 101;
 		dictionaryWithDictionary: [textView typingAttributes] ];
 	[typingAtts setValue: mInitialTypingFont
 				forKey: NSFontAttributeName];
+	[typingAtts setValue: [NSColor textColor]
+				forKey: NSForegroundColorAttributeName];
 	[textView setTypingAttributes: typingAtts];
 }
 
@@ -379,21 +374,20 @@ const int		kMenuItemTag_HexFormat		= 101;
 	if ([data length])
 	{
 		[mResultBuffer appendData: data];
-		NSString* replyStr = [[[NSString alloc]
+		NSString* replyStr = [[NSString alloc]
 			initWithData: mResultBuffer
-			encoding: NSUTF8StringEncoding] autorelease];
+			encoding: NSUTF8StringEncoding];
 		NSRange foundRange = [replyStr rangeOfString: @"</plist>"
 										options: NSBackwardsSearch];
 		if (foundRange.length > 0)
 		{
-			NSString* errDesc = nil;
+			NSError* err = nil;
 			NSDictionary* replyDict = (NSDictionary*)
 				[NSPropertyListSerialization
-					propertyListFromData: mResultBuffer
-					mutabilityOption: NSPropertyListImmutable
+					propertyListWithData: mResultBuffer
+					options: NSPropertyListImmutable
 					format: NULL
-					errorDescription: &errDesc];
-			[errDesc release];
+					error: &err];
 			[mResultBuffer setLength: 0];
 			if (replyDict != nil)
 			{
@@ -424,7 +418,6 @@ const int		kMenuItemTag_HexFormat		= 101;
 				withAttributes: [AppController normalAtts] ];
 		}
 		
-		[mCalcTask release];
 		mCalcTask = nil;
 		[self startCalcTask];
 	}
@@ -432,15 +425,14 @@ const int		kMenuItemTag_HexFormat		= 101;
 
 - (NSString*) xmlStringFromDictionary: (NSDictionary*) dict
 {
-	NSString* errDesc = nil;
 	NSData* xmlData = [NSPropertyListSerialization
-		dataFromPropertyList: dict
+		dataWithPropertyList: dict
 		format: NSPropertyListXMLFormat_v1_0
-		errorDescription: &errDesc];
-	[errDesc release];
-	NSString* theXMLStr = [[[NSString alloc]
+		options: 0
+		error: nil];
+	NSString* theXMLStr = [[NSString alloc]
 		initWithData: xmlData
-		encoding: NSUTF8StringEncoding] autorelease];
+		encoding: NSUTF8StringEncoding];
 	return theXMLStr;
 }
 
@@ -452,12 +444,10 @@ const int		kMenuItemTag_HexFormat		= 101;
 		stringByAppendingPathComponent: @"CalcTool"];
 	[mCalcTask setLaunchPath: toolPath];
 
-	NSDictionary*	varDict = (NSDictionary*)CopyCalcVariables( mCalcState );
-	[varDict autorelease];
+	NSDictionary*	varDict = (NSDictionary*)CFBridgingRelease(CopyCalcVariables( mCalcState ));
 	NSString* varXMLStr = [self xmlStringFromDictionary: varDict];
 	
-	NSDictionary*	funcDict = (NSDictionary*)CopyCalcFunctions( mCalcState );
-	[funcDict autorelease];
+	NSDictionary*	funcDict = (NSDictionary*)CFBridgingRelease(CopyCalcFunctions( mCalcState ));
 	NSString* funXMLStr = [self xmlStringFromDictionary: funcDict];
 
 	NSArray* argArray = [NSArray arrayWithObjects:
@@ -509,7 +499,6 @@ const int		kMenuItemTag_HexFormat		= 101;
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 	
 	[mCalcTask terminate];
-	[mCalcTask release];
 	mCalcTask = nil;
 	
 	[self startCalcTask];
@@ -525,42 +514,6 @@ const int		kMenuItemTag_HexFormat		= 101;
 		withAttributes: [AppController normalAtts] ];
 }
 
-#pragma mark Sheet end callbacks
-
-- (void) infoAlertEnd:(NSAlert *)alert
-		retCode:(int)returnCode
-		ctx:(void *)contextInfo
-{
-	
-}
-
-- (void) saveAsNewConfirmEnd:(NSAlert *)alert
-		retCode:(int)returnCode
-		ctx:(void *)contextInfo
-{
-	if (returnCode == NSAlertFirstButtonReturn)
-	{
-		[[alert window] orderOut: self];
-		
-		NSData* theData = [self dataOfType: @"PlainCalc worksheet" error: nil];
-		
-		if (theData)
-		{
-			NSError* theErr = nil;
-			
-			if (not [theData writeToFile: [self pathOfNewDocState]
-							options: NSAtomicWrite
-							error: &theErr ])
-			{
-				NSAlert* errAlert = [NSAlert alertWithError: theErr];
-				[errAlert beginSheetModalForWindow: docWindow
-							modalDelegate: self
-							didEndSelector: @selector(infoAlertEnd:retCode:ctx:)
-							contextInfo: nil];
-			}
-		}
-	}
-}
 
 #pragma mark NSDocument overloads
 
@@ -585,7 +538,8 @@ const int		kMenuItemTag_HexFormat		= 101;
 		}
 		else
 		{
-			[textView setFont: [NSFont userFontOfSize: 14] ];
+			textView.font = [NSFont userFontOfSize: 14];
+			textView.textColor = [NSColor textColor];
 		}
 	}
 	else	// opened existing doc
@@ -613,48 +567,33 @@ const int		kMenuItemTag_HexFormat		= 101;
 		length: [theRTF length]
 		encoding: NSUTF8StringEncoding];
 	
-	NSDictionary*	varDict = (NSDictionary*)CopyCalcVariables( mCalcState );
-	NSDictionary*	funcDict = (NSDictionary*)CopyCalcFunctions( mCalcState );
+	NSDictionary*	varDict = (NSDictionary*)CFBridgingRelease(CopyCalcVariables( mCalcState ));
+	NSDictionary*	funcDict = (NSDictionary*)CFBridgingRelease(CopyCalcFunctions( mCalcState ));
 	
 	NSDictionary*	typingAtts = [textView typingAttributes];
 	NSFont* typingFont = [typingAtts valueForKey: NSFontAttributeName];
-	NSString* typingFontName = [typingFont familyName];
-	NSNumber* typingFontSize = [NSNumber numberWithFloat: [typingFont pointSize] ];
 	
-	id	theKeys[] = {
-		@"text", @"variables", @"functions", @"fontName", @"fontSize",
-		@"windowFrame"
+	NSDictionary*	docDict = @{
+		@"text": theRTFString,
+		@"variables": varDict,
+		@"functions": funcDict,
+		@"fontName": [typingFont familyName],
+		@"fontSize": @([typingFont pointSize]),
+		@"windowFrame": [docWindow stringWithSavedFrame]
 	};
-	id	theValues[] = {
-		theRTFString,
-		varDict,
-		funcDict,
-		typingFontName,
-		typingFontSize,
-		[docWindow stringWithSavedFrame]
-	};
-	NSDictionary*	docDict = [NSDictionary
-		dictionaryWithObjects: theValues
-		forKeys: theKeys
-		count: 6];
-	[theRTFString release];
-	[varDict release];
-	[funcDict release];
-	NSString*	theError = nil;
+	NSError*	theError = nil;
 	NSData*	data = [NSPropertyListSerialization
-		dataFromPropertyList: docDict
+		dataWithPropertyList: docDict
 		format: NSPropertyListXMLFormat_v1_0
-		errorDescription: &theError ];
+		options: 0
+		error: &theError ];
 	if (theError != nil)
 	{
 		NSLog( @"Error: %@", theError );
-		[theError release];
 		
 		if (outError)
 		{
-			*outError = [NSError errorWithDomain: NSCocoaErrorDomain
-								code: NSFileWriteUnknownError
-								userInfo: nil];
+			*outError = theError;
 		}
 	}
 
@@ -710,7 +649,7 @@ const int		kMenuItemTag_HexFormat		= 101;
     [fileAttributes
 		setObject: [NSNumber numberWithUnsignedInt: kMyNativeDocTypeCode]
         forKey: NSFileHFSTypeCode];
-    return [fileAttributes autorelease];
+    return fileAttributes;
 }
 
 - (void)printDocumentWithSettings:(NSDictionary<NSPrintInfoAttributeKey, id> *)printSettings
@@ -745,7 +684,7 @@ const int		kMenuItemTag_HexFormat		= 101;
 		NSInvocation* invoc = [NSInvocation invocationWithMethodSignature: theSig];
 		[invoc setSelector: shouldCloseSelector];
 		[invoc setTarget: delegate];
-		[invoc setArgument: &self atIndex: 2];
+		[invoc setArgument: (void*)&self atIndex: 2];
 		BOOL shouldClose = YES;
 		[invoc setArgument: &shouldClose atIndex: 3];
 		[invoc setArgument: &contextInfo atIndex: 4];
@@ -803,7 +742,8 @@ const int		kMenuItemTag_HexFormat		= 101;
 				[mLineToCalculate setString: theLine];
 
 				// insert = and then line break
-				[textView insertText: @" =\n"];
+				[textView insertText: @" =\n"
+					replacementRange: textView.selectedRange];
 				[textView setEditable: NO];
 				
 				[self sendCommandToTask: theLine];
@@ -828,12 +768,13 @@ const int		kMenuItemTag_HexFormat		= 101;
 	
 	NSColor* colorAtt = [attsToUse valueForKey: NSForegroundColorAttributeName];
 	
-	if ( (colorAtt != nil) and (not [colorAtt isEqual: [NSColor blackColor]]) )
+	if ( (colorAtt != nil) and (not [colorAtt isEqual: [NSColor textColor]]) )
 	{
 		attsToUse = [NSMutableDictionary dictionaryWithDictionary: attsToUse];
-		[attsToUse setValue:[NSColor blackColor]
+		[attsToUse setValue:[NSColor textColor]
 					forKey: NSForegroundColorAttributeName];
 	}
+	NSLog(@"Typing atts %@", attsToUse);
 	
 	return attsToUse;
 }
@@ -870,7 +811,7 @@ const int		kMenuItemTag_HexFormat		= 101;
 
 - (IBAction) showDefinedVariables: (id) sender
 {
-	NSDictionary*	varDict = (NSDictionary*)CopyCalcVariables( mCalcState );
+	NSDictionary*	varDict = (NSDictionary*)CFBridgingRelease(CopyCalcVariables( mCalcState ));
 	NSArray*	theKeys = [[varDict allKeys]
 		sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 	NSEnumerator *enumerator = [theKeys objectEnumerator];
@@ -889,11 +830,9 @@ const int		kMenuItemTag_HexFormat		= 101;
 			[theStr appendFormat: @"\n%@ = %@", key, valueStr ];
 		}
 	}
-	[varDict release];
 	
 	[self insertString: theStr
 		withAttributes: [AppController successAtts] ];
-	[theStr release];
 	
 	[self insertString: @"\n"
 		withAttributes: [AppController normalAtts] ];
@@ -901,7 +840,7 @@ const int		kMenuItemTag_HexFormat		= 101;
 
 - (IBAction) showDefinedFunctions: (id) sender
 {
-	NSDictionary*	funcDict = (NSDictionary*)CopyCalcFunctions( mCalcState );
+	NSDictionary*	funcDict = (NSDictionary*)CFBridgingRelease(CopyCalcFunctions( mCalcState ));
 	NSArray*	theKeys = [[funcDict allKeys]
 		sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
 	NSEnumerator *enumerator = [theKeys objectEnumerator];
@@ -931,11 +870,8 @@ const int		kMenuItemTag_HexFormat		= 101;
 		[theStr appendFormat: @" ) = %@", [theValue objectAtIndex: 0] ];
 	}
 	
-	[funcDict release];
-
 	[self insertString: theStr
 		withAttributes: [AppController successAtts] ];
-	[theStr release];
 	
 	[self insertString: @"\n"
 		withAttributes: [AppController normalAtts] ];
@@ -971,82 +907,96 @@ const int		kMenuItemTag_HexFormat		= 101;
 			}
 		}
 		
-		[textView insertText: cleanData];
+		[textView insertText: cleanData
+			replacementRange: textView.selectedRange];
 	}
 }
 
 - (IBAction) saveAsNewDocumentContent: (id) sender
 {
-	NSAlert* theAlert = [[[NSAlert alloc] init] autorelease];
+	NSAlert* theAlert = [[NSAlert alloc] init];
 	[theAlert setMessageText: NSLocalizedString( @"ConfirmSaveNew", nil )];
 	[theAlert setInformativeText: NSLocalizedString( @"ConfirmSaveNew_detail", nil )];
 	[theAlert addButtonWithTitle: NSLocalizedString( @"ConfirmSaveNew_ok", nil )];
 	[theAlert addButtonWithTitle: NSLocalizedString( @"ConfirmSaveNew_cancel", nil )];
+	__weak NSWindow* weakWindow = docWindow;
 	
 	[theAlert beginSheetModalForWindow: docWindow
-		modalDelegate: self
-		didEndSelector: @selector(saveAsNewConfirmEnd:retCode:ctx:)
-		contextInfo: nil];
+		completionHandler: ^(NSModalResponse returnCode)
+		{
+			if (returnCode == NSAlertFirstButtonReturn)
+			{
+				[[theAlert window] orderOut: theAlert];
+				
+				NSData* theData = [self dataOfType: @"PlainCalc worksheet" error: nil];
+				
+				if (theData)
+				{
+					NSError* theErr = nil;
+					
+					if (not [theData writeToFile: [self pathOfNewDocState]
+									options: NSAtomicWrite
+									error: &theErr ])
+					{
+						NSAlert* errAlert = [NSAlert alertWithError: theErr];
+						[errAlert beginSheetModalForWindow: weakWindow
+									completionHandler: nil];
+					}
+				}
+			}
+		}];
 }
 
 - (IBAction) forgetFunction: (id) sender
 {
 	mForgettingFunction = YES;
 	[oForgetSymbolPopup removeAllItems];
-	NSDictionary*	funcDict = (NSDictionary*)CopyCalcFunctions( mCalcState );
-	[funcDict autorelease];
+	NSDictionary*	funcDict = (NSDictionary*)CFBridgingRelease(CopyCalcFunctions( mCalcState ));
 	NSArray*	theKeys = [[funcDict allKeys]
 		sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
 	[oForgetSymbolPopup addItemsWithTitles: theKeys];
 	
-	[NSApp beginSheet: oForgetSymbolSheet
-			modalForWindow: docWindow
-			modalDelegate: nil
-			didEndSelector: nil
-			contextInfo: NULL ];
+	[docWindow beginSheet: oForgetSymbolSheet completionHandler: nil];
+	// Note, the OK button of the sheet has an assigned action, so we need
+	// no handler here.
 }
 
 - (IBAction) forgetVariable: (id) sender
 {
 	mForgettingFunction = NO;
 	[oForgetSymbolPopup removeAllItems];
-	NSDictionary*	varDict = (NSDictionary*)CopyCalcVariables( mCalcState );
-	[varDict autorelease];
+	NSDictionary*	varDict = (NSDictionary*)CFBridgingRelease(CopyCalcVariables( mCalcState ));
 	NSArray*	theKeys = [[varDict allKeys]
 		sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
 	[oForgetSymbolPopup addItemsWithTitles: theKeys];
 	
-	[NSApp beginSheet: oForgetSymbolSheet
-			modalForWindow: docWindow
-			modalDelegate: nil
-			didEndSelector: nil
-			contextInfo: NULL ];
+	[docWindow beginSheet: oForgetSymbolSheet completionHandler: nil];
+	// Note, the OK button of the sheet has an assigned action, so we need
+	// no handler here.
 }
 
 - (IBAction) forgetSheetOK: (id) sender
 {
-	NSDictionary*	funcDict = (NSDictionary*)CopyCalcFunctions( mCalcState );
-	[funcDict autorelease];
-	NSDictionary*	varDict = (NSDictionary*)CopyCalcVariables( mCalcState );
-	[varDict autorelease];
+	NSDictionary*	funcDict = (NSDictionary*)CFBridgingRelease(CopyCalcFunctions( mCalcState ));
+	NSDictionary*	varDict = (NSDictionary*)CFBridgingRelease(CopyCalcVariables( mCalcState ));
 	NSString* symbolName = [oForgetSymbolPopup titleOfSelectedItem];
 	
 	if (mForgettingFunction)
 	{
-		NSMutableDictionary* funcsMutable = [[funcDict mutableCopy] autorelease];
+		NSMutableDictionary* funcsMutable = [funcDict mutableCopy];
 		[funcsMutable removeObjectForKey: symbolName];
 		funcDict = funcsMutable;
 	}
 	else
 	{
-		NSMutableDictionary* varsMutable = [[varDict mutableCopy] autorelease];
+		NSMutableDictionary* varsMutable = [varDict mutableCopy];
 		[varsMutable removeObjectForKey: symbolName];
 		varDict = varsMutable;
 	}
 	
 	CalcState newCalcState = CreateCalcState();
-	SetCalcVariables( (CFDictionaryRef)varDict, newCalcState );
-	SetCalcFunctions( (CFDictionaryRef)funcDict, newCalcState );
+	SetCalcVariables( (__bridge CFDictionaryRef)varDict, newCalcState );
+	SetCalcFunctions( (__bridge CFDictionaryRef)funcDict, newCalcState );
 	DisposeCalcState( mCalcState );
 	mCalcState = newCalcState;
 

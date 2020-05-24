@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14845" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14845"/>
-        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication"/>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <menu title="MainMenu" systemMenu="main" id="29" userLabel="MainMenu">
             <items>
                 <menuItem title="PlainCalc" id="56">
@@ -21,11 +20,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="389"/>
-                            <menuItem title="Preferences..." keyEquivalent="," id="387">
-                                <connections>
-                                    <action selector="makeKeyAndOrderFront:" target="390" id="392"/>
-                                </connections>
-                            </menuItem>
+                            <menuItem title="Preferences..." keyEquivalent="," id="387"/>
                             <menuItem isSeparatorItem="YES" id="362"/>
                             <menuItem title="Services" id="131">
                                 <menu key="submenu" title="Services" systemMenu="services" id="130"/>
@@ -460,106 +455,6 @@
         </menu>
         <customObject id="263" userLabel="Font Manager" customClass="NSFontManager"/>
         <customObject id="386" customClass="AppController"/>
-        <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="prefs" animationBehavior="default" id="390">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
-            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="157" y="340" width="298" height="121"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-            <view key="contentView" id="391">
-                <rect key="frame" x="0.0" y="0.0" width="298" height="121"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <textField verticalHuggingPriority="750" id="393">
-                        <rect key="frame" x="17" y="84" width="86" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Result Color:" id="394">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField verticalHuggingPriority="750" id="395">
-                        <rect key="frame" x="17" y="53" width="86" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Error Color:" id="396">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField verticalHuggingPriority="750" id="409">
-                        <rect key="frame" x="17" y="20" width="70" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Timeout:" id="410">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField verticalHuggingPriority="750" id="416">
-                        <rect key="frame" x="256" y="20" width="26" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="sec" id="417">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField verticalHuggingPriority="750" id="413">
-                        <rect key="frame" x="213" y="20" width="41" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="1.33" id="414">
-                            <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="decimal" usesGroupingSeparator="NO" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="2" id="415"/>
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                        <connections>
-                            <binding destination="399" name="value" keyPath="values.TimeoutExponent" id="422">
-                                <dictionary key="options">
-                                    <string key="NSValueTransformerName">PowerOf2</string>
-                                </dictionary>
-                            </binding>
-                        </connections>
-                    </textField>
-                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="397">
-                        <rect key="frame" x="108" y="50" width="44" height="23"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <color key="color" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <connections>
-                            <binding destination="399" name="value" keyPath="values.ErrorColor" id="404">
-                                <dictionary key="options">
-                                    <integer key="NSValidatesImmediately" value="1"/>
-                                    <string key="NSValueTransformerName">NSUnarchiveFromData</string>
-                                </dictionary>
-                            </binding>
-                        </connections>
-                    </colorWell>
-                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="398">
-                        <rect key="frame" x="108" y="81" width="44" height="23"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <color key="color" red="0.0" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <connections>
-                            <binding destination="399" name="value" keyPath="values.SuccessColor" id="408">
-                                <dictionary key="options">
-                                    <integer key="NSValidatesImmediately" value="1"/>
-                                    <string key="NSValueTransformerName">NSUnarchiveFromData</string>
-                                </dictionary>
-                            </binding>
-                        </connections>
-                    </colorWell>
-                    <slider verticalHuggingPriority="750" id="411">
-                        <rect key="frame" x="106" y="17" width="96" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="-2" maxValue="3" tickMarkPosition="above" sliderType="linear" id="412"/>
-                        <connections>
-                            <binding destination="399" name="value" keyPath="values.TimeoutExponent" id="419"/>
-                        </connections>
-                    </slider>
-                </subviews>
-            </view>
-            <point key="canvasLocation" x="131" y="147"/>
-        </window>
         <userDefaultsController representsSharedInstance="YES" id="399"/>
     </objects>
 </document>
