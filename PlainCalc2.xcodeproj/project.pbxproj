@@ -27,8 +27,6 @@
 		BECE6C1609C3A10300DD10E1 /* ParseCalcLine.cp in Sources */ = {isa = PBXBuildFile; fileRef = BECE6C1509C3A10300DD10E1 /* ParseCalcLine.cp */; };
 		BEE0020A09CC87EE00E7C5E6 /* UTF8ToCFString.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */; };
 		BEE0020B09CC87EE00E7C5E6 /* CFStringToUTF8.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020809CC87EE00E7C5E6 /* CFStringToUTF8.cp */; };
-		BEE0962809C52C600087035A /* doc.icns in Resources */ = {isa = PBXBuildFile; fileRef = BEE0962609C52C600087035A /* doc.icns */; };
-		BEE0962909C52C600087035A /* app.icns in Resources */ = {isa = PBXBuildFile; fileRef = BEE0962709C52C600087035A /* app.icns */; };
 		BEF3631F10CB32950047ED77 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEF3631D10CB32950047ED77 /* MainMenu.xib */; };
 		BEF3633110CB32CC0047ED77 /* MyDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEF3632F10CB32CC0047ED77 /* MyDocument.xib */; };
 /* End PBXBuildFile section */
@@ -91,8 +89,6 @@
 		BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = UTF8ToCFString.cp; path = Source/UTF8ToCFString.cp; sourceTree = "<group>"; };
 		BEE0020809CC87EE00E7C5E6 /* CFStringToUTF8.cp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = CFStringToUTF8.cp; path = Source/CFStringToUTF8.cp; sourceTree = "<group>"; };
 		BEE0020909CC87EE00E7C5E6 /* CFStringToUTF8.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CFStringToUTF8.h; path = Source/CFStringToUTF8.h; sourceTree = "<group>"; };
-		BEE0962609C52C600087035A /* doc.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = doc.icns; path = Resources/doc.icns; sourceTree = "<group>"; };
-		BEE0962709C52C600087035A /* app.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = app.icns; path = Resources/app.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,9 +179,7 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BEE0962609C52C600087035A /* doc.icns */,
 				BEA862FC247B185100F296B1 /* Assets.xcassets */,
-				BEE0962709C52C600087035A /* app.icns */,
 				BEA2656310E7DBFE00040424 /* Help */,
 				BE03EC9910E476B10035BF0E /* Localizable.strings */,
 				BEF3632F10CB32CC0047ED77 /* MyDocument.xib */,
@@ -286,8 +280,6 @@
 			files = (
 				8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */,
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
-				BEE0962809C52C600087035A /* doc.icns in Resources */,
-				BEE0962909C52C600087035A /* app.icns in Resources */,
 				BEF3631F10CB32950047ED77 /* MainMenu.xib in Resources */,
 				BEF3633110CB32CC0047ED77 /* MyDocument.xib in Resources */,
 				BE03EC9B10E476B10035BF0E /* Localizable.strings in Resources */,

@@ -774,7 +774,6 @@ const int		kMenuItemTag_HexFormat		= 101;
 		[attsToUse setValue:[NSColor textColor]
 					forKey: NSForegroundColorAttributeName];
 	}
-	NSLog(@"Typing atts %@", attsToUse);
 	
 	return attsToUse;
 }
