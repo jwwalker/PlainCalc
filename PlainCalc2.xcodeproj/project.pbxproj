@@ -13,6 +13,8 @@
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		BE03EC9B10E476B10035BF0E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE03EC9910E476B10035BF0E /* Localizable.strings */; };
 		BE1FA5421A55A31C0004741D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE1FA5411A55A31C0004741D /* Cocoa.framework */; };
+		BE4AFBC2247C3C4400466B51 /* index.html in CopyFiles */ = {isa = PBXBuildFile; fileRef = BE4AFBC0247C3C4400466B51 /* index.html */; };
+		BE4AFBC3247C3C4400466B51 /* app-icon.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = BE4AFBC1247C3C4400466B51 /* app-icon.png */; };
 		BE6F18ED10F159D400C0FF7F /* tool-main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE6F18EC10F159D400C0FF7F /* tool-main.cpp */; };
 		BE6F18EE10F15B3300C0FF7F /* ParseCalcLine.cp in Sources */ = {isa = PBXBuildFile; fileRef = BECE6C1509C3A10300DD10E1 /* ParseCalcLine.cp */; };
 		BE6F18F110F15BE100C0FF7F /* UTF8ToCFString.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */; };
@@ -21,7 +23,6 @@
 		BE6F192B10F15C5700C0FF7F /* PreventCrashes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE6F192A10F15C5700C0FF7F /* PreventCrashes.cpp */; };
 		BE6F196F10F16E4000C0FF7F /* CalcTool in Copy Helper Tool */ = {isa = PBXBuildFile; fileRef = BE6F18E410F158A900C0FF7F /* CalcTool */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		BE7AA18610FAFAC600FB0522 /* NSString_JW.m in Sources */ = {isa = PBXBuildFile; fileRef = BE7AA18510FAFAC600FB0522 /* NSString_JW.m */; };
-		BEA2656810E7DBFE00040424 /* Help in Resources */ = {isa = PBXBuildFile; fileRef = BEA2656310E7DBFE00040424 /* Help */; };
 		BEA862FD247B185100F296B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEA862FC247B185100F296B1 /* Assets.xcassets */; };
 		BEB483B410ED969D00A5FBCD /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB483B310ED969D00A5FBCD /* AppController.m */; };
 		BECE6C1609C3A10300DD10E1 /* ParseCalcLine.cp in Sources */ = {isa = PBXBuildFile; fileRef = BECE6C1509C3A10300DD10E1 /* ParseCalcLine.cp */; };
@@ -42,6 +43,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		BE4AFBC4247C3C8E00466B51 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Help;
+			dstSubfolderSpec = 7;
+			files = (
+				BE4AFBC3247C3C4400466B51 /* app-icon.png in CopyFiles */,
+				BE4AFBC2247C3C4400466B51 /* index.html in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BE6F197010F16E5E00C0FF7F /* Copy Helper Tool */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -65,6 +77,8 @@
 		BE1FA5411A55A31C0004741D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BE1FA5431A55AB940004741D /* autoCF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = autoCF.h; path = Source/autoCF.h; sourceTree = "<group>"; };
 		BE47DB5D0B12DF3200081BDA /* PlainCalc.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlainCalc.xcconfig; sourceTree = "<group>"; };
+		BE4AFBC0247C3C4400466B51 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		BE4AFBC1247C3C4400466B51 /* app-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-icon.png"; sourceTree = "<group>"; };
 		BE6F18E410F158A900C0FF7F /* CalcTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CalcTool; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE6F18EB10F159D400C0FF7F /* tool-main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "tool-main.h"; path = "Source/tool-main.h"; sourceTree = "<group>"; };
 		BE6F18EC10F159D400C0FF7F /* tool-main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "tool-main.cpp"; path = "Source/tool-main.cpp"; sourceTree = "<group>"; };
@@ -73,7 +87,6 @@
 		BE6F192A10F15C5700C0FF7F /* PreventCrashes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PreventCrashes.cpp; path = Source/PreventCrashes.cpp; sourceTree = "<group>"; };
 		BE7AA18410FAFAC600FB0522 /* NSString_JW.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSString_JW.h; path = "Cocoa source/NSString_JW.h"; sourceTree = "<group>"; };
 		BE7AA18510FAFAC600FB0522 /* NSString_JW.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSString_JW.m; path = "Cocoa source/NSString_JW.m"; sourceTree = "<group>"; };
-		BEA072092311EC590037BB53 /* en */ = {isa = PBXFileReference; lastKnownFileType = folder; name = en; path = Resources/en.lproj/Help; sourceTree = "<group>"; };
 		BEA0720A2311EC930037BB53 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BEA0720D2311ECB70037BB53 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = Resources/en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		BEA0720E2311ECC40037BB53 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -179,8 +192,8 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BE4AFBBF247C3C4400466B51 /* Help */,
 				BEA862FC247B185100F296B1 /* Assets.xcassets */,
-				BEA2656310E7DBFE00040424 /* Help */,
 				BE03EC9910E476B10035BF0E /* Localizable.strings */,
 				BEF3632F10CB32CC0047ED77 /* MyDocument.xib */,
 				BEF3631D10CB32950047ED77 /* MainMenu.xib */,
@@ -199,6 +212,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BE4AFBBF247C3C4400466B51 /* Help */ = {
+			isa = PBXGroup;
+			children = (
+				BE4AFBC0247C3C4400466B51 /* index.html */,
+				BE4AFBC1247C3C4400466B51 /* app-icon.png */,
+			);
+			name = Help;
+			path = Resources/Help;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -210,6 +233,7 @@
 				8D15AC300486D014006FF6A4 /* Sources */,
 				BE6F197010F16E5E00C0FF7F /* Copy Helper Tool */,
 				8D15AC330486D014006FF6A4 /* Frameworks */,
+				BE4AFBC4247C3C8E00466B51 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -284,7 +308,6 @@
 				BEF3633110CB32CC0047ED77 /* MyDocument.xib in Resources */,
 				BE03EC9B10E476B10035BF0E /* Localizable.strings in Resources */,
 				BEA862FD247B185100F296B1 /* Assets.xcassets in Resources */,
-				BEA2656810E7DBFE00040424 /* Help in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,14 +373,6 @@
 				BEA0720A2311EC930037BB53 /* en */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		BEA2656310E7DBFE00040424 /* Help */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BEA072092311EC590037BB53 /* en */,
-			);
-			name = Help;
 			sourceTree = "<group>";
 		};
 		BEF3631D10CB32950047ED77 /* MainMenu.xib */ = {
