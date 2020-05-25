@@ -168,7 +168,41 @@ F(10) =<br>
 <span class="response">55</span><br>
 </p>
 
-<p>Be warned that this is not an efficient way to compute Fibonacci numbers.  In fact, the amount of time to compute F(n) by this method grows exponentially, like F(n).  If the calculation takes too long, PlainCalc will say <span class="error">Timed Out</span>.  You can use the Preferences dialog to specify how long PlainCalc will compute before it times out.</p>
+<p>Be warned that this is not an efficient way to compute Fibonacci numbers.  In fact, the amount of time to compute F(n) by this method grows exponentially, like F(n).  If the calculation takes too long, PlainCalc will say <span class="error">Timed Out</span>.</p>
+
+<p>As another example, let's consider several ways of computing binomial coefficients.  First we try doing it in terms of a recursive definition of the factorial function.</p>
+
+<p class="example">
+fact( n ) = if( n, n fact(n-1), 1) =<br>
+<span class="response">Defined Function</span><br>
+b( n, k ) = fact(n)/(fact(k) fact(n-k)) =<br>
+<span class="response">Defined Function</span><br>
+b( 200, 100 ) =<br>
+<span class="response">nan</span><br>
+</p>
+
+<p>The problem here is that the factorials quickly exceed the capacity of double-precision floating-point numbers, so we end up dividing infinity by infinity.</p>
+
+<p>Second, we could try using a recurrence relation relating a binomial coefficient to two previous binomial coefficients.</p>
+
+<p class="example">
+d( n, k ) = if( (n-k)k, d(n-1,k) + d(n-1,k-1), 1 ) =<br>
+<span class="response">Defined Function</span><br>
+d( 20, 12 ) =<br>
+<span class="error">Timed Out</span>
+</p>
+
+<p>In this case, the problem is not that the numbers grow too large, but that the number of computations grows exponentially.</p>
+
+<p>Finally, we can use a recursive definition relating a binomial coefficient to just one previous binomial coefficient.</p>
+
+<p class="example">
+C( n, k ) = if( k, (n/k) C(n-1, k-1), 1) =<br>
+<span class="response">Defined Function</span><br>
+C( 200, 100 ) =<br>
+<span class="response">9.05485146561e+58</span><br>
+</p>
+
 
 <h1><a name="saving">Saving Files</a></h1>
 
