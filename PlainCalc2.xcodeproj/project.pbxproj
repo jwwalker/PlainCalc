@@ -95,6 +95,8 @@
 		BEADDF0D29C7AF0C00FCFE95 /* ParseCalcLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParseCalcLine.h; path = Source/ParseCalcLine.h; sourceTree = "<group>"; };
 		BEADDF1029C7AF1600FCFE95 /* autoCF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = autoCF.h; path = Source/autoCF.h; sourceTree = "<group>"; };
 		BEADDF1129C7B74000FCFE95 /* CalcTool.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = CalcTool.xcconfig; sourceTree = "<group>"; };
+		BEADDF1229C7C2A800FCFE95 /* PlainCalc2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlainCalc2.entitlements; sourceTree = "<group>"; };
+		BEADDF1329C7C34000FCFE95 /* CalcTool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CalcTool.entitlements; sourceTree = "<group>"; };
 		BEB483B210ED969D00A5FBCD /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = "Cocoa source/AppController.h"; sourceTree = "<group>"; };
 		BEB483B310ED969D00A5FBCD /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppController.m; path = "Cocoa source/AppController.m"; sourceTree = "<group>"; };
 		BEB4844410EE7EAE00A5FBCD /* Notes.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Notes.rtf; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 		BEADDF0829C7AE0100FCFE95 /* CalcTool */ = {
 			isa = PBXGroup;
 			children = (
+				BEADDF1329C7C34000FCFE95 /* CalcTool.entitlements */,
 				BE6F18EB10F159D400C0FF7F /* tool-main.h */,
 				BE6F18EC10F159D400C0FF7F /* tool-main.cpp */,
 				BE6F192910F15C5700C0FF7F /* PreventCrashes.h */,
@@ -205,6 +208,7 @@
 		BEADDF0929C7AE1300FCFE95 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				BEADDF1229C7C2A800FCFE95 /* PlainCalc2.entitlements */,
 				2A37F4B0FDCFA73011CA2CEA /* main.m */,
 				2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */,
 				2A37F4ACFDCFA73011CA2CEA /* MyDocument.mm */,
@@ -407,6 +411,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BEADDF1129C7B74000FCFE95 /* CalcTool.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CalcTool.entitlements;
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				ONLY_ACTIVE_ARCH = YES;
@@ -417,6 +422,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BEADDF1129C7B74000FCFE95 /* CalcTool.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CalcTool.entitlements;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 			};
 			name = Release;
@@ -424,6 +430,7 @@
 		C05733C808A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = PlainCalc2.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -433,6 +440,7 @@
 		C05733C908A9546B00998B17 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = PlainCalc2.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 			};
