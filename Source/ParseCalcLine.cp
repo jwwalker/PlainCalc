@@ -466,7 +466,7 @@ namespace
 					binary functor.
 	*/
 	template <BinaryFunc F>
-	struct BinFunctor : std::binary_function< double, double, double >
+	struct BinFunctor
 	{
 		double	operator()( double inLHS, double inRHS ) const
 				{
