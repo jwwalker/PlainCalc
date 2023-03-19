@@ -16,7 +16,6 @@
 		BE4AFBC2247C3C4400466B51 /* index.html in CopyFiles */ = {isa = PBXBuildFile; fileRef = BE4AFBC0247C3C4400466B51 /* index.html */; };
 		BE4AFBC3247C3C4400466B51 /* app-icon.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = BE4AFBC1247C3C4400466B51 /* app-icon.png */; };
 		BE6F18ED10F159D400C0FF7F /* tool-main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE6F18EC10F159D400C0FF7F /* tool-main.cpp */; };
-		BE6F18EE10F15B3300C0FF7F /* ParseCalcLine.cp in Sources */ = {isa = PBXBuildFile; fileRef = BECE6C1509C3A10300DD10E1 /* ParseCalcLine.cp */; };
 		BE6F18F110F15BE100C0FF7F /* UTF8ToCFString.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */; };
 		BE6F18F210F15BE400C0FF7F /* CFStringToUTF8.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020809CC87EE00E7C5E6 /* CFStringToUTF8.cp */; };
 		BE6F18F410F15BFB00C0FF7F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE6F18F310F15BFB00C0FF7F /* CoreFoundation.framework */; };
@@ -24,8 +23,9 @@
 		BE6F196F10F16E4000C0FF7F /* CalcTool in Copy Helper Tool */ = {isa = PBXBuildFile; fileRef = BE6F18E410F158A900C0FF7F /* CalcTool */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		BE7AA18610FAFAC600FB0522 /* NSString_JW.m in Sources */ = {isa = PBXBuildFile; fileRef = BE7AA18510FAFAC600FB0522 /* NSString_JW.m */; };
 		BEA862FD247B185100F296B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEA862FC247B185100F296B1 /* Assets.xcassets */; };
+		BEADDF0E29C7AF0D00FCFE95 /* ParseCalcLine.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEADDF0C29C7AF0C00FCFE95 /* ParseCalcLine.cp */; };
+		BEADDF0F29C7AF0D00FCFE95 /* ParseCalcLine.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEADDF0C29C7AF0C00FCFE95 /* ParseCalcLine.cp */; };
 		BEB483B410ED969D00A5FBCD /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB483B310ED969D00A5FBCD /* AppController.m */; };
-		BECE6C1609C3A10300DD10E1 /* ParseCalcLine.cp in Sources */ = {isa = PBXBuildFile; fileRef = BECE6C1509C3A10300DD10E1 /* ParseCalcLine.cp */; };
 		BEE0020A09CC87EE00E7C5E6 /* UTF8ToCFString.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */; };
 		BEE0020B09CC87EE00E7C5E6 /* CFStringToUTF8.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020809CC87EE00E7C5E6 /* CFStringToUTF8.cp */; };
 		BEF3631F10CB32950047ED77 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEF3631D10CB32950047ED77 /* MainMenu.xib */; };
@@ -71,11 +71,9 @@
 		2A37F4ACFDCFA73011CA2CEA /* MyDocument.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MyDocument.mm; path = "Cocoa source/MyDocument.mm"; sourceTree = "<group>"; };
 		2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyDocument.h; path = "Cocoa source/MyDocument.h"; sourceTree = "<group>"; };
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Cocoa source/main.m"; sourceTree = "<group>"; };
-		32DBCF750370BD2300C91783 /* PlainCalc2_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlainCalc2_Prefix.pch; path = "Cocoa source/PlainCalc2_Prefix.pch"; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* PlainCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlainCalc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE1FA5411A55A31C0004741D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		BE1FA5431A55AB940004741D /* autoCF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = autoCF.h; path = Source/autoCF.h; sourceTree = "<group>"; };
 		BE47DB5D0B12DF3200081BDA /* PlainCalc.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlainCalc.xcconfig; sourceTree = "<group>"; };
 		BE4AFBC0247C3C4400466B51 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		BE4AFBC1247C3C4400466B51 /* app-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-icon.png"; sourceTree = "<group>"; };
@@ -93,11 +91,12 @@
 		BEA862FC247B185100F296B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
 		BEA862FE247B39CB00F296B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Resources/Base.lproj/MyDocument.xib; sourceTree = "<group>"; };
 		BEA862FF247B39CB00F296B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Resources/Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		BEADDF0C29C7AF0C00FCFE95 /* ParseCalcLine.cp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ParseCalcLine.cp; path = Source/ParseCalcLine.cp; sourceTree = "<group>"; };
+		BEADDF0D29C7AF0C00FCFE95 /* ParseCalcLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParseCalcLine.h; path = Source/ParseCalcLine.h; sourceTree = "<group>"; };
+		BEADDF1029C7AF1600FCFE95 /* autoCF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = autoCF.h; path = Source/autoCF.h; sourceTree = "<group>"; };
 		BEB483B210ED969D00A5FBCD /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = "Cocoa source/AppController.h"; sourceTree = "<group>"; };
 		BEB483B310ED969D00A5FBCD /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppController.m; path = "Cocoa source/AppController.m"; sourceTree = "<group>"; };
 		BEB4844410EE7EAE00A5FBCD /* Notes.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Notes.rtf; sourceTree = "<group>"; };
-		BECE6C1409C3A10300DD10E1 /* ParseCalcLine.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ParseCalcLine.h; path = Source/ParseCalcLine.h; sourceTree = "<group>"; };
-		BECE6C1509C3A10300DD10E1 /* ParseCalcLine.cp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = ParseCalcLine.cp; path = Source/ParseCalcLine.cp; sourceTree = "<group>"; };
 		BEE0020609CC87EE00E7C5E6 /* UTF8ToCFString.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = UTF8ToCFString.h; path = Source/UTF8ToCFString.h; sourceTree = "<group>"; };
 		BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = UTF8ToCFString.cp; path = Source/UTF8ToCFString.cp; sourceTree = "<group>"; };
 		BEE0020809CC87EE00E7C5E6 /* CFStringToUTF8.cp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = CFStringToUTF8.cp; path = Source/CFStringToUTF8.cp; sourceTree = "<group>"; };
@@ -147,46 +146,14 @@
 			children = (
 				BE47DB5D0B12DF3200081BDA /* PlainCalc.xcconfig */,
 				BEB4844410EE7EAE00A5FBCD /* Notes.rtf */,
-				2A37F4ABFDCFA73011CA2CEA /* Classes */,
-				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
+				BEADDF0929C7AE1300FCFE95 /* App */,
+				BEADDF0829C7AE0100FCFE95 /* CalcTool */,
+				BEADDF0B29C7AEE500FCFE95 /* Common */,
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
 				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
 				19C28FB0FE9D524F11CA2CBB /* Products */,
 			);
 			name = PlainCalc2;
-			sourceTree = "<group>";
-		};
-		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */,
-				2A37F4ACFDCFA73011CA2CEA /* MyDocument.mm */,
-				BEB483B210ED969D00A5FBCD /* AppController.h */,
-				BEB483B310ED969D00A5FBCD /* AppController.m */,
-				BE7AA18410FAFAC600FB0522 /* NSString_JW.h */,
-				BE7AA18510FAFAC600FB0522 /* NSString_JW.m */,
-			);
-			name = Classes;
-			sourceTree = "<group>";
-		};
-		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
-			isa = PBXGroup;
-			children = (
-				BE1FA5431A55AB940004741D /* autoCF.h */,
-				BECE6C1409C3A10300DD10E1 /* ParseCalcLine.h */,
-				BECE6C1509C3A10300DD10E1 /* ParseCalcLine.cp */,
-				32DBCF750370BD2300C91783 /* PlainCalc2_Prefix.pch */,
-				2A37F4B0FDCFA73011CA2CEA /* main.m */,
-				BEE0020609CC87EE00E7C5E6 /* UTF8ToCFString.h */,
-				BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */,
-				BEE0020809CC87EE00E7C5E6 /* CFStringToUTF8.cp */,
-				BEE0020909CC87EE00E7C5E6 /* CFStringToUTF8.h */,
-				BE6F18EB10F159D400C0FF7F /* tool-main.h */,
-				BE6F18EC10F159D400C0FF7F /* tool-main.cpp */,
-				BE6F192910F15C5700C0FF7F /* PreventCrashes.h */,
-				BE6F192A10F15C5700C0FF7F /* PreventCrashes.cpp */,
-			);
-			name = "Other Sources";
 			sourceTree = "<group>";
 		};
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
@@ -220,6 +187,45 @@
 			);
 			name = Help;
 			path = Resources/Help;
+			sourceTree = "<group>";
+		};
+		BEADDF0829C7AE0100FCFE95 /* CalcTool */ = {
+			isa = PBXGroup;
+			children = (
+				BE6F18EB10F159D400C0FF7F /* tool-main.h */,
+				BE6F18EC10F159D400C0FF7F /* tool-main.cpp */,
+				BE6F192910F15C5700C0FF7F /* PreventCrashes.h */,
+				BE6F192A10F15C5700C0FF7F /* PreventCrashes.cpp */,
+			);
+			name = CalcTool;
+			sourceTree = "<group>";
+		};
+		BEADDF0929C7AE1300FCFE95 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				2A37F4B0FDCFA73011CA2CEA /* main.m */,
+				2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */,
+				2A37F4ACFDCFA73011CA2CEA /* MyDocument.mm */,
+				BEB483B210ED969D00A5FBCD /* AppController.h */,
+				BEB483B310ED969D00A5FBCD /* AppController.m */,
+				BE7AA18410FAFAC600FB0522 /* NSString_JW.h */,
+				BE7AA18510FAFAC600FB0522 /* NSString_JW.m */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
+		BEADDF0B29C7AEE500FCFE95 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				BEADDF1029C7AF1600FCFE95 /* autoCF.h */,
+				BEADDF0C29C7AF0C00FCFE95 /* ParseCalcLine.cp */,
+				BEADDF0D29C7AF0C00FCFE95 /* ParseCalcLine.h */,
+				BEE0020809CC87EE00E7C5E6 /* CFStringToUTF8.cp */,
+				BEE0020909CC87EE00E7C5E6 /* CFStringToUTF8.h */,
+				BEE0020609CC87EE00E7C5E6 /* UTF8ToCFString.h */,
+				BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */,
+			);
+			name = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,7 +326,7 @@
 			files = (
 				8D15AC310486D014006FF6A4 /* MyDocument.mm in Sources */,
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
-				BECE6C1609C3A10300DD10E1 /* ParseCalcLine.cp in Sources */,
+				BEADDF0E29C7AF0D00FCFE95 /* ParseCalcLine.cp in Sources */,
 				BEE0020A09CC87EE00E7C5E6 /* UTF8ToCFString.cp in Sources */,
 				BEE0020B09CC87EE00E7C5E6 /* CFStringToUTF8.cp in Sources */,
 				BEB483B410ED969D00A5FBCD /* AppController.m in Sources */,
@@ -333,7 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE6F18ED10F159D400C0FF7F /* tool-main.cpp in Sources */,
-				BE6F18EE10F15B3300C0FF7F /* ParseCalcLine.cp in Sources */,
+				BEADDF0F29C7AF0D00FCFE95 /* ParseCalcLine.cp in Sources */,
 				BE6F18F110F15BE100C0FF7F /* UTF8ToCFString.cp in Sources */,
 				BE6F18F210F15BE400C0FF7F /* CFStringToUTF8.cp in Sources */,
 				BE6F192B10F15C5700C0FF7F /* PreventCrashes.cpp in Sources */,
