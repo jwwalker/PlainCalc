@@ -57,8 +57,8 @@
 		BE6F197010F16E5E00C0FF7F /* Copy Helper Tool */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 6;
+			dstPath = Contents/Helpers;
+			dstSubfolderSpec = 1;
 			files = (
 				BE6F196F10F16E4000C0FF7F /* CalcTool in Copy Helper Tool */,
 			);

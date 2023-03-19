@@ -439,10 +439,12 @@ const int		kMenuItemTag_HexFormat		= 101;
 - (void) startCalcTask
 {
 	mCalcTask = [[NSTask alloc] init];
-	NSString* toolPath = [[[[NSBundle mainBundle] executablePath]
-		stringByDeletingLastPathComponent]
-		stringByAppendingPathComponent: @"CalcTool"];
-	[mCalcTask setLaunchPath: toolPath];
+	NSURL* toolURL = [[[[NSBundle.mainBundle.executableURL
+		URLByDeletingLastPathComponent] // trim off executable name
+		URLByDeletingLastPathComponent] // trim off MacOS
+		URLByAppendingPathComponent: @"Helpers" isDirectory: YES]
+		URLByAppendingPathComponent: @"CalcTool" isDirectory: NO];
+	mCalcTask.executableURL = toolURL;
 
 	NSDictionary*	varDict = (NSDictionary*)CFBridgingRelease(CopyCalcVariables( mCalcState ));
 	NSString* varXMLStr = [self xmlStringFromDictionary: varDict];
@@ -474,7 +476,10 @@ const int		kMenuItemTag_HexFormat		= 101;
 	
 	@try
 	{
-		[mCalcTask launch];
+		NSError* err = nil;
+		[mCalcTask launchAndReturnError: &err];
+		if (err != nil)
+			NSLog(@"launch error %@", err);
 	}
 	@catch (NSException *exception)
 	{
@@ -491,7 +496,14 @@ const int		kMenuItemTag_HexFormat		= 101;
 	
 	NSPipe* thePipe = [mCalcTask standardInput];
 	NSFileHandle* theFileHandle = [thePipe fileHandleForWriting];
-	[theFileHandle writeData: theData ];
+	if (@available( macOS 10.15, * ))
+	{
+		[theFileHandle writeData: theData error: nil ];
+	}
+	else
+	{
+		[theFileHandle writeData: theData ];
+	}
 }
 
 - (void) calcTimedOut
@@ -934,7 +946,7 @@ const int		kMenuItemTag_HexFormat		= 101;
 					NSError* theErr = nil;
 					
 					if (not [theData writeToFile: [self pathOfNewDocState]
-									options: NSAtomicWrite
+									options: NSDataWritingAtomic
 									error: &theErr ])
 					{
 						NSAlert* errAlert = [NSAlert alertWithError: theErr];
