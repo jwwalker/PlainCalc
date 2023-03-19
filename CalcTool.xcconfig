@@ -1,0 +1,17 @@
+//  CalcTool.xcconfig
+//  PlainCalc2
+//
+//  Created by James Walker on 3/19/23.
+//  
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+// Deployment
+SKIP_INSTALL = YES
+COPY_PHASE_STRIP = NO
+
+
+// Packaging
+PRODUCT_NAME = CalcTool

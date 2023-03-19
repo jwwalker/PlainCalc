@@ -94,6 +94,7 @@
 		BEADDF0C29C7AF0C00FCFE95 /* ParseCalcLine.cp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ParseCalcLine.cp; path = Source/ParseCalcLine.cp; sourceTree = "<group>"; };
 		BEADDF0D29C7AF0C00FCFE95 /* ParseCalcLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParseCalcLine.h; path = Source/ParseCalcLine.h; sourceTree = "<group>"; };
 		BEADDF1029C7AF1600FCFE95 /* autoCF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = autoCF.h; path = Source/autoCF.h; sourceTree = "<group>"; };
+		BEADDF1129C7B74000FCFE95 /* CalcTool.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = CalcTool.xcconfig; sourceTree = "<group>"; };
 		BEB483B210ED969D00A5FBCD /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = "Cocoa source/AppController.h"; sourceTree = "<group>"; };
 		BEB483B310ED969D00A5FBCD /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppController.m; path = "Cocoa source/AppController.m"; sourceTree = "<group>"; };
 		BEB4844410EE7EAE00A5FBCD /* Notes.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Notes.rtf; sourceTree = "<group>"; };
@@ -145,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				BE47DB5D0B12DF3200081BDA /* PlainCalc.xcconfig */,
+				BEADDF1129C7B74000FCFE95 /* CalcTool.xcconfig */,
 				BEB4844410EE7EAE00A5FBCD /* Notes.rtf */,
 				BEADDF0929C7AE1300FCFE95 /* App */,
 				BEADDF0829C7AE0100FCFE95 /* CalcTool */,
@@ -274,14 +276,15 @@
 		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					8D15AC270486D014006FF6A4 = {
 						DevelopmentTeam = FDHC2KMZ6V;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					BE6F18E310F158A900C0FF7F = {
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = FDHC2KMZ6V;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -402,60 +405,36 @@
 /* Begin XCBuildConfiguration section */
 		BE6F18E610F158AA00C0FF7F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BEADDF1129C7B74000FCFE95 /* CalcTool.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "";
-				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.jwwalker.PlainCalc2;
-				PRODUCT_NAME = CalcTool;
-				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
 		BE6F18E710F158AA00C0FF7F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BEADDF1129C7B74000FCFE95 /* CalcTool.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "";
-				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jwwalker.PlainCalc2;
-				PRODUCT_NAME = CalcTool;
-				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
 		C05733C808A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = FDHC2KMZ6V;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				INSTALL_PATH = "$(HOME)/Applications";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jwwalker.PlainCalc2;
 			};
 			name = Debug;
 		};
 		C05733C908A9546B00998B17 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = FDHC2KMZ6V;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				INSTALL_PATH = "$(HOME)/Applications";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jwwalker.PlainCalc2;
-				STRIP_INSTALLED_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -475,12 +454,15 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "DEBUGGING=1";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -511,11 +493,13 @@
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
