@@ -411,7 +411,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BEADDF1129C7B74000FCFE95 /* CalcTool.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = CalcTool.entitlements;
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				ONLY_ACTIVE_ARCH = YES;
@@ -422,7 +421,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BEADDF1129C7B74000FCFE95 /* CalcTool.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = CalcTool.entitlements;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 			};
 			name = Release;

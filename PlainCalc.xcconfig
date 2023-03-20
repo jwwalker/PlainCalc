@@ -52,3 +52,6 @@
 	CODE_SIGN_STYLE = Automatic
 	CODE_SIGN_IDENTITY = -
 	DEVELOPMENT_TEAM = FDHC2KMZ6V
+
+// Info.plist
+	INFOPLIST_KEY_LSApplicationCategoryType = public.app-category.utilities
