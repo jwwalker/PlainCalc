@@ -26,6 +26,14 @@
 #include "autoCF.h"
 #include "CalcException.hpp"
 #include "CFStringToUTF8.h"
+#include "DoAssign.hpp"
+#include "DoBinaryFunc.hpp"
+#include "DoDefFunc.hpp"
+#include "DoDefinedFunc.hpp"
+#include "DoEvaluation.hpp"
+#include "DoIf.hpp"
+#include "DoNegate.hpp"
+#include "DoUnaryFunc.hpp"
 #include "SCalcState.hpp"
 #include "SFixedSymbols.hpp"
 #include "UTF8ToCFString.h"
@@ -67,33 +75,14 @@ using namespace std;
 
 namespace
 {
-	typedef		std::set< std::string >		StringSet;
-	
 	typedef		std::vector<double>	 		DblStack;
-	typedef		std::vector< std::string >	StringVec;
 	
-	typedef		double (*UnaryFunc)( double );
 	typedef		double (*BinaryFunc)( double, double );
-	
-	typedef		std::pair< StringVec, std::string >		FuncDef;
 	
 	uint_parser<unsigned long long, 16> const
         bighex_p   = uint_parser<unsigned long long, 16>();
 }
 
-
-
-#if DebugParse
-inline void DumpStack( const DblStack& inStack, const char* inTag )
-{
-	std::cout << inTag << ": ";
-	for (DblStack::const_iterator i = inStack.begin(); i != inStack.end(); ++i)
-	{
-		std::cout << *i << ", ";
-	}
-	std::cout << std::endl;
-}
-#endif
 
 namespace
 {
@@ -150,297 +139,6 @@ namespace
 	typedef	DoBinOp< std::multiplies<double> >	DoTimes;
 	typedef	DoBinOp< std::divides<double> >		DoDivide;
 	typedef	DoBinOp< BinFunctor<std::pow> >		DoPower;
-
-
-	#pragma mark DoUnaryFunc
-	/*!
-		@function	DoUnaryFunc
-		@abstract	Functor for a semantic action that computes a unary function
-					stored in a symbol table.
-	*/
-	struct DoUnaryFunc
-	{
-				DoUnaryFunc( SCalcState& ioState ) : mState( ioState ) {}
-				DoUnaryFunc( const DoUnaryFunc& inOther ) : mState( inOther.mState ) {}
-		
-		void	operator()( const char* inStart, const char* inEnd ) const
-				{
-					std::string	parsedText( inStart, inEnd );
-					std::string::size_type	parenLoc = parsedText.find( '(' );
-					if (parenLoc == std::string::npos)
-					{
-						throw CalcException();
-					}
-					parsedText.erase( parenLoc );
-					UnaryFunc*	foundFunc = find( mState.mFixed.mUnaryFuncs, parsedText.c_str() );
-					if (foundFunc == NULL)
-					{
-						throw CalcException();
-					}
-					mState.mValStack.back() = (*foundFunc)( mState.mValStack.back() );
-				}
-		
-		
-		SCalcState&		mState;
-	};
-	
-	#pragma mark DoDefinedFunc
-	struct DoDefinedFunc
-	{
-				DoDefinedFunc( SCalcState& ioState ) : mState( ioState ) {}
-				DoDefinedFunc( const DoDefinedFunc& inOther ) : mState( inOther.mState ) {}
-				
-		void	operator()( const char* inStart, const char* inEnd ) const
-				{
-					// Find the name of the function
-					std::string	parsedText( inStart, inEnd );
-					std::string::size_type	parenLoc = parsedText.find( '(' );
-					if (parenLoc == std::string::npos)
-					{
-						throw CalcException();
-					}
-					parsedText.erase( parenLoc );
-					
-					// Find the definition
-					FuncDef*	foundFunc = find( mState.mFuncDefs, parsedText.c_str() );
-					if (foundFunc == NULL)
-					{
-						throw CalcException();
-					}
-					
-					// Set values of the formal parameters in a temporary state
-					const StringVec&	formalParams( foundFunc->first );
-					if (mState.mValStack.size() < formalParams.size())
-					{
-						throw CalcException();
-					}
-					SCalcState	tempState( mState );
-					for (StringVec::const_reverse_iterator i = formalParams.rbegin();
-						i != formalParams.rend(); ++i)
-					{
-						const std::string&	theParam( *i );
-						tempState.SetVariable( theParam.c_str() );
-						tempState.mValStack.pop_back();
-						mState.mValStack.pop_back();
-					}
-					
-					// Evaluate
-					double	funcVal;
-					long	stopOff;
-					ECalcResult	didParse = ParseCalcLine( foundFunc->second.c_str(),
-						&tempState, &funcVal, &stopOff );
-					if (didParse == kCalcResult_Calculated)
-					{
-						mState.mValStack.push_back( funcVal );
-					}
-					else
-					{
-						throw CalcException();
-					}
-				}
-		
-		SCalcState&		mState;
-	};
-	
-	#pragma mark DoNegate
-	/*!
-		@function	DoNegate
-		@abstract	Functor for a semantic action that negates the value on the
-					stack.
-	*/
-	struct DoNegate
-	{
-				DoNegate( SCalcState& ioState ) : mState( ioState ) {}
-				DoNegate( const DoNegate& inOther ) : mState( inOther.mState ) {}
-		
-		void	operator()( const char*, const char* ) const
-				{
-					mState.mValStack.back() = - mState.mValStack.back();
-				}
-		
-		SCalcState&		mState;
-	};
-	
-	#pragma mark DoBinaryFunc
-	/*!
-		@function	DoBinaryFunc
-		@abstract	Functor for a semantic action that computes a binary function
-					stored in a symbol table.
-	*/
-	struct DoBinaryFunc
-	{
-				DoBinaryFunc( SCalcState& ioState ) : mState( ioState ) {}
-				DoBinaryFunc( const DoBinaryFunc& inOther ) : mState( inOther.mState ) {}
-		
-		void	operator()( const char* inStart, const char* inEnd ) const
-				{
-					std::string	parsedText( inStart, inEnd );
-					std::string::size_type	parenLoc = parsedText.find( '(' );
-					if (parenLoc == std::string::npos)
-					{
-						throw CalcException();
-					}
-					parsedText.erase( parenLoc );
-					BinaryFunc*	foundFunc = find( mState.mFixed.mBinaryFuncs, parsedText.c_str() );
-					if (foundFunc == NULL)
-					{
-						throw CalcException();
-					}
-					ThrowIfEmpty_( mState.mValStack );
-					double	param2 = mState.mValStack.back();
-					mState.mValStack.pop_back();
-					ThrowIfEmpty_( mState.mValStack );
-					double	param1 = mState.mValStack.back();
-					mState.mValStack.pop_back();
-					mState.mValStack.push_back( (*foundFunc)( param1, param2 ) );
-				}
-		
-		
-		SCalcState&		mState;
-	};
-
-	
-	#pragma mark DoIf
-	/*!
-		@function	DoIf
-		@abstract	Functor for a semantic action that computes a ternary if.
-	*/
-	struct DoIf
-	{
-				DoIf( SCalcState& ioState ) : mState( ioState ) {}
-				DoIf( const DoIf& inOther ) : mState( inOther.mState ) {}
-		
-		void	operator()( const char* , const char*  ) const
-				{
-					ThrowIfEmpty_( mState.mValStack );
-					double	condition = mState.mValStack.back();
-					mState.mValStack.pop_back();
-					
-					std::string	valueStr;
-					if (condition > 0.0)
-					{
-						valueStr = mState.mIf1;
-					}
-					else
-					{
-						valueStr = mState.mIf2;
-					}
-					
-					double	funcVal;
-					long	stopOff;
-					SCalcState	tempState( mState );
-					ECalcResult	didParse = ParseCalcLine( valueStr.c_str(), &tempState,
-						&funcVal, &stopOff );
-					if (didParse == kCalcResult_Calculated)
-					{
-						mState.mValStack.push_back( funcVal );
-					}
-					else
-					{
-						throw CalcException();
-					}
-				}
-		
-		
-		SCalcState&		mState;
-	};
-
-	
-	#pragma mark DoAssign
-	/*!
-		@function	DoAssign
-		@abstract	Functor for a semantic action that assigns the value of
-					an expression to a variable.
-	*/
-	struct DoAssign
-	{
-				DoAssign( SCalcState& ioState ) : mState( ioState ) {}
-				DoAssign( const DoAssign& inOther ) : mState( inOther.mState ) {}
-		
-		void	operator()( const char*, const char* ) const
-				{
-					mState.SetVariable( mState.mIdentifier.c_str() );
-					mState.SetVariable( "last" );
-					mState.mDidDefineFunction = false;
-					mState.mDefinedSymbol = mState.mIdentifier;
-				}
-		
-		SCalcState&		mState;
-	};
-	
-	#pragma mark DoDefFunc
-	struct DoDefFunc
-	{
-				DoDefFunc( SCalcState& ioState ) : mState( ioState ) {}
-				DoDefFunc( const DoDefFunc& inOther )
-					: mState( inOther.mState ) {}
-		
-		void	operator()( const char*, const char* ) const
-				{
-					// Before committing to the function, syntax check it.
-					SCalcState	tempState( mState );
-					tempState.SetFunc( mState.mFuncName, mState.mParamStack,
-						mState.mFuncDef );
-
-					// Find the definition
-					FuncDef*	foundFunc = find( tempState.mFuncDefs,
-						mState.mFuncName.c_str() );
-					if (foundFunc == NULL)
-					{
-						throw CalcException();
-					}
-
-					// Set values of the formal parameters in the temporary
-					// state.  It does not matter what I set them to, they
-					// just need to be recognized as variables.
-					const StringVec&	formalParams( foundFunc->first );
-					tempState.mValStack.push_back( 1.0 );
-					for (StringVec::const_iterator i = formalParams.begin();
-						i != formalParams.end(); ++i)
-					{
-						const std::string&	theParam( *i );
-						tempState.SetVariable( theParam.c_str() );
-					}
-
-					long	stopOff;
-					if (CheckExpressionSyntax( foundFunc->second.c_str(),
-						&tempState, &stopOff ))
-					{
-						mState.SetFunc( mState.mFuncName, mState.mParamStack,
-							mState.mFuncDef );
-						mState.mParamStack.clear();
-						mState.mDidDefineFunction = true;
-						mState.mDefinedSymbol = mState.mFuncName;
-					}
-					else
-					{
-						throw CalcException();
-					}
-				}
-		
-		SCalcState&		mState;
-	};
-	
-	#pragma mark DoEvaluation
-	/*!
-		@function	DoEvaluation
-		@abstract	Functor for a semantic action that assigns the value of
-					an expression to the built-in variable "last".
-	*/
-	struct DoEvaluation
-	{
-				DoEvaluation( SCalcState& ioState ) : mState( ioState ) {}
-				DoEvaluation( const DoEvaluation& inOther ) : mState( inOther.mState ) {}
-		
-		void	operator()( const char*, const char* ) const
-				{
-					mState.SetVariable( "last" );
-					mState.mDidDefineFunction = false;
-					mState.mDefinedSymbol.clear();
-				}
-		
-		SCalcState&		mState;
-	};
 	
 	#pragma mark DebugAction
 	struct DebugAction

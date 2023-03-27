@@ -25,6 +25,22 @@
 		BE622D0429D23C45003E9662 /* CFStringToUTF8.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D0229D23C45003E9662 /* CFStringToUTF8.cpp */; };
 		BE622D0629D23C4C003E9662 /* UTF8ToCFString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D0529D23C4C003E9662 /* UTF8ToCFString.cpp */; };
 		BE622D0729D23C4C003E9662 /* UTF8ToCFString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D0529D23C4C003E9662 /* UTF8ToCFString.cpp */; };
+		BE622D1929D23D26003E9662 /* DoAssign.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D0B29D23D26003E9662 /* DoAssign.cpp */; };
+		BE622D1A29D23D26003E9662 /* DoAssign.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D0B29D23D26003E9662 /* DoAssign.cpp */; };
+		BE622D1B29D23D26003E9662 /* DoIf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D0E29D23D26003E9662 /* DoIf.cpp */; };
+		BE622D1C29D23D26003E9662 /* DoIf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D0E29D23D26003E9662 /* DoIf.cpp */; };
+		BE622D1D29D23D26003E9662 /* DoUnaryFunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D1029D23D26003E9662 /* DoUnaryFunc.cpp */; };
+		BE622D1E29D23D26003E9662 /* DoUnaryFunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D1029D23D26003E9662 /* DoUnaryFunc.cpp */; };
+		BE622D1F29D23D26003E9662 /* DoDefinedFunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D1229D23D26003E9662 /* DoDefinedFunc.cpp */; };
+		BE622D2029D23D26003E9662 /* DoDefinedFunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D1229D23D26003E9662 /* DoDefinedFunc.cpp */; };
+		BE622D2129D23D26003E9662 /* DoDefFunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D1329D23D26003E9662 /* DoDefFunc.cpp */; };
+		BE622D2229D23D26003E9662 /* DoDefFunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D1329D23D26003E9662 /* DoDefFunc.cpp */; };
+		BE622D2329D23D26003E9662 /* DoEvaluation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D1429D23D26003E9662 /* DoEvaluation.cpp */; };
+		BE622D2429D23D26003E9662 /* DoEvaluation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D1429D23D26003E9662 /* DoEvaluation.cpp */; };
+		BE622D2529D23D26003E9662 /* DoBinaryFunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D1629D23D26003E9662 /* DoBinaryFunc.cpp */; };
+		BE622D2629D23D26003E9662 /* DoBinaryFunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D1629D23D26003E9662 /* DoBinaryFunc.cpp */; };
+		BE622D2729D23D26003E9662 /* DoNegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D1729D23D26003E9662 /* DoNegate.cpp */; };
+		BE622D2829D23D26003E9662 /* DoNegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D1729D23D26003E9662 /* DoNegate.cpp */; };
 		BE6F18ED10F159D400C0FF7F /* tool-main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE6F18EC10F159D400C0FF7F /* tool-main.cpp */; };
 		BE6F18F410F15BFB00C0FF7F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE6F18F310F15BFB00C0FF7F /* CoreFoundation.framework */; };
 		BE6F192B10F15C5700C0FF7F /* PreventCrashes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE6F192A10F15C5700C0FF7F /* PreventCrashes.cpp */; };
@@ -92,6 +108,22 @@
 		BE622CFF29D23C04003E9662 /* ParseCalcLine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ParseCalcLine.cpp; path = Source/ParseCalcLine.cpp; sourceTree = "<group>"; };
 		BE622D0229D23C45003E9662 /* CFStringToUTF8.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CFStringToUTF8.cpp; sourceTree = "<group>"; };
 		BE622D0529D23C4C003E9662 /* UTF8ToCFString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UTF8ToCFString.cpp; sourceTree = "<group>"; };
+		BE622D0929D23D26003E9662 /* DoDefinedFunc.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoDefinedFunc.hpp; sourceTree = "<group>"; };
+		BE622D0A29D23D26003E9662 /* DoDefFunc.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoDefFunc.hpp; sourceTree = "<group>"; };
+		BE622D0B29D23D26003E9662 /* DoAssign.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DoAssign.cpp; sourceTree = "<group>"; };
+		BE622D0C29D23D26003E9662 /* DoEvaluation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoEvaluation.hpp; sourceTree = "<group>"; };
+		BE622D0D29D23D26003E9662 /* DoBinaryFunc.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoBinaryFunc.hpp; sourceTree = "<group>"; };
+		BE622D0E29D23D26003E9662 /* DoIf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DoIf.cpp; sourceTree = "<group>"; };
+		BE622D0F29D23D26003E9662 /* DoNegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoNegate.hpp; sourceTree = "<group>"; };
+		BE622D1029D23D26003E9662 /* DoUnaryFunc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DoUnaryFunc.cpp; sourceTree = "<group>"; };
+		BE622D1129D23D26003E9662 /* DoUnaryFunc.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoUnaryFunc.hpp; sourceTree = "<group>"; };
+		BE622D1229D23D26003E9662 /* DoDefinedFunc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DoDefinedFunc.cpp; sourceTree = "<group>"; };
+		BE622D1329D23D26003E9662 /* DoDefFunc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DoDefFunc.cpp; sourceTree = "<group>"; };
+		BE622D1429D23D26003E9662 /* DoEvaluation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DoEvaluation.cpp; sourceTree = "<group>"; };
+		BE622D1529D23D26003E9662 /* DoAssign.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoAssign.hpp; sourceTree = "<group>"; };
+		BE622D1629D23D26003E9662 /* DoBinaryFunc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DoBinaryFunc.cpp; sourceTree = "<group>"; };
+		BE622D1729D23D26003E9662 /* DoNegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DoNegate.cpp; sourceTree = "<group>"; };
+		BE622D1829D23D26003E9662 /* DoIf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoIf.hpp; sourceTree = "<group>"; };
 		BE6F18E410F158A900C0FF7F /* CalcTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CalcTool; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE6F18EB10F159D400C0FF7F /* tool-main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "tool-main.h"; path = "Source/tool-main.h"; sourceTree = "<group>"; };
 		BE6F18EC10F159D400C0FF7F /* tool-main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "tool-main.cpp"; path = "Source/tool-main.cpp"; sourceTree = "<group>"; };
@@ -215,6 +247,30 @@
 			path = "Source/CoreFoundation Utilities";
 			sourceTree = "<group>";
 		};
+		BE622D0829D23D26003E9662 /* Action Function Objects */ = {
+			isa = PBXGroup;
+			children = (
+				BE622D0B29D23D26003E9662 /* DoAssign.cpp */,
+				BE622D1529D23D26003E9662 /* DoAssign.hpp */,
+				BE622D1629D23D26003E9662 /* DoBinaryFunc.cpp */,
+				BE622D0D29D23D26003E9662 /* DoBinaryFunc.hpp */,
+				BE622D1329D23D26003E9662 /* DoDefFunc.cpp */,
+				BE622D0A29D23D26003E9662 /* DoDefFunc.hpp */,
+				BE622D1229D23D26003E9662 /* DoDefinedFunc.cpp */,
+				BE622D0929D23D26003E9662 /* DoDefinedFunc.hpp */,
+				BE622D1429D23D26003E9662 /* DoEvaluation.cpp */,
+				BE622D0C29D23D26003E9662 /* DoEvaluation.hpp */,
+				BE622D0E29D23D26003E9662 /* DoIf.cpp */,
+				BE622D1829D23D26003E9662 /* DoIf.hpp */,
+				BE622D1729D23D26003E9662 /* DoNegate.cpp */,
+				BE622D0F29D23D26003E9662 /* DoNegate.hpp */,
+				BE622D1029D23D26003E9662 /* DoUnaryFunc.cpp */,
+				BE622D1129D23D26003E9662 /* DoUnaryFunc.hpp */,
+			);
+			name = "Action Function Objects";
+			path = "Source/Action Function Objects";
+			sourceTree = "<group>";
+		};
 		BEADDF0829C7AE0100FCFE95 /* CalcTool */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,6 +301,7 @@
 		BEADDF0B29C7AEE500FCFE95 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				BE622D0829D23D26003E9662 /* Action Function Objects */,
 				BE622CE329D236F5003E9662 /* CoreFoundation Utilities */,
 				BE622CFF29D23C04003E9662 /* ParseCalcLine.cpp */,
 				BEADDF0D29C7AF0C00FCFE95 /* ParseCalcLine.h */,
@@ -354,14 +411,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE622D1B29D23D26003E9662 /* DoIf.cpp in Sources */,
 				8D15AC310486D014006FF6A4 /* MyDocument.mm in Sources */,
+				BE622D1D29D23D26003E9662 /* DoUnaryFunc.cpp in Sources */,
 				BE622D0029D23C04003E9662 /* ParseCalcLine.cpp in Sources */,
+				BE622D2129D23D26003E9662 /* DoDefFunc.cpp in Sources */,
+				BE622D2529D23D26003E9662 /* DoBinaryFunc.cpp in Sources */,
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
 				BE622CFD29D23B0B003E9662 /* SCalcState.cpp in Sources */,
 				BEB483B410ED969D00A5FBCD /* AppController.m in Sources */,
+				BE622D1929D23D26003E9662 /* DoAssign.cpp in Sources */,
+				BE622D2729D23D26003E9662 /* DoNegate.cpp in Sources */,
+				BE622D2329D23D26003E9662 /* DoEvaluation.cpp in Sources */,
 				BE622D0629D23C4C003E9662 /* UTF8ToCFString.cpp in Sources */,
 				BE622D0329D23C45003E9662 /* CFStringToUTF8.cpp in Sources */,
 				BE622CFB29D23B0B003E9662 /* SFixedSymbols.cpp in Sources */,
+				BE622D1F29D23D26003E9662 /* DoDefinedFunc.cpp in Sources */,
 				BE7AA18610FAFAC600FB0522 /* NSString_JW.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -370,11 +435,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE622D2229D23D26003E9662 /* DoDefFunc.cpp in Sources */,
+				BE622D2829D23D26003E9662 /* DoNegate.cpp in Sources */,
+				BE622D2629D23D26003E9662 /* DoBinaryFunc.cpp in Sources */,
+				BE622D1E29D23D26003E9662 /* DoUnaryFunc.cpp in Sources */,
+				BE622D1C29D23D26003E9662 /* DoIf.cpp in Sources */,
 				BE622CFE29D23B0B003E9662 /* SCalcState.cpp in Sources */,
 				BE622D0129D23C04003E9662 /* ParseCalcLine.cpp in Sources */,
 				BE6F18ED10F159D400C0FF7F /* tool-main.cpp in Sources */,
 				BE622CFC29D23B0B003E9662 /* SFixedSymbols.cpp in Sources */,
+				BE622D2429D23D26003E9662 /* DoEvaluation.cpp in Sources */,
+				BE622D2029D23D26003E9662 /* DoDefinedFunc.cpp in Sources */,
 				BE6F192B10F15C5700C0FF7F /* PreventCrashes.cpp in Sources */,
+				BE622D1A29D23D26003E9662 /* DoAssign.cpp in Sources */,
 				BE622D0429D23C45003E9662 /* CFStringToUTF8.cpp in Sources */,
 				BE622D0729D23C4C003E9662 /* UTF8ToCFString.cpp in Sources */,
 			);
