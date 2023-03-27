@@ -264,13 +264,13 @@ const int		kMenuItemTag_HexFormat		= 101;
 {
 	if (mFormatIntegersAsHex)
 	{
-		[mDecFormatItem setState: NSOffState];
-		[mHexFormatItem setState: NSOnState];
+		[mDecFormatItem setState: NSControlStateValueOff];
+		[mHexFormatItem setState: NSControlStateValueOn];
 	}
 	else
 	{
-		[mDecFormatItem setState: NSOnState];
-		[mHexFormatItem setState: NSOffState];
+		[mDecFormatItem setState: NSControlStateValueOn];
+		[mHexFormatItem setState: NSControlStateValueOff];
 	}
 }
 
@@ -496,14 +496,7 @@ const int		kMenuItemTag_HexFormat		= 101;
 	
 	NSPipe* thePipe = [mCalcTask standardInput];
 	NSFileHandle* theFileHandle = [thePipe fileHandleForWriting];
-	if (@available( macOS 10.15, * ))
-	{
-		[theFileHandle writeData: theData error: nil ];
-	}
-	else
-	{
-		[theFileHandle writeData: theData ];
-	}
+	[theFileHandle writeData: theData error: nil ];
 }
 
 - (void) calcTimedOut
@@ -618,11 +611,11 @@ const int		kMenuItemTag_HexFormat		= 101;
 {
 	BOOL	didLoad = NO;
 	
-	if ([typeName isEqualToString: NSStringPboardType])
+	if ([typeName isEqualToString: NSPasteboardTypeString])
 	{
 		didLoad = [self loadPlainTextData: data];
 	}
- 	else if ([typeName isEqualToString: NSRTFPboardType])
+ 	else if ([typeName isEqualToString: NSPasteboardTypeRTF])
 	{
 		didLoad = [self loadRTFData: data];
 	}
@@ -892,12 +885,12 @@ const int		kMenuItemTag_HexFormat		= 101;
 {
 	NSString* dataType = [[NSPasteboard generalPasteboard]
 		availableTypeFromArray:
-			[NSArray arrayWithObject: NSStringPboardType] ];
+			[NSArray arrayWithObject: NSPasteboardTypeString] ];
 	
 	if (dataType != nil)
 	{
 		NSString* theData = [[NSPasteboard generalPasteboard]
-			stringForType: NSStringPboardType ];
+			stringForType: NSPasteboardTypeString ];
 		
 		NSCharacterSet* badChars = [NSCharacterSet
 			characterSetWithCharactersInString: @",$"];
