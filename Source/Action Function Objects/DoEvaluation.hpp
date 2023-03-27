@@ -32,7 +32,7 @@
 struct SCalcState;
 
 /*!
-	@function	DoEvaluation
+	@struct		DoEvaluation
 	@abstract	Functor for a semantic action that assigns the value of
 				an expression to the built-in variable "last".
 */

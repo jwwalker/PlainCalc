@@ -35,7 +35,7 @@ struct SCalcState;
 
 
 /*!
-	@function	DoBinaryFunc
+	@struct		DoBinaryFunc
 	@abstract	Functor for a semantic action that computes a binary function
 				stored in a symbol table.
 */

@@ -22,12 +22,12 @@
 	3. This notice may not be removed or altered from any source distribution.
 */
 
-
 #include "autoCF.h"
 #include "CalcException.hpp"
 #include "CFStringToUTF8.h"
 #include "DoAssign.hpp"
 #include "DoBinaryFunc.hpp"
+#include "DoBinOp.hpp"
 #include "DoDefFunc.hpp"
 #include "DoDefinedFunc.hpp"
 #include "DoEvaluation.hpp"
@@ -60,8 +60,6 @@ using namespace std;
 
 #include <cmath>
 #include <vector>
-#include <exception>
-#include <set>
 
 #define	DebugParse	0
 
@@ -77,69 +75,13 @@ namespace
 {
 	typedef		std::vector<double>	 		DblStack;
 	
-	typedef		double (*BinaryFunc)( double, double );
-	
 	uint_parser<unsigned long long, 16> const
         bighex_p   = uint_parser<unsigned long long, 16>();
 }
 
 
 namespace
-{
-	#pragma mark BinFunctor
-	/*!
-		@function	BinFunctor
-		@abstract	Functor template that converts a binary function to a
-					binary functor.
-	*/
-	template <BinaryFunc F>
-	struct BinFunctor
-	{
-		double	operator()( double inLHS, double inRHS ) const
-				{
-					return F( inLHS, inRHS );
-				}
-	};
-	
-	#pragma mark DoBinOp
-	/*!
-		@class		DoBinOp
-		@abstract	Functor template for a semantic action that computes a
-					binary operation.
-		@discussion	The template parameter Op should be a class with a
-					method of the signature:
-					
-					double	operator()( double inLHS, double inRHS ) const;
-	*/
-	template <class Op>
-	struct DoBinOp
-	{
-				DoBinOp( SCalcState& ioState ) : mState( ioState ) {}
-				DoBinOp( const DoBinOp& inOther ) : mState( inOther.mState ) {}
-		
-		void	operator()( const char*, const char* ) const
-				{
-					ThrowIfEmpty_( mState.mValStack );
-					double	rhs = mState.mValStack.back();
-					mState.mValStack.pop_back();
-					ThrowIfEmpty_( mState.mValStack );
-					double	lhs = mState.mValStack.back();
-					mState.mValStack.pop_back();
-					double	theVal = Op()( lhs, rhs );
-					mState.mValStack.push_back( theVal );
-				}
-		
-		SCalcState&		mState;
-	};
-	
-
-	#pragma mark DoBinOp typedefs
-	typedef	DoBinOp< std::plus<double> >		DoPlus;
-	typedef	DoBinOp< std::minus<double> >		DoMinus;
-	typedef	DoBinOp< std::multiplies<double> >	DoTimes;
-	typedef	DoBinOp< std::divides<double> >		DoDivide;
-	typedef	DoBinOp< BinFunctor<std::pow> >		DoPower;
-	
+{	
 	#pragma mark DebugAction
 	struct DebugAction
 	{
@@ -541,7 +483,7 @@ CFDictionaryRef	CopyCalcFunctions( CalcState inState )
 				is a CFArrray of CFStrings, being the function definition
 				followed by the formal parameters.
 	@param		inDict		A dictionary recording functions.
-	@param		inState		A calculator object reference.
+	@param		ioState		A calculator object reference.
 */
 void			SetCalcFunctions( CFDictionaryRef inDict, CalcState ioState )
 {

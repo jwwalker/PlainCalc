@@ -32,7 +32,7 @@
 struct SCalcState;
 
 /*!
-	@function	DoAssign
+	@struct		DoAssign
 	@abstract	Functor for a semantic action that assigns the value of
 				an expression to a variable.
 */

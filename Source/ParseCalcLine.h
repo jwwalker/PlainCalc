@@ -154,7 +154,7 @@ CFDictionaryRef	CopyCalcFunctions( CalcState inState );
 				is a CFArrray of CFStrings, being the function definition
 				followed by the formal parameters.
 	@param		inDict		A dictionary recording functions.
-	@param		inState		A calculator object reference.
+	@param		ioState		A calculator object reference.
 */
 void			SetCalcFunctions( CFDictionaryRef inDict, CalcState ioState );
 

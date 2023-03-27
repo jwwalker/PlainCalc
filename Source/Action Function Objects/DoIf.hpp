@@ -32,7 +32,7 @@
 struct SCalcState;
 
 /*!
-	@function	DoIf
+	@struct		DoIf
 	@abstract	Functor for a semantic action that computes a ternary if.
 */
 struct DoIf
