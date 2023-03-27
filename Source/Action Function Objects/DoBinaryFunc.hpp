@@ -31,8 +31,9 @@
 
 struct SCalcState;
 
+#ifndef ThrowIfEmpty_
 #define	ThrowIfEmpty_( x ) do { if (x.empty()) throw CalcException(); } while (false)
-
+#endif
 
 /*!
 	@struct		DoBinaryFunc

@@ -67,10 +67,6 @@ using namespace std;
 	#include <iostream>
 #endif
 
-
-#define	ThrowIfEmpty_( x ) do { if (x.empty()) throw CalcException(); } while (false)
-
-
 namespace
 {
 	typedef		std::vector<double>	 		DblStack;

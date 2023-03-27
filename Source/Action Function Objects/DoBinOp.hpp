@@ -30,9 +30,14 @@
 #define DoBinOp_hpp
 
 #include "SCalcState.hpp"
+#include "CalcException.hpp"
 
 #include <functional>
 #include <cmath>
+
+#ifndef ThrowIfEmpty_
+#define	ThrowIfEmpty_( x ) do { if (x.empty()) throw CalcException(); } while (false)
+#endif
 
 struct PowerFunctor
 {

@@ -58,6 +58,14 @@
 		BE622D4A29D252D9003E9662 /* CalcStateFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D4829D252D9003E9662 /* CalcStateFunctions.cpp */; };
 		BE622D4B29D252D9003E9662 /* CalcStateFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D4829D252D9003E9662 /* CalcStateFunctions.cpp */; };
 		BE622D4C29D252D9003E9662 /* CalcStateFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D4829D252D9003E9662 /* CalcStateFunctions.cpp */; };
+		BE622D5329D2571B003E9662 /* SFixedSymbols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622CF629D23B0A003E9662 /* SFixedSymbols.cpp */; };
+		BE622D5429D2571B003E9662 /* DoEvaluation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D1429D23D26003E9662 /* DoEvaluation.cpp */; };
+		BE622D5629D2571B003E9662 /* CalcStateFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D4829D252D9003E9662 /* CalcStateFunctions.cpp */; };
+		BE622D5729D2571B003E9662 /* UTF8ToCFString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D0529D23C4C003E9662 /* UTF8ToCFString.cpp */; };
+		BE622D5929D2571B003E9662 /* SCalcState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622CF829D23B0A003E9662 /* SCalcState.cpp */; };
+		BE622D5B29D2571B003E9662 /* CFStringToUTF8.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D0229D23C45003E9662 /* CFStringToUTF8.cpp */; };
+		BE622D6929D257A8003E9662 /* MiniCalc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D6729D257A7003E9662 /* MiniCalc.cpp */; };
+		BE622D6B29D25945003E9662 /* MiniCalcTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE622D6A29D2593A003E9662 /* MiniCalcTests.mm */; };
 		BE6F18ED10F159D400C0FF7F /* tool-main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE6F18EC10F159D400C0FF7F /* tool-main.cpp */; };
 		BE6F18F410F15BFB00C0FF7F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE6F18F310F15BFB00C0FF7F /* CoreFoundation.framework */; };
 		BE6F192B10F15C5700C0FF7F /* PreventCrashes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE6F192A10F15C5700C0FF7F /* PreventCrashes.cpp */; };
@@ -71,6 +79,13 @@
 
 /* Begin PBXContainerItemProxy section */
 		BE622D3129D24652003E9662 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D15AC270486D014006FF6A4;
+			remoteInfo = PlainCalc2;
+		};
+		BE622D4F29D2571B003E9662 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
 			proxyType = 1;
@@ -153,6 +168,11 @@
 		BE622D3729D24BC8003E9662 /* DoBinOp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DoBinOp.hpp; sourceTree = "<group>"; };
 		BE622D4829D252D9003E9662 /* CalcStateFunctions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CalcStateFunctions.cpp; path = Source/CalcStateFunctions.cpp; sourceTree = "<group>"; };
 		BE622D4929D252D9003E9662 /* CalcStateFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CalcStateFunctions.h; path = Source/CalcStateFunctions.h; sourceTree = "<group>"; };
+		BE622D6529D2571B003E9662 /* MiniCalcTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MiniCalcTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE622D6729D257A7003E9662 /* MiniCalc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MiniCalc.cpp; sourceTree = "<group>"; };
+		BE622D6829D257A7003E9662 /* MiniCalc.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MiniCalc.hpp; sourceTree = "<group>"; };
+		BE622D6A29D2593A003E9662 /* MiniCalcTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MiniCalcTests.mm; sourceTree = "<group>"; };
+		BE622D6C29D25A5D003E9662 /* PlainCalc2.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PlainCalc2.xctestplan; sourceTree = "<group>"; };
 		BE6F18E410F158A900C0FF7F /* CalcTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CalcTool; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE6F18EB10F159D400C0FF7F /* tool-main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "tool-main.h"; path = "Source/tool-main.h"; sourceTree = "<group>"; };
 		BE6F18EC10F159D400C0FF7F /* tool-main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "tool-main.cpp"; path = "Source/tool-main.cpp"; sourceTree = "<group>"; };
@@ -192,6 +212,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BE622D6029D2571B003E9662 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BE6F18E210F158A900C0FF7F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -218,6 +245,7 @@
 				8D15AC370486D014006FF6A4 /* PlainCalc.app */,
 				BE6F18E410F158A900C0FF7F /* CalcTool */,
 				BE622D2D29D24651003E9662 /* PlainCalcTests.app */,
+				BE622D6529D2571B003E9662 /* MiniCalcTests.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -225,6 +253,7 @@
 		2A37F4AAFDCFA73011CA2CEA /* PlainCalc2 */ = {
 			isa = PBXGroup;
 			children = (
+				BE622D6C29D25A5D003E9662 /* PlainCalc2.xctestplan */,
 				BE47DB5D0B12DF3200081BDA /* PlainCalc.xcconfig */,
 				BEADDF1129C7B74000FCFE95 /* CalcTool.xcconfig */,
 				BEB4844410EE7EAE00A5FBCD /* Notes.rtf */,
@@ -314,6 +343,9 @@
 			isa = PBXGroup;
 			children = (
 				BE622D2F29D24652003E9662 /* PlainCalcTests.mm */,
+				BE622D6A29D2593A003E9662 /* MiniCalcTests.mm */,
+				BE622D6729D257A7003E9662 /* MiniCalc.cpp */,
+				BE622D6829D257A7003E9662 /* MiniCalc.hpp */,
 			);
 			path = PlainCalcTests;
 			sourceTree = "<group>";
@@ -405,6 +437,24 @@
 			productReference = BE622D2D29D24651003E9662 /* PlainCalcTests.app */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		BE622D4D29D2571B003E9662 /* MiniCalcTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE622D6229D2571B003E9662 /* Build configuration list for PBXNativeTarget "MiniCalcTests" */;
+			buildPhases = (
+				BE622D5029D2571B003E9662 /* Sources */,
+				BE622D6029D2571B003E9662 /* Frameworks */,
+				BE622D6129D2571B003E9662 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BE622D4E29D2571B003E9662 /* PBXTargetDependency */,
+			);
+			name = MiniCalcTests;
+			productName = PlainCalcTests;
+			productReference = BE622D6529D2571B003E9662 /* MiniCalcTests.app */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		BE6F18E310F158A900C0FF7F /* CalcTool */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BE6F18E810F158CE00C0FF7F /* Build configuration list for PBXNativeTarget "CalcTool" */;
@@ -458,6 +508,7 @@
 				8D15AC270486D014006FF6A4 /* PlainCalc2 */,
 				BE6F18E310F158A900C0FF7F /* CalcTool */,
 				BE622D2C29D24651003E9662 /* PlainCalcTests */,
+				BE622D4D29D2571B003E9662 /* MiniCalcTests */,
 			);
 		};
 /* End PBXProject section */
@@ -477,6 +528,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		BE622D2B29D24651003E9662 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE622D6129D2571B003E9662 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -533,6 +591,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BE622D5029D2571B003E9662 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE622D5329D2571B003E9662 /* SFixedSymbols.cpp in Sources */,
+				BE622D5429D2571B003E9662 /* DoEvaluation.cpp in Sources */,
+				BE622D5629D2571B003E9662 /* CalcStateFunctions.cpp in Sources */,
+				BE622D5729D2571B003E9662 /* UTF8ToCFString.cpp in Sources */,
+				BE622D5929D2571B003E9662 /* SCalcState.cpp in Sources */,
+				BE622D6B29D25945003E9662 /* MiniCalcTests.mm in Sources */,
+				BE622D5B29D2571B003E9662 /* CFStringToUTF8.cpp in Sources */,
+				BE622D6929D257A8003E9662 /* MiniCalc.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BE6F18E110F158A900C0FF7F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -563,6 +636,11 @@
 			isa = PBXTargetDependency;
 			target = 8D15AC270486D014006FF6A4 /* PlainCalc2 */;
 			targetProxy = BE622D3129D24652003E9662 /* PBXContainerItemProxy */;
+		};
+		BE622D4E29D2571B003E9662 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D15AC270486D014006FF6A4 /* PlainCalc2 */;
+			targetProxy = BE622D4F29D2571B003E9662 /* PBXContainerItemProxy */;
 		};
 		BE6F196D10F16E1000C0FF7F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -658,6 +736,85 @@
 			name = Debug;
 		};
 		BE622D3429D24653003E9662 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = FDHC2KMZ6V;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.2;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jwwalker.PlainCalcTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		BE622D6329D2571B003E9662 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = FDHC2KMZ6V;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.2;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jwwalker.PlainCalcTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BE622D6429D2571B003E9662 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
@@ -813,6 +970,15 @@
 			buildConfigurations = (
 				BE622D3329D24653003E9662 /* Debug */,
 				BE622D3429D24653003E9662 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BE622D6229D2571B003E9662 /* Build configuration list for PBXNativeTarget "MiniCalcTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE622D6329D2571B003E9662 /* Debug */,
+				BE622D6429D2571B003E9662 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
