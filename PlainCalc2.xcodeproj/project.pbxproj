@@ -15,9 +15,15 @@
 		BE1FA5421A55A31C0004741D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE1FA5411A55A31C0004741D /* Cocoa.framework */; };
 		BE4AFBC2247C3C4400466B51 /* index.html in CopyFiles */ = {isa = PBXBuildFile; fileRef = BE4AFBC0247C3C4400466B51 /* index.html */; };
 		BE4AFBC3247C3C4400466B51 /* app-icon.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = BE4AFBC1247C3C4400466B51 /* app-icon.png */; };
+		BE622CE929D236F5003E9662 /* CFStringToUTF8.cp in Sources */ = {isa = PBXBuildFile; fileRef = BE622CE429D236F5003E9662 /* CFStringToUTF8.cp */; };
+		BE622CEA29D236F5003E9662 /* CFStringToUTF8.cp in Sources */ = {isa = PBXBuildFile; fileRef = BE622CE429D236F5003E9662 /* CFStringToUTF8.cp */; };
+		BE622CEB29D236F5003E9662 /* UTF8ToCFString.cp in Sources */ = {isa = PBXBuildFile; fileRef = BE622CE629D236F5003E9662 /* UTF8ToCFString.cp */; };
+		BE622CEC29D236F5003E9662 /* UTF8ToCFString.cp in Sources */ = {isa = PBXBuildFile; fileRef = BE622CE629D236F5003E9662 /* UTF8ToCFString.cp */; };
+		BE622CFB29D23B0B003E9662 /* SFixedSymbols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622CF629D23B0A003E9662 /* SFixedSymbols.cpp */; };
+		BE622CFC29D23B0B003E9662 /* SFixedSymbols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622CF629D23B0A003E9662 /* SFixedSymbols.cpp */; };
+		BE622CFD29D23B0B003E9662 /* SCalcState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622CF829D23B0A003E9662 /* SCalcState.cpp */; };
+		BE622CFE29D23B0B003E9662 /* SCalcState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622CF829D23B0A003E9662 /* SCalcState.cpp */; };
 		BE6F18ED10F159D400C0FF7F /* tool-main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE6F18EC10F159D400C0FF7F /* tool-main.cpp */; };
-		BE6F18F110F15BE100C0FF7F /* UTF8ToCFString.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */; };
-		BE6F18F210F15BE400C0FF7F /* CFStringToUTF8.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020809CC87EE00E7C5E6 /* CFStringToUTF8.cp */; };
 		BE6F18F410F15BFB00C0FF7F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE6F18F310F15BFB00C0FF7F /* CoreFoundation.framework */; };
 		BE6F192B10F15C5700C0FF7F /* PreventCrashes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE6F192A10F15C5700C0FF7F /* PreventCrashes.cpp */; };
 		BE6F196F10F16E4000C0FF7F /* CalcTool in Copy Helper Tool */ = {isa = PBXBuildFile; fileRef = BE6F18E410F158A900C0FF7F /* CalcTool */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -26,8 +32,6 @@
 		BEADDF0E29C7AF0D00FCFE95 /* ParseCalcLine.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEADDF0C29C7AF0C00FCFE95 /* ParseCalcLine.cp */; };
 		BEADDF0F29C7AF0D00FCFE95 /* ParseCalcLine.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEADDF0C29C7AF0C00FCFE95 /* ParseCalcLine.cp */; };
 		BEB483B410ED969D00A5FBCD /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEB483B310ED969D00A5FBCD /* AppController.m */; };
-		BEE0020A09CC87EE00E7C5E6 /* UTF8ToCFString.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */; };
-		BEE0020B09CC87EE00E7C5E6 /* CFStringToUTF8.cp in Sources */ = {isa = PBXBuildFile; fileRef = BEE0020809CC87EE00E7C5E6 /* CFStringToUTF8.cp */; };
 		BEF3631F10CB32950047ED77 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEF3631D10CB32950047ED77 /* MainMenu.xib */; };
 		BEF3633110CB32CC0047ED77 /* MyDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEF3632F10CB32CC0047ED77 /* MyDocument.xib */; };
 /* End PBXBuildFile section */
@@ -77,6 +81,16 @@
 		BE47DB5D0B12DF3200081BDA /* PlainCalc.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlainCalc.xcconfig; sourceTree = "<group>"; };
 		BE4AFBC0247C3C4400466B51 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		BE4AFBC1247C3C4400466B51 /* app-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-icon.png"; sourceTree = "<group>"; };
+		BE622CE429D236F5003E9662 /* CFStringToUTF8.cp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CFStringToUTF8.cp; sourceTree = "<group>"; };
+		BE622CE529D236F5003E9662 /* CFStringToUTF8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFStringToUTF8.h; sourceTree = "<group>"; };
+		BE622CE629D236F5003E9662 /* UTF8ToCFString.cp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UTF8ToCFString.cp; sourceTree = "<group>"; };
+		BE622CE729D236F5003E9662 /* UTF8ToCFString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UTF8ToCFString.h; sourceTree = "<group>"; };
+		BE622CE829D236F5003E9662 /* autoCF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = autoCF.h; sourceTree = "<group>"; };
+		BE622CF629D23B0A003E9662 /* SFixedSymbols.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SFixedSymbols.cpp; path = Source/SFixedSymbols.cpp; sourceTree = "<group>"; };
+		BE622CF729D23B0A003E9662 /* SCalcState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SCalcState.hpp; path = Source/SCalcState.hpp; sourceTree = "<group>"; };
+		BE622CF829D23B0A003E9662 /* SCalcState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SCalcState.cpp; path = Source/SCalcState.cpp; sourceTree = "<group>"; };
+		BE622CF929D23B0A003E9662 /* CalcException.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CalcException.hpp; path = Source/CalcException.hpp; sourceTree = "<group>"; };
+		BE622CFA29D23B0A003E9662 /* SFixedSymbols.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SFixedSymbols.hpp; path = Source/SFixedSymbols.hpp; sourceTree = "<group>"; };
 		BE6F18E410F158A900C0FF7F /* CalcTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CalcTool; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE6F18EB10F159D400C0FF7F /* tool-main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "tool-main.h"; path = "Source/tool-main.h"; sourceTree = "<group>"; };
 		BE6F18EC10F159D400C0FF7F /* tool-main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "tool-main.cpp"; path = "Source/tool-main.cpp"; sourceTree = "<group>"; };
@@ -93,17 +107,12 @@
 		BEA862FF247B39CB00F296B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Resources/Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		BEADDF0C29C7AF0C00FCFE95 /* ParseCalcLine.cp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ParseCalcLine.cp; path = Source/ParseCalcLine.cp; sourceTree = "<group>"; };
 		BEADDF0D29C7AF0C00FCFE95 /* ParseCalcLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParseCalcLine.h; path = Source/ParseCalcLine.h; sourceTree = "<group>"; };
-		BEADDF1029C7AF1600FCFE95 /* autoCF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = autoCF.h; path = Source/autoCF.h; sourceTree = "<group>"; };
 		BEADDF1129C7B74000FCFE95 /* CalcTool.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = CalcTool.xcconfig; sourceTree = "<group>"; };
 		BEADDF1229C7C2A800FCFE95 /* PlainCalc2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlainCalc2.entitlements; sourceTree = "<group>"; };
 		BEADDF1329C7C34000FCFE95 /* CalcTool.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CalcTool.entitlements; sourceTree = "<group>"; };
 		BEB483B210ED969D00A5FBCD /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = "Cocoa source/AppController.h"; sourceTree = "<group>"; };
 		BEB483B310ED969D00A5FBCD /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppController.m; path = "Cocoa source/AppController.m"; sourceTree = "<group>"; };
 		BEB4844410EE7EAE00A5FBCD /* Notes.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Notes.rtf; sourceTree = "<group>"; };
-		BEE0020609CC87EE00E7C5E6 /* UTF8ToCFString.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = UTF8ToCFString.h; path = Source/UTF8ToCFString.h; sourceTree = "<group>"; };
-		BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = UTF8ToCFString.cp; path = Source/UTF8ToCFString.cp; sourceTree = "<group>"; };
-		BEE0020809CC87EE00E7C5E6 /* CFStringToUTF8.cp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = CFStringToUTF8.cp; path = Source/CFStringToUTF8.cp; sourceTree = "<group>"; };
-		BEE0020909CC87EE00E7C5E6 /* CFStringToUTF8.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CFStringToUTF8.h; path = Source/CFStringToUTF8.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +202,19 @@
 			path = Resources/Help;
 			sourceTree = "<group>";
 		};
+		BE622CE329D236F5003E9662 /* CoreFoundation Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				BE622CE429D236F5003E9662 /* CFStringToUTF8.cp */,
+				BE622CE529D236F5003E9662 /* CFStringToUTF8.h */,
+				BE622CE629D236F5003E9662 /* UTF8ToCFString.cp */,
+				BE622CE729D236F5003E9662 /* UTF8ToCFString.h */,
+				BE622CE829D236F5003E9662 /* autoCF.h */,
+			);
+			name = "CoreFoundation Utilities";
+			path = "Source/CoreFoundation Utilities";
+			sourceTree = "<group>";
+		};
 		BEADDF0829C7AE0100FCFE95 /* CalcTool */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,13 +245,14 @@
 		BEADDF0B29C7AEE500FCFE95 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				BEADDF1029C7AF1600FCFE95 /* autoCF.h */,
+				BE622CE329D236F5003E9662 /* CoreFoundation Utilities */,
 				BEADDF0C29C7AF0C00FCFE95 /* ParseCalcLine.cp */,
 				BEADDF0D29C7AF0C00FCFE95 /* ParseCalcLine.h */,
-				BEE0020809CC87EE00E7C5E6 /* CFStringToUTF8.cp */,
-				BEE0020909CC87EE00E7C5E6 /* CFStringToUTF8.h */,
-				BEE0020609CC87EE00E7C5E6 /* UTF8ToCFString.h */,
-				BEE0020709CC87EE00E7C5E6 /* UTF8ToCFString.cp */,
+				BE622CF929D23B0A003E9662 /* CalcException.hpp */,
+				BE622CF829D23B0A003E9662 /* SCalcState.cpp */,
+				BE622CF729D23B0A003E9662 /* SCalcState.hpp */,
+				BE622CF629D23B0A003E9662 /* SFixedSymbols.cpp */,
+				BE622CFA29D23B0A003E9662 /* SFixedSymbols.hpp */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -333,10 +356,12 @@
 			files = (
 				8D15AC310486D014006FF6A4 /* MyDocument.mm in Sources */,
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
+				BE622CFD29D23B0B003E9662 /* SCalcState.cpp in Sources */,
+				BE622CE929D236F5003E9662 /* CFStringToUTF8.cp in Sources */,
+				BE622CEB29D236F5003E9662 /* UTF8ToCFString.cp in Sources */,
 				BEADDF0E29C7AF0D00FCFE95 /* ParseCalcLine.cp in Sources */,
-				BEE0020A09CC87EE00E7C5E6 /* UTF8ToCFString.cp in Sources */,
-				BEE0020B09CC87EE00E7C5E6 /* CFStringToUTF8.cp in Sources */,
 				BEB483B410ED969D00A5FBCD /* AppController.m in Sources */,
+				BE622CFB29D23B0B003E9662 /* SFixedSymbols.cpp in Sources */,
 				BE7AA18610FAFAC600FB0522 /* NSString_JW.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,10 +370,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE622CFE29D23B0B003E9662 /* SCalcState.cpp in Sources */,
+				BE622CEA29D236F5003E9662 /* CFStringToUTF8.cp in Sources */,
 				BE6F18ED10F159D400C0FF7F /* tool-main.cpp in Sources */,
+				BE622CEC29D236F5003E9662 /* UTF8ToCFString.cp in Sources */,
 				BEADDF0F29C7AF0D00FCFE95 /* ParseCalcLine.cp in Sources */,
-				BE6F18F110F15BE100C0FF7F /* UTF8ToCFString.cp in Sources */,
-				BE6F18F210F15BE400C0FF7F /* CFStringToUTF8.cp in Sources */,
+				BE622CFC29D23B0B003E9662 /* SFixedSymbols.cpp in Sources */,
 				BE6F192B10F15C5700C0FF7F /* PreventCrashes.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
