@@ -27,6 +27,7 @@
 */
 
 #import "MyDocument.h"
+#import "CalcStateFunctions.h"
 #import "ParseCalcLine.h"
 #import "AppController.h"
 #import "NSString_JW.h"

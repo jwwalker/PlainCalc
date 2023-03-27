@@ -7,6 +7,7 @@
 
 #import <XCTest/XCTest.h>
 
+#import "CalcStateFunctions.h"
 #import "ParseCalcLine.h"
 
 @interface PlainCalcTests : XCTestCase

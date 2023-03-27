@@ -55,6 +55,9 @@
 		BE622D4529D24EB4003E9662 /* DoBinaryFunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D1629D23D26003E9662 /* DoBinaryFunc.cpp */; };
 		BE622D4629D24EF3003E9662 /* UTF8ToCFString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D0529D23C4C003E9662 /* UTF8ToCFString.cpp */; };
 		BE622D4729D24EF3003E9662 /* CFStringToUTF8.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D0229D23C45003E9662 /* CFStringToUTF8.cpp */; };
+		BE622D4A29D252D9003E9662 /* CalcStateFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D4829D252D9003E9662 /* CalcStateFunctions.cpp */; };
+		BE622D4B29D252D9003E9662 /* CalcStateFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D4829D252D9003E9662 /* CalcStateFunctions.cpp */; };
+		BE622D4C29D252D9003E9662 /* CalcStateFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D4829D252D9003E9662 /* CalcStateFunctions.cpp */; };
 		BE6F18ED10F159D400C0FF7F /* tool-main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE6F18EC10F159D400C0FF7F /* tool-main.cpp */; };
 		BE6F18F410F15BFB00C0FF7F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE6F18F310F15BFB00C0FF7F /* CoreFoundation.framework */; };
 		BE6F192B10F15C5700C0FF7F /* PreventCrashes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE6F192A10F15C5700C0FF7F /* PreventCrashes.cpp */; };
@@ -148,6 +151,8 @@
 		BE622D2D29D24651003E9662 /* PlainCalcTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlainCalcTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE622D2F29D24652003E9662 /* PlainCalcTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PlainCalcTests.mm; sourceTree = "<group>"; };
 		BE622D3729D24BC8003E9662 /* DoBinOp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DoBinOp.hpp; sourceTree = "<group>"; };
+		BE622D4829D252D9003E9662 /* CalcStateFunctions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CalcStateFunctions.cpp; path = Source/CalcStateFunctions.cpp; sourceTree = "<group>"; };
+		BE622D4929D252D9003E9662 /* CalcStateFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CalcStateFunctions.h; path = Source/CalcStateFunctions.h; sourceTree = "<group>"; };
 		BE6F18E410F158A900C0FF7F /* CalcTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CalcTool; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE6F18EB10F159D400C0FF7F /* tool-main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "tool-main.h"; path = "Source/tool-main.h"; sourceTree = "<group>"; };
 		BE6F18EC10F159D400C0FF7F /* tool-main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "tool-main.cpp"; path = "Source/tool-main.cpp"; sourceTree = "<group>"; };
@@ -347,6 +352,8 @@
 				BE622CE329D236F5003E9662 /* CoreFoundation Utilities */,
 				BE622CFF29D23C04003E9662 /* ParseCalcLine.cpp */,
 				BEADDF0D29C7AF0C00FCFE95 /* ParseCalcLine.h */,
+				BE622D4829D252D9003E9662 /* CalcStateFunctions.cpp */,
+				BE622D4929D252D9003E9662 /* CalcStateFunctions.h */,
 				BE622CF929D23B0A003E9662 /* CalcException.hpp */,
 				BE622CF829D23B0A003E9662 /* SCalcState.cpp */,
 				BE622CF729D23B0A003E9662 /* SCalcState.hpp */,
@@ -497,6 +504,7 @@
 				BE622D2329D23D26003E9662 /* DoEvaluation.cpp in Sources */,
 				BE622D0629D23C4C003E9662 /* UTF8ToCFString.cpp in Sources */,
 				BE622D0329D23C45003E9662 /* CFStringToUTF8.cpp in Sources */,
+				BE622D4A29D252D9003E9662 /* CalcStateFunctions.cpp in Sources */,
 				BE622CFB29D23B0B003E9662 /* SFixedSymbols.cpp in Sources */,
 				BE622D1F29D23D26003E9662 /* DoDefinedFunc.cpp in Sources */,
 				BE7AA18610FAFAC600FB0522 /* NSString_JW.m in Sources */,
@@ -512,6 +520,7 @@
 				BE622D4229D24EB4003E9662 /* SFixedSymbols.cpp in Sources */,
 				BE622D3B29D24EB4003E9662 /* DoEvaluation.cpp in Sources */,
 				BE622D3E29D24EB4003E9662 /* DoDefFunc.cpp in Sources */,
+				BE622D4C29D252D9003E9662 /* CalcStateFunctions.cpp in Sources */,
 				BE622D4629D24EF3003E9662 /* UTF8ToCFString.cpp in Sources */,
 				BE622D4329D24EB4003E9662 /* DoDefinedFunc.cpp in Sources */,
 				BE622D4429D24EB4003E9662 /* SCalcState.cpp in Sources */,
@@ -532,6 +541,7 @@
 				BE622D2829D23D26003E9662 /* DoNegate.cpp in Sources */,
 				BE622D2629D23D26003E9662 /* DoBinaryFunc.cpp in Sources */,
 				BE622D1E29D23D26003E9662 /* DoUnaryFunc.cpp in Sources */,
+				BE622D4B29D252D9003E9662 /* CalcStateFunctions.cpp in Sources */,
 				BE622D1C29D23D26003E9662 /* DoIf.cpp in Sources */,
 				BE622CFE29D23B0B003E9662 /* SCalcState.cpp in Sources */,
 				BE622D0129D23C04003E9662 /* ParseCalcLine.cpp in Sources */,

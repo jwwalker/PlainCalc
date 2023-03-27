@@ -30,6 +30,7 @@
 #include "tool-main.h"
 
 #import "autoCF.h"
+#import "CalcStateFunctions.h"
 #import "ParseCalcLine.h"
 #import "PreventCrashes.h"
 #import "UTF8ToCFString.h"
