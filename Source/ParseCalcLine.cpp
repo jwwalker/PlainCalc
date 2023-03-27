@@ -1,7 +1,7 @@
 #include "ParseCalcLine.h"
 
 /*
-	Copyright (c) 2006-2015 James W. Walker
+	Copyright (c) 2006-2023 James W. Walker
 
 	This software is provided 'as-is', without any express or implied warranty.
 	In no event will the authors be held liable for any damages arising from
@@ -61,19 +61,9 @@ using namespace std;
 	#include <iostream>
 #endif
 
-#define	ThrowIfCFFail_( x ) do { if ((x) == NULL) throw std::bad_alloc(); } while (false)
 
 #define	ThrowIfEmpty_( x ) do { if (x.empty()) throw CalcException(); } while (false)
 
-static double rad( double inDegrees )
-{
-	return inDegrees * (M_PI / 180.0);
-}
-
-static double deg( double inRadians )
-{
-	return inRadians * (180.0 / M_PI);
-}
 
 namespace
 {
