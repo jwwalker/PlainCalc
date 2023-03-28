@@ -47,7 +47,7 @@ void	DoDefinedFunc::operator()( const char* inStart, const char* inEnd ) const
 	parsedText.erase( parenLoc );
 	
 	// Find the definition
-	const FuncDef*	foundFunc = find( mState.mFuncDefs, parsedText.c_str() );
+	const FuncDef*	foundFunc = mState.mFuncDefs.find( parsedText.c_str() );
 	if (foundFunc == NULL)
 	{
 		throw CalcException();

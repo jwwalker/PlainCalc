@@ -31,7 +31,7 @@
 #include "SCalcState.hpp"
 
 
-void	DoNegate::operator()( const char*, const char* ) const
+void	DoNegate::operator()( unused_type, unused_type, unused_type ) const
 {
 	mState.mValStack.back() = - mState.mValStack.back();
 }

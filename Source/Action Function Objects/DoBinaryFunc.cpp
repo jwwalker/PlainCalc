@@ -43,7 +43,7 @@ void	DoBinaryFunc::operator()( const char* inStart, const char* inEnd ) const
 		throw CalcException();
 	}
 	parsedText.erase( parenLoc );
-	const BinaryFunc*	foundFunc = find( mState.mFixed.mBinaryFuncs, parsedText.c_str() );
+	const BinaryFunc*	foundFunc = mState.mFixed.mBinaryFuncs.find( parsedText.c_str() );
 	if (foundFunc == NULL)
 	{
 		throw CalcException();

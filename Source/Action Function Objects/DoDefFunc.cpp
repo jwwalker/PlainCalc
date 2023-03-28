@@ -35,7 +35,7 @@
 
 #include <string>
 
-void	DoDefFunc::operator()( const char*, const char* ) const
+void	DoDefFunc::operator()( unused_type, unused_type, unused_type ) const
 {
 	// Before committing to the function, syntax check it.
 	SCalcState	tempState( mState );
@@ -43,8 +43,7 @@ void	DoDefFunc::operator()( const char*, const char* ) const
 		mState.mFuncDef );
 
 	// Find the definition
-	FuncDef*	foundFunc = find( tempState.mFuncDefs,
-		mState.mFuncName.c_str() );
+	FuncDef*	foundFunc = tempState.mFuncDefs.find( mState.mFuncName.c_str() );
 	if (foundFunc == NULL)
 	{
 		throw CalcException();

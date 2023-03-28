@@ -62,7 +62,7 @@ struct DoBinOp
 			DoBinOp( SCalcState& ioState ) : mState( ioState ) {}
 			DoBinOp( const DoBinOp& inOther ) : mState( inOther.mState ) {}
 	
-	void	operator()( const char*, const char* ) const
+	void	operator()( unused_type, unused_type, unused_type ) const
 			{
 				ThrowIfEmpty_( mState.mValStack );
 				double	rhs = mState.mValStack.back();

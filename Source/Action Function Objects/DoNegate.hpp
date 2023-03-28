@@ -36,7 +36,7 @@ struct DoNegate
 			DoNegate( SCalcState& ioState ) : mState( ioState ) {}
 			DoNegate( const DoNegate& inOther ) : mState( inOther.mState ) {}
 	
-	void	operator()( const char*, const char* ) const;
+	void	operator()( unused_type, unused_type, unused_type ) const;
 	
 	SCalcState&		mState;
 };

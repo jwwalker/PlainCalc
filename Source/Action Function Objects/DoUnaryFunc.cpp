@@ -43,7 +43,7 @@ void	DoUnaryFunc::operator()( const char* inStart, const char* inEnd ) const
 		throw CalcException();
 	}
 	parsedText.erase( parenLoc );
-	const UnaryFunc*	foundFunc = find( mState.mFixed.mUnaryFuncs, parsedText.c_str() );
+	const UnaryFunc*	foundFunc = mState.mFixed.mUnaryFuncs.find( parsedText.c_str() );
 	if (foundFunc == NULL)
 	{
 		throw CalcException();

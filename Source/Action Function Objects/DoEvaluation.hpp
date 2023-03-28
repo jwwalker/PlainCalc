@@ -41,7 +41,7 @@ struct DoEvaluation
 			DoEvaluation( SCalcState& ioState ) : mState( ioState ) {}
 			DoEvaluation( const DoEvaluation& inOther ) : mState( inOther.mState ) {}
 	
-	void	operator()( const char*, const char* ) const;
+	void	operator()( unused_type, unused_type, unused_type ) const;
 	
 	SCalcState&		mState;
 };

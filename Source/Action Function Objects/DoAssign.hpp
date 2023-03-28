@@ -41,7 +41,7 @@ struct DoAssign
 			DoAssign( SCalcState& ioState ) : mState( ioState ) {}
 			DoAssign( const DoAssign& inOther ) : mState( inOther.mState ) {}
 	
-	void	operator()( const char*, const char* ) const;
+	void	operator()( unused_type, unused_type, unused_type ) const;
 	
 	SCalcState&		mState;
 };
