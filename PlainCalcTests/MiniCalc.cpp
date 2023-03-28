@@ -37,32 +37,20 @@ namespace
 		{
 			definition( const calculator& self )
 			{
-				// Note: it is important that mBinaryFuncs precedes
-				// mUnaryFuncs. Due to short-circuiting, the union
-				// would otherwise never completely match atan2.
-				// It would be possible to fix this by enclosing the
-				// alternatives in longest_d.
-				
-				statement = (
+				statement =
 					expression[ DoEvaluation(self.mState) ]
-					)
 					>> end_p;
 				
-				factor
+				term
 					=	ureal_p[ append(self.mState.mValStack) ]
 					;
-					// Note: The hex part of factor must come before the real part, otherwise ureal_p
-					// will gobble the leading 0.
 				
 				expression =
-						(
-							factor
-						)
+						term
 						>>
 						*(
-							('+' >> factor)[ DoPlus(self.mState) ]
+							('+' >> term)[ DoPlus(self.mState) ]
 						);
-				
 			}
 			
 			const boost::spirit::rule<ScannerT>& start() const
@@ -70,7 +58,7 @@ namespace
 				return statement;
 			}
 			
-			boost::spirit::rule<ScannerT>	factor, expression;
+			boost::spirit::rule<ScannerT>	term, expression;
 			boost::spirit::rule<ScannerT>	statement;
 		};
 		
