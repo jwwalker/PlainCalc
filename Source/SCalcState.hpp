@@ -29,12 +29,13 @@
 #ifndef SCalcState_hpp
 #define SCalcState_hpp
 
-#pragma warn_unusedarg	off
-#if !defined(BOOST_SPIRIT_USE_OLD_NAMESPACE)
-#define BOOST_SPIRIT_USE_OLD_NAMESPACE
-#endif
-#include "boost/spirit/include/classic.hpp"
-#pragma warn_unusedarg	reset
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdocumentation"
+#pragma clang diagnostic ignored "-Wcomma"
+
+#include <boost/spirit/include/qi.hpp>
+
+#pragma clang diagnostic pop
 
 
 #include <CoreFoundation/CoreFoundation.h>
@@ -76,8 +77,8 @@ struct SCalcState
 	
 	DblStack				mValStack;
 	StringVec				mParamStack;
-	boost::spirit::symbols<FuncDef>		mFuncDefs;
-	boost::spirit::symbols<double>		mVariables;
+	boost::spirit::qi::symbols<char, FuncDef>	mFuncDefs;
+	boost::spirit::qi::symbols<char, double>	mVariables;
 	std::string				mIdentifier;
 	StringSet				mVariableSet;
 	StringSet				mFuncDefSet;

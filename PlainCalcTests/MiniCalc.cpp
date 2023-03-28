@@ -11,16 +11,7 @@
 
 #include <math.h>
 
-#define BOOST_SPIRIT_RULE_SCANNERTYPE_LIMIT 1
-
-#pragma warn_unusedarg	off
-#if !defined(BOOST_SPIRIT_USE_OLD_NAMESPACE)
-#define BOOST_SPIRIT_USE_OLD_NAMESPACE
-#endif
-#include "boost/spirit/include/classic.hpp"
-#pragma warn_unusedarg	reset
-
-using namespace boost::spirit;
+using namespace boost::spirit::qi;
 
 namespace
 {
@@ -29,7 +20,7 @@ struct DoPlus
 			DoPlus( SCalcState& ioState ) : mState( ioState ) {}
 			DoPlus( const DoPlus& inOther ) : mState( inOther.mState ) {}
 	
-	void	operator()( const char*, const char* ) const
+	void	operator()( unused_type, unused_type, unused_type ) const
 			{
 				double	rhs = mState.mValStack.back();
 				mState.mValStack.pop_back();
@@ -52,7 +43,7 @@ struct DoEvaluation
 			DoEvaluation( SCalcState& ioState ) : mState( ioState ) {}
 			DoEvaluation( const DoEvaluation& inOther ) : mState( inOther.mState ) {}
 	
-	void	operator()( const char*, const char* ) const
+	void	operator()( unused_type, unused_type, unused_type ) const
 	{
 		mState.SetVariable( "last" );
 		mState.mDidDefineFunction = false;
@@ -62,41 +53,52 @@ struct DoEvaluation
 	SCalcState&		mState;
 };
 
-	struct calculator : public boost::spirit::grammar<calculator>
+struct DoAppendNumber
+{
+			DoAppendNumber( SCalcState& ioState ) : mState( ioState ) {}
+			DoAppendNumber( const DoAppendNumber& inOther ) : mState( inOther.mState ) {}
+	
+	void	operator()( double val, unused_type, unused_type ) const
 	{
-					calculator( SCalcState& inState )
-						: mState( inState ) {}
+		mState.mValStack.push_back( val );
+	}
+	
+	SCalcState&		mState;
+};
 
-		template <typename ScannerT>
-		struct definition
+	template <typename Iterator>
+	struct calculator : public grammar<Iterator, double(), ascii::space_type>
+	{
+		calculator( SCalcState& inState )
+			: calculator::base_type( start )
+			, mState( inState )
 		{
-			definition( const calculator& self )
-			{
-				statement =
-					expression[ DoEvaluation(self.mState) ]
-					>> end_p;
-				
-				term
-					=	ureal_p[ append(self.mState.mValStack) ]
-					;
-				
-				expression =
-						term
-						>>
-						*(
-							('+' >> term)[ DoPlus(self.mState) ]
-						);
-			}
+			statement =
+				expression[ DoEvaluation(mState) ]
+				>> eoi;
 			
-			const boost::spirit::rule<ScannerT>& start() const
-			{
-				return statement;
-			}
+			term
+				=	ureal[ DoAppendNumber(mState) ]
+				;
 			
-			boost::spirit::rule<ScannerT>	term, expression;
-			boost::spirit::rule<ScannerT>	statement;
-		};
+			expression =
+					term
+					>>
+					*(
+						('+' >> term)[ DoPlus(mState) ]
+					);
 		
+			start =
+				statement;
+		}
+		
+			
+		real_parser< double, ureal_policies<double> > ureal;
+		
+		rule<Iterator, double(), ascii::space_type>	term, expression;
+		rule<Iterator, double(), ascii::space_type>	statement;
+		rule<Iterator, double(), ascii::space_type>	start;
+
 		SCalcState&		mState;
 	};
 }
@@ -117,13 +119,17 @@ double MiniCalc( const char* inLine, struct SCalcState* ioState )
 	
 	try
 	{
-		calculator	theCalc( *ioState );
 		ioState->mValStack.clear();
 		ioState->mParamStack.clear();
+
+		const char* startIter = inLine;
+		const char* endIter = inLine + strlen(inLine);
+
+		calculator<const char*>	theCalc( *ioState );
 		
-		parse_info<>	parseResult = parse( inLine, theCalc, space_p );
+		bool success = phrase_parse( startIter, endIter, theCalc, ascii::space );
 		
-		if (parseResult.full)
+		if (success and (startIter == endIter))
 		{
 			if (ioState->mValStack.size() >= 1)
 			{

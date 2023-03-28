@@ -29,12 +29,13 @@
 #ifndef SFixedSymbols_hpp
 #define SFixedSymbols_hpp
 
-#pragma warn_unusedarg	off
-#if !defined(BOOST_SPIRIT_USE_OLD_NAMESPACE)
-#define BOOST_SPIRIT_USE_OLD_NAMESPACE
-#endif
-#include "boost/spirit/include/classic.hpp"
-#pragma warn_unusedarg	reset
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdocumentation"
+#pragma clang diagnostic ignored "-Wcomma"
+
+#include <boost/spirit/include/qi.hpp>
+
+#pragma clang diagnostic pop
 
 typedef		double (*UnaryFunc)( double );
 typedef		double (*BinaryFunc)( double, double );
@@ -49,9 +50,9 @@ struct SFixedSymbols
 {
 							SFixedSymbols();
 							
-	boost::spirit::symbols<UnaryFunc>	mUnaryFuncs;
-	boost::spirit::symbols<BinaryFunc>	mBinaryFuncs;
-	boost::spirit::symbols<double>		mConstants;
+	boost::spirit::qi::symbols<char, UnaryFunc>		mUnaryFuncs;
+	boost::spirit::qi::symbols<char, BinaryFunc>	mBinaryFuncs;
+	boost::spirit::qi::symbols<char, double>		mConstants;
 };
 
 const SFixedSymbols&	GetFixedSyms( void );

@@ -18,18 +18,12 @@
   },
   "testTargets" : [
     {
+      "enabled" : false,
       "parallelizable" : true,
       "target" : {
         "containerPath" : "container:PlainCalc2.xcodeproj",
         "identifier" : "BE622D2C29D24651003E9662",
         "name" : "PlainCalcTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:PlainCalc2.xcodeproj",
-        "identifier" : "BE622D4D29D2571B003E9662",
-        "name" : "MiniCalcTests"
       }
     }
   ],

@@ -62,7 +62,7 @@ SCalcState::SCalcState( const SCalcState& inOther )
 
 void	SCalcState::SetVariable( const char* inVarName )
 {
-	double*	foundVar = find( mVariables, inVarName );
+	double*	foundVar = mVariables.find( inVarName );
 	if (foundVar == NULL)
 	{
 		mVariables.add( inVarName, mValStack.back() );
@@ -136,7 +136,7 @@ void	SCalcState::SetFunc( const std::string& inFuncName,
 {
 	FuncDef	thePair( inFormalParams, inValue );
 	FixFormalParams( thePair );
-	FuncDef*	foundDef = find( mFuncDefs, inFuncName.c_str() );
+	FuncDef*	foundDef = mFuncDefs.find( inFuncName.c_str() );
 	if (foundDef == NULL)
 	{
 		mFuncDefs.add( inFuncName.c_str(), thePair );
@@ -157,7 +157,7 @@ CFDictionaryRef		SCalcState::CopyVariables() const
 	for (StringSet::iterator i = mVariableSet.begin(); i != mVariableSet.end(); ++i)
 	{
 		const std::string&	theVar( *i );
-		const double*	foundVal = find( mVariables, theVar.c_str() );
+		const double*	foundVal = mVariables.find( theVar.c_str() );
 		if (foundVal != NULL)
 		{
 			autoCFStringRef	cfVarName( UTF8ToCFString( theVar.c_str() ) );
@@ -196,7 +196,7 @@ CFDictionaryRef	SCalcState::CopyFuncDefs() const
 	{
 		// Find the function definition.
 		const std::string&	funcName( *i );
-		const FuncDef*	theFuncPtr = find( mFuncDefs, funcName.c_str() );
+		const FuncDef*	theFuncPtr = mFuncDefs.find( funcName.c_str() );
 		if (theFuncPtr != NULL)
 		{
 			// Make a copy so we can change it

@@ -34,8 +34,8 @@
 - (void)testExample
 {
 	XCTAssert( _calculator != nullptr );
-	double result = MiniCalc( "13 + 9 + 11", _calculator );
-	XCTAssertEqual( result, 33.0 );
+	double result = MiniCalc( "13 + 9 + 11 + 1000.55", _calculator );
+	XCTAssertEqual( result, 1033.55 );
 }
 
 @end
