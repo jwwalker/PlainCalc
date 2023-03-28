@@ -59,7 +59,6 @@
 		BE622D4B29D252D9003E9662 /* CalcStateFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D4829D252D9003E9662 /* CalcStateFunctions.cpp */; };
 		BE622D4C29D252D9003E9662 /* CalcStateFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D4829D252D9003E9662 /* CalcStateFunctions.cpp */; };
 		BE622D5329D2571B003E9662 /* SFixedSymbols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622CF629D23B0A003E9662 /* SFixedSymbols.cpp */; };
-		BE622D5429D2571B003E9662 /* DoEvaluation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D1429D23D26003E9662 /* DoEvaluation.cpp */; };
 		BE622D5629D2571B003E9662 /* CalcStateFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D4829D252D9003E9662 /* CalcStateFunctions.cpp */; };
 		BE622D5729D2571B003E9662 /* UTF8ToCFString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622D0529D23C4C003E9662 /* UTF8ToCFString.cpp */; };
 		BE622D5929D2571B003E9662 /* SCalcState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622CF829D23B0A003E9662 /* SCalcState.cpp */; };
@@ -596,7 +595,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE622D5329D2571B003E9662 /* SFixedSymbols.cpp in Sources */,
-				BE622D5429D2571B003E9662 /* DoEvaluation.cpp in Sources */,
 				BE622D5629D2571B003E9662 /* CalcStateFunctions.cpp in Sources */,
 				BE622D5729D2571B003E9662 /* UTF8ToCFString.cpp in Sources */,
 				BE622D5929D2571B003E9662 /* SCalcState.cpp in Sources */,

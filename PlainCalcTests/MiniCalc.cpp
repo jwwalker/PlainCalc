@@ -7,10 +7,7 @@
 
 #include "MiniCalc.hpp"
 
-#include "DoBinOp.hpp"
-#include "DoEvaluation.hpp"
 #include "SCalcState.hpp"
-#include "SFixedSymbols.hpp"
 
 #include <math.h>
 
@@ -27,6 +24,44 @@ using namespace boost::spirit;
 
 namespace
 {
+struct DoPlus
+{
+			DoPlus( SCalcState& ioState ) : mState( ioState ) {}
+			DoPlus( const DoPlus& inOther ) : mState( inOther.mState ) {}
+	
+	void	operator()( const char*, const char* ) const
+			{
+				double	rhs = mState.mValStack.back();
+				mState.mValStack.pop_back();
+				double	lhs = mState.mValStack.back();
+				mState.mValStack.pop_back();
+				double	theVal = lhs + rhs;
+				mState.mValStack.push_back( theVal );
+			}
+	
+	SCalcState&		mState;
+};
+
+/*!
+	@struct		DoEvaluation
+	@abstract	Functor for a semantic action that assigns the value of
+				an expression to the built-in variable "last".
+*/
+struct DoEvaluation
+{
+			DoEvaluation( SCalcState& ioState ) : mState( ioState ) {}
+			DoEvaluation( const DoEvaluation& inOther ) : mState( inOther.mState ) {}
+	
+	void	operator()( const char*, const char* ) const
+	{
+		mState.SetVariable( "last" );
+		mState.mDidDefineFunction = false;
+		mState.mDefinedSymbol.clear();
+	}
+	
+	SCalcState&		mState;
+};
+
 	struct calculator : public boost::spirit::grammar<calculator>
 	{
 					calculator( SCalcState& inState )
