@@ -25,14 +25,17 @@
 #include "autoCF.h"
 #include "CalcException.hpp"
 #include "CFStringToUTF8.h"
+#include "DoAppendNumber.hpp"
 #include "DoAssign.hpp"
 #include "DoBinaryFunc.hpp"
 #include "DoBinOp.hpp"
 #include "DoDefFunc.hpp"
 #include "DoDefinedFunc.hpp"
 #include "DoEvaluation.hpp"
+#include "DoGetMatchedString.hpp"
 #include "DoIf.hpp"
 #include "DoNegate.hpp"
+#include "DoPushMatchedString.hpp"
 #include "DoUnaryFunc.hpp"
 #include "SCalcState.hpp"
 #include "SFixedSymbols.hpp"
@@ -65,29 +68,6 @@ namespace
 
 namespace
 {	
-	#pragma mark DebugAction
-	struct DebugAction
-	{
-				DebugAction( const char* inText ) : mText( inText ) {}
-				DebugAction( const DebugAction& inOther )
-					: mText( inOther.mText ) {}
-		
-		inline void operator()(const char* inStart, const char* inEnd ) const;
-		
-		std::string	mText;
-	};
-
-	inline void DebugAction::operator()(const char* inStart, const char* inEnd ) const
-	{
-	#pragma unused( inStart, inEnd )
-	#if DebugParse
-		std::string	theMatch( inStart, inEnd );
-		
-		std::cout << "Matched " << mText.c_str() << " text '" <<
-			theMatch.c_str() << "'." << std::endl;
-	#endif
-	}
-	
 	#pragma mark enum ECalcMode
 	enum ECalcMode
 	{
@@ -97,7 +77,7 @@ namespace
 
 	#pragma mark struct calculator
 	template <typename Iterator>
-	struct calculator : public grammar<Iterator, void(), ascii::space_type>
+	struct calculator : public grammar<Iterator, ascii::space_type>
 	{
 			calculator( SCalcState& inState,
 							ECalcMode inMode )
@@ -123,16 +103,16 @@ namespace
 				// alternatives in longest_d.
 				
 				assignment =
-					identifier[ assign(mState.mIdentifier) ]
+					raw[identifier][ DoGetMatchedString(mState.mIdentifier) ]
 					>> '=' >> expression;
 				
-				funcdef = identifier[ assign(mState.mFuncName) ]
-					>> '(' >> identifier[ push_back_a(mState.mParamStack) ]
+				funcdef = raw[identifier][ DoGetMatchedString(mState.mFuncName) ]
+					>> '(' >> raw[identifier][ DoPushMatchedString(mState) ]
 					>>	*(
-							',' >> identifier[ push_back_a(mState.mParamStack) ]
+							',' >> raw[identifier][ DoPushMatchedString(mState) ]
 						)
 					>> ')' >> '='
-					>> lexeme[*standard::char_][ assign(mState.mFuncDef) ];
+					>> raw[lexeme[*standard::char_]][ DoGetMatchedString(mState.mFuncDef) ];
 					
 				statement = (
 					assignment[ DoAssign(mState) ]
@@ -144,22 +124,22 @@ namespace
 					>> eoi;
 				
 				factor
-					=	lexeme[ lit("0x") >> bighex_p[ append(mState.mValStack) ]]
-					|	ureal[ append(mState.mValStack) ]
+					=	lexeme[ lit("0x") >> bighex_p[ DoAppendNumber(mState) ]]
+					|	ureal[ DoAppendNumber(mState) ]
 					|	'(' >> expression >> ')'
-					|	(lexeme[mState.mFixed.mUnaryFuncs >> '('] >> expression
-							>> ')')[ DoUnaryFunc(mState) ]
-					|	(lexeme[mState.mFuncDefs >> '('] >> expression
+					|	raw[ lexeme[mState.mFixed.mUnaryFuncs >> '('] >> expression
+							>> ')'][ DoUnaryFunc(mState) ]
+					|	raw[lexeme[mState.mFuncDefs >> '('] >> expression
 							>> *( ',' >> expression )
-							>> ')')[ DoDefinedFunc(mState) ]
-					|	(lexeme[mState.mFixed.mBinaryFuncs >> '('] >> expression
-							>> ',' >> expression >> ')')[ DoBinaryFunc(mState) ]
+							>> ')'][ DoDefinedFunc(mState) ]
+					|	raw[lexeme[mState.mFixed.mBinaryFuncs >> '('] >> expression
+							>> ',' >> expression >> ')'][ DoBinaryFunc(mState) ]
 					|	( "if(" >> expression >> ','
-							>> expressionNA[ assign(mState.mIf1) ] >> ','
-							>> expressionNA[ assign(mState.mIf2) ] >> ')'
+							>> raw[expressionNA][ DoGetMatchedString(mState.mIf1) ] >> ','
+							>> raw[expressionNA][ DoGetMatchedString(mState.mIf2) ] >> ')'
 						)[ DoIf( mState ) ]
-					|	mState.mVariables[ append(mState.mValStack) ]
-					|	mState.mFixed.mConstants[ append(mState.mValStack) ]
+					|	mState.mVariables[ DoAppendNumber(mState) ]
+					|	mState.mFixed.mConstants[ DoAppendNumber(mState) ]
 					;
 					// Note: The hex part of factor must come before the real part, otherwise ureal_p
 					// will gobble the leading 0.
@@ -184,9 +164,9 @@ namespace
 				power = (
 					factor >>
 					!(
-						('^' >> power)[ DoPower(mState) ][ DebugAction("^") ]
+						('^' >> power)[ DoPower(mState) ]
 					)
-					)[ DebugAction("power") ];
+					);
 				
 				powerNA = factorNA >> !( '^' >> powerNA );
 			
@@ -194,12 +174,12 @@ namespace
 					power >>
 					(
 						*(
-							power[ DoTimes(mState) ][ DebugAction("juxt") ]
-						|	('*' >> power)[ DoTimes(mState) ][ DebugAction("times*") ]
-						|	('/' >> power)[ DoDivide(mState) ][ DebugAction("div") ]
-						)[ DebugAction("term-tail") ]
+							power[ DoTimes(mState) ]
+						|	('*' >> power)[ DoTimes(mState) ]
+						|	('/' >> power)[ DoDivide(mState) ]
+						)
 					)
-					)[ DebugAction("term") ];
+					);
 				
 				termNA =
 					powerNA >>
@@ -216,8 +196,8 @@ namespace
 						)
 						>>
 						*(
-							('+' >> term)[ DoPlus(mState) ][ DebugAction("+") ]
-						|	('-' >> term)[ DoMinus(mState) ][ DebugAction("-") ]
+							('+' >> term)[ DoPlus(mState) ]
+						|	('-' >> term)[ DoMinus(mState) ]
 						);
 				
 				expressionNA =

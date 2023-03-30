@@ -31,6 +31,17 @@
 
 struct SCalcState;
 
+namespace boost
+{
+	namespace spirit
+	{
+		struct unused_type;
+	}
+}
+
+using boost::spirit::unused_type;
+
+
 struct DoNegate
 {
 			DoNegate( SCalcState& ioState ) : mState( ioState ) {}

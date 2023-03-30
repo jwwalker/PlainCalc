@@ -30,7 +30,7 @@
 
 #include "SCalcState.hpp"
 
-void	DoAssign::operator()( unused_type, unused_type, unused_type ) const
+void	DoAssign::operator()( unused_type& ) const
 {
 	mState.SetVariable( mState.mIdentifier.c_str() );
 	mState.SetVariable( "last" );

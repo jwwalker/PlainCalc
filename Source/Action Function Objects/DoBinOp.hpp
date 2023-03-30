@@ -35,6 +35,17 @@
 #include <functional>
 #include <cmath>
 
+namespace boost
+{
+	namespace spirit
+	{
+		struct unused_type;
+	}
+}
+
+using boost::spirit::unused_type;
+
+
 #ifndef ThrowIfEmpty_
 #define	ThrowIfEmpty_( x ) do { if (x.empty()) throw CalcException(); } while (false)
 #endif

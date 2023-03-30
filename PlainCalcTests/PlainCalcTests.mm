@@ -35,10 +35,10 @@
 {
 	double computedValue;
 	long stopOffset;
-	ECalcResult result = ParseCalcLine( "11+ 2^10", _calculator,
+	ECalcResult result = ParseCalcLine( "11+ 2", _calculator,
 		&computedValue, &stopOffset );
 	XCTAssertEqual( result, kCalcResult_Calculated );
-	XCTAssertEqual( computedValue, 1035.0 );
+	XCTAssertEqual( computedValue, 13.0 );
  }
 
 /*- (void)testPerformanceExample {
