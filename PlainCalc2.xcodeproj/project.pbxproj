@@ -13,8 +13,8 @@
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		BE03EC9B10E476B10035BF0E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE03EC9910E476B10035BF0E /* Localizable.strings */; };
 		BE1FA5421A55A31C0004741D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE1FA5411A55A31C0004741D /* Cocoa.framework */; };
-		BE4AFBC2247C3C4400466B51 /* index.html in CopyFiles */ = {isa = PBXBuildFile; fileRef = BE4AFBC0247C3C4400466B51 /* index.html */; };
-		BE4AFBC3247C3C4400466B51 /* app-icon.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = BE4AFBC1247C3C4400466B51 /* app-icon.png */; };
+		BE4AFBC2247C3C4400466B51 /* index.html in Copy Help */ = {isa = PBXBuildFile; fileRef = BE4AFBC0247C3C4400466B51 /* index.html */; };
+		BE4AFBC3247C3C4400466B51 /* app-icon.png in Copy Help */ = {isa = PBXBuildFile; fileRef = BE4AFBC1247C3C4400466B51 /* app-icon.png */; };
 		BE622CFB29D23B0B003E9662 /* SFixedSymbols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622CF629D23B0A003E9662 /* SFixedSymbols.cpp */; };
 		BE622CFC29D23B0B003E9662 /* SFixedSymbols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622CF629D23B0A003E9662 /* SFixedSymbols.cpp */; };
 		BE622CFD29D23B0B003E9662 /* SCalcState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE622CF829D23B0A003E9662 /* SCalcState.cpp */; };
@@ -101,15 +101,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		BE4AFBC4247C3C8E00466B51 /* CopyFiles */ = {
+		BE4AFBC4247C3C8E00466B51 /* Copy Help */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = Help;
 			dstSubfolderSpec = 7;
 			files = (
-				BE4AFBC3247C3C4400466B51 /* app-icon.png in CopyFiles */,
-				BE4AFBC2247C3C4400466B51 /* index.html in CopyFiles */,
+				BE4AFBC3247C3C4400466B51 /* app-icon.png in Copy Help */,
+				BE4AFBC2247C3C4400466B51 /* index.html in Copy Help */,
 			);
+			name = "Copy Help";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		BE6F197010F16E5E00C0FF7F /* Copy Helper Tool */ = {
@@ -415,7 +416,7 @@
 				8D15AC300486D014006FF6A4 /* Sources */,
 				BE6F197010F16E5E00C0FF7F /* Copy Helper Tool */,
 				8D15AC330486D014006FF6A4 /* Frameworks */,
-				BE4AFBC4247C3C8E00466B51 /* CopyFiles */,
+				BE4AFBC4247C3C8E00466B51 /* Copy Help */,
 			);
 			buildRules = (
 			);

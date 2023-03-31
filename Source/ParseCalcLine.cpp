@@ -122,7 +122,7 @@ namespace
 					expression[ DoEvaluation(mState) ]
 					)
 					>> eoi;
-				
+		
 				factor
 					=	lexeme[ lit("0x") >> bighex_p[ DoAppendNumber(mState) ]]
 					|	ureal[ DoAppendNumber(mState) ]
@@ -161,14 +161,13 @@ namespace
 					|	mState.mFixed.mConstants
 					;
 				
-				power = (
+				power =
 					factor >>
-					!(
+					-(
 						('^' >> power)[ DoPower(mState) ]
-					)
 					);
 				
-				powerNA = factorNA >> !( '^' >> powerNA );
+				powerNA = factorNA >> -( '^' >> powerNA );
 			
 				term = (
 					power >>

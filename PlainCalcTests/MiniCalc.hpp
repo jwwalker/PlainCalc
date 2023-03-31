@@ -21,4 +21,13 @@
 */
 double MiniCalc( const char* inLine, struct SCalcState* ioState );
 
+/*!
+	@function	CheckExpressionSyntax
+	@abstract	Check the syntax of an expression.
+	@param		inLine		A NUL-terminated line of text.
+	@result		True if the expression was parsed successfully.
+*/
+bool	CheckExpressionSyntax( const char* inLine );
+
+
 #endif /* MiniCalc_hpp */

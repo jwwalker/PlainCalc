@@ -74,18 +74,18 @@ struct DoAppendNumber
 			, mState( inState )
 		{
 			statement =
-				expression[ DoEvaluation(mState) ]
+				expression//[ DoEvaluation(mState) ]
 				>> eoi;
 			
 			term
-				=	ureal[ DoAppendNumber(mState) ]
+				=	ureal//[ DoAppendNumber(mState) ]
 				;
 			
 			expression =
 					term
 					>>
 					*(
-						('+' >> term)[ DoPlus(mState) ]
+						('^' >> term)//[ DoPlus(mState) ]
 					);
 		
 			start =
@@ -101,7 +101,60 @@ struct DoAppendNumber
 
 		SCalcState&		mState;
 	};
+
+	template <typename Iterator>
+	struct syntaxCheck : public grammar<Iterator, ascii::space_type>
+	{
+		syntaxCheck()
+			: syntaxCheck::base_type( statement )
+		{
+			statement =
+				factor
+				>> eoi;
+			
+			factor =
+				double_
+				>>
+				-('^' >> double_)
+				;
+		}
+		
+		rule<Iterator, ascii::space_type>	factor;
+		rule<Iterator, ascii::space_type>	statement;
+	};
 }
+
+/*!
+	@function	CheckExpressionSyntax
+	@abstract	Check the syntax of an expression.
+	@param		inLine		A NUL-terminated line of text.
+	@result		True if the expression was parsed successfully.
+*/
+bool	CheckExpressionSyntax( const char* inLine )
+{
+	bool	isOK = false;
+	
+	try
+	{
+		syntaxCheck<const char*>	theCalc;
+		
+		const char* startIter = inLine;
+		const char* endIter = inLine + strlen(inLine);
+
+		bool success = phrase_parse( startIter, endIter, theCalc, ascii::space );
+		
+		if (success and (startIter == endIter))
+		{
+			isOK = true;
+		}
+	}
+	catch (...)
+	{
+	}
+	
+	return isOK;
+}
+
 
 /*!
 	@function	MiniCalc

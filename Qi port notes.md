@@ -8,9 +8,53 @@ and the skipper.
 * It appears that in the declaration of a grammar, the template parameters of `qi::grammar`
 can omit the signature parameter.
 
-* To get the raw matching text of an `expressionNA` rule, I can write `qi::raw[expressionNA]`
+* To get the raw matching text of a parser, I can write `qi::raw[parser]`
 and attach a semantic action with a method
 `void operator()( boost::iterator_range<const char*>& s ) const`.
+
+* In classic Spirit, the prefix operator `!` means that the following parser is optional
+(match 0 or 1 times), while in Qi, prefix operator `!` means not (do not match), while the
+prefix operator `-` means optional.
+
+
+## Why Does the calculator task end with status 4?
+
+Seems like this had something to do with sandbox and entitlements.
+
+"To enable sandbox inheritance, a child target must use exactly two App Sandbox
+entitlement keys: com.apple.security.app-sandbox and com.apple.security.inherit. If you
+specify any other App Sandbox entitlement, the system aborts the child process. "
+
+Entitlements of main app:
+
+```
+{
+    "com.apple.security.app-sandbox" = 1;
+    "com.apple.security.files.user-selected.read-write" = 1;
+    "com.apple.security.get-task-allow" = 1;
+}
+```
+
+The tool apparently has entitlements
+
+```
+{
+    "com.apple.security.app-sandbox" = 1;
+    "com.apple.security.inherit" = 1;
+    "com.apple.security.temporary-exception.files.absolute-path.read-only" =     (
+        "/"
+    );
+    "com.apple.security.temporary-exception.mach-lookup.global-name" =     (
+        "com.apple.testmanagerd",
+        "com.apple.dt.testmanagerd.runner",
+        "com.apple.coresymbolicationd"
+    );
+}
+```
+
+See [Embedding a command-line tool in a sandboxed app](
+https://developer.apple.com/documentation/xcode/embedding-a-helper-tool-in-a-sandboxed-app)
+
 
 ## push_back_a is gone
 
