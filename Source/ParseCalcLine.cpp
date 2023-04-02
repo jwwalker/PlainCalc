@@ -85,8 +85,29 @@ namespace
 				, mState( inState )
 				, mMode( inMode )
 			{
+				identifierFirstChar =
+					standard::char_ -
+						(
+							standard::space
+							|
+							standard::cntrl
+							|
+							standard::char_("-+=/*^,.()0-9")
+						);
+				
+				identifierLaterChar =
+					standard::char_ -
+						(
+							standard::space
+							|
+							standard::cntrl
+							|
+							standard::char_("-+=/*^,.()")
+						);
+			
 				identifier =
-					lexeme[ standard::alpha >> *(standard::alnum | '_') ] -
+					lexeme[ identifierFirstChar >>
+						*(identifierLaterChar) ] -
 						(
 							mState.mFixed.mBinaryFuncs
 						|
@@ -216,6 +237,8 @@ namespace
 			rule<Iterator, ascii::space_type>	factorNA, expressionNA, termNA, powerNA;
 			rule<Iterator, ascii::space_type>	assignment, statement, funcdef;
 			rule<Iterator, ascii::space_type>	start;
+			rule<Iterator>	identifierFirstChar;
+			rule<Iterator>	identifierLaterChar;
 		
 		SCalcState&		mState;
 		ECalcMode		mMode;
