@@ -756,21 +756,25 @@ const int		kMenuItemTag_HexFormat		= 101;
 				NSRange	lineRange = NSMakeRange( lineStart, lineEnd - lineStart );
 				NSString*	theLine = [thePlainText
 					substringWithRange: lineRange];
-				theLine = [self standardizeString: theLine];
-				[mLineToCalculate setString: theLine];
+				// A line starting with a pound sign is treated as a comment
+				if ([theLine characterAtIndex: 0] != '#')
+				{
+					theLine = [self standardizeString: theLine];
+					[mLineToCalculate setString: theLine];
 
-				// insert = and then line break
-				[textView insertText: @" =\n"
-					replacementRange: textView.selectedRange];
-				[textView setEditable: NO];
-				
-				[self sendCommandToTask: theLine];
-				
-				[self performSelector: @selector(calcTimedOut)
-						withObject: nil
-						afterDelay: [AppController calcTimeout]];
-				
-				didHandle = YES;
+					// insert = and then line break
+					[textView insertText: @" =\n"
+						replacementRange: textView.selectedRange];
+					[textView setEditable: NO];
+					
+					[self sendCommandToTask: theLine];
+					
+					[self performSelector: @selector(calcTimedOut)
+							withObject: nil
+							afterDelay: [AppController calcTimeout]];
+					
+					didHandle = YES;
+				}
 			}
 		}
 	}
