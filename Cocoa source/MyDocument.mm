@@ -256,8 +256,20 @@ const int		kMenuItemTag_HexFormat		= 101;
 	{
 		oss << std::setprecision(12) << value;
 	}
-	return [self localizeString:
-		[NSString stringWithUTF8String: oss.str().c_str() ] ];
+	std::string rawResult( oss.str() );
+	if (rawResult == "inf")
+	{
+		rawResult = "infinity";
+	}
+	else if (rawResult == "-inf")
+	{
+		rawResult = "-infinity";
+	}
+	else if (rawResult == "nan")
+	{
+		rawResult = "undefined";
+	}
+	return [self localizeString: @( rawResult.c_str() ) ];
 }
 
 
