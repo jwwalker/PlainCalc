@@ -35,6 +35,8 @@ struct SCalcState;
 #define	ThrowIfEmpty_( x ) do { if (x.empty()) throw CalcException(); } while (false)
 #endif
 
+#include <boost/range.hpp>
+
 /*!
 	@struct		DoBinaryFunc
 	@abstract	Functor for a semantic action that computes a binary function
@@ -45,7 +47,7 @@ struct DoBinaryFunc
 			DoBinaryFunc( SCalcState& ioState ) : mState( ioState ) {}
 			DoBinaryFunc( const DoBinaryFunc& inOther ) : mState( inOther.mState ) {}
 	
-	void	operator()( const char* inStart, const char* inEnd ) const;
+	void	operator()( boost::iterator_range<const char*>& matchRange ) const;
 	
 	SCalcState&		mState;
 };

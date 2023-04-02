@@ -31,12 +31,23 @@
 
 struct SCalcState;
 
+namespace boost
+{
+	namespace spirit
+	{
+		struct unused_type;
+	}
+}
+
+using boost::spirit::unused_type;
+
+
 struct DoNegate
 {
 			DoNegate( SCalcState& ioState ) : mState( ioState ) {}
 			DoNegate( const DoNegate& inOther ) : mState( inOther.mState ) {}
 	
-	void	operator()( const char*, const char* ) const;
+	void	operator()( unused_type, unused_type, unused_type ) const;
 	
 	SCalcState&		mState;
 };

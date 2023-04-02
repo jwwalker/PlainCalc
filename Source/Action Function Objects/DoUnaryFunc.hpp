@@ -31,12 +31,14 @@
 
 struct SCalcState;
 
+#include <boost/range.hpp>
+
 struct DoUnaryFunc
 {
 			DoUnaryFunc( SCalcState& ioState ) : mState( ioState ) {}
 			DoUnaryFunc( const DoUnaryFunc& inOther ) : mState( inOther.mState ) {}
 	
-	void	operator()( const char* inStart, const char* inEnd ) const;
+	void operator()( boost::iterator_range<const char*>& matchRange ) const;
 	
 	
 	SCalcState&		mState;

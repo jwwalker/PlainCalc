@@ -1,7 +1,7 @@
-//  DoIf.hpp
+//  DoGetMatchedString.hpp
 //  PlainCalc2
 //
-//  Created by James Walker on 3/26/23.
+//  Created by James Walker on 3/30/23.
 //  
 //
 /*
@@ -26,35 +26,29 @@
 	3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef DoIf_hpp
-#define DoIf_hpp
+#ifndef DoGetMatchedString_hpp
+#define DoGetMatchedString_hpp
 
-struct SCalcState;
-
-namespace boost
-{
-	namespace spirit
-	{
-		struct unused_type;
-	}
-}
-
-using boost::spirit::unused_type;
-
+#include <boost/range.hpp>
+#include <string>
 
 /*!
-	@struct		DoIf
-	@abstract	Functor for a semantic action that computes a ternary if.
+	@struct		DoGetMatchedString
+	
+	@abstract	Semantic action to copy the text matched by a parser enclosed in a raw[] directive
+				to a string variable in the calculator state.
 */
-struct DoIf
+struct DoGetMatchedString
 {
-			DoIf( SCalcState& ioState ) : mState( ioState ) {}
-			DoIf( const DoIf& inOther ) : mState( inOther.mState ) {}
+		DoGetMatchedString( std::string& target )
+			: _target( target ) {}
 	
-	void	operator()( unused_type, unused_type, unused_type ) const;	
+	inline void operator()( boost::iterator_range<const char*>& s ) const
+	{
+		_target.assign( s.begin(), s.end() );
+	}
 	
-	SCalcState&		mState;
+	std::string&	_target;
 };
 
-
-#endif /* DoIf_hpp */
+#endif /* DoGetMatchedString_hpp */

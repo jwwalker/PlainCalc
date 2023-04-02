@@ -31,11 +31,18 @@
     _calculator = nullptr;
 }
 
-- (void)testExample
+- (void)testAdds
 {
 	XCTAssert( _calculator != nullptr );
-	double result = MiniCalc( "13 + 9 + 11", _calculator );
-	XCTAssertEqual( result, 33.0 );
+	double result = MiniCalc( "13 + 9 + 11 + 1000.55", _calculator );
+	XCTAssertEqual( result, 1033.55 );
+}
+
+- (void) testPowerSyntax
+{
+	XCTAssert( _calculator != nullptr );
+	bool isOK = CheckExpressionSyntax( "2^7" );
+	XCTAssert( isOK );
 }
 
 @end

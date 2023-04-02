@@ -31,7 +31,7 @@
 #include "SCalcState.hpp"
 
 
-void	DoEvaluation::operator()( const char*, const char* ) const
+void	DoEvaluation::operator()( unused_type, unused_type, unused_type ) const
 {
 	mState.SetVariable( "last" );
 	mState.mDidDefineFunction = false;

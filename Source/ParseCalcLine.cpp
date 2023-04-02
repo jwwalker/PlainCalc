@@ -25,14 +25,17 @@
 #include "autoCF.h"
 #include "CalcException.hpp"
 #include "CFStringToUTF8.h"
+#include "DoAppendNumber.hpp"
 #include "DoAssign.hpp"
 #include "DoBinaryFunc.hpp"
 #include "DoBinOp.hpp"
 #include "DoDefFunc.hpp"
 #include "DoDefinedFunc.hpp"
 #include "DoEvaluation.hpp"
+#include "DoGetMatchedString.hpp"
 #include "DoIf.hpp"
 #include "DoNegate.hpp"
+#include "DoPushMatchedString.hpp"
 #include "DoUnaryFunc.hpp"
 #include "SCalcState.hpp"
 #include "SFixedSymbols.hpp"
@@ -45,18 +48,7 @@
 	#include <CFNumber.h>
 #endif
 
-#define _MSL_ 1
-#define BOOST_SPIRIT_RULE_SCANNERTYPE_LIMIT 1
-
-#pragma warn_unusedarg	off
-#if !defined(BOOST_SPIRIT_USE_OLD_NAMESPACE)
-#define BOOST_SPIRIT_USE_OLD_NAMESPACE
-#endif
-#include "boost/spirit/include/classic.hpp"
-#pragma warn_unusedarg	reset
-
-using namespace boost::spirit;
-using namespace std;
+using namespace boost::spirit::qi;
 
 #include <cmath>
 #include <vector>
@@ -69,8 +61,6 @@ using namespace std;
 
 namespace
 {
-	typedef		std::vector<double>	 		DblStack;
-	
 	uint_parser<unsigned long long, 16> const
         bighex_p   = uint_parser<unsigned long long, 16>();
 }
@@ -78,29 +68,6 @@ namespace
 
 namespace
 {	
-	#pragma mark DebugAction
-	struct DebugAction
-	{
-				DebugAction( const char* inText ) : mText( inText ) {}
-				DebugAction( const DebugAction& inOther )
-					: mText( inOther.mText ) {}
-		
-		inline void operator()(const char* inStart, const char* inEnd ) const;
-		
-		std::string	mText;
-	};
-
-	inline void DebugAction::operator()(const char* inStart, const char* inEnd ) const
-	{
-	#pragma unused( inStart, inEnd )
-	#if DebugParse
-		std::string	theMatch( inStart, inEnd );
-		
-		std::cout << "Matched " << mText.c_str() << " text '" <<
-			theMatch.c_str() << "'." << std::endl;
-	#endif
-	}
-	
 	#pragma mark enum ECalcMode
 	enum ECalcMode
 	{
@@ -109,29 +76,25 @@ namespace
 	};
 
 	#pragma mark struct calculator
-	struct calculator : public boost::spirit::grammar<calculator>
+	template <typename Iterator>
+	struct calculator : public grammar<Iterator, ascii::space_type>
 	{
-					calculator( SCalcState& inState,
-								ECalcMode inMode )
-						: mState( inState ),
-						mMode( inMode ) {}
-
-		template <typename ScannerT>
-		struct definition
-		{
-			definition( const calculator& self )
-				: mMode( self.mMode )
+			calculator( SCalcState& inState,
+							ECalcMode inMode )
+				: calculator::base_type( start )
+				, mState( inState )
+				, mMode( inMode )
 			{
 				identifier =
-					lexeme_d[ alpha_p >> *(alnum_p | '_') ] -
+					lexeme[ standard::alpha >> *(standard::alnum | '_') ] -
 						(
-							self.mState.mFixed.mBinaryFuncs
+							mState.mFixed.mBinaryFuncs
 						|
-							self.mState.mFixed.mUnaryFuncs
+							mState.mFixed.mUnaryFuncs
 						|
 							"if"
 						|
-							self.mState.mFixed.mConstants
+							mState.mFixed.mConstants
 						);
 				// Note: it is important that mBinaryFuncs precedes
 				// mUnaryFuncs. Due to short-circuiting, the union
@@ -140,83 +103,82 @@ namespace
 				// alternatives in longest_d.
 				
 				assignment =
-					identifier[ assign(self.mState.mIdentifier) ]
+					raw[identifier][ DoGetMatchedString(mState.mIdentifier) ]
 					>> '=' >> expression;
 				
-				funcdef = identifier[ assign(self.mState.mFuncName) ]
-					>> '(' >> identifier[ push_back_a(self.mState.mParamStack) ]
+				funcdef = raw[identifier][ DoGetMatchedString(mState.mFuncName) ]
+					>> '(' >> raw[identifier][ DoPushMatchedString(mState) ]
 					>>	*(
-							',' >> identifier[ push_back_a(self.mState.mParamStack) ]
+							',' >> raw[identifier][ DoPushMatchedString(mState) ]
 						)
 					>> ')' >> '='
-					>> lexeme_d[*anychar_p][ assign(self.mState.mFuncDef) ];
+					>> raw[lexeme[*standard::char_]][ DoGetMatchedString(mState.mFuncDef) ];
 					
 				statement = (
-					assignment[ DoAssign(self.mState) ]
+					assignment[ DoAssign(mState) ]
 					|
-					funcdef[ DoDefFunc(self.mState) ]
+					funcdef[ DoDefFunc(mState) ]
 					|
-					expression[ DoEvaluation(self.mState) ]
+					expression[ DoEvaluation(mState) ]
 					)
-					>> end_p;
-				
+					>> eoi;
+		
 				factor
-					=	lexeme_d[ str_p("0x") >> bighex_p[ append(self.mState.mValStack) ]]
-					|	ureal_p[ append(self.mState.mValStack) ]
+					=	lexeme[ lit("0x") >> bighex_p[ DoAppendNumber(mState) ]]
+					|	ureal[ DoAppendNumber(mState) ]
 					|	'(' >> expression >> ')'
-					|	(lexeme_d[self.mState.mFixed.mUnaryFuncs >> '('] >> expression
-							>> ')')[ DoUnaryFunc(self.mState) ]
-					|	(lexeme_d[self.mState.mFuncDefs >> '('] >> expression
+					|	raw[ lexeme[mState.mFixed.mUnaryFuncs >> '('] >> expression
+							>> ')'][ DoUnaryFunc(mState) ]
+					|	raw[lexeme[mState.mFuncDefs >> '('] >> expression
 							>> *( ',' >> expression )
-							>> ')')[ DoDefinedFunc(self.mState) ]
-					|	(lexeme_d[self.mState.mFixed.mBinaryFuncs >> '('] >> expression
-							>> ',' >> expression >> ')')[ DoBinaryFunc(self.mState) ]
+							>> ')'][ DoDefinedFunc(mState) ]
+					|	raw[lexeme[mState.mFixed.mBinaryFuncs >> '('] >> expression
+							>> ',' >> expression >> ')'][ DoBinaryFunc(mState) ]
 					|	( "if(" >> expression >> ','
-							>> expressionNA[ assign(self.mState.mIf1) ] >> ','
-							>> expressionNA[ assign(self.mState.mIf2) ] >> ')'
-						)[ DoIf( self.mState ) ]
-					|	self.mState.mVariables[ append(self.mState.mValStack) ]
-					|	self.mState.mFixed.mConstants[ append(self.mState.mValStack) ]
+							>> raw[expressionNA][ DoGetMatchedString(mState.mIf1) ] >> ','
+							>> raw[expressionNA][ DoGetMatchedString(mState.mIf2) ] >> ')'
+						)[ DoIf( mState ) ]
+					|	mState.mVariables[ DoAppendNumber(mState) ]
+					|	mState.mFixed.mConstants[ DoAppendNumber(mState) ]
 					;
 					// Note: The hex part of factor must come before the real part, otherwise ureal_p
 					// will gobble the leading 0.
 				
 				factorNA
-					=	lexeme_d[ str_p("0x") >> bighex_p ]
-					|	ureal_p
+					=	lexeme[ lit("0x") >> bighex_p ]
+					|	ureal
 					|	'(' >> expressionNA >> ')'
-					|	(lexeme_d[self.mState.mFixed.mUnaryFuncs >> '('] >> expressionNA
+					|	(lexeme[mState.mFixed.mUnaryFuncs >> '('] >> expressionNA
 							>> ')')
-					|	(lexeme_d[self.mState.mFuncDefs >> '('] >> expressionNA
+					|	(lexeme[mState.mFuncDefs >> '('] >> expressionNA
 							>> *( ',' >> expressionNA )
 							>> ')')
-					|	(lexeme_d[self.mState.mFixed.mBinaryFuncs >> '('] >> expressionNA
+					|	(lexeme[mState.mFixed.mBinaryFuncs >> '('] >> expressionNA
 							>> ',' >> expressionNA >> ')')
 					|	"if(" >> expressionNA >> ',' >> expressionNA >> ','
 							>> expressionNA >> ')'
-					|	self.mState.mVariables
-					|	self.mState.mFixed.mConstants
+					|	mState.mVariables
+					|	mState.mFixed.mConstants
 					;
 				
-				power = (
+				power =
 					factor >>
-					!(
-						('^' >> power)[ DoPower(self.mState) ][ DebugAction("^") ]
-					)
-					)[ DebugAction("power") ];
+					-(
+						('^' >> power)[ DoPower(mState) ]
+					);
 				
-				powerNA = factorNA >> !( '^' >> powerNA );
-				
+				powerNA = factorNA >> -( '^' >> powerNA );
+			
 				term = (
 					power >>
 					(
 						*(
-							power[ DoTimes(self.mState) ][ DebugAction("juxt") ]
-						|	('*' >> power)[ DoTimes(self.mState) ][ DebugAction("times*") ]
-						|	('/' >> power)[ DoDivide(self.mState) ][ DebugAction("div") ]
-						)[ DebugAction("term-tail") ]
+							power[ DoTimes(mState) ]
+						|	('*' >> power)[ DoTimes(mState) ]
+						|	('/' >> power)[ DoDivide(mState) ]
+						)
 					)
-					)[ DebugAction("term") ];
+					);
 				
 				termNA =
 					powerNA >>
@@ -229,12 +191,12 @@ namespace
 				expression =
 						(
 							term
-						|	('-' >> term)[ DoNegate(self.mState) ]
+						|	('-' >> term)[ DoNegate(mState) ]
 						)
 						>>
 						*(
-							('+' >> term)[ DoPlus(self.mState) ][ DebugAction("+") ]
-						|	('-' >> term)[ DoMinus(self.mState) ][ DebugAction("-") ]
+							('+' >> term)[ DoPlus(mState) ]
+						|	('-' >> term)[ DoMinus(mState) ]
 						);
 				
 				expressionNA =
@@ -245,18 +207,15 @@ namespace
 					|	('-' >> termNA)
 					);
 				
+				start = (mMode == kCalcMode_Evaluate)? statement : expressionNA;
 			}
 			
-			const boost::spirit::rule<ScannerT>& start() const
-			{
-				return (mMode == kCalcMode_Evaluate)? statement : expressionNA;
-			}
+			real_parser< double, ureal_policies<double> > ureal;
 			
-			boost::spirit::rule<ScannerT>	factor, expression, term, power, identifier;
-			boost::spirit::rule<ScannerT>	factorNA, expressionNA, termNA, powerNA;
-			boost::spirit::rule<ScannerT>	assignment, statement, funcdef;
-			ECalcMode		mMode;
-		};
+			rule<Iterator, ascii::space_type>	factor, expression, term, power, identifier;
+			rule<Iterator, ascii::space_type>	factorNA, expressionNA, termNA, powerNA;
+			rule<Iterator, ascii::space_type>	assignment, statement, funcdef;
+			rule<Iterator, ascii::space_type>	start;
 		
 		SCalcState&		mState;
 		ECalcMode		mMode;
@@ -282,14 +241,17 @@ bool	CheckExpressionSyntax( const char* inLine, CalcState inState,
 	
 	try
 	{
-		calculator	theCalc( *inState, kCalcMode_SyntaxCheckExpression );
+		calculator<const char*>	theCalc( *inState, kCalcMode_SyntaxCheckExpression );
 		inState->mValStack.clear();
 		inState->mParamStack.clear();
 		
-		parse_info<>	parseResult = parse( inLine, theCalc, space_p );
-		*outStop = parseResult.stop - inLine;
+		const char* startIter = inLine;
+		const char* endIter = inLine + strlen(inLine);
+
+		bool success = phrase_parse( startIter, endIter, theCalc, ascii::space );
+		*outStop = startIter - inLine;
 		
-		if (parseResult.full)
+		if (success and (startIter == endIter))
 		{
 			isOK = true;
 		}
@@ -324,14 +286,17 @@ ECalcResult		ParseCalcLine( const char* inLine, CalcState ioState,
 	
 	try
 	{
-		calculator	theCalc( *ioState, kCalcMode_Evaluate );
+		calculator<const char*>	theCalc( *ioState, kCalcMode_Evaluate );
 		ioState->mValStack.clear();
 		ioState->mParamStack.clear();
 		
-		parse_info<>	parseResult = parse( inLine, theCalc, space_p );
-		*outStop = parseResult.stop - inLine;
+		const char* startIter = inLine;
+		const char* endIter = inLine + strlen(inLine);
+
+		bool success = phrase_parse( startIter, endIter, theCalc, ascii::space );
+		*outStop = startIter - inLine;
 		
-		if (parseResult.full)
+		if (success and (startIter == endIter))
 		{
 			if (ioState->mDidDefineFunction)
 			{

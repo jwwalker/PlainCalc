@@ -34,16 +34,16 @@
 
 #include <string>
 
-void	DoUnaryFunc::operator()( const char* inStart, const char* inEnd ) const
+void	DoUnaryFunc::operator()( boost::iterator_range<const char*>& matchRange ) const
 {
-	std::string	parsedText( inStart, inEnd );
+	std::string	parsedText( matchRange.begin(), matchRange.end() );
 	std::string::size_type	parenLoc = parsedText.find( '(' );
 	if (parenLoc == std::string::npos)
 	{
 		throw CalcException();
 	}
 	parsedText.erase( parenLoc );
-	const UnaryFunc*	foundFunc = find( mState.mFixed.mUnaryFuncs, parsedText.c_str() );
+	const UnaryFunc*	foundFunc = mState.mFixed.mUnaryFuncs.find( parsedText.c_str() );
 	if (foundFunc == NULL)
 	{
 		throw CalcException();

@@ -31,6 +31,17 @@
 
 struct SCalcState;
 
+namespace boost
+{
+	namespace spirit
+	{
+		struct unused_type;
+	}
+}
+
+using boost::spirit::unused_type;
+
+
 /*!
 	@struct		DoEvaluation
 	@abstract	Functor for a semantic action that assigns the value of
@@ -41,7 +52,7 @@ struct DoEvaluation
 			DoEvaluation( SCalcState& ioState ) : mState( ioState ) {}
 			DoEvaluation( const DoEvaluation& inOther ) : mState( inOther.mState ) {}
 	
-	void	operator()( const char*, const char* ) const;
+	void	operator()( unused_type, unused_type, unused_type ) const;
 	
 	SCalcState&		mState;
 };

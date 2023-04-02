@@ -1,7 +1,7 @@
-//  DoIf.hpp
+//  DoAppendNumber.hpp
 //  PlainCalc2
 //
-//  Created by James Walker on 3/26/23.
+//  Created by James Walker on 3/28/23.
 //  
 //
 /*
@@ -26,8 +26,8 @@
 	3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef DoIf_hpp
-#define DoIf_hpp
+#ifndef DoAppendNumber_hpp
+#define DoAppendNumber_hpp
 
 struct SCalcState;
 
@@ -43,18 +43,19 @@ using boost::spirit::unused_type;
 
 
 /*!
-	@struct		DoIf
-	@abstract	Functor for a semantic action that computes a ternary if.
+	@struct		DoAppendNumber
+	@abstract	Functor for a semantic action that assigns the value of
+				an expression to a variable.
 */
-struct DoIf
+struct DoAppendNumber
 {
-			DoIf( SCalcState& ioState ) : mState( ioState ) {}
-			DoIf( const DoIf& inOther ) : mState( inOther.mState ) {}
+		DoAppendNumber( SCalcState& ioState ) : mState( ioState ) {}
+		DoAppendNumber( const DoAppendNumber& inOther ) : mState( inOther.mState ) {}
 	
-	void	operator()( unused_type, unused_type, unused_type ) const;	
+	void	operator()( double val, unused_type, unused_type ) const;
 	
 	SCalcState&		mState;
 };
 
 
-#endif /* DoIf_hpp */
+#endif /* DoAppendNumber_hpp */

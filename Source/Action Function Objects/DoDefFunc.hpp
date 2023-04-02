@@ -31,13 +31,24 @@
 
 struct SCalcState;
 
+namespace boost
+{
+	namespace spirit
+	{
+		struct unused_type;
+	}
+}
+
+using boost::spirit::unused_type;
+
+
 struct DoDefFunc
 {
 			DoDefFunc( SCalcState& ioState ) : mState( ioState ) {}
 			DoDefFunc( const DoDefFunc& inOther )
 				: mState( inOther.mState ) {}
 	
-	void	operator()( const char*, const char* ) const;
+	void	operator()( unused_type, unused_type, unused_type ) const;
 	
 	SCalcState&		mState;
 };
