@@ -68,14 +68,29 @@ namespace
 
 namespace
 {	
-	#pragma mark enum ECalcMode
 	enum ECalcMode
 	{
 		kCalcMode_Evaluate = 0,
 		kCalcMode_SyntaxCheckExpression
 	};
+	
+	struct LogMatch
+	{
+				LogMatch( SCalcState& state, const char* inTag )
+					: _state( state )
+					, _tag( inTag ) {}
+				
+		inline void operator()( boost::iterator_range<const char*>& s ) const
+		{
+		#if DebugParse
+			std::string match( s.begin(), s.end() );
+			std::cerr << _tag << " " << match << std::endl;
+		#endif
+		}
+		SCalcState&	_state;
+		std::string _tag;
+	};
 
-	#pragma mark struct calculator
 	template <typename Iterator>
 	struct calculator : public grammar<Iterator, ascii::space_type>
 	{
@@ -92,7 +107,7 @@ namespace
 							|
 							standard::cntrl
 							|
-							standard::char_("-+=/*^,.()0-9")
+							standard::char_("-+=/*^,.()#0-9")
 						);
 				
 				identifierLaterChar =
@@ -106,8 +121,8 @@ namespace
 						);
 			
 				identifier =
-					lexeme[ identifierFirstChar >>
-						*(identifierLaterChar) ] -
+					lexeme[ identifierFirstChar >> *(identifierLaterChar) ]
+					-
 						(
 							mState.mFixed.mBinaryFuncs
 						|
@@ -315,6 +330,10 @@ ECalcResult		ParseCalcLine( const char* inLine, CalcState ioState,
 		
 		const char* startIter = inLine;
 		const char* endIter = inLine + strlen(inLine);
+	
+	#if DebugParse
+		std::cerr << "ParseCalcLine on: " << inLine << std::endl;
+	#endif
 
 		bool success = phrase_parse( startIter, endIter, theCalc, ascii::space );
 		*outStop = startIter - inLine;
@@ -329,16 +348,6 @@ ECalcResult		ParseCalcLine( const char* inLine, CalcState ioState,
 			{
 				*outValue = ioState->mValStack.back();
 				didParse = kCalcResult_Calculated;
-			
-			#if DebugParse
-				std::cout << "Stack: ";
-				for (DblStack::iterator i = ioState->mValStack.begin();
-					i != ioState->mValStack.end(); ++i)
-				{
-					std::cout << *i << " ";
-				}
-				std::cout << std::endl;
-			#endif
 			}
 			
 			if (outSymbol != NULL)

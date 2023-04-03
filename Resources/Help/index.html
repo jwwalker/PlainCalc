@@ -68,7 +68,7 @@
 
 <p>The arithmetic operators are the usual +, -, *, / plus the symbol ^ for raising to a power.  The power operator has higher precedence than the others, and associates from right to left.  For example, the expression 2*5^4^3 evaluates to the same number as 2*(5^(4^3)).</p>
 
-<p>Unlike most calculators, PlainCalc lets you indicate multiplication by juxtaposition (i.e., writing two things next to each other) as is common in mathematics on paper.  Thus, PlainCalc will happily evaluate expressions such as (3+5)(6-7) or 2&pi;.</p>
+<p>Unlike most calculators, PlainCalc lets you indicate multiplication by juxtaposition (i.e., writing two things next to each other) as is common in mathematics on paper.  Thus, PlainCalc will happily evaluate expressions such as (3+5)(6-7) or 2&pi;. In some cases you must type a space between juxtaposed numbers to prevent ambiguity.  Obviously you can't multiply 23 times 57 by writing 2357, because that looks like a single number.</p>
 
 <p>There is a slight cost to the use of multiplication by juxtaposition.  Most calculators and programming languages use the + and - signs as unary operators as well as binary operators.  For example, in the expression -5-3, the first minus is a unary operator, since it is not combining two different numbers.  Unary operators create a problem with multiplication by juxtaposition, because an expression like -5-3 could be interpreted as the product (-5)(-3).  To remove this ambiguity, PlainCalc only allows a unary minus at the beginning of an expression (where you really need it), and does not allow a unary plus at all.</p>
 
@@ -83,7 +83,18 @@ inchesPerM = 100/cmPerInch =<br>
 <span class="response">39.3700787402</span><br>
 </p>
 
-<p>A variable must begin with an ASCII letter (no accented letters), but can be followed by letters, digits, and underscores.  A built-in variable, <em>last</em>, holds the result of the last calculation.</p>
+<p>A built-in variable, <em>last</em>, holds the result of the last calculation.</p>
+
+<p>A variable name can begin with any character except:</p>
+
+<ul>
+<li>invisible characters like space, line break, and other control characters</li>
+<li>mathematical operations and punctuation: + - * / ^ . , ( ) =</li>
+<li>decimal digits: 0 1 2 3 4 5 6 7 8 9</li>
+<li>the pound sign: #</li>
+</ul>
+
+<p>Subsequent characters can be digits, too.  For example, élan_♥️93 is a permissible variable name.</p>
 
 <h1><a name="builtin">Built-in Functions</a></h1>
 
@@ -125,7 +136,7 @@ inchesPerM = 100/cmPerInch =<br>
 <h2>Ternary Functions:</h2>
 
 <table>
-	<tr> <td>if&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>if x &gt; 0, if(x,y,z) equals y, otherwise it is z</td> </tr>
+	<tr> <td>if&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td> <td>if(x,y,z) equals y if x &gt; 0, otherwise it is z</td> </tr>
 </table>
 
 <p>The <em>if</em> function has a special "short-circuit" property: It does not evaluate the branch not taken.  This fact makes recursive user-defined functions possible.</p>
@@ -138,6 +149,8 @@ inchesPerM = 100/cmPerInch =<br>
 F2C(t) = 5/9(t-32) =<br>
 <span class="response">Defined Function</span>
 </p>
+
+<p>Function names obey the same rules as variable names.</p>
 
 <p>A function can use multiple parameters.</p>
 
@@ -178,7 +191,7 @@ fact( n ) = if( n, n fact(n-1), 1) =<br>
 b( n, k ) = fact(n)/(fact(k) fact(n-k)) =<br>
 <span class="response">Defined Function</span><br>
 b( 200, 100 ) =<br>
-<span class="response">nan</span><br>
+<span class="response">undefined</span><br>
 </p>
 
 <p>The problem here is that the factorials quickly exceed the capacity of double-precision floating-point numbers, so we end up dividing infinity by infinity.</p>

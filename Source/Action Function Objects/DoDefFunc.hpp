@@ -48,7 +48,7 @@ struct DoDefFunc
 			DoDefFunc( const DoDefFunc& inOther )
 				: mState( inOther.mState ) {}
 	
-	void	operator()( unused_type, unused_type, unused_type ) const;
+	void	operator()( unused_type ) const;
 	
 	SCalcState&		mState;
 };

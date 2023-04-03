@@ -31,6 +31,11 @@
 
 struct SCalcState;
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdocumentation"
+#include <boost/range.hpp>
+#pragma clang diagnostic pop
+
 namespace boost
 {
 	namespace spirit
@@ -51,7 +56,7 @@ struct DoIf
 			DoIf( SCalcState& ioState ) : mState( ioState ) {}
 			DoIf( const DoIf& inOther ) : mState( inOther.mState ) {}
 	
-	void	operator()( unused_type, unused_type, unused_type ) const;	
+	void	operator()( unused_type ) const;	
 	
 	SCalcState&		mState;
 };

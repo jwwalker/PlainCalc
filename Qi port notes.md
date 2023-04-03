@@ -16,3 +16,6 @@ and attach a semantic action with a method
 (match 0 or 1 times), while in Qi, prefix operator `!` means not (do not match), while the
 prefix operator `-` means optional.
 
+* The `qi::symbols` copy constructor does not appear to do a deep copy.  So if I want to
+copy one, I do a default construction and a copy assignment.
+

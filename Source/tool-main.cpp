@@ -55,9 +55,12 @@ static void ProcessLine( const char* inLine, CalcState ioCalc )
 	double calculatedValue = 0.0;
 	long parseStop = 0;
 	const char* definedSymbol = "";
+	DPRINTF("Tool ProcessLine %s", inLine);
 	
 	ECalcResult res = ParseCalcLine( inLine, ioCalc, &calculatedValue,
 		&parseStop, &definedSymbol );
+	
+	DPRINTF("Tool ProcessLine result %d, value %f", (int)res, calculatedValue );
 	
 	CFTypeRef theKeys[] =
 	{
@@ -96,6 +99,7 @@ static void ProcessLine( const char* inLine, CalcState ioCalc )
 	
 	fwrite( dataBytes, 1, dataLen, stdout );
 	fflush( stdout );
+	DPRINTF("Tool ProcessLine wrote data of length %d to stdout", (int)dataLen );
 }
 
 static CFDictionaryRef CreateDictFromXML( const char* inDictXML )

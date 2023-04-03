@@ -35,7 +35,7 @@
 
 #include <string>
 
-void	DoDefFunc::operator()( unused_type, unused_type, unused_type ) const
+void	DoDefFunc::operator()( unused_type ) const
 {
 	// Before committing to the function, syntax check it.
 	SCalcState	tempState( mState );
@@ -54,10 +54,8 @@ void	DoDefFunc::operator()( unused_type, unused_type, unused_type ) const
 	// just need to be recognized as variables.
 	const StringVec&	formalParams( foundFunc->first );
 	tempState.mValStack.push_back( 1.0 );
-	for (StringVec::const_iterator i = formalParams.begin();
-		i != formalParams.end(); ++i)
+	for (const std::string& theParam : formalParams)
 	{
-		const std::string&	theParam( *i );
 		tempState.SetVariable( theParam.c_str() );
 	}
 

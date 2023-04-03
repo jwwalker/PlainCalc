@@ -29,7 +29,11 @@
 #ifndef DoGetMatchedString_hpp
 #define DoGetMatchedString_hpp
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdocumentation"
 #include <boost/range.hpp>
+#pragma clang diagnostic pop
+
 #include <string>
 
 /*!

@@ -7,6 +7,8 @@
 
 #import <XCTest/XCTest.h>
 
+#import <iostream>
+
 #import "CalcStateFunctions.h"
 #import "ParseCalcLine.h"
 
@@ -100,6 +102,48 @@
 	XCTAssertEqual( computedValue, 45.0 );
 }
 
+- (void)testFactorial
+{
+	double computedValue;
+	long stopOffset;
+	ECalcResult result = ParseCalcLine( "fact( n ) = if( n, n fact(n-1), 1)",
+		_calculator, &computedValue, &stopOffset );
+	XCTAssertEqual( result, kCalcResult_DefinedFunction );
+	
+	result = ParseCalcLine( "fact(7)", _calculator,
+		&computedValue, &stopOffset );
+	XCTAssertEqual( result, kCalcResult_Calculated );
+	XCTAssertEqual( computedValue, 5040.0 );
+}
+
+- (void)testRecursiveFunction
+{
+	double computedValue;
+	long stopOffset;
+	ECalcResult result = ParseCalcLine(
+		"d(n,k) = if( (n-k)k, d(n-1,k) + d(n-1,k-1), 1 )", _calculator,
+		&computedValue, &stopOffset );
+	XCTAssertEqual( result, kCalcResult_DefinedFunction );
+	
+	result = ParseCalcLine( "d(2,2)", _calculator,
+		&computedValue, &stopOffset );
+	XCTAssertEqual( result, kCalcResult_Calculated );
+	XCTAssertEqual( computedValue, 1.0 );
+	result = ParseCalcLine( "d(2,1)", _calculator,
+		&computedValue, &stopOffset );
+	XCTAssertEqual( result, kCalcResult_Calculated );
+	XCTAssertEqual( computedValue, 2.0 );
+
+	result = ParseCalcLine( "d(3,2)", _calculator,
+		&computedValue, &stopOffset );
+	XCTAssertEqual( result, kCalcResult_Calculated );
+	XCTAssertEqual( computedValue, 3.0 );
+
+	result = ParseCalcLine( "d(4,2)", _calculator,
+		&computedValue, &stopOffset );
+	XCTAssertEqual( result, kCalcResult_Calculated );
+	XCTAssertEqual( computedValue, 6.0 );
+}
 
 /*- (void)testPerformanceExample {
     // This is an example of a performance test case.

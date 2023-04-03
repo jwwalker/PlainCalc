@@ -31,16 +31,6 @@
 
 struct SCalcState;
 
-namespace boost
-{
-	namespace spirit
-	{
-		struct unused_type;
-	}
-}
-
-using boost::spirit::unused_type;
-
 
 /*!
 	@struct		DoAppendNumber
@@ -52,7 +42,7 @@ struct DoAppendNumber
 		DoAppendNumber( SCalcState& ioState ) : mState( ioState ) {}
 		DoAppendNumber( const DoAppendNumber& inOther ) : mState( inOther.mState ) {}
 	
-	void	operator()( double val, unused_type, unused_type ) const;
+	void	operator()( double val ) const;
 	
 	SCalcState&		mState;
 };

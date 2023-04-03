@@ -10,7 +10,10 @@
 
 struct SCalcState;
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdocumentation"
 #include <boost/range.hpp>
+#pragma clang diagnostic pop
 
 
 /*!

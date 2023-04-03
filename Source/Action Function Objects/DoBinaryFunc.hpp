@@ -35,7 +35,10 @@ struct SCalcState;
 #define	ThrowIfEmpty_( x ) do { if (x.empty()) throw CalcException(); } while (false)
 #endif
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdocumentation"
 #include <boost/range.hpp>
+#pragma clang diagnostic pop
 
 /*!
 	@struct		DoBinaryFunc

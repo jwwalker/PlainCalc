@@ -37,7 +37,7 @@
 #include <string>
 
 
-void	DoIf::operator()( unused_type, unused_type, unused_type ) const
+void	DoIf::operator()( unused_type ) const
 {
 	ThrowIfEmpty_( mState.mValStack );
 	double	condition = mState.mValStack.back();

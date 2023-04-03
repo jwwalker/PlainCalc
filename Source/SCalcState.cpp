@@ -33,8 +33,11 @@
 #include "SFixedSymbols.hpp"
 #include "UTF8ToCFString.h"
 
+#include <string.h>
+
 #define	ThrowIfCFFail_( x ) do { if ((x) == NULL) throw std::bad_alloc(); } while (false)
 
+static constexpr char kParamPrefixChar = '#';
 
 SCalcState::SCalcState()
 	: mFixed( GetFixedSyms() )
@@ -46,8 +49,8 @@ SCalcState::SCalcState( const SCalcState& inOther )
 	: mFixed( inOther.mFixed )
 	, mValStack( inOther.mValStack )
 	, mParamStack( inOther.mParamStack )
-	, mFuncDefs( inOther.mFuncDefs )
-	, mVariables( inOther.mVariables )
+	, mFuncDefs()
+	, mVariables()
 	, mIdentifier( inOther.mIdentifier )
 	, mVariableSet( inOther.mVariableSet )
 	, mFuncDefSet( inOther.mFuncDefSet )
@@ -58,6 +61,10 @@ SCalcState::SCalcState( const SCalcState& inOther )
 	, mIf2( inOther.mIf2 )
 	, mDidDefineFunction( inOther.mDidDefineFunction )
 {
+	// Apparently, the copy constructor of symbols does not do a deep copy,
+	// so let's try using default construction and copy assignment instead.
+	mFuncDefs = inOther.mFuncDefs;
+	mVariables = inOther.mVariables;
 }
 
 void	SCalcState::SetVariable( const char* inVarName )
@@ -74,24 +81,54 @@ void	SCalcState::SetVariable( const char* inVarName )
 	}
 }
 
+/*!
+	@function	IsIdentifierChar
+	@abstract	Test whether this character could be part of an identifier.
+	@discussion	This code must be kept in agreement with the identifierLaterChar rule of the
+				calculator grammar.
+*/
 static bool IsIdentifierChar( char inChar )
 {
-	return isalnum( inChar ) or (inChar == '_');
+	unsigned char uChar = static_cast<unsigned char>( inChar );
+	bool isGood = true;
+	
+	if ( (uChar <= ' ') or (strchr("-+=/*^,.()", inChar )) )
+	{
+		isGood = false;
+	}
+	
+	return isGood;
+}
+
+/*!
+	@function	IsIdentifierStartChar
+	@abstract	Test whether this character could be the first character of an identifier.
+	@discussion	This code must be kept in agreement with the identifierFirstChar rule of the
+				calculator grammar.
+*/
+static bool IsIdentifierStartChar( char inChar )
+{
+	bool isGood = IsIdentifierChar( inChar );
+	
+	if ( (inChar == '#') or ((inChar >= '0') and (inChar < '9')) )
+	{
+		isGood = false;
+	}
+	
+	return isGood;
 }
 
 /*!
 	@function	FixFormalParams
-	@abstract	Prefix each formal parameter by an @, so it cannot be
+	@abstract	Prefix each formal parameter by an #, so it cannot be
 				confused with a normal variable.
 */
 static void FixFormalParams( FuncDef& ioDef )
 {
 	std::string&	rightHandSide( ioDef.second );
 	
-	for (StringVec::iterator i = ioDef.first.begin(); i != ioDef.first.end(); ++i)
+	for (std::string& theParam : ioDef.first)
 	{
-		std::string&	theParam( *i );
-		
 		std::string::size_type	startOff = 0;
 		std::string::size_type	foundOff, identStart, identEnd;
 		
@@ -107,25 +144,29 @@ static void FixFormalParams( FuncDef& ioDef )
 			{
 				// Looking to the left is trickier, e.g., while 12x is not an
 				// identifier, A12x is.
+				// First, go left until we either hit a character that is not
+				// an identifier character, or we run out of text.
 				while ( (identStart > 0) and
 					IsIdentifierChar(rightHandSide[ identStart - 1 ]) )
 				{
 					--identStart;
 				}
-				while (not isalpha( rightHandSide[ identStart ]))
+				// Now, if the character we're looking at could not be the
+				// first letter of an identifier, go right.
+				while (not IsIdentifierStartChar( rightHandSide[ identStart ]))
 				{
 					++identStart;
 				}
 				if (identStart == foundOff)
 				{
-					rightHandSide.insert( foundOff, 1, '@' );
+					rightHandSide.insert( foundOff, 1, kParamPrefixChar );
 					foundOff += 1;
 				}
 			}
 			startOff = foundOff + 1;
 		}
 		
-		theParam.insert( 0, 1, '@' );
+		theParam.insert( 0, 1, kParamPrefixChar );
 	}
 }
 
@@ -154,9 +195,8 @@ CFDictionaryRef		SCalcState::CopyVariables() const
 		&kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks ) );
 	ThrowIfCFFail_( theDict.get() );
 	
-	for (StringSet::iterator i = mVariableSet.begin(); i != mVariableSet.end(); ++i)
+	for (const std::string& theVar: mVariableSet)
 	{
-		const std::string&	theVar( *i );
 		const double*	foundVal = mVariables.find( theVar.c_str() );
 		if (foundVal != NULL)
 		{
@@ -174,13 +214,13 @@ CFDictionaryRef		SCalcState::CopyVariables() const
 
 /*!
 	@function	UnfixParams
-	@abstract	Remove @ characters from names
+	@abstract	Remove # characters from names
 */
 static void UnfixParams( std::string& ioParam )
 {
 	std::string::size_type	atLoc;
 	
-	while ((atLoc = ioParam.find('@')) != std::string::npos)
+	while ((atLoc = ioParam.find( kParamPrefixChar )) != std::string::npos)
 	{
 		ioParam.erase( atLoc, 1 );
 	}
@@ -192,10 +232,9 @@ CFDictionaryRef	SCalcState::CopyFuncDefs() const
 		&kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks ) );
 	ThrowIfCFFail_( theDict.get() );
 	
-	for (StringSet::iterator i = mFuncDefSet.begin(); i != mFuncDefSet.end(); ++i)
+	for (const std::string&	funcName : mFuncDefSet)
 	{
 		// Find the function definition.
-		const std::string&	funcName( *i );
 		const FuncDef*	theFuncPtr = mFuncDefs.find( funcName.c_str() );
 		if (theFuncPtr != NULL)
 		{
@@ -217,11 +256,10 @@ CFDictionaryRef	SCalcState::CopyFuncDefs() const
 			ThrowIfCFFail_( cfFuncDef.get() );
 			::CFArrayAppendValue( theArray.get(), cfFuncDef.get() );
 			
-			for (StringVec::iterator i = theFunc.first.begin();
-				i != theFunc.first.end(); ++i)
+			for (std::string& param : theFunc.first)
 			{
-				UnfixParams( *i );
-				autoCFStringRef	cfParam( UTF8ToCFString( i->c_str() ) );
+				UnfixParams( param );
+				autoCFStringRef	cfParam( UTF8ToCFString( param.c_str() ) );
 				ThrowIfCFFail_( cfParam.get() );
 				::CFArrayAppendValue( theArray.get(), cfParam.get() );
 			}

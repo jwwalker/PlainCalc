@@ -9,7 +9,7 @@
 
 #include "SCalcState.hpp"
 
-void	DoAppendNumber::operator()( double val, unused_type, unused_type ) const
+void	DoAppendNumber::operator()( double val ) const
 {
 	mState.mValStack.push_back( val );
 }
