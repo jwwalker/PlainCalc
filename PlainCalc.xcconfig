@@ -55,3 +55,8 @@
 
 // Info.plist
 	INFOPLIST_KEY_LSApplicationCategoryType = public.app-category.utilities
+
+// Versioning
+	MARKETING_VERSION = 2.5
+	CURRENT_PROJECT_VERSION = 3
+
