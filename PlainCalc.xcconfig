@@ -24,7 +24,6 @@
 // Packaging
 	PRODUCT_NAME = PlainCalc
 	WRAPPER_EXTENSION = app
-	INFOPLIST_FILE = Resources/Info.plist
 	PRODUCT_BUNDLE_IDENTIFIER = com.jwwalker.PlainCalc2
 
 // Search Paths
@@ -54,7 +53,11 @@
 	DEVELOPMENT_TEAM = FDHC2KMZ6V
 
 // Info.plist
+	GENERATE_INFOPLIST_FILE = YES
 	INFOPLIST_KEY_LSApplicationCategoryType = public.app-category.utilities
+	INFOPLIST_KEY_NSHumanReadableCopyright = © James W. Walker, 2006-2023
+	INFOPLIST_KEY_NSMainNibFile = MainMenu
+	INFOPLIST_KEY_NSPrincipalClass = NSApplication
 
 // Versioning
 	MARKETING_VERSION = 2.5

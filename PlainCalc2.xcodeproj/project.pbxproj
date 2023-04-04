@@ -123,7 +123,6 @@
 		2A37F4ACFDCFA73011CA2CEA /* MyDocument.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MyDocument.mm; path = "Cocoa source/MyDocument.mm"; sourceTree = "<group>"; };
 		2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyDocument.h; path = "Cocoa source/MyDocument.h"; sourceTree = "<group>"; };
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Cocoa source/main.m"; sourceTree = "<group>"; };
-		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* PlainCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlainCalc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE1FA5411A55A31C0004741D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BE47DB5D0B12DF3200081BDA /* PlainCalc.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlainCalc.xcconfig; sourceTree = "<group>"; };
@@ -166,6 +165,7 @@
 		BE622D6829D257A7003E9662 /* MiniCalc.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MiniCalc.hpp; sourceTree = "<group>"; };
 		BE622D6A29D2593A003E9662 /* MiniCalcTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MiniCalcTests.mm; sourceTree = "<group>"; };
 		BE622D6C29D25A5D003E9662 /* PlainCalc2.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PlainCalc2.xctestplan; sourceTree = "<group>"; };
+		BE62AF0429DC92B100ACEC26 /* PlainCalc2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "PlainCalc2-Info.plist"; sourceTree = "<group>"; };
 		BE6F18E410F158A900C0FF7F /* CalcTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CalcTool; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE6F18EB10F159D400C0FF7F /* tool-main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "tool-main.h"; path = "Source/tool-main.h"; sourceTree = "<group>"; };
 		BE6F18EC10F159D400C0FF7F /* tool-main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "tool-main.cpp"; path = "Source/tool-main.cpp"; sourceTree = "<group>"; };
@@ -251,6 +251,7 @@
 		2A37F4AAFDCFA73011CA2CEA /* PlainCalc2 */ = {
 			isa = PBXGroup;
 			children = (
+				BE62AF0429DC92B100ACEC26 /* PlainCalc2-Info.plist */,
 				BE622D6C29D25A5D003E9662 /* PlainCalc2.xctestplan */,
 				BE47DB5D0B12DF3200081BDA /* PlainCalc.xcconfig */,
 				BEADDF1129C7B74000FCFE95 /* CalcTool.xcconfig */,
@@ -275,7 +276,6 @@
 				BEF3632F10CB32CC0047ED77 /* MyDocument.xib */,
 				BEF3631D10CB32950047ED77 /* MainMenu.xib */,
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
-				8D15AC360486D014006FF6A4 /* Info.plist */,
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
 			);
 			name = Resources;
@@ -873,6 +873,11 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = "PlainCalc2-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© James W. Walker, 2006-2023";
+				INFOPLIST_KEY_NSMainNibFile = MainMenu;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 			};
 			name = Debug;
 		};
@@ -882,6 +887,11 @@
 				CODE_SIGN_ENTITLEMENTS = PlainCalc2.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				INFOPLIST_FILE = "PlainCalc2-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© James W. Walker, 2006-2023";
+				INFOPLIST_KEY_NSMainNibFile = MainMenu;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 			};
 			name = Release;
 		};
