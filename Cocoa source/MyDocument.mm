@@ -632,7 +632,8 @@ const int		kMenuItemTag_HexFormat		= 101;
 	{
 		didLoad = [self loadRTFData: data];
 	}
-	else if ([typeName isEqualToString: @"PlainCalc worksheet"])
+	else if ( [typeName isEqualToString: @"com.jwwalker.plaincalc"] or
+		[typeName isEqualToString: @"PlainCalc worksheet"] )
 	{
 		didLoad = [self loadNativeData: data];
 	}

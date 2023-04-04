@@ -92,6 +92,8 @@
 	<string>PlainCalc Help</string>
 	<key>CFBundleSignature</key>
 	<string>PlCl</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>
