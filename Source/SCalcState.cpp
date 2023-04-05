@@ -92,7 +92,7 @@ static bool IsIdentifierChar( char inChar )
 	unsigned char uChar = static_cast<unsigned char>( inChar );
 	bool isGood = true;
 	
-	if ( (uChar <= ' ') or (strchr("-+=/*^,.()", inChar )) )
+	if ( (uChar <= ' ') or (strchr("-+=/*^,.;()", inChar )) )
 	{
 		isGood = false;
 	}

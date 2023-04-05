@@ -107,7 +107,7 @@ namespace
 							|
 							standard::cntrl
 							|
-							standard::char_("-+=/*^,.()#0-9")
+							standard::char_("-+=/*^,.;()#0-9")
 						);
 				
 				identifierLaterChar =
@@ -117,7 +117,7 @@ namespace
 							|
 							standard::cntrl
 							|
-							standard::char_("-+=/*^,.()")
+							standard::char_("-+=/*^,.;()")
 						);
 			
 				identifier =

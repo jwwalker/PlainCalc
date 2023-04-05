@@ -190,6 +190,7 @@
 		BEB483B210ED969D00A5FBCD /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = "Cocoa source/AppController.h"; sourceTree = "<group>"; };
 		BEB483B310ED969D00A5FBCD /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppController.m; path = "Cocoa source/AppController.m"; sourceTree = "<group>"; };
 		BEB4844410EE7EAE00A5FBCD /* Notes.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Notes.rtf; sourceTree = "<group>"; };
+		BEB785E129DDD8B70045270A /* history.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = history.md; sourceTree = "<group>"; };
 		BED6A2EC29D3AB450091BAE4 /* DoAppendNumber.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DoAppendNumber.cpp; sourceTree = "<group>"; };
 		BED6A2ED29D3AB450091BAE4 /* DoAppendNumber.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DoAppendNumber.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -255,6 +256,7 @@
 				BE622D6C29D25A5D003E9662 /* PlainCalc2.xctestplan */,
 				BE47DB5D0B12DF3200081BDA /* PlainCalc.xcconfig */,
 				BEADDF1129C7B74000FCFE95 /* CalcTool.xcconfig */,
+				BEB785E129DDD8B70045270A /* history.md */,
 				BEB4844410EE7EAE00A5FBCD /* Notes.rtf */,
 				BEADDF0929C7AE1300FCFE95 /* App */,
 				BEADDF0829C7AE0100FCFE95 /* CalcTool */,

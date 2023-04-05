@@ -48,7 +48,9 @@ static AppController* sMe;
 
 - (id) init
 {
-	if ( (self = [super init]) != nil )
+	self = [super init];
+	
+	if ( self != nil )
 	{
 		sMe = self;
 		
@@ -60,10 +62,15 @@ static AppController* sMe;
 		};
 		mCalcTimeout = 1.0;
 		
-		NSString* decimalSep = [[NSLocale currentLocale] objectForKey:
+		NSString* decimalSep = [NSLocale.currentLocale objectForKey:
 			NSLocaleDecimalSeparator ];
 		mCommaIsDecimal = [decimalSep isEqualToString: @","];
 
+		[NSNotificationCenter.defaultCenter
+			addObserver: self
+			selector: @selector(localeChanged:)
+			name: NSCurrentLocaleDidChangeNotification
+			object: nil];
 	}
 	return self;
 }
@@ -71,6 +78,14 @@ static AppController* sMe;
 + (AppController*) sharedController
 {
 	return sMe;
+}
+
+- (void) localeChanged: (NSNotification*) notification
+{
+	NSString* decimalSep = [NSLocale.currentLocale objectForKey:
+		NSLocaleDecimalSeparator ];
+	mCommaIsDecimal = [decimalSep isEqualToString: @","];
+	//NSLog(@"Decimal separator is %@", mCommaIsDecimal? @"comma" : @"period");
 }
 
 + (NSDictionary*) normalAtts

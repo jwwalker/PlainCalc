@@ -12,6 +12,7 @@
 	span.response { font-family: monospace; color: #009900 }
 	span.error { font-family: monospace; color: #FF0000 }
 	p.example { font-family: monospace; margin-left: 5em }
+	p.code { font-family: monospace; }
 	table { margin-left: 2em }
 	td { padding-right: 3em }
 	ol.contents { margin-left: 10%; margin-top: 5px; padding-left: 0; }
@@ -24,6 +25,7 @@
 <p class="contents">Contents</p>
 <ol class="contents">
 	<li><a href="#intro">Getting Started</a></li>
+	<li><a href="#decimal">The Decimal Separator</a></li>
 	<li><a href="#constants">Constants</a></li>
 	<li><a href="#arithmetic">Arithmetic</a></li>
 	<li><a href="#variables">Variables</a></li>
@@ -59,6 +61,17 @@
 
 <p>In some cases, PlainCalc can help you narrow down the location of the error by highlighting the suspicious part of the expression.</p>
 
+
+<h1><a name="decimal">The Decimal Separator</a></h1>
+
+<p>Depending on your choice in <strong>System Settings &gt; General &gt; Language &amp; Region &gt; Number Format</strong>, the fractional part of a number may be separated from the integer part of a number by a period or a comma. If your decimal separator is a comma, then it would cause confusion to use the comma to separate the parameters of a multi-parameter function, so instead we use the semicolon for that purpose.  For example,</p>
+
+<p class="example">hypot(,75;4,3) =<br>
+<span class="response">4,36491695225</span>
+</p>
+
+<p>In all other sections of this help file, we'll assume that the decimal separator is the period.</p>
+
 <h1><a name="constants">Constants</a></h1>
 
 <p>A number (literal constant) may be written in scientific notation, e.g., 1.2e-2 is the same as 0.012.  A positive integer may also be written as a C-style hexadecimal number, e.g., 0xBE4 is the same as 3044.  The x must be lower case, but the letters used as hexadecimal digits may be in either case.</p>
@@ -90,7 +103,7 @@ inchesPerM = 100/cmPerInch =<br>
 
 <ul>
 <li>invisible characters like space, line break, and other control characters</li>
-<li>mathematical operations and punctuation: + - * / ^ . , ( ) =</li>
+<li>mathematical operations and punctuation: + - * / ^ . , ; ( ) =</li>
 <li>decimal digits: 0 1 2 3 4 5 6 7 8 9</li>
 <li>the pound sign: #</li>
 </ul>
