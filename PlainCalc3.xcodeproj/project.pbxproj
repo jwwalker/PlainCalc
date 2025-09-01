@@ -187,6 +187,9 @@
 		BE9B02A92E5D287F00A10F02 /* PlainCalcTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlainCalcTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEC2F5362E638F4D00996E7E /* DoPushFuncName.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DoPushFuncName.hpp; sourceTree = "<group>"; };
 		BEC2F5372E63A01C00996E7E /* DoEvaluateBinary.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoEvaluateBinary.hpp; sourceTree = "<group>"; };
+		BEC2F54B2E664C8A00996E7E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		BEC2F54C2E664C8A00996E7E /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
+		BEC2F54D2E664F0E00996E7E /* history.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = history.md; sourceTree = "<group>"; };
 		BEEAC5852E5E47B700872C03 /* PlainCalc3-app.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "PlainCalc3-app.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -234,6 +237,9 @@
 				BE87BCBC2E512DEE00E61164 /* PlainCalc3.xcconfig */,
 				BEEAC5852E5E47B700872C03 /* PlainCalc3-app.xcconfig */,
 				BE0BCAAB2E57C1EA009914B9 /* Notes.md */,
+				BEC2F54D2E664F0E00996E7E /* history.md */,
+				BEC2F54C2E664C8A00996E7E /* LICENSE.md */,
+				BEC2F54B2E664C8A00996E7E /* README.md */,
 				BE87BC882E512BC800E61164 /* PlainCalc3 */,
 				BE0BCA7F2E563002009914B9 /* CalcTests */,
 				BE87BC872E512BC800E61164 /* Products */,

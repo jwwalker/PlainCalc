@@ -2,11 +2,15 @@
 
 First Mac App Store release.
 
-# 2.5.1
+# 3.0
 
-* Don't allow a semicolon as an identifier character.
+* Rewritten parsing engine that gives better error messages.
 
-* Watch for changes in which character is the decimal separator, rather than
-just checking at program start.
+* Instead of running the calculation in a command line tool, the calculation
+runs in a separate thread.
 
-* Add a section on the decimal separator to the help file.
+* New built-in functions for statistical median, standard deviation, etc.
+
+* Ability to calculate mathematical summation formulas.
+
+* Ability to print the worksheet.
