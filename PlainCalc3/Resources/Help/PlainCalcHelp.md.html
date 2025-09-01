@@ -1,0 +1,406 @@
+<head>
+<meta charset="utf-8">
+<meta name="AppleTitle" content="PlainCalc Help">
+</head>
+
+<style>
+	span.response { color: #009900 }
+	span.error { color: #FF0000 }
+	span.errorloc { text-decoration-line: underline; text-decoration-color: red; text-decoration-thickness: 2px}
+	p.example { font-family: monospace; margin-left: 5em; margin-right:5em; background-color:whitesmoke; padding-left:1em }
+</style>
+
+**PlainCalc Help**
+
+# Getting Started
+To use PlainCalc, type an expression, assignment, or function definition, and press Return
+or Enter.  An expression can involve numbers, variables, constants, arithmetic operators,
+and mathematical functions.  For example, if you type
+
+<p class="example">2+3/5
+</p>
+
+and press Return, PlainCalc will display the value of the expression:
+
+<p class="example">2+3/5 =<br>
+<span class="response">2.6</span>
+</p>
+
+If you make a mistake, you will instead be told that there is a syntax error:
+
+<p class="example">
+2+3+<span class="errorloc">+5</span> =<br>
+<span class="error">error: Expected term here</span>
+</p>
+
+In many cases, PlainCalc can help you narrow down the location of the error by
+underlining the place where things first go wrong,
+in this example at the extra plus sign.
+
+
+# The Decimal Separator
+
+Depending on your choice in **System Settings &gt; General &gt; Language &amp;
+Region &gt; Number Format**, the fractional part of a number may be separated
+from the integer part of a number by a period or a comma. If your decimal
+separator is a comma, then it would cause confusion to use the comma to
+separate the parameters of a multi-parameter function, so instead we use the
+semicolon for that purpose.  For example,
+
+<p class="example">hypot(,75; 4,3) =<br>
+<span class="response">4,36491695225</span>
+</p>
+
+In all other sections of this help file, we'll assume that the decimal
+separator is the period and the parameter separator is the comma.
+
+# Comments
+
+If you want to just write a note to yourself in a PlainCalc worksheet, type a # sign, and
+then the rest of the line will be ignored for calculations.  For example:
+
+<p class="example">
+∏( i, 2, 10, i ) # 10 factorial =<br>
+<span class="response">3628800</span><br>
+</p>
+
+
+# Literal Numbers and Constants
+
+A number (literal constant) may be written in scientific notation, e.g.,
+`1.2e-2` is the same as `0.012`.  A positive integer may also be written as a
+C-style hexadecimal number, e.g., `0xBE4` is the same as `3044`.  The `x` must be
+lower case, but the letters used as hexadecimal digits may be in either case.
+
+There are three special built-in constants: &pi; (which can also be written
+`pi`), `e` (the base of the natural logarithms), and `%`, which equals 0.01
+(allowing you to write, e.g., `67%` instead of `.67`).
+
+# Arithmetic
+
+The arithmetic operators are the usual `+`, `-`, `*`, `/` plus the symbol `^`
+for raising to a power.  As usual, the `*` and `/` operators have higher
+precedence than the `+` and `-` operators, for example `2+3*5` means `2+(3*5)`.
+The power operator has higher precedence than the
+other operators, and associates from right to left.  For example, the expression
+`2*5^4^3` evaluates to the same number as `2*(5^(4^3))`.
+
+Unlike most calculators, PlainCalc lets you indicate multiplication by
+juxtaposition (i.e., writing two things next to each other) as is common in
+mathematics on paper.  Thus, PlainCalc will happily evaluate expressions such
+as `(3+5)(6-7)` or `2&pi;`. In some cases you must type a space between
+juxtaposed numbers to prevent ambiguity.  Obviously you can't multiply `23`
+times `57` by writing `2357`, because that looks like a single number.
+
+There is a slight cost to the use of multiplication by juxtaposition.  Most
+calculators and programming languages use the `+` and `-` signs as unary
+operators as well as binary operators.  For example, in the expression 
+`-5-3`, the first minus is a unary operator, since it is not combining two
+different numbers.  Unary operators create a problem with multiplication by
+juxtaposition, because an expression like `-5-3` could be interpreted as the
+product `(-5)(-3)`.  To remove this ambiguity, PlainCalc only allows a unary
+minus at the beginning of an expression (where you really need it), and does
+not allow a unary plus at all.
+
+# Variables
+
+You can define variables to store numbers. You set the value of a variable
+using an _assignment_, which is the variable name, an equal sign, and an
+expression.  It sets the value of the variable, in that document only, until
+changed by another assignment.  For example:
+
+<p class="example">
+cmPerInch=2.54 =<br>
+<span class="response">2.54</span><br>
+inchesPerM = 100/cmPerInch =<br>
+<span class="response">39.3700787402</span><br>
+</p>
+
+A built-in variable, `last`, holds the result of the last calculation.
+
+A variable name can begin with any character except:
+
+* invisible characters like space, line break, and other control characters
+* mathematical operations and punctuation: `+` `-` `*` `/` `^` `.` `,` `;` `(` `)` `=` `#`
+* decimal digits: `0` `1` `2` `3` `4` `5` `6` `7` `8` `9`
+
+Subsequent characters can be digits, too.  For example, `élanЖ_♥️93` is a
+permissible variable name.  Also note that `π2` is interpreted as a variable name,
+whereas `2π` is interpreted as multiplying `2` times `π`.
+
+# Built-in Functions
+
+A function is written in the usual way, for instance `abs(x)` represents the
+absolute value of a number `x`.  There must not be any space between the
+function name and the left parenthesis.
+
+## Functions of One Variable
+
+Name     |  Meaning
+---------|----------
+`abs`    | absolute value
+`acos`   | arc cosine, also known as inverse cosine, returning angles in $[0, π]$ radians
+`asin`   | arc sine, AKA inverse sine, returning angles in $[-π/2, π/2]$ radians
+`atan`   | arc tangent, AKA inverse tangent, returning angles in $[-π/2, π/2]$ radians
+`ceil`   | ceiling (round up to next integer)
+`cos`    | cosine
+`deg`    | convert radians to degrees
+`exp`    | natural exponential function
+`fabs`   | another name for absolute value
+`floor`  | floor (round down to next integer)
+`ln`     | natural logarithm
+`log`    | natural logarithm
+`log10`  | common logarithm (base 10)
+`log2`   | base 2 logarithm
+`rad`    | convert degrees to radians
+`round`  | round to nearest integer
+`sin`    | sine
+`sqrt`   | square root
+`√`      | square root
+`tan`    | tangent
+
+## Functions of Two Variables
+
+Name    | Meaning
+--------|---------
+`atan2` | two-variable arc tangent, the principal value of the arc tangent of y/x, using the signs of both arguments to determine the quadrant of the return value
+`hypot` | hypotenuse, i.e., square root of sum of squares
+`pow`   | first argument raised to the power of the second argument, same as `^` operator
+
+## Functions of Three Variables
+
+There is only one built-in function of three variables, `if`.  The expression
+`if( x, y, z )` is defined to be `y` if `x > 0`, and `z` otherwise.  This function
+has a special "short circuit" property: it does not fully evaluate both the
+second and third arguments, only the one that is needed.  That property is
+needed to make recursive functions work.
+
+## Functions of Two or More Variables
+
+In the following definitions, assume the function is passed expressions
+$x_1, x_2, x_3, \ldots, x_n$ where $n$ is at least 2.  In each case, the order of
+the arguments does not matter.
+
+Name       | Meaning
+-----------|---------
+`average`  | $\frac{1}{n}\,(x_1 + x_2 + x_3 + \cdots + x_n)$
+`GM`       | geometric mean: $(x_1 * x_2 * x_3 * \cdots * x_n)^{1/n}$
+`HM`       | harmonic mean: $\dfrac{n}{1/x_1 + 1/x_2 + 1/x_3 + \cdots + 1/x_n}$
+`max`      | the maximum of the numbers
+`mean`     | same as `average`
+`median`   | the median of the numbers
+`min`      | the minimum of the numbers
+`product`  | the product of the numbers
+`SD`       | standard deviation, square root of variance.  See `Var`.
+`sum`      | the sum of the numbers
+`Var`      | the variance of the numbers.  This is $\frac{1}{n}\left( (x_1 - \mu)^2 + (x_2 - \mu)^2 + (x_3 - \mu)^2 + \cdots + (x_n - \mu)^2 \right)$, where $\mu$ is the mean.
+
+## Iteration (∑ and ∏)
+
+In mathematics, one can write a formula like
+
+$$\sum_{n=1}^{20} (1/2)^n$$
+
+to indicate a sum of terms with a varying parameter.  Such a formula has 4 parts: The
+*index variable* (in this case $n$), the starting value of the index variable (in this
+case $1$), the ending value of the index variable (in this case $20$), and the formula
+being summed (here $(1/2)^n$).  As in this example, the formula being summed usually
+depends on the index variable.
+
+To write a summation in PlainCalc, you write the 4 parts as 4 parameters of a function,
+like so:
+
+<p class="example">
+∑( n, 1, 20, (1/2)^n ) =<br>
+<span class="response">0.999999046326</span>
+</p>
+
+If you don't want to bother with typing the symbol `∑`, you can use the alias `summation`.
+
+Similarly, one can convert a product formula like this
+
+$$\prod_{n=1}^{100} \left(1+n^{-2}\right)$$
+
+into a calculation like this:
+
+<p class="example">
+∏(n, 1, 100, 1+n^(-2)) =<br>
+<span class="response">3.63968229453</span>
+</p>
+
+The word `multiplication` is an alias for the symbol `∏`.
+
+# User-defined Functions
+
+You can define your own functions in much the same way as you define your own variables.
+Function names obey the same rules as variable names.
+For example, here is the definition of a function to convert temperatures from Fahrenheit to Celsius.
+
+<p class="example">
+F2C(t) = 5/9(t-32) =<br>
+<span class="response">Defined Function 'F2C'</span>
+</p>
+
+A function can use multiple parameters, for example:
+
+<p class="example">
+ParallelResistance(r1, r2) = 1/(1/r1 + 1/r2) =<br>
+<span class="response">Defined Function 'ParallelResistance'</span>
+</p>
+
+The parameters on the left side of a function definition, called _formal parameters_,
+follow the same rules as variables, and are not allowed to be the same as the names of
+built-in functions or constants.  Nor can you used one formal parameter more than once
+on the left side of a function definition.
+
+If the right hand side of the function definition uses any variables, it will be
+evaluated using the values of those variables at the time you _define_ the function,
+not the time you _use_ it.  This is a change in behavior from PlainCalc 2.  However,
+if a formal parameter happens to have the same name as a variable, then the variable
+value will not be used in that function.
+
+
+<p class="example">
+n=5 =<br>
+<span class="response">5</span><br>
+f(x)= n x =<br>
+<span class="response">Defined Function 'f'</span><br>
+n=2 =<br>
+<span class="response">2</span><br>
+f(10) =<br>
+<span class="response">50</span><br>
+</p>
+
+In contrast, if a user-defined function uses another user-defined function, later changes
+to the definition of the inner function do affect the computation of the outer function.
+
+<p class="example">
+inner(x) = 2x =<br>
+<span class="response">Defined Function ‘inner’</span><br>
+outer(x) = inner(x)+1 =<br>
+<span class="response">Defined Function ‘outer’</span><br>
+outer(3) =<br>
+<span class="response">7</span><br>
+inner(x) = 5x =<br>
+<span class="response">Redefined Function ‘inner’</span><br>
+outer(3) =<br>
+<span class="response">16</span><br>
+</p>
+
+
+# Recursive Functions
+
+If you're careful, you can define a function _recursively_, that is, defined in terms of
+itself.  If you're not careful, this can easily cause infinite recursion, a kind of
+infinite loop that keeps using more and more memory until something stops it.  Here's
+the simplest example:
+
+<p class="example">
+f(n)=f(n)<br>
+<span class="response">Defined Function 'f'</span><br>
+f(1)<br>
+<span class="error">Calculation interrupted by memory limit</span>
+</p>
+
+Correct recursive functions often use integer-valued parameters, and are devised so that the
+parameters on the right hand side are smaller than those on the left.  For example, the
+Fibonacci sequence is often defined mathematically as follows:
+
+$$
+F_n = \begin{cases}
+F_{n-1} + F_{n-2} & \text{if $n \ge 2$}\\
+1 & \text{if $n = 1$}\\
+0 & \text{if $n = 0$}\\
+\end{cases}
+$$
+
+When you see cases like this, it suggests using PlainCalc's `if` function.  The condition
+$n \ge 2$ is equivalent to $n-1 > 0$, so we can write the definition as:
+
+<p class="example">
+F(n)= if( n-1, F(n-1) + F(n-2), if( n, 1, 0 ) )
+</p>
+
+Although this is not a case of infinite recursion, it's not particularly efficient either.
+In fact, the amount of time and computer memory taken by the computation grows
+exponentially as $n$ increases.
+
+As another example, let's consider several ways of computing binomial coefficients.  First
+we try doing it in terms of the factorial function.
+
+<p class="example">
+fact( n ) = ∏( i, 2, n, i ) =<br>
+<span class="response">Defined Function 'fact'</span><br>
+b( n, k ) = fact(n)/(fact(k) fact(n-k)) =<br>
+<span class="response">Defined Function 'b'</span><br>
+b( 200, 100 ) =<br>
+<span class="response">Undefined</span><br>
+</p>
+
+The problem here is that the factorials quickly exceed the capacity of double-precision
+floating-point numbers, so we end up dividing infinity by infinity, which is
+mathematically undefined, like dividing by zero.
+
+Second, we could try using a recurrence relation relating a binomial coefficient to two previous binomial coefficients.  In this case, the calculation takes a very long time,
+because the number of calculations grows exponentially,
+and you will probably lose patience before the computer runs out of memory.  You can
+press the Escape key to interrupt a calculation that is taking too long.
+
+<p class="example">
+d( n, k ) = if( (n-k)k, d(n-1,k) + d(n-1,k-1), 1 ) =<br>
+<span class="response">Defined Function 'd'</span><br>
+d( 200, 100 ) =<br>
+<span class="error">Calculation interrupted by user</span>
+</p>
+
+A better way is to use a recursive definition relating a binomial coefficient to just one
+previous binomial coefficient.
+
+<p class="example">
+C( n, k ) = if( k, (n/k) C(n-1, k-1), 1) =<br>
+<span class="response">Defined Function 'C'</span><br>
+C( 200, 100 ) =<br>
+<span class="response">9.05485146561e+58</span><br>
+</p>
+
+# Hexadecimal Display
+
+For the convenience of computer programmers, there is an option on the **Special** menu,
+**Display Integers as Hex**, to
+show integers in hexadecimal in some cases.  In the case of positive integers, it's
+similar to the use of hexadecimal to enter numbers.  For example, if you evaluate an
+expression that works out to `3044`, and the hexadecimal option is turned on, then the
+result will be shown as `0xBE4`.  Negative numbers, however, will be displayed as they
+would be displayed in a 32-bit computer register.  For example, the value `-3044` would be
+displayed as `0xFFFFF41C`.  This works for integers ranging from `-2147483648` to `-1`.
+
+# Saving Files
+
+A PlainCalc worksheet can be saved as a file. When you open it later, the variables and
+user-defined functions will be just as you left them.  Even if you erase all the text in
+the document, the variables and functions will be preserved.  If you do want to forget a
+function or variable from a worksheet before saving it, you can use the **Forget Defined
+Variable...** and **Forget Defined Function...** menu commands.
+
+# Setting the State of New Documents
+
+You may want certain functions or variables to be predefined in all new worksheets, or you
+may want all new worksheets to use a certain font and size. To accomplish this, you can
+set up a worksheet the way you like, and then use the **Save as New Document Content** menu
+command.
+
+# About PlainCalc and its Author
+
+PlainCalc was written by James W. Walker, whose home page is <https://jwwalker.com>.
+The calculating engine uses the [Boost parser](https://www.boost.org/library/latest/parser/).
+Source code is available at <https://github.com/jwwalker/PlainCalc>.
+
+Feedback may be emailed to <plaincalc@jwwalker.com>.
+
+# License
+
+PlainCalc is copyrighted freeware. This means you can use it and give it to a friend
+without paying, but you may not make changes to the program or its documentation, nor are
+you allowed to sell PlainCalc. The software is provided “as is”, without warranty.
+
+<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js" charset="utf-8"></script><script src="https://morgan3d.github.io/markdeep/latest/markdeep.min.js" charset="utf-8"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>

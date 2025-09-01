@@ -1,0 +1,52 @@
+//  PlainCalc3.xcconfig
+//  PlainCalc3
+//
+//  Created by James Walker on 8/16/25.
+//  
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+// Architectures
+	ARCHS = $(ARCHS_STANDARD)
+	SDKROOT = macosx
+
+// Build Options
+
+// Deployment
+	MACOSX_DEPLOYMENT_TARGET = 13.7
+
+// Packaging
+	PRODUCT_BUNDLE_IDENTIFIER = com.jwwalker.PlainCalc2
+	// Note: I can't change the bundle ID without making a whole new entry
+	// in the Mac App Store.
+	PRODUCT_NAME = PlainCalc
+
+// Search Paths
+	HEADER_SEARCH_PATHS = $(Boost)
+	USER_HEADER_SEARCH_PATHS = PlainCalc3/**
+	ALWAYS_SEARCH_USER_PATHS = NO
+
+// Signing
+	CODE_SIGN_ENTITLEMENTS = PlainCalc3/PlainCalc3.entitlements
+	CODE_SIGN_STYLE = Automatic
+	DEVELOPMENT_TEAM = FDHC2KMZ6V
+	ENABLE_HARDENED_RUNTIME = YES
+	ENABLE_APP_SANDBOX = YES
+	ENABLE_USER_SELECTED_FILES = readwrite
+
+// Versioning
+	MARKETING_VERSION = 3.0a2
+	CURRENT_PROJECT_VERSION = 4.0
+
+// Language
+	CLANG_CXX_LANGUAGE_STANDARD = c++20
+	CLANG_LINK_OBJC_RUNTIME = YES
+	CLANG_ENABLE_OBJC_ARC = YES
+	CLANG_ENABLE_OBJC_WEAK = YES
+
+// Warnings
+	GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES
+	GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES
+

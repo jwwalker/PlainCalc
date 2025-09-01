@@ -1,0 +1,842 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BE0BCAA12E566305009914B9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE0BCA9F2E566305009914B9 /* Localizable.strings */; };
+		BE0BCAB92E58CCAA009914B9 /* Built-ins.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE0BCAB72E58CCAA009914B9 /* Built-ins.cpp */; };
+		BE0BCAC32E5A1D30009914B9 /* ParameterIndexNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE0BCAC12E5A1D30009914B9 /* ParameterIndexNode.mm */; };
+		BE0BCAC92E5A7A99009914B9 /* BuildTreeFromDictionary.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE0BCAC72E5A7A99009914B9 /* BuildTreeFromDictionary.mm */; };
+		BE0BCACF2E5B7768009914B9 /* LoadStateFromDictionary.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE0BCACD2E5B7768009914B9 /* LoadStateFromDictionary.mm */; };
+		BE87BC8B2E512BC800E61164 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE87BC8A2E512BC800E61164 /* AppDelegate.mm */; };
+		BE87BC8E2E512BC800E61164 /* Document.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE87BC8D2E512BC800E61164 /* Document.mm */; };
+		BE87BC912E512BC800E61164 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE87BC8F2E512BC800E61164 /* Document.xib */; };
+		BE87BC932E512BCA00E61164 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE87BC922E512BCA00E61164 /* Assets.xcassets */; };
+		BE87BC962E512BCA00E61164 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE87BC942E512BCA00E61164 /* MainMenu.xib */; };
+		BE87BC992E512BCA00E61164 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BE87BC982E512BCA00E61164 /* main.m */; };
+		BE87BCC42E52854700E61164 /* PerformBlockOnWorkThread.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE87BCC32E52854700E61164 /* PerformBlockOnWorkThread.mm */; };
+		BE87BCD82E53D96800E61164 /* Help.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE87BCD62E53D96800E61164 /* Help.xib */; };
+		BE87BCE22E53E0D600E61164 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE87BCE12E53E0D500E61164 /* WebKit.framework */; };
+		BE87BCE52E53E32B00E61164 /* HelpWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE87BCE32E53E32B00E61164 /* HelpWindowController.m */; };
+		BE87BCEE2E55190E00E61164 /* PlainCalcHelp.md.html in Copy Help Files */ = {isa = PBXBuildFile; fileRef = BE87BCED2E55190E00E61164 /* PlainCalcHelp.md.html */; };
+		BE87BCF02E5519E700E61164 /* markdeep.min.js in Copy Help Files */ = {isa = PBXBuildFile; fileRef = BE87BCEF2E5519E700E61164 /* markdeep.min.js */; };
+		BE87BD032E56229100E61164 /* Calculate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD002E56229000E61164 /* Calculate.cpp */; };
+		BE87BD052E56229100E61164 /* SCalcState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD012E56229100E61164 /* SCalcState.cpp */; };
+		BE87BD4F2E56263B00E61164 /* IfNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD1D2E56263B00E61164 /* IfNode.mm */; };
+		BE87BD512E56263B00E61164 /* NaryFuncNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD1E2E56263B00E61164 /* NaryFuncNode.mm */; };
+		BE87BD552E56263B00E61164 /* UnaryFuncNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD212E56263B00E61164 /* UnaryFuncNode.mm */; };
+		BE87BD572E56263B00E61164 /* NumberNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD222E56263B00E61164 /* NumberNode.mm */; };
+		BE87BD592E56263B00E61164 /* Sum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD262E56263B00E61164 /* Sum.cpp */; };
+		BE87BD5B2E56263B00E61164 /* Max.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD2D2E56263B00E61164 /* Max.cpp */; };
+		BE87BD5D2E56263B00E61164 /* Median.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD2E2E56263B00E61164 /* Median.cpp */; };
+		BE87BD5F2E56263B00E61164 /* GeometricMean.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD2F2E56263B00E61164 /* GeometricMean.cpp */; };
+		BE87BD612E56263B00E61164 /* StandardDeviation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD312E56263B00E61164 /* StandardDeviation.cpp */; };
+		BE87BD632E56263B00E61164 /* Variance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD322E56263B00E61164 /* Variance.cpp */; };
+		BE87BD652E56263B00E61164 /* Min.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD332E56263B00E61164 /* Min.cpp */; };
+		BE87BD672E56263B00E61164 /* Average.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD352E56263B00E61164 /* Average.cpp */; };
+		BE87BD692E56263B00E61164 /* HarmonicMean.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD362E56263B00E61164 /* HarmonicMean.cpp */; };
+		BE87BD6B2E56263B00E61164 /* Product.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD372E56263B00E61164 /* Product.cpp */; };
+		BE87BD6D2E56263B00E61164 /* BinaryFuncNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD382E56263B00E61164 /* BinaryFuncNode.mm */; };
+		BE87BD6F2E56263B00E61164 /* UserFuncNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD3C2E56263B00E61164 /* UserFuncNode.mm */; };
+		BE87BD712E56263B00E61164 /* UTF8toUTF32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD422E56263B00E61164 /* UTF8toUTF32.cpp */; };
+		BE87BD732E56263B00E61164 /* UTF32toUTF8.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD432E56263B00E61164 /* UTF32toUTF8.cpp */; };
+		BE87BD752E56263B00E61164 /* BasicMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD442E56263B00E61164 /* BasicMath.cpp */; };
+		BE87BD772E56263B00E61164 /* UTF32toUTF16.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD452E56263B00E61164 /* UTF32toUTF16.cpp */; };
+		BE87BD792E56263B00E61164 /* GetStackSize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD462E56263B00E61164 /* GetStackSize.cpp */; };
+		BE9B02972E5BA19900A10F02 /* SaveStateToDictionary.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE9B02962E5BA19900A10F02 /* SaveStateToDictionary.mm */; };
+		BE9B029D2E5CD1C700A10F02 /* IndexVariableNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE9B029C2E5CD1C700A10F02 /* IndexVariableNode.mm */; };
+		BE9B02A02E5CD7A700A10F02 /* IterationNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE9B029F2E5CD7A700A10F02 /* IterationNode.mm */; };
+		BE9B02F42E5E244500A10F02 /* CalcTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE0BCA802E563002009914B9 /* CalcTests.mm */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BE9B02AD2E5D287F00A10F02 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BE87BC7E2E512BC800E61164 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BE87BC852E512BC800E61164;
+			remoteInfo = PlainCalc3;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BE87BCD22E53C49D00E61164 /* Copy Help Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Help;
+			dstSubfolderSpec = 7;
+			files = (
+				BE87BCEE2E55190E00E61164 /* PlainCalcHelp.md.html in Copy Help Files */,
+				BE87BCF02E5519E700E61164 /* markdeep.min.js in Copy Help Files */,
+			);
+			name = "Copy Help Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		BE0BCA802E563002009914B9 /* CalcTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CalcTests.mm; sourceTree = "<group>"; };
+		BE0BCAA02E566305009914B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BE0BCAAA2E57BF24009914B9 /* DoEvaluateVariable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoEvaluateVariable.hpp; sourceTree = "<group>"; };
+		BE0BCAAB2E57C1EA009914B9 /* Notes.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Notes.md; sourceTree = SOURCE_ROOT; };
+		BE0BCAB12E58BDFB009914B9 /* autoCF.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = autoCF.hpp; sourceTree = "<group>"; };
+		BE0BCAB72E58CCAA009914B9 /* Built-ins.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "Built-ins.cpp"; sourceTree = "<group>"; };
+		BE0BCAB82E58CCAA009914B9 /* Built-ins.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "Built-ins.hpp"; sourceTree = "<group>"; };
+		BE0BCABB2E58D19C009914B9 /* Lookup.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Lookup.hpp; sourceTree = "<group>"; };
+		BE0BCAC12E5A1D30009914B9 /* ParameterIndexNode.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ParameterIndexNode.mm; sourceTree = "<group>"; };
+		BE0BCAC22E5A1D30009914B9 /* ParameterIndexNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ParameterIndexNode.hpp; sourceTree = "<group>"; };
+		BE0BCAC72E5A7A99009914B9 /* BuildTreeFromDictionary.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BuildTreeFromDictionary.mm; sourceTree = "<group>"; };
+		BE0BCAC82E5A7A99009914B9 /* BuildTreeFromDictionary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BuildTreeFromDictionary.hpp; sourceTree = "<group>"; };
+		BE0BCACC2E5B7768009914B9 /* LoadStateFromDictionary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoadStateFromDictionary.h; sourceTree = "<group>"; };
+		BE0BCACD2E5B7768009914B9 /* LoadStateFromDictionary.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LoadStateFromDictionary.mm; sourceTree = "<group>"; };
+		BE87BC862E512BC800E61164 /* PlainCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlainCalc.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE87BC892E512BC800E61164 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		BE87BC8A2E512BC800E61164 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		BE87BC8C2E512BC800E61164 /* Document.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Document.h; sourceTree = "<group>"; };
+		BE87BC8D2E512BC800E61164 /* Document.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Document.mm; sourceTree = "<group>"; };
+		BE87BC902E512BC800E61164 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Document.xib; sourceTree = "<group>"; };
+		BE87BC922E512BCA00E61164 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BE87BC952E512BCA00E61164 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		BE87BC972E512BCA00E61164 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE87BC982E512BCA00E61164 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		BE87BC9A2E512BCA00E61164 /* PlainCalc3.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlainCalc3.entitlements; sourceTree = "<group>"; };
+		BE87BCBC2E512DEE00E61164 /* PlainCalc3.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PlainCalc3.xcconfig; sourceTree = "<group>"; };
+		BE87BCC22E52854700E61164 /* PerformBlockOnWorkThread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PerformBlockOnWorkThread.h; sourceTree = "<group>"; };
+		BE87BCC32E52854700E61164 /* PerformBlockOnWorkThread.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PerformBlockOnWorkThread.mm; sourceTree = "<group>"; };
+		BE87BCD72E53D96800E61164 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Help.xib; sourceTree = "<group>"; };
+		BE87BCE12E53E0D500E61164 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		BE87BCE32E53E32B00E61164 /* HelpWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpWindowController.m; sourceTree = "<group>"; };
+		BE87BCE42E53E32B00E61164 /* HelpWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpWindowController.h; sourceTree = "<group>"; };
+		BE87BCED2E55190E00E61164 /* PlainCalcHelp.md.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = PlainCalcHelp.md.html; sourceTree = "<group>"; };
+		BE87BCEF2E5519E700E61164 /* markdeep.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = markdeep.min.js; sourceTree = "<group>"; };
+		BE87BCFF2E56229000E61164 /* Calculate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Calculate.hpp; sourceTree = "<group>"; };
+		BE87BD002E56229000E61164 /* Calculate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Calculate.cpp; sourceTree = "<group>"; };
+		BE87BD012E56229100E61164 /* SCalcState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SCalcState.cpp; sourceTree = "<group>"; };
+		BE87BD022E56229100E61164 /* SCalcState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SCalcState.hpp; sourceTree = "<group>"; };
+		BE87BD082E56262A00E61164 /* FuncArgCount.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FuncArgCount.hpp; sourceTree = "<group>"; };
+		BE87BD0A2E56263A00E61164 /* DoNegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoNegate.hpp; sourceTree = "<group>"; };
+		BE87BD0B2E56263A00E61164 /* DoGetUserFuncParam.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoGetUserFuncParam.hpp; sourceTree = "<group>"; };
+		BE87BD0C2E56263A00E61164 /* DoEvaluateNary.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoEvaluateNary.hpp; sourceTree = "<group>"; };
+		BE87BD0D2E56263A00E61164 /* DoGetAssignableIdentifier.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoGetAssignableIdentifier.hpp; sourceTree = "<group>"; };
+		BE87BD0F2E56263A00E61164 /* DoEvaluateUnary.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoEvaluateUnary.hpp; sourceTree = "<group>"; };
+		BE87BD102E56263A00E61164 /* DoCheckForUserFunc.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoCheckForUserFunc.hpp; sourceTree = "<group>"; };
+		BE87BD112E56263A00E61164 /* DoPushNumber.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoPushNumber.hpp; sourceTree = "<group>"; };
+		BE87BD132E56263A00E61164 /* DoUserFuncDefine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoUserFuncDefine.hpp; sourceTree = "<group>"; };
+		BE87BD142E56263A00E61164 /* DoGetUserFuncName.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoGetUserFuncName.hpp; sourceTree = "<group>"; };
+		BE87BD162E56263A00E61164 /* DoBinaryOperator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoBinaryOperator.hpp; sourceTree = "<group>"; };
+		BE87BD182E56263B00E61164 /* DoEvaluateUserFunc.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoEvaluateUserFunc.hpp; sourceTree = "<group>"; };
+		BE87BD1A2E56263B00E61164 /* DoAssign.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoAssign.hpp; sourceTree = "<group>"; };
+		BE87BD1B2E56263B00E61164 /* DoIf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoIf.hpp; sourceTree = "<group>"; };
+		BE87BD1D2E56263B00E61164 /* IfNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IfNode.mm; sourceTree = "<group>"; };
+		BE87BD1E2E56263B00E61164 /* NaryFuncNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NaryFuncNode.mm; sourceTree = "<group>"; };
+		BE87BD202E56263B00E61164 /* ASTNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ASTNode.hpp; sourceTree = "<group>"; };
+		BE87BD212E56263B00E61164 /* UnaryFuncNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UnaryFuncNode.mm; sourceTree = "<group>"; };
+		BE87BD222E56263B00E61164 /* NumberNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NumberNode.mm; sourceTree = "<group>"; };
+		BE87BD242E56263B00E61164 /* StandardDeviation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StandardDeviation.hpp; sourceTree = "<group>"; };
+		BE87BD252E56263B00E61164 /* Min.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Min.hpp; sourceTree = "<group>"; };
+		BE87BD262E56263B00E61164 /* Sum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sum.cpp; sourceTree = "<group>"; };
+		BE87BD272E56263B00E61164 /* Variance.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Variance.hpp; sourceTree = "<group>"; };
+		BE87BD282E56263B00E61164 /* Average.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Average.hpp; sourceTree = "<group>"; };
+		BE87BD292E56263B00E61164 /* HarmonicMean.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HarmonicMean.hpp; sourceTree = "<group>"; };
+		BE87BD2A2E56263B00E61164 /* Product.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Product.hpp; sourceTree = "<group>"; };
+		BE87BD2B2E56263B00E61164 /* Median.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Median.hpp; sourceTree = "<group>"; };
+		BE87BD2C2E56263B00E61164 /* GeometricMean.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GeometricMean.hpp; sourceTree = "<group>"; };
+		BE87BD2D2E56263B00E61164 /* Max.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Max.cpp; sourceTree = "<group>"; };
+		BE87BD2E2E56263B00E61164 /* Median.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Median.cpp; sourceTree = "<group>"; };
+		BE87BD2F2E56263B00E61164 /* GeometricMean.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GeometricMean.cpp; sourceTree = "<group>"; };
+		BE87BD302E56263B00E61164 /* Max.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Max.hpp; sourceTree = "<group>"; };
+		BE87BD312E56263B00E61164 /* StandardDeviation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StandardDeviation.cpp; sourceTree = "<group>"; };
+		BE87BD322E56263B00E61164 /* Variance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Variance.cpp; sourceTree = "<group>"; };
+		BE87BD332E56263B00E61164 /* Min.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Min.cpp; sourceTree = "<group>"; };
+		BE87BD342E56263B00E61164 /* Sum.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Sum.hpp; sourceTree = "<group>"; };
+		BE87BD352E56263B00E61164 /* Average.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Average.cpp; sourceTree = "<group>"; };
+		BE87BD362E56263B00E61164 /* HarmonicMean.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HarmonicMean.cpp; sourceTree = "<group>"; };
+		BE87BD372E56263B00E61164 /* Product.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Product.cpp; sourceTree = "<group>"; };
+		BE87BD382E56263B00E61164 /* BinaryFuncNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BinaryFuncNode.mm; sourceTree = "<group>"; };
+		BE87BD392E56263B00E61164 /* UserFuncNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = UserFuncNode.hpp; sourceTree = "<group>"; };
+		BE87BD3A2E56263B00E61164 /* UnaryFuncNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = UnaryFuncNode.hpp; sourceTree = "<group>"; };
+		BE87BD3B2E56263B00E61164 /* NumberNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NumberNode.hpp; sourceTree = "<group>"; };
+		BE87BD3C2E56263B00E61164 /* UserFuncNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UserFuncNode.mm; sourceTree = "<group>"; };
+		BE87BD3D2E56263B00E61164 /* BinaryFuncNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BinaryFuncNode.hpp; sourceTree = "<group>"; };
+		BE87BD3E2E56263B00E61164 /* IfNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IfNode.hpp; sourceTree = "<group>"; };
+		BE87BD3F2E56263B00E61164 /* NaryFuncNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NaryFuncNode.hpp; sourceTree = "<group>"; };
+		BE87BD422E56263B00E61164 /* UTF8toUTF32.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UTF8toUTF32.cpp; sourceTree = "<group>"; };
+		BE87BD432E56263B00E61164 /* UTF32toUTF8.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UTF32toUTF8.cpp; sourceTree = "<group>"; };
+		BE87BD442E56263B00E61164 /* BasicMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BasicMath.cpp; sourceTree = "<group>"; };
+		BE87BD452E56263B00E61164 /* UTF32toUTF16.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UTF32toUTF16.cpp; sourceTree = "<group>"; };
+		BE87BD462E56263B00E61164 /* GetStackSize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GetStackSize.cpp; sourceTree = "<group>"; };
+		BE87BD482E56263B00E61164 /* GetStackSize.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GetStackSize.hpp; sourceTree = "<group>"; };
+		BE87BD4A2E56263B00E61164 /* MatchedText.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MatchedText.hpp; sourceTree = "<group>"; };
+		BE87BD4B2E56263B00E61164 /* BasicMath.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BasicMath.hpp; sourceTree = "<group>"; };
+		BE87BD4C2E56263B00E61164 /* UTF8toUTF32.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = UTF8toUTF32.hpp; sourceTree = "<group>"; };
+		BE87BD4D2E56263B00E61164 /* UTF32toUTF8.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = UTF32toUTF8.hpp; sourceTree = "<group>"; };
+		BE87BD4E2E56263B00E61164 /* UTF32toUTF16.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = UTF32toUTF16.hpp; sourceTree = "<group>"; };
+		BE87BD7D2E5629D600E61164 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		BE9B02952E5BA19900A10F02 /* SaveStateToDictionary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaveStateToDictionary.h; sourceTree = "<group>"; };
+		BE9B02962E5BA19900A10F02 /* SaveStateToDictionary.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SaveStateToDictionary.mm; sourceTree = "<group>"; };
+		BE9B029A2E5CC88800A10F02 /* DoGetIndexVariable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DoGetIndexVariable.hpp; sourceTree = "<group>"; };
+		BE9B029B2E5CD1C700A10F02 /* IndexVariableNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IndexVariableNode.hpp; sourceTree = "<group>"; };
+		BE9B029C2E5CD1C700A10F02 /* IndexVariableNode.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = IndexVariableNode.mm; sourceTree = "<group>"; };
+		BE9B029E2E5CD7A700A10F02 /* IterationNode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IterationNode.hpp; sourceTree = "<group>"; };
+		BE9B029F2E5CD7A700A10F02 /* IterationNode.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = IterationNode.mm; sourceTree = "<group>"; };
+		BE9B02A22E5CFC1900A10F02 /* DoEvaluateIteration.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DoEvaluateIteration.hpp; sourceTree = "<group>"; };
+		BE9B02A92E5D287F00A10F02 /* PlainCalcTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlainCalcTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BEC2F5362E638F4D00996E7E /* DoPushFuncName.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DoPushFuncName.hpp; sourceTree = "<group>"; };
+		BEC2F5372E63A01C00996E7E /* DoEvaluateBinary.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoEvaluateBinary.hpp; sourceTree = "<group>"; };
+		BEEAC5852E5E47B700872C03 /* PlainCalc3-app.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "PlainCalc3-app.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BE87BC832E512BC800E61164 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE87BCE22E53E0D600E61164 /* WebKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE9B02A62E5D287F00A10F02 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BE0BCA7F2E563002009914B9 /* CalcTests */ = {
+			isa = PBXGroup;
+			children = (
+				BE0BCA802E563002009914B9 /* CalcTests.mm */,
+			);
+			path = CalcTests;
+			sourceTree = "<group>";
+		};
+		BE0BCACB2E5B7736009914B9 /* Document File Representation */ = {
+			isa = PBXGroup;
+			children = (
+				BE0BCACC2E5B7768009914B9 /* LoadStateFromDictionary.h */,
+				BE0BCACD2E5B7768009914B9 /* LoadStateFromDictionary.mm */,
+				BE9B02952E5BA19900A10F02 /* SaveStateToDictionary.h */,
+				BE9B02962E5BA19900A10F02 /* SaveStateToDictionary.mm */,
+			);
+			path = "Document File Representation";
+			sourceTree = "<group>";
+		};
+		BE87BC7D2E512BC800E61164 = {
+			isa = PBXGroup;
+			children = (
+				BE87BCBC2E512DEE00E61164 /* PlainCalc3.xcconfig */,
+				BEEAC5852E5E47B700872C03 /* PlainCalc3-app.xcconfig */,
+				BE0BCAAB2E57C1EA009914B9 /* Notes.md */,
+				BE87BC882E512BC800E61164 /* PlainCalc3 */,
+				BE0BCA7F2E563002009914B9 /* CalcTests */,
+				BE87BC872E512BC800E61164 /* Products */,
+				BE87BCE02E53E0D500E61164 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		BE87BC872E512BC800E61164 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BE87BC862E512BC800E61164 /* PlainCalc.app */,
+				BE9B02A92E5D287F00A10F02 /* PlainCalcTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BE87BC882E512BC800E61164 /* PlainCalc3 */ = {
+			isa = PBXGroup;
+			children = (
+				BEEAC5862E5E4AF000872C03 /* Calculator Core */,
+				BE0BCACB2E5B7736009914B9 /* Document File Representation */,
+				BE87BC892E512BC800E61164 /* AppDelegate.h */,
+				BE87BC8A2E512BC800E61164 /* AppDelegate.mm */,
+				BE87BC8C2E512BC800E61164 /* Document.h */,
+				BE87BC8D2E512BC800E61164 /* Document.mm */,
+				BE87BCE42E53E32B00E61164 /* HelpWindowController.h */,
+				BE87BCE32E53E32B00E61164 /* HelpWindowController.m */,
+				BE87BC972E512BCA00E61164 /* Info.plist */,
+				BE87BC982E512BCA00E61164 /* main.m */,
+				BE87BD072E56262A00E61164 /* Parse Arguments */,
+				BE87BC9A2E512BCA00E61164 /* PlainCalc3.entitlements */,
+				BE87BCD52E53D93200E61164 /* Resources */,
+				BE87BD232E56263B00E61164 /* N-ary Functions */,
+				BE87BD092E56263A00E61164 /* semantic actions */,
+				BE87BD1C2E56263B00E61164 /* syntax tree nodes */,
+				BE87BD412E56263B00E61164 /* Utilities */,
+			);
+			path = PlainCalc3;
+			sourceTree = "<group>";
+		};
+		BE87BCD52E53D93200E61164 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BE87BCEC2E5518DD00E61164 /* Help */,
+				BE87BC922E512BCA00E61164 /* Assets.xcassets */,
+				BE87BC8F2E512BC800E61164 /* Document.xib */,
+				BE87BC942E512BCA00E61164 /* MainMenu.xib */,
+				BE87BCD62E53D96800E61164 /* Help.xib */,
+				BE0BCA9F2E566305009914B9 /* Localizable.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		BE87BCE02E53E0D500E61164 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BE87BD7D2E5629D600E61164 /* CoreGraphics.framework */,
+				BE87BCE12E53E0D500E61164 /* WebKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BE87BCEC2E5518DD00E61164 /* Help */ = {
+			isa = PBXGroup;
+			children = (
+				BE87BCEF2E5519E700E61164 /* markdeep.min.js */,
+				BE87BCED2E55190E00E61164 /* PlainCalcHelp.md.html */,
+			);
+			path = Help;
+			sourceTree = "<group>";
+		};
+		BE87BD072E56262A00E61164 /* Parse Arguments */ = {
+			isa = PBXGroup;
+			children = (
+				BE87BD082E56262A00E61164 /* FuncArgCount.hpp */,
+			);
+			path = "Parse Arguments";
+			sourceTree = "<group>";
+		};
+		BE87BD092E56263A00E61164 /* semantic actions */ = {
+			isa = PBXGroup;
+			children = (
+				BE87BD1A2E56263B00E61164 /* DoAssign.hpp */,
+				BE87BD162E56263A00E61164 /* DoBinaryOperator.hpp */,
+				BE87BD102E56263A00E61164 /* DoCheckForUserFunc.hpp */,
+				BEC2F5372E63A01C00996E7E /* DoEvaluateBinary.hpp */,
+				BE9B02A22E5CFC1900A10F02 /* DoEvaluateIteration.hpp */,
+				BE87BD0C2E56263A00E61164 /* DoEvaluateNary.hpp */,
+				BE87BD0F2E56263A00E61164 /* DoEvaluateUnary.hpp */,
+				BE87BD182E56263B00E61164 /* DoEvaluateUserFunc.hpp */,
+				BE0BCAAA2E57BF24009914B9 /* DoEvaluateVariable.hpp */,
+				BE87BD0D2E56263A00E61164 /* DoGetAssignableIdentifier.hpp */,
+				BE9B029A2E5CC88800A10F02 /* DoGetIndexVariable.hpp */,
+				BE87BD142E56263A00E61164 /* DoGetUserFuncName.hpp */,
+				BE87BD0B2E56263A00E61164 /* DoGetUserFuncParam.hpp */,
+				BE87BD1B2E56263B00E61164 /* DoIf.hpp */,
+				BE87BD0A2E56263A00E61164 /* DoNegate.hpp */,
+				BEC2F5362E638F4D00996E7E /* DoPushFuncName.hpp */,
+				BE87BD112E56263A00E61164 /* DoPushNumber.hpp */,
+				BE87BD132E56263A00E61164 /* DoUserFuncDefine.hpp */,
+			);
+			path = "semantic actions";
+			sourceTree = "<group>";
+		};
+		BE87BD1C2E56263B00E61164 /* syntax tree nodes */ = {
+			isa = PBXGroup;
+			children = (
+				BE87BD202E56263B00E61164 /* ASTNode.hpp */,
+				BE87BD3D2E56263B00E61164 /* BinaryFuncNode.hpp */,
+				BE87BD382E56263B00E61164 /* BinaryFuncNode.mm */,
+				BE0BCAC82E5A7A99009914B9 /* BuildTreeFromDictionary.hpp */,
+				BE0BCAC72E5A7A99009914B9 /* BuildTreeFromDictionary.mm */,
+				BE87BD3E2E56263B00E61164 /* IfNode.hpp */,
+				BE87BD1D2E56263B00E61164 /* IfNode.mm */,
+				BE9B029B2E5CD1C700A10F02 /* IndexVariableNode.hpp */,
+				BE9B029C2E5CD1C700A10F02 /* IndexVariableNode.mm */,
+				BE9B029E2E5CD7A700A10F02 /* IterationNode.hpp */,
+				BE9B029F2E5CD7A700A10F02 /* IterationNode.mm */,
+				BE87BD3F2E56263B00E61164 /* NaryFuncNode.hpp */,
+				BE87BD1E2E56263B00E61164 /* NaryFuncNode.mm */,
+				BE87BD3B2E56263B00E61164 /* NumberNode.hpp */,
+				BE87BD222E56263B00E61164 /* NumberNode.mm */,
+				BE0BCAC22E5A1D30009914B9 /* ParameterIndexNode.hpp */,
+				BE0BCAC12E5A1D30009914B9 /* ParameterIndexNode.mm */,
+				BE87BD3A2E56263B00E61164 /* UnaryFuncNode.hpp */,
+				BE87BD212E56263B00E61164 /* UnaryFuncNode.mm */,
+				BE87BD392E56263B00E61164 /* UserFuncNode.hpp */,
+				BE87BD3C2E56263B00E61164 /* UserFuncNode.mm */,
+			);
+			path = "syntax tree nodes";
+			sourceTree = "<group>";
+		};
+		BE87BD232E56263B00E61164 /* N-ary Functions */ = {
+			isa = PBXGroup;
+			children = (
+				BE87BD352E56263B00E61164 /* Average.cpp */,
+				BE87BD282E56263B00E61164 /* Average.hpp */,
+				BE87BD2F2E56263B00E61164 /* GeometricMean.cpp */,
+				BE87BD2C2E56263B00E61164 /* GeometricMean.hpp */,
+				BE87BD362E56263B00E61164 /* HarmonicMean.cpp */,
+				BE87BD292E56263B00E61164 /* HarmonicMean.hpp */,
+				BE87BD2D2E56263B00E61164 /* Max.cpp */,
+				BE87BD302E56263B00E61164 /* Max.hpp */,
+				BE87BD2E2E56263B00E61164 /* Median.cpp */,
+				BE87BD2B2E56263B00E61164 /* Median.hpp */,
+				BE87BD332E56263B00E61164 /* Min.cpp */,
+				BE87BD252E56263B00E61164 /* Min.hpp */,
+				BE87BD372E56263B00E61164 /* Product.cpp */,
+				BE87BD2A2E56263B00E61164 /* Product.hpp */,
+				BE87BD312E56263B00E61164 /* StandardDeviation.cpp */,
+				BE87BD242E56263B00E61164 /* StandardDeviation.hpp */,
+				BE87BD262E56263B00E61164 /* Sum.cpp */,
+				BE87BD342E56263B00E61164 /* Sum.hpp */,
+				BE87BD322E56263B00E61164 /* Variance.cpp */,
+				BE87BD272E56263B00E61164 /* Variance.hpp */,
+			);
+			path = "N-ary Functions";
+			sourceTree = "<group>";
+		};
+		BE87BD412E56263B00E61164 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				BE0BCAB12E58BDFB009914B9 /* autoCF.hpp */,
+				BE87BD442E56263B00E61164 /* BasicMath.cpp */,
+				BE87BD4B2E56263B00E61164 /* BasicMath.hpp */,
+				BE87BD462E56263B00E61164 /* GetStackSize.cpp */,
+				BE87BD482E56263B00E61164 /* GetStackSize.hpp */,
+				BE0BCABB2E58D19C009914B9 /* Lookup.hpp */,
+				BE87BD4A2E56263B00E61164 /* MatchedText.hpp */,
+				BE87BCC22E52854700E61164 /* PerformBlockOnWorkThread.h */,
+				BE87BCC32E52854700E61164 /* PerformBlockOnWorkThread.mm */,
+				BE87BD422E56263B00E61164 /* UTF8toUTF32.cpp */,
+				BE87BD4C2E56263B00E61164 /* UTF8toUTF32.hpp */,
+				BE87BD432E56263B00E61164 /* UTF32toUTF8.cpp */,
+				BE87BD4D2E56263B00E61164 /* UTF32toUTF8.hpp */,
+				BE87BD452E56263B00E61164 /* UTF32toUTF16.cpp */,
+				BE87BD4E2E56263B00E61164 /* UTF32toUTF16.hpp */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		BEEAC5862E5E4AF000872C03 /* Calculator Core */ = {
+			isa = PBXGroup;
+			children = (
+				BE0BCAB72E58CCAA009914B9 /* Built-ins.cpp */,
+				BE0BCAB82E58CCAA009914B9 /* Built-ins.hpp */,
+				BE87BD002E56229000E61164 /* Calculate.cpp */,
+				BE87BCFF2E56229000E61164 /* Calculate.hpp */,
+				BE87BD012E56229100E61164 /* SCalcState.cpp */,
+				BE87BD022E56229100E61164 /* SCalcState.hpp */,
+			);
+			path = "Calculator Core";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BE87BC852E512BC800E61164 /* PlainCalc3 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE87BCB32E512BCA00E61164 /* Build configuration list for PBXNativeTarget "PlainCalc3" */;
+			buildPhases = (
+				BE87BC822E512BC800E61164 /* Sources */,
+				BE87BC832E512BC800E61164 /* Frameworks */,
+				BE87BC842E512BC800E61164 /* Resources */,
+				BE87BCD22E53C49D00E61164 /* Copy Help Files */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PlainCalc3;
+			productName = PlainCalc3;
+			productReference = BE87BC862E512BC800E61164 /* PlainCalc.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BE9B02A82E5D287F00A10F02 /* PlainCalcTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE9B02AF2E5D287F00A10F02 /* Build configuration list for PBXNativeTarget "PlainCalcTests" */;
+			buildPhases = (
+				BE9B02A52E5D287F00A10F02 /* Sources */,
+				BE9B02A62E5D287F00A10F02 /* Frameworks */,
+				BE9B02A72E5D287F00A10F02 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BE9B02AE2E5D287F00A10F02 /* PBXTargetDependency */,
+			);
+			name = PlainCalcTests;
+			productName = PlainCalcTests;
+			productReference = BE9B02A92E5D287F00A10F02 /* PlainCalcTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BE87BC7E2E512BC800E61164 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					BE87BC852E512BC800E61164 = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					BE9B02A82E5D287F00A10F02 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = BE87BC852E512BC800E61164;
+					};
+				};
+			};
+			buildConfigurationList = BE87BC812E512BC800E61164 /* Build configuration list for PBXProject "PlainCalc3" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BE87BC7D2E512BC800E61164;
+			productRefGroup = BE87BC872E512BC800E61164 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BE87BC852E512BC800E61164 /* PlainCalc3 */,
+				BE9B02A82E5D287F00A10F02 /* PlainCalcTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BE87BC842E512BC800E61164 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE0BCAA12E566305009914B9 /* Localizable.strings in Resources */,
+				BE87BC932E512BCA00E61164 /* Assets.xcassets in Resources */,
+				BE87BC912E512BC800E61164 /* Document.xib in Resources */,
+				BE87BCD82E53D96800E61164 /* Help.xib in Resources */,
+				BE87BC962E512BCA00E61164 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE9B02A72E5D287F00A10F02 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BE87BC822E512BC800E61164 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE87BD712E56263B00E61164 /* UTF8toUTF32.cpp in Sources */,
+				BE87BD632E56263B00E61164 /* Variance.cpp in Sources */,
+				BE87BD4F2E56263B00E61164 /* IfNode.mm in Sources */,
+				BE87BD052E56229100E61164 /* SCalcState.cpp in Sources */,
+				BE87BD672E56263B00E61164 /* Average.cpp in Sources */,
+				BE87BD5F2E56263B00E61164 /* GeometricMean.cpp in Sources */,
+				BE87BD772E56263B00E61164 /* UTF32toUTF16.cpp in Sources */,
+				BE87BD732E56263B00E61164 /* UTF32toUTF8.cpp in Sources */,
+				BE87BD6B2E56263B00E61164 /* Product.cpp in Sources */,
+				BE87BD612E56263B00E61164 /* StandardDeviation.cpp in Sources */,
+				BE87BD572E56263B00E61164 /* NumberNode.mm in Sources */,
+				BE87BD512E56263B00E61164 /* NaryFuncNode.mm in Sources */,
+				BE87BD5B2E56263B00E61164 /* Max.cpp in Sources */,
+				BE87BC8E2E512BC800E61164 /* Document.mm in Sources */,
+				BE87BC992E512BCA00E61164 /* main.m in Sources */,
+				BE87BD692E56263B00E61164 /* HarmonicMean.cpp in Sources */,
+				BE9B029D2E5CD1C700A10F02 /* IndexVariableNode.mm in Sources */,
+				BE87BD592E56263B00E61164 /* Sum.cpp in Sources */,
+				BE9B02A02E5CD7A700A10F02 /* IterationNode.mm in Sources */,
+				BE87BC8B2E512BC800E61164 /* AppDelegate.mm in Sources */,
+				BE0BCAC32E5A1D30009914B9 /* ParameterIndexNode.mm in Sources */,
+				BE87BD652E56263B00E61164 /* Min.cpp in Sources */,
+				BE87BCC42E52854700E61164 /* PerformBlockOnWorkThread.mm in Sources */,
+				BE87BD5D2E56263B00E61164 /* Median.cpp in Sources */,
+				BE87BD6F2E56263B00E61164 /* UserFuncNode.mm in Sources */,
+				BE87BD6D2E56263B00E61164 /* BinaryFuncNode.mm in Sources */,
+				BE9B02972E5BA19900A10F02 /* SaveStateToDictionary.mm in Sources */,
+				BE87BD752E56263B00E61164 /* BasicMath.cpp in Sources */,
+				BE0BCAC92E5A7A99009914B9 /* BuildTreeFromDictionary.mm in Sources */,
+				BE87BD032E56229100E61164 /* Calculate.cpp in Sources */,
+				BE87BD792E56263B00E61164 /* GetStackSize.cpp in Sources */,
+				BE87BCE52E53E32B00E61164 /* HelpWindowController.m in Sources */,
+				BE0BCAB92E58CCAA009914B9 /* Built-ins.cpp in Sources */,
+				BE87BD552E56263B00E61164 /* UnaryFuncNode.mm in Sources */,
+				BE0BCACF2E5B7768009914B9 /* LoadStateFromDictionary.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE9B02A52E5D287F00A10F02 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE9B02F42E5E244500A10F02 /* CalcTests.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BE9B02AE2E5D287F00A10F02 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BE87BC852E512BC800E61164 /* PlainCalc3 */;
+			targetProxy = BE9B02AD2E5D287F00A10F02 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		BE0BCA9F2E566305009914B9 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE0BCAA02E566305009914B9 /* Base */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		BE87BC8F2E512BC800E61164 /* Document.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE87BC902E512BC800E61164 /* Base */,
+			);
+			name = Document.xib;
+			sourceTree = "<group>";
+		};
+		BE87BC942E512BCA00E61164 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE87BC952E512BCA00E61164 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		BE87BCD62E53D96800E61164 /* Help.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE87BCD72E53D96800E61164 /* Base */,
+			);
+			name = Help.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BE87BCB12E512BCA00E61164 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE87BCBC2E512DEE00E61164 /* PlainCalc3.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.7;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+			};
+			name = Debug;
+		};
+		BE87BCB22E512BCA00E61164 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE87BCBC2E512DEE00E61164 /* PlainCalc3.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.7;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+			};
+			name = Release;
+		};
+		BE87BCB42E512BCA00E61164 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BEEAC5852E5E47B700872C03 /* PlainCalc3-app.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Debug;
+		};
+		BE87BCB52E512BCA00E61164 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BEEAC5852E5E47B700872C03 /* PlainCalc3-app.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Release;
+		};
+		BE9B02B02E5D287F00A10F02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FDHC2KMZ6V;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMainNibFile = "";
+				INFOPLIST_KEY_NSPrincipalClass = "";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jwwalker.PlainCalcTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PlainCalc.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PlainCalc";
+			};
+			name = Debug;
+		};
+		BE9B02B12E5D287F00A10F02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FDHC2KMZ6V;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMainNibFile = "";
+				INFOPLIST_KEY_NSPrincipalClass = "";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jwwalker.PlainCalcTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PlainCalc.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PlainCalc";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BE87BC812E512BC800E61164 /* Build configuration list for PBXProject "PlainCalc3" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE87BCB12E512BCA00E61164 /* Debug */,
+				BE87BCB22E512BCA00E61164 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BE87BCB32E512BCA00E61164 /* Build configuration list for PBXNativeTarget "PlainCalc3" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE87BCB42E512BCA00E61164 /* Debug */,
+				BE87BCB52E512BCA00E61164 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BE9B02AF2E5D287F00A10F02 /* Build configuration list for PBXNativeTarget "PlainCalcTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BE9B02B02E5D287F00A10F02 /* Debug */,
+				BE9B02B12E5D287F00A10F02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BE87BC7E2E512BC800E61164 /* Project object */;
+}

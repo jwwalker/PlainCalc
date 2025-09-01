@@ -1,0 +1,19 @@
+//  PlainCalc3-app.xcconfig
+//  PlainCalc3
+//
+//  Created by James Walker on 8/26/25.
+//  
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+// Info.plist Values
+	INFOPLIST_KEY_LSApplicationCategoryType = public.app-category.utilities
+	INFOPLIST_KEY_NSHumanReadableCopyright = © James W. Walker, 2006-2025
+	INFOPLIST_KEY_NSMainNibFile = MainMenu
+	INFOPLIST_KEY_NSPrincipalClass = NSApplication
+
+// Packaging
+	GENERATE_INFOPLIST_FILE = YES
+	INFOPLIST_FILE = PlainCalc3/Info.plist
