@@ -242,7 +242,7 @@ BOOST_PARSER_DEFINE_RULES( expression, expressionNA, term, factor, power,
 
 //MARK: top-level types of calculations
 
-bp::rule< struct assignment > assignment = "assignment";
+bp::rule< struct assignment, double > assignment = "assignment";
 bp::rule< struct funcdef > funcdef = "function definition";
 bp::rule< struct expressionStatement, double > expressionStatement = "expression statement";
 

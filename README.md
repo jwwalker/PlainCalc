@@ -17,8 +17,7 @@ The major changes in PlainCalc 3.0 relative to version 2.5 include:
 To build this project with Xcode, you will also need [Boost](https://www.boost.org),
 whose Parser parsing library is used in the calculation engine.  In Xcode's
 settings, under Locations, you will need to define a custom path named "Boost"
-pointing at your Boost hierarchy.  At this writing, I am using Boost 1.88.0,
-because Boost 1.89.0 was giving me a compile error.
+pointing at your Boost hierarchy.  At this writing, I am using Boost 1.89.0.
 
 This project uses another open source project, [UTF8-CPP](https://github.com/nemtrif/utfcpp),
 but since that's fairly small, I just included the source.  At this writing,

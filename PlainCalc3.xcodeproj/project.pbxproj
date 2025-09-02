@@ -82,7 +82,6 @@
 		BE0BCA802E563002009914B9 /* CalcTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CalcTests.mm; sourceTree = "<group>"; };
 		BE0BCAA02E566305009914B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BE0BCAAA2E57BF24009914B9 /* DoEvaluateVariable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoEvaluateVariable.hpp; sourceTree = "<group>"; };
-		BE0BCAAB2E57C1EA009914B9 /* Notes.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Notes.md; sourceTree = SOURCE_ROOT; };
 		BE0BCAB12E58BDFB009914B9 /* autoCF.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = autoCF.hpp; sourceTree = "<group>"; };
 		BE0BCAB72E58CCAA009914B9 /* Built-ins.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "Built-ins.cpp"; sourceTree = "<group>"; };
 		BE0BCAB82E58CCAA009914B9 /* Built-ins.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "Built-ins.hpp"; sourceTree = "<group>"; };
@@ -236,7 +235,6 @@
 			children = (
 				BE87BCBC2E512DEE00E61164 /* PlainCalc3.xcconfig */,
 				BEEAC5852E5E47B700872C03 /* PlainCalc3-app.xcconfig */,
-				BE0BCAAB2E57C1EA009914B9 /* Notes.md */,
 				BEC2F54D2E664F0E00996E7E /* history.md */,
 				BEC2F54C2E664C8A00996E7E /* LICENSE.md */,
 				BEC2F54B2E664C8A00996E7E /* README.md */,
@@ -637,7 +635,6 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -698,7 +695,6 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -750,7 +746,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				COMBINE_HIDPI_IMAGES = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -766,7 +761,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				COMBINE_HIDPI_IMAGES = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
