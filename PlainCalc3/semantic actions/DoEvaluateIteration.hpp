@@ -31,7 +31,6 @@
 
 #import "Built-ins.hpp"
 #import "IterationNode.hpp"
-#import "Lookup.hpp"
 #import "SCalcState.hpp"
 
 struct DoEvaluateIteration
