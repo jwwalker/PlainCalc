@@ -28,7 +28,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface Document : NSDocument <NSTextViewDelegate, NSMenuItemValidation>
+@interface Document : NSDocument <NSTextViewDelegate, NSMenuItemValidation,
+									NSWindowDelegate>
 
 
 @end

@@ -74,6 +74,13 @@
     return self;
 }
 
+#if DEBUG
+- (void) dealloc
+{
+	NSLog(@"dealloc Document");
+}
+#endif
+
 + (BOOL) autosavesInPlace
 {
 	return NO;
@@ -632,6 +639,15 @@
 	}
 	
 	return stdString;
+}
+
+//MARK: NSWindowDelegate
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+	// If a calculation is in progress, ask it to stop, because a calculation
+	// block holds a strong reference to the document.
+	_calcState.interruptCode = CalcInterruptCode::userAbort;
 }
 
 //MARK: NSText delegate

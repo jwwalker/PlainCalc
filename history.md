@@ -14,3 +14,8 @@ runs in a separate thread.
 * Ability to calculate mathematical summation formulas.
 
 * Ability to print the worksheet.
+
+# 3.0.1
+
+* When a document is close while a long computation is happening, stop the
+computation from continuing in the background.
