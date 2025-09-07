@@ -17,5 +17,7 @@ runs in a separate thread.
 
 # 3.0.1
 
-* When a document is close while a long computation is happening, stop the
+* When a document is closed while a long computation is happening, stop the
 computation from continuing in the background.
+
+* Computing recursive functions is faster.

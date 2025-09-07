@@ -50,4 +50,5 @@ void	SCalcState::ClearTemporaries()
 	suppressUserFuncEvaluation = 0;
 	maxStack = 0;
 	interruptCode = CalcInterruptCode::none;
+	resultCache.clear();
 }

@@ -40,8 +40,8 @@
 #import <utility>
 #import <atomic>
 
-
 using StringVec = std::vector< std::string >;
+using DoubleVec = std::vector<double>;
 
 // This is everything but the function name in a function definition:
 // A list of formal parameters, the right hand side as a string, and the
@@ -53,6 +53,9 @@ using UnaryFunctionMap =	std::map< std::string, UnaryFunc >;
 using BinaryFunctionMap =	std::map< std::string, BinaryFunc >;
 using NaryFunctionMap =		std::map< std::string, NaryFunc >;
 using UserFunctionMap =		std::map< std::string, FuncDef >;
+
+using UserFuncCacheKey =	std::pair< std::string, DoubleVec >;
+using UserFuncResultCache = std::map< UserFuncCacheKey, double >;
 
 enum class CalcType : int
 {
@@ -87,6 +90,7 @@ struct SCalcState
 	bool						definedUserFunc;
 	bool						preexistingUserFunc;
 	int							suppressUserFuncEvaluation;
+	UserFuncResultCache			resultCache;
 	size_t						maxStack;
 	std::atomic< CalcInterruptCode >	interruptCode;
 };

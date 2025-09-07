@@ -81,11 +81,24 @@ std::optional<double>	UserFuncNode::Evaluate( SCalcState& state ) const
 		
 		if (arguments.size() == _children.size())
 		{
-			state.functionArguments.swap( arguments );
-			
-			result = rhs->Evaluate( state );
+			// See if we have previously cached the result of this evaluation.
+			UserFuncCacheKey cacheKey( _funcName, arguments );
+			auto foundIt = state.resultCache.find( cacheKey );
+			if (foundIt == state.resultCache.end())
+			{
+				state.functionArguments.swap( arguments );
+				
+				result = rhs->Evaluate( state );
 
-			state.functionArguments.swap( arguments );
+				state.functionArguments.swap( arguments );
+				
+				state.resultCache.emplace( std::move(cacheKey), *result  );
+			}
+			else // use cached result
+			{
+				result = foundIt->second;
+			}
+		
 		}
 	}
 	
