@@ -106,6 +106,26 @@ product `(-5)(-3)`.  To remove this ambiguity, PlainCalc only allows a unary
 minus at the beginning of an expression (where you really need it), and does
 not allow a unary plus at all.
 
+# Numerical Accuracy
+
+PlainCalc calculates using
+[double-precision](https://en.wikipedia.org/wiki/Double-precision_floating-point_format)
+(64 bit) floating point numbers.  This means that at best it can produce answers correct
+to about 15 significant digits, and numbers as large as about $2^{1023}$.  Anything larger
+will be reported as infinite.  For example:
+
+<p class="example">
+10^308 =<br>
+<span class="response">1e+308</span><br>
+10^309 =<br>
+<span class="response">infinity</span><br>
+-10^309 =<br>
+<span class="response">-infinity</span><br>
+1/10^309 =<br>
+<span class="response">0</span><br>
+</p>
+
+
 # Variables
 
 You can define variables to store numbers. You set the value of a variable
@@ -366,13 +386,6 @@ C( n, k ) = if( k, (n/k) C(n-1, k-1), 1) =<br>
 C( 200, 100 ) =<br>
 <span class="response">9.05485146561e+58</span><br>
 </p>
-
-# Numerical Accuracy
-
-PlainCalc calculates using
-[double-precision](https://en.wikipedia.org/wiki/Double-precision_floating-point_format)
-(64 bit) floating point numbers.  This means that at best it can produce answers correct
-to about 15 significant digits, and numbers as large as about $2^{1023}$.
 
 # Hexadecimal Display
 
