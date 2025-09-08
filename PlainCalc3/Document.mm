@@ -148,6 +148,73 @@
 	return fileURL;
 }
 
+- (NSColor*) correctColor: (NSColor*) color
+{
+	NSColor* fixedColor = nil;
+	if ( (color != nil) and (not [color isEqualTo: NSColor.textColor]) )
+	{
+		NSColor* origRGB = [color
+			colorUsingColorSpace: NSColorSpace.genericRGBColorSpace];
+		if (origRGB != nil)
+		{
+			CGFloat r, g, b, a;
+			[origRGB getRed: &r green: &g blue: &b alpha: &a];
+			if ( (g > r + 0.4) and (g > b + 0.4) ) // mostly green
+			{
+				fixedColor = [NSColor colorNamed: @"GoodResult"];
+			}
+			else if ( (r > g + 0.4) and (r > b + 0.4) ) // mostly red
+			{
+				fixedColor = [NSColor colorNamed: @"BadResult"];
+			}
+		}
+	}
+	
+	return fixedColor;
+}
+
+/*
+	For some reason, saving to RTF preserves the adaptable color for text,
+	but not not my asset catalog colors for success and failure.  Hence this
+	hack to fix the text and underline colors.
+ */
+- (void) correctTextColors: (NSMutableAttributedString*) attStr
+{
+	[attStr enumerateAttribute: NSForegroundColorAttributeName
+				inRange: NSMakeRange( 0, attStr.length )
+				options: 0
+				usingBlock:
+		^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop)
+		{
+			NSColor* origColor = value;
+			NSColor* fixedColor = [self correctColor: origColor];
+			if ( fixedColor != nil )
+			{
+				[attStr
+					addAttribute: NSForegroundColorAttributeName
+					value: fixedColor
+					range: range];
+			}
+		}];
+
+	[attStr enumerateAttribute: NSUnderlineColorAttributeName
+				inRange: NSMakeRange( 0, attStr.length )
+				options: 0
+				usingBlock:
+		^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop)
+		{
+			NSColor* origColor = value;
+			NSColor* fixedColor = [self correctColor: origColor];
+			if ( fixedColor != nil )
+			{
+				[attStr
+					addAttribute: NSUnderlineColorAttributeName
+					value: fixedColor
+					range: range];
+			}
+		}];
+}
+
 - (NSError*) loadNativeData: (NSData*) data
 {
 	NSError* err = nil;
@@ -166,11 +233,19 @@
 				dataUsingEncoding: NSUTF8StringEncoding];
 			if (theRTFdata != nil)
 			{
-				NSAttributedString*	theAttStr = [[NSAttributedString alloc]
-					initWithRTF: theRTFdata
-					documentAttributes: nil];
+				NSDictionary<NSAttributedStringDocumentReadingOptionKey, id>*
+					readOptions = @{
+						NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType
+					};
+				NSMutableAttributedString*	theAttStr = [[NSMutableAttributedString alloc]
+					initWithData: theRTFdata
+					options: readOptions
+					documentAttributes: nil
+					error: nil];
 				if (theAttStr != NULL)
 				{
+					[self correctTextColors: theAttStr];
+				
 					if (_textView == nil)
 					{
 						// We will not have loaded the nib yet, so we must save
@@ -466,7 +541,9 @@
 	
 	NSData*	theRTF = [_textView.textStorage
 		RTFFromRange: NSMakeRange(0, [_textView.textStorage length])
-		documentAttributes: @{}];
+		documentAttributes: @{
+			NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType
+	}];
 	NSString*	theRTFString = [[NSString alloc]
 		initWithBytes: [theRTF bytes]
 		length: [theRTF length]

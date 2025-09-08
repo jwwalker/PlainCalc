@@ -21,3 +21,9 @@ runs in a separate thread.
 computation from continuing in the background.
 
 * Computing recursive functions is faster.
+
+# 3.0.2
+
+* Add section on numerical accuracy to help file.
+
+* Improve preservation of text colors in light and dark mode.
