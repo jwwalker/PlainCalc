@@ -215,6 +215,54 @@
 		}];
 }
 
+- (NSMutableAttributedString*) loadTextFromDict: (NSDictionary*) dict
+								error: (NSError* _Nullable * _Nonnull ) outError
+{
+	NSMutableAttributedString* resultStr = nil;
+	
+	// Newer versions of PlainCalc save the text using NSKeyedArchiver,
+	// ensuring that text color information is preserved.
+	NSData* textArchive = dict[@"textArchive"];
+	if (textArchive != nil)
+	{
+		resultStr = [NSKeyedUnarchiver
+			unarchivedObjectOfClass: NSMutableAttributedString.class
+			fromData: textArchive
+			error: outError];
+		if (resultStr == nil)
+		{
+			NSLog(@"NSKeyedUnarchiver error %@", *outError );
+		}
+	}
+	else // reading file created by older version of program
+	{
+		NSString*	theRTFStr = dict[@"text"];
+		if (theRTFStr != nil)
+		{
+			NSData*	theRTFdata = [theRTFStr
+				dataUsingEncoding: NSUTF8StringEncoding];
+			if (theRTFdata != nil)
+			{
+				NSDictionary<NSAttributedStringDocumentReadingOptionKey, id>*
+					readOptions = @{
+						NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType
+					};
+				resultStr = [[NSMutableAttributedString alloc]
+					initWithData: theRTFdata
+					options: readOptions
+					documentAttributes: nil
+					error: outError];
+				if (resultStr != nil)
+				{
+					[self correctTextColors: resultStr];
+				}
+			}
+		}
+	}
+	
+	return resultStr;
+}
+
 - (NSError*) loadNativeData: (NSData*) data
 {
 	NSError* err = nil;
@@ -226,38 +274,22 @@
 		
 	if (theDict != nil)
 	{
-		NSString*	theRTFStr = theDict[@"text"];
-		if (theRTFStr != nil)
+		NSMutableAttributedString*	theAttStr = [self
+			loadTextFromDict: theDict
+			error: &err];
+		
+		if (theAttStr != nil)
 		{
-			NSData*	theRTFdata = [theRTFStr
-				dataUsingEncoding: NSUTF8StringEncoding];
-			if (theRTFdata != nil)
+			if (_textView == nil)
 			{
-				NSDictionary<NSAttributedStringDocumentReadingOptionKey, id>*
-					readOptions = @{
-						NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType
-					};
-				NSMutableAttributedString*	theAttStr = [[NSMutableAttributedString alloc]
-					initWithData: theRTFdata
-					options: readOptions
-					documentAttributes: nil
-					error: nil];
-				if (theAttStr != NULL)
-				{
-					[self correctTextColors: theAttStr];
-				
-					if (_textView == nil)
-					{
-						// We will not have loaded the nib yet, so we must save
-						// the text in a member variable instead of putting it
-						// in the text view.
-						_initialText = theAttStr;
-					}
-					else
-					{
-						[_textView.textStorage setAttributedString: theAttStr];
-					}
-				}
+				// We will not have loaded the nib yet, so we must save
+				// the text in a member variable instead of putting it
+				// in the text view.
+				_initialText = theAttStr;
+			}
+			else
+			{
+				[_textView.textStorage setAttributedString: theAttStr];
 			}
 		}
 		
@@ -534,21 +566,23 @@
 }
 
 
-- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
+- (NSData *)dataOfType: (NSString *)typeName error: (NSError **)outError
 {
-	// Insert code here to write your document to data of the specified type. If outError != NULL, ensure that you create and set an appropriate error if you return nil.
-	// Alternatively, you could remove this method and override -fileWrapperOfType:error:, -writeToURL:ofType:error:, or -writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
+	NSError* theError = nil;
+	NSData* textArchive = [NSKeyedArchiver
+		archivedDataWithRootObject: _textView.textStorage
+		requiringSecureCoding: YES
+		error: &theError];
+	if (textArchive == nil)
+	{
+		NSLog( @"NSKeyedArchiver Error: %@", theError );
+		if (outError)
+		{
+			*outError = theError;
+		}
+		return nil;
+	}
 	
-	NSData*	theRTF = [_textView.textStorage
-		RTFFromRange: NSMakeRange(0, [_textView.textStorage length])
-		documentAttributes: @{
-			NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType
-	}];
-	NSString*	theRTFString = [[NSString alloc]
-		initWithBytes: [theRTF bytes]
-		length: [theRTF length]
-		encoding: NSUTF8StringEncoding];
-
 	NSFont* typingFont = [_textView.typingAttributes valueForKey: NSFontAttributeName];
 	
 	NSArray<NSDictionary*>* userDefs = SaveStateToDictionary( _calcState );
@@ -557,7 +591,7 @@
 	NSDictionary* funcV3 = userDefs[2];
 
 	NSDictionary*	docDict = @{
-		@"text": theRTFString,
+		@"textArchive": textArchive,
 		@"variables": variables,
 		@"functions": funcV2,
 		@"functions_v3": funcV3,
@@ -566,7 +600,6 @@
 		@"windowFrame": [_docWindow stringWithSavedFrame]
 	};
 	
-	NSError*	theError = nil;
 	NSData*	data = [NSPropertyListSerialization
 		dataWithPropertyList: docDict
 		format: NSPropertyListXMLFormat_v1_0
@@ -574,7 +607,7 @@
 		error: &theError ];
 	if (theError != nil)
 	{
-		NSLog( @"Error: %@", theError );
+		NSLog( @"NSPropertyListSerialization Error: %@", theError );
 		
 		if (outError)
 		{
@@ -861,6 +894,10 @@
 	else if (menuItem.action == @selector(revertDocumentToSaved:))
 	{
 		isEnabled = self.isDocumentEdited and (self.fileURL != nil);
+	}
+	else if (menuItem.action == @selector(saveDocument:))
+	{
+		isEnabled = self.isDocumentEdited or (self.fileURL == nil);
 	}
 	return isEnabled;
 }

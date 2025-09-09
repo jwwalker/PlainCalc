@@ -27,3 +27,5 @@ computation from continuing in the background.
 * Add section on numerical accuracy to help file.
 
 * Improve preservation of text colors in light and dark mode.
+
+* Dim the Save command if there are no changes to save.
