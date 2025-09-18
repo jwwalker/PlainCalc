@@ -17,3 +17,6 @@
 // Packaging
 	GENERATE_INFOPLIST_FILE = YES
 	INFOPLIST_FILE = PlainCalc3/Info.plist
+
+// Asset Catalog
+	ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon
