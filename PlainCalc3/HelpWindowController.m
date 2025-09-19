@@ -113,6 +113,30 @@
 	NSLog(@"webViewWebContentProcessDidTerminate");
 }
 
+- (void) webView:(WKWebView *) webView
+	decidePolicyForNavigationAction:(WKNavigationAction *) navigationAction 
+	decisionHandler:(void (^)(enum WKNavigationActionPolicy)) decisionHandler
+{
+	//NSLog(@"Nav action: %@", navigationAction );
+	if (navigationAction.navigationType == WKNavigationTypeLinkActivated)
+	{
+		NSURL* url = navigationAction.request.URL;
+		if ([url.scheme isEqualToString: @"file"]) // allow navigation links
+		{
+			decisionHandler( WKNavigationActionPolicyAllow );
+		}
+		else
+		{
+			[NSWorkspace.sharedWorkspace openURL: url];
+			decisionHandler( WKNavigationActionPolicyCancel );
+		}
+	}
+	else
+	{
+		decisionHandler( WKNavigationActionPolicyAllow );
+	}
+}
+
 - (IBAction) doPrint: (id) sender
 {
 	NSRect printFrame = {
