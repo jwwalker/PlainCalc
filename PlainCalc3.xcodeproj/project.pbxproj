@@ -12,6 +12,9 @@
 		BE0BCAC32E5A1D30009914B9 /* ParameterIndexNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE0BCAC12E5A1D30009914B9 /* ParameterIndexNode.mm */; };
 		BE0BCAC92E5A7A99009914B9 /* BuildTreeFromDictionary.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE0BCAC72E5A7A99009914B9 /* BuildTreeFromDictionary.mm */; };
 		BE0BCACF2E5B7768009914B9 /* LoadStateFromDictionary.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE0BCACD2E5B7768009914B9 /* LoadStateFromDictionary.mm */; };
+		BE62AC752E85DD8C009A8F09 /* HelpWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE62AC742E85DD8C009A8F09 /* HelpWindow.swift */; };
+		BE62AC782E872B88009A8F09 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE62AC762E872B88009A8F09 /* SwiftUI.framework */; };
+		BE62AC792E872B88009A8F09 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE62AC772E872B88009A8F09 /* SwiftData.framework */; };
 		BE87BC8B2E512BC800E61164 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE87BC8A2E512BC800E61164 /* AppDelegate.mm */; };
 		BE87BC8E2E512BC800E61164 /* Document.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE87BC8D2E512BC800E61164 /* Document.mm */; };
 		BE87BC912E512BC800E61164 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE87BC8F2E512BC800E61164 /* Document.xib */; };
@@ -21,7 +24,6 @@
 		BE87BCC42E52854700E61164 /* PerformBlockOnWorkThread.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE87BCC32E52854700E61164 /* PerformBlockOnWorkThread.mm */; };
 		BE87BCD82E53D96800E61164 /* Help.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE87BCD62E53D96800E61164 /* Help.xib */; };
 		BE87BCE22E53E0D600E61164 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE87BCE12E53E0D500E61164 /* WebKit.framework */; };
-		BE87BCE52E53E32B00E61164 /* HelpWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE87BCE32E53E32B00E61164 /* HelpWindowController.m */; };
 		BE87BCEE2E55190E00E61164 /* PlainCalcHelp.md.html in Copy Help Files */ = {isa = PBXBuildFile; fileRef = BE87BCED2E55190E00E61164 /* PlainCalcHelp.md.html */; };
 		BE87BCF02E5519E700E61164 /* markdeep.min.js in Copy Help Files */ = {isa = PBXBuildFile; fileRef = BE87BCEF2E5519E700E61164 /* markdeep.min.js */; };
 		BE87BD032E56229100E61164 /* Calculate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD002E56229000E61164 /* Calculate.cpp */; };
@@ -93,6 +95,10 @@
 		BE0BCAC82E5A7A99009914B9 /* BuildTreeFromDictionary.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BuildTreeFromDictionary.hpp; sourceTree = "<group>"; };
 		BE0BCACC2E5B7768009914B9 /* LoadStateFromDictionary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoadStateFromDictionary.h; sourceTree = "<group>"; };
 		BE0BCACD2E5B7768009914B9 /* LoadStateFromDictionary.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LoadStateFromDictionary.mm; sourceTree = "<group>"; };
+		BE62AC732E85DD8C009A8F09 /* PlainCalc3-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlainCalc3-Bridging-Header.h"; sourceTree = "<group>"; };
+		BE62AC742E85DD8C009A8F09 /* HelpWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpWindow.swift; sourceTree = "<group>"; };
+		BE62AC762E872B88009A8F09 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		BE62AC772E872B88009A8F09 /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = System/Library/Frameworks/SwiftData.framework; sourceTree = SDKROOT; };
 		BE87BC862E512BC800E61164 /* PlainCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlainCalc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE87BC892E512BC800E61164 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BE87BC8A2E512BC800E61164 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
@@ -109,8 +115,6 @@
 		BE87BCC32E52854700E61164 /* PerformBlockOnWorkThread.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PerformBlockOnWorkThread.mm; sourceTree = "<group>"; };
 		BE87BCD72E53D96800E61164 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Help.xib; sourceTree = "<group>"; };
 		BE87BCE12E53E0D500E61164 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		BE87BCE32E53E32B00E61164 /* HelpWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpWindowController.m; sourceTree = "<group>"; };
-		BE87BCE42E53E32B00E61164 /* HelpWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpWindowController.h; sourceTree = "<group>"; };
 		BE87BCED2E55190E00E61164 /* PlainCalcHelp.md.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = PlainCalcHelp.md.html; sourceTree = "<group>"; };
 		BE87BCEF2E5519E700E61164 /* markdeep.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = markdeep.min.js; sourceTree = "<group>"; };
 		BE87BCFF2E56229000E61164 /* Calculate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Calculate.hpp; sourceTree = "<group>"; };
@@ -199,7 +203,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE62AC782E872B88009A8F09 /* SwiftUI.framework in Frameworks */,
 				BE87BCE22E53E0D600E61164 /* WebKit.framework in Frameworks */,
+				BE62AC792E872B88009A8F09 /* SwiftData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,8 +271,6 @@
 				BE87BC8A2E512BC800E61164 /* AppDelegate.mm */,
 				BE87BC8C2E512BC800E61164 /* Document.h */,
 				BE87BC8D2E512BC800E61164 /* Document.mm */,
-				BE87BCE42E53E32B00E61164 /* HelpWindowController.h */,
-				BE87BCE32E53E32B00E61164 /* HelpWindowController.m */,
 				BE87BC972E512BCA00E61164 /* Info.plist */,
 				BE87BC982E512BCA00E61164 /* main.m */,
 				BE87BD072E56262A00E61164 /* Parse Arguments */,
@@ -276,6 +280,8 @@
 				BE87BD092E56263A00E61164 /* semantic actions */,
 				BE87BD1C2E56263B00E61164 /* syntax tree nodes */,
 				BE87BD412E56263B00E61164 /* Utilities */,
+				BE62AC742E85DD8C009A8F09 /* HelpWindow.swift */,
+				BE62AC732E85DD8C009A8F09 /* PlainCalc3-Bridging-Header.h */,
 			);
 			path = PlainCalc3;
 			sourceTree = "<group>";
@@ -297,6 +303,8 @@
 		BE87BCE02E53E0D500E61164 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BE62AC772E872B88009A8F09 /* SwiftData.framework */,
+				BE62AC762E872B88009A8F09 /* SwiftUI.framework */,
 				BE87BD7D2E5629D600E61164 /* CoreGraphics.framework */,
 				BE87BCE12E53E0D500E61164 /* WebKit.framework */,
 			);
@@ -485,6 +493,7 @@
 				TargetAttributes = {
 					BE87BC852E512BC800E61164 = {
 						CreatedOnToolsVersion = 15.2;
+						LastSwiftMigration = 2610;
 					};
 					BE9B02A82E5D287F00A10F02 = {
 						CreatedOnToolsVersion = 15.2;
@@ -567,10 +576,10 @@
 				BE87BD6D2E56263B00E61164 /* BinaryFuncNode.mm in Sources */,
 				BE9B02972E5BA19900A10F02 /* SaveStateToDictionary.mm in Sources */,
 				BE87BD752E56263B00E61164 /* BasicMath.cpp in Sources */,
+				BE62AC752E85DD8C009A8F09 /* HelpWindow.swift in Sources */,
 				BE0BCAC92E5A7A99009914B9 /* BuildTreeFromDictionary.mm in Sources */,
 				BE87BD032E56229100E61164 /* Calculate.cpp in Sources */,
 				BE87BD792E56263B00E61164 /* GetStackSize.cpp in Sources */,
-				BE87BCE52E53E32B00E61164 /* HelpWindowController.m in Sources */,
 				BE0BCAB92E58CCAA009914B9 /* Built-ins.cpp in Sources */,
 				BE87BD552E56263B00E61164 /* UnaryFuncNode.mm in Sources */,
 				BE0BCACF2E5B7768009914B9 /* LoadStateFromDictionary.mm in Sources */,
@@ -749,12 +758,12 @@
 			baseConfigurationReference = BEEAC5852E5E47B700872C03 /* PlainCalc3-app.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PlainCalc3/PlainCalc3-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
@@ -763,12 +772,11 @@
 			baseConfigurationReference = BEEAC5852E5E47B700872C03 /* PlainCalc3-app.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PlainCalc3/PlainCalc3-Bridging-Header.h";
+				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};

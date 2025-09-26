@@ -28,10 +28,9 @@
 
 #import "AppDelegate.h"
 
-#import "HelpWindowController.h"
+#import <WebKit/WebKit.h>
 #import "PerformBlockOnWorkThread.h"
-
-#import <pthread.h>
+#import "PlainCalc-Swift.h"
 
 static AppDelegate* sMe = nil;
 
@@ -45,7 +44,7 @@ static AppDelegate* sMe = nil;
 	NSDictionary*	_successAtts;
 	NSDictionary*	_errorAtts;
 	BOOL			_isCommaDecimalSeparator;
-	HelpWindowController*	_helpWindow;
+	HelpWindow*		_helpWindow;
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -106,7 +105,7 @@ static AppDelegate* sMe = nil;
 
 - (IBAction) showHelp: (id) sender
 {
-	_helpWindow = [[HelpWindowController alloc]
+	_helpWindow = [[HelpWindow alloc]
 		initWithWindowNibName: @"Help"];
 	_helpWindow.window.delegate = self;
 	[_helpWindow showWindow: self];
