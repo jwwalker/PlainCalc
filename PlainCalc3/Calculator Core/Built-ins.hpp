@@ -37,6 +37,7 @@
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdocumentation"
+#pragma clang diagnostic ignored "-Wunsafe-buffer-usage"
 #import <boost/parser/parser.hpp>
 #pragma clang diagnostic pop
 

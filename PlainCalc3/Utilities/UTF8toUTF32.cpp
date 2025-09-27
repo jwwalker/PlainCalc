@@ -28,7 +28,10 @@
 
 #import "UTF8toUTF32.hpp"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunsafe-buffer-usage"
 #import "utf8.h"
+#pragma clang diagnostic pop
 
 #import <iterator>
 

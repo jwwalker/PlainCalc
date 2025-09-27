@@ -28,11 +28,6 @@
 
 #import "Calculate.hpp"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdocumentation"
-#import <boost/parser/parser.hpp>
-#pragma clang diagnostic pop
-
 #import "BasicMath.hpp"
 #import "Built-ins.hpp"
 #import "DoAssign.hpp"

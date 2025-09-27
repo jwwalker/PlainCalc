@@ -28,7 +28,10 @@
 
 #import "UTF32toUTF8.hpp"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunsafe-buffer-usage"
 #import "utf8.h"
+#pragma clang diagnostic pop
 
 std::string UTF32toUTF8( const std::u32string& inStr32 )
 {
