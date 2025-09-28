@@ -89,16 +89,18 @@ std::optional<double>	UserFuncNode::Evaluate( SCalcState& state ) const
 				state.functionArguments.swap( arguments );
 				
 				result = rhs->Evaluate( state );
+				
+				if (result.has_value())
+				{
+					state.resultCache.emplace( std::move(cacheKey), *result  );
+				}
 
 				state.functionArguments.swap( arguments );
-				
-				state.resultCache.emplace( std::move(cacheKey), *result  );
 			}
 			else // use cached result
 			{
 				result = foundIt->second;
 			}
-		
 		}
 	}
 	

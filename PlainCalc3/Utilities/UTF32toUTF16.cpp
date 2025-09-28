@@ -28,18 +28,46 @@
 
 #import "UTF32toUTF16.hpp"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunsafe-buffer-usage"
-#import "utf8.h"
-#pragma clang diagnostic pop
+#import <CoreFoundation/CoreFoundation.h>
+#import <algorithm>
 
-std::u16string	UTF32toUTF16( const std::u32string& str32 )
+static constexpr size_t maxUTF16CodesPerUTF32Code = 2;
+
+std::u16string	UTF32toUTF16( const std::u32string& inStr32 )
 {
 	std::u16string result;
 	
-	std::string str8( utf8::utf32to8( str32 ) );
-	
-	result = utf8::utf8to16( str8 );
+	// Code points in the ranges 0x0000...0xD7FF and 0xE000...0xFFFF translate
+	// directly to single UTF-16 code units, so if all the code points are
+	// in those ranges, we can do it the easy way.
+	if (std::all_of( inStr32.cbegin(), inStr32.cend(),
+		[](char32_t codept){ return (codept <= 0xD7FFU) or
+			(((codept >= 0xE000U) and (codept <= 0xFFFFU))); } ))
+	{
+		result.reserve( inStr32.size() );
+		for (char32_t codept : inStr32)
+		{
+			result += static_cast<char16_t>( codept );
+		}
+	}
+	else
+	{
+		CFStringRef strCF = CFStringCreateWithBytes( nullptr,
+			(const UInt8*) inStr32.data(), inStr32.size() * sizeof(char32_t),
+			kCFStringEncodingUTF32LE, false );
+		
+		if (strCF != nullptr)
+		{
+			result.resize( inStr32.size() * maxUTF16CodesPerUTF32Code );
+			
+			CFIndex bytesInBuffer = 0;
+			CFStringGetBytes( strCF, CFRangeMake( 0, CFStringGetLength(strCF) ),
+				kCFStringEncodingUTF16LE, '?', false, (UInt8*) result.data(),
+				result.size() * sizeof(char16_t), &bytesInBuffer );
+			size_t charCount = bytesInBuffer / sizeof(char16_t);
+			result.resize( charCount );
+		}
+	}
 	
 	return result;
 }

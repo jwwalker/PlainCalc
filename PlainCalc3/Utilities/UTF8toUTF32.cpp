@@ -28,29 +28,44 @@
 
 #import "UTF8toUTF32.hpp"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunsafe-buffer-usage"
-#import "utf8.h"
-#pragma clang diagnostic pop
-
-#import <iterator>
+#import <CoreFoundation/CoreFoundation.h>
+#import <algorithm>
 
 std::u32string UTF8toUTF32( const std::string& inStr )
 {
 	std::u32string result;
 
-	std::string correctedInput;
-	
-	// I don't think this can throw any exceptions...
-	try
+	// If every code point is less than or equal to 0x7F, then we can do it
+	// the easy way.
+	if (std::all_of( inStr.cbegin(), inStr.cend(),
+		[](char codept){ return static_cast<unsigned char>(codept) <= 0x7F; } ))
 	{
-		utf8::replace_invalid( inStr.cbegin(), inStr.cend(),
-			std::back_inserter( correctedInput ), '?' );
-		
-		result = utf8::utf8to32( correctedInput );
+		result.reserve( inStr.size() );
+		for (char codept : inStr)
+		{
+			result += static_cast<char32_t>( codept );
+		}
 	}
-	catch (...)
+	else
 	{
+		CFStringRef strCF = CFStringCreateWithCString( nullptr, inStr.c_str(),
+			kCFStringEncodingUTF8 );
+		if (strCF != nullptr)
+		{
+			result.resize( inStr.size() );
+			auto fullRange = CFRangeMake( 0, CFStringGetLength(strCF) );
+			CFIndex bytesInBuffer = 0;
+			CFStringGetBytes( strCF, fullRange,
+				kCFStringEncodingUTF32LE, '?', false, (UInt8*) result.data(),
+				result.size() * sizeof(char32_t), &bytesInBuffer );
+
+			// Probably bytesInBuffer is a multiple of 4, but just to be safe...
+			size_t codeCount = (bytesInBuffer + sizeof(char32_t) - 1) /
+				sizeof(char32_t);
+			result.resize( codeCount );
+			
+			CFRelease( strCF );
+		}
 	}
 		
 	return result;

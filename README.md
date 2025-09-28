@@ -19,10 +19,6 @@ whose Parser parsing library is used in the calculation engine.  In Xcode's
 settings, under Locations, you will need to define a custom path named "Boost"
 pointing at your Boost hierarchy.  At this writing, I am using Boost 1.89.0.
 
-This project uses another open source project, [UTF8-CPP](https://github.com/nemtrif/utfcpp),
-but since that's fairly small, I just included the source.  At this writing,
-it's utfcpp-4.0.6.
-
 The project is set to deploy on macOS 13.7 or later.
 
 The source code is under the zlib/libPNG public license.

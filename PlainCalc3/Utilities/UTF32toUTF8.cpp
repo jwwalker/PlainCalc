@@ -28,14 +28,45 @@
 
 #import "UTF32toUTF8.hpp"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunsafe-buffer-usage"
-#import "utf8.h"
-#pragma clang diagnostic pop
+#import <CoreFoundation/CoreFoundation.h>
+#import <algorithm>
+
+static constexpr size_t maxUTF8CharsPerUTF32Code = 4;
 
 std::string UTF32toUTF8( const std::u32string& inStr32 )
 {
-	std::string result( utf8::utf32to8( inStr32 ) );
+	std::string result;
+
+	// If every code point is less than or equal to 0x7F, then we can do it
+	// the easy way.
+	if (std::all_of( inStr32.cbegin(), inStr32.cend(),
+		[](char32_t codept){ return codept <= 0x7F; } ))
+	{
+		for (char32_t codept : inStr32)
+		{
+			result += static_cast<char>( codept );
+		}
+	}
+	else
+	{
+		CFStringRef strCF = CFStringCreateWithBytes( nullptr,
+			(const UInt8*) inStr32.data(), inStr32.size() * sizeof(char32_t),
+			kCFStringEncodingUTF32LE, false );
+		
+		if (strCF != nullptr)
+		{
+			result.resize( inStr32.size() * maxUTF8CharsPerUTF32Code );
+
+			CFIndex bytesInBuffer = 0;
+			CFStringGetBytes( strCF, CFRangeMake( 0, CFStringGetLength(strCF) ),
+				kCFStringEncodingUTF8, '?', false, (UInt8*) result.data(),
+				result.size(), &bytesInBuffer );
+				
+			result.resize( bytesInBuffer );
+			
+			CFRelease( strCF );
+		}
+	}
 	
 	return result;
 }
