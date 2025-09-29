@@ -1,0 +1,153 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "ConfirmSaveNew" : {
+      "comment" : "Ask user to confirm saving as new document content (title)",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Really Save as New Document?"
+          }
+        }
+      }
+    },
+    "ConfirmSaveNew_cancel" : {
+      "comment" : "Cancel saving new document content",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "ConfirmSaveNew_detail" : {
+      "comment" : "Ask user to confirm saving as new document content (detail)",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to save this as the content of all new documents?  This will replace any previously-saved new document state."
+          }
+        }
+      }
+    },
+    "ConfirmSaveNew_ok" : {
+      "comment" : "button to confirm saving as new document content",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        }
+      }
+    },
+    "DefFun" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Defined Function '%@'"
+          }
+        }
+      }
+    },
+    "DefFuns" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Defined Functions:"
+          }
+        }
+      }
+    },
+    "DefVars" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Defined Variables:"
+          }
+        }
+      }
+    },
+    "NoMathErr" : {
+      "comment" : "title of internet loading error message",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Internet Loading Error"
+          }
+        }
+      }
+    },
+    "NoMathErr_d" : {
+      "comment" : "detail of internet loading error message",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There was a problem loading an Internet resource needed for mathematical formatting, so mathematical formulas in the help file may not look they way they should. Error details: %@"
+          }
+        }
+      }
+    },
+    "ReDefFun" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Redefined Function '%@'"
+          }
+        }
+      }
+    },
+    "StackLimit" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calculation interrupted by memory limit"
+          }
+        }
+      }
+    },
+    "SynErr" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Syntax Error"
+          }
+        }
+      }
+    },
+    "UserCancel" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calculation interrupted by user"
+          }
+        }
+      }
+    },
+    "WeirdErr" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unexpected syntax error"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.1"
+}

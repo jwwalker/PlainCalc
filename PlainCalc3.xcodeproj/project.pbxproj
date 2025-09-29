@@ -7,15 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BE0BCAA12E566305009914B9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE0BCA9F2E566305009914B9 /* Localizable.strings */; };
 		BE0BCAB92E58CCAA009914B9 /* Built-ins.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE0BCAB72E58CCAA009914B9 /* Built-ins.cpp */; };
 		BE0BCAC32E5A1D30009914B9 /* ParameterIndexNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE0BCAC12E5A1D30009914B9 /* ParameterIndexNode.mm */; };
 		BE0BCAC92E5A7A99009914B9 /* BuildTreeFromDictionary.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE0BCAC72E5A7A99009914B9 /* BuildTreeFromDictionary.mm */; };
 		BE0BCACF2E5B7768009914B9 /* LoadStateFromDictionary.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE0BCACD2E5B7768009914B9 /* LoadStateFromDictionary.mm */; };
 		BE62AC752E85DD8C009A8F09 /* HelpWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE62AC742E85DD8C009A8F09 /* HelpWindow.swift */; };
 		BE62AC782E872B88009A8F09 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE62AC762E872B88009A8F09 /* SwiftUI.framework */; };
-		BE62AC792E872B88009A8F09 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE62AC772E872B88009A8F09 /* SwiftData.framework */; };
-		BE87BC8B2E512BC800E61164 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE87BC8A2E512BC800E61164 /* AppDelegate.mm */; };
+		BE62AC7C2E8ADC2F009A8F09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE62AC7B2E8ADC2F009A8F09 /* AppDelegate.swift */; };
+		BE62AC7E2E8AE6A1009A8F09 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = BE62AC7D2E8AE6A1009A8F09 /* Localizable.xcstrings */; };
 		BE87BC8E2E512BC800E61164 /* Document.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE87BC8D2E512BC800E61164 /* Document.mm */; };
 		BE87BC912E512BC800E61164 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE87BC8F2E512BC800E61164 /* Document.xib */; };
 		BE87BC932E512BCA00E61164 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE87BC922E512BCA00E61164 /* Assets.xcassets */; };
@@ -83,7 +82,6 @@
 
 /* Begin PBXFileReference section */
 		BE0BCA802E563002009914B9 /* CalcTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CalcTests.mm; sourceTree = "<group>"; };
-		BE0BCAA02E566305009914B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BE0BCAAA2E57BF24009914B9 /* DoEvaluateVariable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoEvaluateVariable.hpp; sourceTree = "<group>"; };
 		BE0BCAB12E58BDFB009914B9 /* autoCF.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = autoCF.hpp; sourceTree = "<group>"; };
 		BE0BCAB72E58CCAA009914B9 /* Built-ins.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "Built-ins.cpp"; sourceTree = "<group>"; };
@@ -99,9 +97,9 @@
 		BE62AC742E85DD8C009A8F09 /* HelpWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpWindow.swift; sourceTree = "<group>"; };
 		BE62AC762E872B88009A8F09 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		BE62AC772E872B88009A8F09 /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = System/Library/Frameworks/SwiftData.framework; sourceTree = SDKROOT; };
+		BE62AC7B2E8ADC2F009A8F09 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BE62AC7D2E8AE6A1009A8F09 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		BE87BC862E512BC800E61164 /* PlainCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlainCalc.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BE87BC892E512BC800E61164 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		BE87BC8A2E512BC800E61164 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		BE87BC8C2E512BC800E61164 /* Document.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Document.h; sourceTree = "<group>"; };
 		BE87BC8D2E512BC800E61164 /* Document.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Document.mm; sourceTree = "<group>"; };
 		BE87BC902E512BC800E61164 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Document.xib; sourceTree = "<group>"; };
@@ -205,7 +203,6 @@
 			files = (
 				BE62AC782E872B88009A8F09 /* SwiftUI.framework in Frameworks */,
 				BE87BCE22E53E0D600E61164 /* WebKit.framework in Frameworks */,
-				BE62AC792E872B88009A8F09 /* SwiftData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,8 +264,7 @@
 			children = (
 				BEEAC5862E5E4AF000872C03 /* Calculator Core */,
 				BE0BCACB2E5B7736009914B9 /* Document File Representation */,
-				BE87BC892E512BC800E61164 /* AppDelegate.h */,
-				BE87BC8A2E512BC800E61164 /* AppDelegate.mm */,
+				BE62AC7B2E8ADC2F009A8F09 /* AppDelegate.swift */,
 				BE87BC8C2E512BC800E61164 /* Document.h */,
 				BE87BC8D2E512BC800E61164 /* Document.mm */,
 				BE87BC972E512BCA00E61164 /* Info.plist */,
@@ -295,7 +291,7 @@
 				BE87BC8F2E512BC800E61164 /* Document.xib */,
 				BE87BC942E512BCA00E61164 /* MainMenu.xib */,
 				BE87BCD62E53D96800E61164 /* Help.xib */,
-				BE0BCA9F2E566305009914B9 /* Localizable.strings */,
+				BE62AC7D2E8AE6A1009A8F09 /* Localizable.xcstrings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -489,7 +485,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastUpgradeCheck = 1520;
+				LastUpgradeCheck = 2610;
 				TargetAttributes = {
 					BE87BC852E512BC800E61164 = {
 						CreatedOnToolsVersion = 15.2;
@@ -525,11 +521,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE0BCAA12E566305009914B9 /* Localizable.strings in Resources */,
 				BE87BC932E512BCA00E61164 /* Assets.xcassets in Resources */,
 				BE87BC912E512BC800E61164 /* Document.xib in Resources */,
 				BE87BCD82E53D96800E61164 /* Help.xib in Resources */,
 				BE87BC962E512BCA00E61164 /* MainMenu.xib in Resources */,
+				BE62AC7E2E8AE6A1009A8F09 /* Localizable.xcstrings in Resources */,
 				BEF7083D2E7CD12F0006F8E3 /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -560,6 +556,7 @@
 				BE87BD612E56263B00E61164 /* StandardDeviation.cpp in Sources */,
 				BE87BD572E56263B00E61164 /* NumberNode.mm in Sources */,
 				BE87BD512E56263B00E61164 /* NaryFuncNode.mm in Sources */,
+				BE62AC7C2E8ADC2F009A8F09 /* AppDelegate.swift in Sources */,
 				BE87BD5B2E56263B00E61164 /* Max.cpp in Sources */,
 				BE87BC8E2E512BC800E61164 /* Document.mm in Sources */,
 				BE87BC992E512BCA00E61164 /* main.m in Sources */,
@@ -567,7 +564,6 @@
 				BE9B029D2E5CD1C700A10F02 /* IndexVariableNode.mm in Sources */,
 				BE87BD592E56263B00E61164 /* Sum.cpp in Sources */,
 				BE9B02A02E5CD7A700A10F02 /* IterationNode.mm in Sources */,
-				BE87BC8B2E512BC800E61164 /* AppDelegate.mm in Sources */,
 				BE0BCAC32E5A1D30009914B9 /* ParameterIndexNode.mm in Sources */,
 				BE87BD652E56263B00E61164 /* Min.cpp in Sources */,
 				BE87BCC42E52854700E61164 /* PerformBlockOnWorkThread.mm in Sources */,
@@ -605,14 +601,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		BE0BCA9F2E566305009914B9 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BE0BCAA02E566305009914B9 /* Base */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
 		BE87BC8F2E512BC800E61164 /* Document.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -644,13 +632,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BE87BCBC2E512DEE00E61164 /* PlainCalc3.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -673,12 +657,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = FDHC2KMZ6V;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -693,11 +673,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.7;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Debug;
 		};
@@ -705,13 +684,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BE87BCBC2E512DEE00E61164 /* PlainCalc3.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -734,12 +709,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = FDHC2KMZ6V;
 				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -748,10 +719,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.7;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Release;
 		};
@@ -759,8 +730,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BEEAC5852E5E47B700872C03 /* PlainCalc3-app.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "PlainCalc3/PlainCalc3-Bridging-Header.h";
@@ -773,8 +742,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BEEAC5852E5E47B700872C03 /* PlainCalc3-app.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "PlainCalc3/PlainCalc3-Bridging-Header.h";
@@ -786,9 +753,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FDHC2KMZ6V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSMainNibFile = "";
 				INFOPLIST_KEY_NSPrincipalClass = "";
@@ -804,9 +769,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FDHC2KMZ6V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSMainNibFile = "";
 				INFOPLIST_KEY_NSPrincipalClass = "";

@@ -28,10 +28,13 @@
 
 #import "Document.h"
 
-#import "AppDelegate.h"
+#import <WebKit/WebKit.h>
+
+//#import "AppDelegate.h"
 #import "Calculate.hpp"
 #import "LoadStateFromDictionary.h"
 #import "PerformBlockOnWorkThread.h"
+#import "PlainCalc-Swift.h"
 #import "SaveStateToDictionary.h"
 #import "SCalcState.hpp"
 #import "UTF8toUTF32.hpp"
@@ -722,7 +725,7 @@
 {
 	NSString* locString = stdString;
 	
-	if ( [AppDelegate isCommaDecimalSeparator] )
+	if ( AppDelegate.isCommaDecimalSeparator )
 	{
 		NSString* workStr = [stdString stringByReplacingOccurrencesOfString: @","
 										withString: @";"];
@@ -740,7 +743,7 @@
 {
 	NSString* stdString = locString;
 	
-	if ( [AppDelegate isCommaDecimalSeparator] )
+	if ( AppDelegate.isCommaDecimalSeparator )
 	{
 		NSString* workStr = [locString stringByReplacingOccurrencesOfString: @","
 										withString: @"."];
