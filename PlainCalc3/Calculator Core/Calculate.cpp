@@ -321,7 +321,7 @@ static CalcType DeduceCalcType( const std::string& inText )
 CalcResult	Calculate( const std::string& inText, SCalcState& ioState )
 {
 	SaveStackAddress();
-	CalcResult returnedVariant( "No calc yet" );
+	CalcResult returnedVariant;
 	ioState.ClearTemporaries();
 	CalcType calcType = DeduceCalcType( inText );
 	std::u32string text32( UTF8toUTF32( inText ) );
@@ -348,11 +348,11 @@ CalcResult	Calculate( const std::string& inText, SCalcState& ioState )
 				std::optional<double> resultVal = resultNode->Evaluate( ioState );
 				if (ioState.interruptCode != CalcInterruptCode::none)
 				{
-					returnedVariant = ioState.interruptCode;
+					returnedVariant.SetInterrupt( ioState.interruptCode );
 				}
 				else if (resultVal.has_value())
 				{
-					returnedVariant = resultVal.value();
+					returnedVariant.SetValue( resultVal.value() );
 					ioState.variables["last"] = resultVal.value();
 				}
 			}
@@ -370,11 +370,11 @@ CalcResult	Calculate( const std::string& inText, SCalcState& ioState )
 				std::optional<double> resultVal = resultNode->Evaluate( ioState );
 				if (ioState.interruptCode != CalcInterruptCode::none)
 				{
-					returnedVariant = ioState.interruptCode;
+					returnedVariant.SetInterrupt( ioState.interruptCode );
 				}
 				else if (resultVal.has_value())
 				{
-					returnedVariant = resultVal.value();
+					returnedVariant.SetValue( resultVal.value() );
 					ioState.variables["last"] = resultVal.value();
 				}
 			}
@@ -388,7 +388,7 @@ CalcResult	Calculate( const std::string& inText, SCalcState& ioState )
 				) );
 			if (didParse)
 			{
-				returnedVariant = DefinedFunc( ioState.leftIdentifier,
+				returnedVariant.SetDefinedFunc( ioState.leftIdentifier,
 					ioState.preexistingUserFunc );
 			}
 			else
@@ -400,7 +400,7 @@ CalcResult	Calculate( const std::string& inText, SCalcState& ioState )
 	
 	if (not didParse)
 	{
-		returnedVariant = errors.str();
+		returnedVariant.SetError( errors.str() );
 	}
 	
 	return returnedVariant;

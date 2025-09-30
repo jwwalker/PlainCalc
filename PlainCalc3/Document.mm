@@ -474,41 +474,39 @@
 			
 			CalcResult result = Calculate( theLine.UTF8String, me->_calcState );
 			
-			if (std::holds_alternative<double>( result ))
+			if (result.type == CalcResultType::value)
 			{
-				double answer = std::get<double>( result );
+				double answer = result.calculatedValue;
 				[me performSelectorOnMainThread: @selector(showAnswer:)
 					withObject: @(answer)
 					waitUntilDone: NO];
 			}
-			else if (std::holds_alternative<DefinedFunc>( result ))
+			else if ( (result.type == CalcResultType::definedFunc) or
+				(result.type == CalcResultType::redefinedFunc) )
 			{
-				DefinedFunc funcName = std::get<DefinedFunc>( result );
-				if (funcName.redefined)
+				if (result.type == CalcResultType::redefinedFunc)
 				{
 					[me performSelectorOnMainThread: @selector(sayRedefinedFunc:)
-						withObject: @(funcName.name.c_str())
+						withObject: @(result.funcName.c_str())
 						waitUntilDone: NO];
 				}
 				else
 				{
 					[me performSelectorOnMainThread: @selector(sayDefinedFunc:)
-						withObject: @(funcName.name.c_str())
+						withObject: @(result.funcName.c_str())
 						waitUntilDone: NO];
 				}
 			}
-			else if (std::holds_alternative<std::string>( result ))
+			else if (result.type == CalcResultType::error)
 			{
-				std::string errorStr = std::get<std::string>( result );
 				[me performSelectorOnMainThread: @selector(reportParseError:)
-					withObject: @(errorStr.c_str())
+					withObject: @(result.errorMessage.c_str())
 					waitUntilDone: NO];
 			}
-			else if (std::holds_alternative<CalcInterruptCode>( result ))
+			else if (result.type == CalcResultType::interrupt)
 			{
-				CalcInterruptCode code = std::get<CalcInterruptCode>( result );
 				[me performSelectorOnMainThread: @selector(reportInterrupt:)
-					withObject: @(static_cast<int>(code))
+					withObject: @(static_cast<int>(result.interruptCode))
 					waitUntilDone: NO];
 			}
 		});

@@ -31,19 +31,8 @@
 
 struct SCalcState;
 
-#import <variant>
 #import <string>
 
-struct DefinedFunc
-{
-					DefinedFunc( const std::string& inName,
-								bool inRedefined )
-						: name( inName )
-						, redefined( inRedefined ) {}
-	
-	std::string		name;
-	bool			redefined;
-};
 
 enum class CalcInterruptCode : int
 {
@@ -52,17 +41,59 @@ enum class CalcInterruptCode : int
 	stackLimit		// Recursion exceeded a stack limit
 };
 
+enum class CalcResultType : int
+{
+	undefined,
+	value,				// calculatedValue is set
+	error,				// errorMessage is set
+	interrupt,			// interruptCode is set
+	definedFunc,		// funcName is set
+	redefinedFunc		// funcName is set
+};
+
 /*!
-	@typedef	CalcResult
+	@struct		CalcResult
 	
 	@abstract	Result of a calculation.
 	
 	@discussion	The result of calculating an expression or an assignment to a variable
 				is either a number (double) or a parsing error message or an interrupt code.  The
-				result of calculating a function definition is either a DefinedFunc, in the successful
+				result of calculating a function definition is the name of the function, in the successful
 				case, or a parsing error message.
 */
-using CalcResult = std::variant< double, std::string, DefinedFunc, CalcInterruptCode >;
+struct CalcResult
+{
+	CalcResultType		type = CalcResultType::undefined;
+	double				calculatedValue;
+	std::string			errorMessage;
+	CalcInterruptCode	interruptCode = CalcInterruptCode::none;
+	std::string			funcName;
+	
+	void				SetValue( double inValue )
+						{
+							calculatedValue = inValue;
+							type = CalcResultType::value;
+						}
+	void				SetInterrupt( CalcInterruptCode code )
+						{
+							interruptCode = code;
+							type = CalcResultType::interrupt;
+						}
+	void				SetError( const std::string& message )
+						{
+							errorMessage = message;
+							type = CalcResultType::error;
+						}
+	void				SetDefinedFunc( const std::string& name,
+										bool isRedefined )
+						{
+							funcName = name;
+							type = isRedefined?
+								CalcResultType::redefinedFunc :
+								CalcResultType::definedFunc;
+						}
+};
+
 
 
 /*!

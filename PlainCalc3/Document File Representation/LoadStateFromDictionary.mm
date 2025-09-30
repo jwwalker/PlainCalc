@@ -115,7 +115,8 @@ static void LoadFunctionsV2( SCalcState& ioState,
 				{
 					std::string line( MakeFuncDefLine( funcName, obj ) );
 					CalcResult result = Calculate( line, ioState );
-					if (std::holds_alternative<DefinedFunc>(result))
+					if ( (result.type == CalcResultType::definedFunc) or
+						(result.type == CalcResultType::redefinedFunc) )
 					{
 						++definedFuncCount;
 						madeProgress = YES;
