@@ -30,15 +30,13 @@
 
 #import <WebKit/WebKit.h>
 
-//#import "AppDelegate.h"
 #import "Calculate.hpp"
+#import "ConvertErrorOffset.hpp"
 #import "LoadStateFromDictionary.h"
 #import "PerformBlockOnWorkThread.h"
 #import "PlainCalc-Swift.h"
 #import "SaveStateToDictionary.h"
 #import "SCalcState.hpp"
-#import "UTF8toUTF32.hpp"
-#import "UTF32toUTF16.hpp"
 
 #import <sstream>
 #import <iomanip>
@@ -409,12 +407,12 @@
 				// number of UTF-16 code points.
 				NSString* calculatedText = [_textView.textStorage.string
 					substringWithRange: _lastCalculatedLineRange];
-				std::u32string line32( UTF8toUTF32( calculatedText.UTF8String ) );
-				if (errorPlace < line32.length())
+				
+				errorPlace = ConvertErrorOffset( (__bridge CFStringRef) calculatedText, errorPlace );
+				
+				if (errorPlace < calculatedText.length)
 				{
-					line32.erase( errorPlace );
-					std::u16string line16( UTF32toUTF16( line32 ) );
-					errorPlace = _lastCalculatedLineRange.location + line16.length();
+					errorPlace += _lastCalculatedLineRange.location;
 					if (NSLocationInRange( errorPlace, _lastCalculatedLineRange ))
 					{
 						NSRange badRange = NSMakeRange(

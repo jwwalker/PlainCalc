@@ -46,8 +46,8 @@
 		BE87BD712E56263B00E61164 /* UTF8toUTF32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD422E56263B00E61164 /* UTF8toUTF32.cpp */; };
 		BE87BD732E56263B00E61164 /* UTF32toUTF8.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD432E56263B00E61164 /* UTF32toUTF8.cpp */; };
 		BE87BD752E56263B00E61164 /* BasicMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD442E56263B00E61164 /* BasicMath.cpp */; };
-		BE87BD772E56263B00E61164 /* UTF32toUTF16.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD452E56263B00E61164 /* UTF32toUTF16.cpp */; };
 		BE87BD792E56263B00E61164 /* GetStackSize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE87BD462E56263B00E61164 /* GetStackSize.cpp */; };
+		BE943F632E8C9281001D3145 /* ConvertErrorOffset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE943F622E8C9281001D3145 /* ConvertErrorOffset.cpp */; };
 		BE9B02972E5BA19900A10F02 /* SaveStateToDictionary.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE9B02962E5BA19900A10F02 /* SaveStateToDictionary.mm */; };
 		BE9B029D2E5CD1C700A10F02 /* IndexVariableNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE9B029C2E5CD1C700A10F02 /* IndexVariableNode.mm */; };
 		BE9B02A02E5CD7A700A10F02 /* IterationNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = BE9B029F2E5CD7A700A10F02 /* IterationNode.mm */; };
@@ -169,15 +169,15 @@
 		BE87BD422E56263B00E61164 /* UTF8toUTF32.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UTF8toUTF32.cpp; sourceTree = "<group>"; };
 		BE87BD432E56263B00E61164 /* UTF32toUTF8.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UTF32toUTF8.cpp; sourceTree = "<group>"; };
 		BE87BD442E56263B00E61164 /* BasicMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BasicMath.cpp; sourceTree = "<group>"; };
-		BE87BD452E56263B00E61164 /* UTF32toUTF16.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UTF32toUTF16.cpp; sourceTree = "<group>"; };
 		BE87BD462E56263B00E61164 /* GetStackSize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GetStackSize.cpp; sourceTree = "<group>"; };
 		BE87BD482E56263B00E61164 /* GetStackSize.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GetStackSize.hpp; sourceTree = "<group>"; };
 		BE87BD4A2E56263B00E61164 /* MatchedText.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MatchedText.hpp; sourceTree = "<group>"; };
 		BE87BD4B2E56263B00E61164 /* BasicMath.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BasicMath.hpp; sourceTree = "<group>"; };
 		BE87BD4C2E56263B00E61164 /* UTF8toUTF32.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = UTF8toUTF32.hpp; sourceTree = "<group>"; };
 		BE87BD4D2E56263B00E61164 /* UTF32toUTF8.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = UTF32toUTF8.hpp; sourceTree = "<group>"; };
-		BE87BD4E2E56263B00E61164 /* UTF32toUTF16.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = UTF32toUTF16.hpp; sourceTree = "<group>"; };
 		BE87BD7D2E5629D600E61164 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		BE943F612E8C9281001D3145 /* ConvertErrorOffset.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ConvertErrorOffset.hpp; sourceTree = "<group>"; };
+		BE943F622E8C9281001D3145 /* ConvertErrorOffset.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ConvertErrorOffset.cpp; sourceTree = "<group>"; };
 		BE9B02952E5BA19900A10F02 /* SaveStateToDictionary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SaveStateToDictionary.h; sourceTree = "<group>"; };
 		BE9B02962E5BA19900A10F02 /* SaveStateToDictionary.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SaveStateToDictionary.mm; sourceTree = "<group>"; };
 		BE9B029A2E5CC88800A10F02 /* DoGetIndexVariable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DoGetIndexVariable.hpp; sourceTree = "<group>"; };
@@ -420,8 +420,8 @@
 				BE87BD4C2E56263B00E61164 /* UTF8toUTF32.hpp */,
 				BE87BD432E56263B00E61164 /* UTF32toUTF8.cpp */,
 				BE87BD4D2E56263B00E61164 /* UTF32toUTF8.hpp */,
-				BE87BD452E56263B00E61164 /* UTF32toUTF16.cpp */,
-				BE87BD4E2E56263B00E61164 /* UTF32toUTF16.hpp */,
+				BE943F612E8C9281001D3145 /* ConvertErrorOffset.hpp */,
+				BE943F622E8C9281001D3145 /* ConvertErrorOffset.cpp */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -550,7 +550,6 @@
 				BE87BD052E56229100E61164 /* SCalcState.cpp in Sources */,
 				BE87BD672E56263B00E61164 /* Average.cpp in Sources */,
 				BE87BD5F2E56263B00E61164 /* GeometricMean.cpp in Sources */,
-				BE87BD772E56263B00E61164 /* UTF32toUTF16.cpp in Sources */,
 				BE87BD732E56263B00E61164 /* UTF32toUTF8.cpp in Sources */,
 				BE87BD6B2E56263B00E61164 /* Product.cpp in Sources */,
 				BE87BD612E56263B00E61164 /* StandardDeviation.cpp in Sources */,
@@ -565,6 +564,7 @@
 				BE87BD592E56263B00E61164 /* Sum.cpp in Sources */,
 				BE9B02A02E5CD7A700A10F02 /* IterationNode.mm in Sources */,
 				BE0BCAC32E5A1D30009914B9 /* ParameterIndexNode.mm in Sources */,
+				BE943F632E8C9281001D3145 /* ConvertErrorOffset.cpp in Sources */,
 				BE87BD652E56263B00E61164 /* Min.cpp in Sources */,
 				BE87BCC42E52854700E61164 /* PerformBlockOnWorkThread.mm in Sources */,
 				BE87BD5D2E56263B00E61164 /* Median.cpp in Sources */,
