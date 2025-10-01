@@ -346,8 +346,26 @@ F(n)= if( n-1, F(n-1) + F(n-2), if( n, 1, 0 ) )
 </p>
 
 Although this is not a case of infinite recursion, it's not particularly efficient either.
-In fact, the amount of time and computer memory taken by the computation grows
-exponentially as $n$ increases.
+But in this case, you'll run into limits on number size before limits on time and space:
+
+<p class="example">
+F(1000)<br>
+<span class="response">4.34665576869e+208</span><br>
+F(1500)<br>
+<span class="response">infinity</span>
+</p>
+
+Even if you take care to avoid infinite recursion, you can still exceed memory limits.
+
+<p class="example">
+f(n)= if(n, f(n-1), 1)<br>
+<span class="response">Defined Function 'f'</span><br>
+f(1000)<br>
+<span class="response">1</span><br>
+f(10000)<br>
+<span class="error">Calculation interrupted by memory limit</span>
+</p>
+
 
 As another example, let's consider several ways of computing binomial coefficients.  First
 we try doing it in terms of the factorial function.
@@ -358,7 +376,7 @@ fact( n ) = ∏( i, 2, n, i ) =<br>
 b( n, k ) = fact(n)/(fact(k) fact(n-k)) =<br>
 <span class="response">Defined Function 'b'</span><br>
 b( 200, 100 ) =<br>
-<span class="response">Undefined</span><br>
+<span class="response">undefined</span><br>
 </p>
 
 The problem here is that the factorials quickly exceed the capacity of double-precision
@@ -373,7 +391,7 @@ press the Escape key to interrupt a calculation that is taking too long.
 <p class="example">
 d( n, k ) = if( (n-k)k, d(n-1,k) + d(n-1,k-1), 1 ) =<br>
 <span class="response">Defined Function 'd'</span><br>
-d( 200, 100 ) =<br>
+d( 2000, 1000 ) =<br>
 <span class="error">Calculation interrupted by user</span>
 </p>
 
