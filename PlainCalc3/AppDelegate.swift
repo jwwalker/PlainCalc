@@ -57,7 +57,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate
 		let alert = NSAlert()
 		alert.messageText = title;
 		alert.informativeText = msg;
-		if let helpWindow, let window = helpWindow.window
+		if let window = helpWindow?.window
 		{
 			alert.beginSheetModal(for: window )
 		}
@@ -105,10 +105,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate
 	@IBAction func showHelp(_ senderr: Any)
 	{
 		helpWindow = HelpWindow( windowNibName: "Help" )
-		if let helpWindow, let theWindow = helpWindow.window
+		if let theWindow = helpWindow?.window
 		{
 			theWindow.delegate = self;
-			helpWindow.showWindow( self )
+			helpWindow?.showWindow( self )
 			
 			checkForMathJAX()
 		}

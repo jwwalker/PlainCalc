@@ -93,9 +93,9 @@ class HelpWindow: NSWindowController, WKNavigationDelegate
 		
 		if (navigationAction.navigationType == WKNavigationType.linkActivated)
 		{
-			if let url = navigationAction.request.url, let urlScheme = url.scheme
+			if let url = navigationAction.request.url
 			{
-				if urlScheme == "file"
+				if url.scheme == "file"
 				{
 					// navigation link within the help file
 					decisionHandler( WKNavigationActionPolicy.allow )

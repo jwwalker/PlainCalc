@@ -408,20 +408,20 @@
 			isa = PBXGroup;
 			children = (
 				BE0BCAB12E58BDFB009914B9 /* autoCF.hpp */,
-				BE87BD442E56263B00E61164 /* BasicMath.cpp */,
 				BE87BD4B2E56263B00E61164 /* BasicMath.hpp */,
-				BE87BD462E56263B00E61164 /* GetStackSize.cpp */,
+				BE87BD442E56263B00E61164 /* BasicMath.cpp */,
+				BE943F612E8C9281001D3145 /* ConvertErrorOffset.hpp */,
+				BE943F622E8C9281001D3145 /* ConvertErrorOffset.cpp */,
 				BE87BD482E56263B00E61164 /* GetStackSize.hpp */,
+				BE87BD462E56263B00E61164 /* GetStackSize.cpp */,
 				BE0BCABB2E58D19C009914B9 /* Lookup.hpp */,
 				BE87BD4A2E56263B00E61164 /* MatchedText.hpp */,
 				BE87BCC22E52854700E61164 /* PerformBlockOnWorkThread.h */,
 				BE87BCC32E52854700E61164 /* PerformBlockOnWorkThread.mm */,
-				BE87BD422E56263B00E61164 /* UTF8toUTF32.cpp */,
 				BE87BD4C2E56263B00E61164 /* UTF8toUTF32.hpp */,
-				BE87BD432E56263B00E61164 /* UTF32toUTF8.cpp */,
+				BE87BD422E56263B00E61164 /* UTF8toUTF32.cpp */,
 				BE87BD4D2E56263B00E61164 /* UTF32toUTF8.hpp */,
-				BE943F612E8C9281001D3145 /* ConvertErrorOffset.hpp */,
-				BE943F622E8C9281001D3145 /* ConvertErrorOffset.cpp */,
+				BE87BD432E56263B00E61164 /* UTF32toUTF8.cpp */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
