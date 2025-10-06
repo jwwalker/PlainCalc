@@ -80,7 +80,7 @@ class HelpWindow: NSWindowController, WKNavigationDelegate
 	{
 		if (inWebView == printView) && (webView != nil)
 		{
-			self.printMe()
+			printMe()
 		}
 	}
 	
@@ -91,21 +91,21 @@ class HelpWindow: NSWindowController, WKNavigationDelegate
 	{
 		var decided = false
 		
-		if (navigationAction.navigationType == WKNavigationType.linkActivated)
+		if (navigationAction.navigationType == .linkActivated)
 		{
 			if let url = navigationAction.request.url
 			{
 				if url.scheme == "file"
 				{
 					// navigation link within the help file
-					decisionHandler( WKNavigationActionPolicy.allow )
+					decisionHandler( .allow )
 				}
 				else
 				{
-					// Do not handle external links here; let https links
+					// Do not handle external links here. Let https links
 					// be handled by the default web browser, and let
 					// mailto links be handled by Mail.
-					decisionHandler( WKNavigationActionPolicy.cancel )
+					decisionHandler( .cancel )
 					NSWorkspace.shared.open( url )
 				}
 				decided = true
@@ -114,7 +114,7 @@ class HelpWindow: NSWindowController, WKNavigationDelegate
 		
 		if !decided
 		{
-			decisionHandler( WKNavigationActionPolicy.allow )
+			decisionHandler( .allow )
 		}
 	}
 	
@@ -126,8 +126,7 @@ class HelpWindow: NSWindowController, WKNavigationDelegate
 		if let printView
 		{
 			printView.navigationDelegate = self
-			if let helpURL = Bundle.main.url( forResource: "PlainCalcHelp.md",
-				withExtension: "html", subdirectory: "Help" )
+			if let helpURL = webView.url
 			{
 				printView.loadFileURL( helpURL,
 					allowingReadAccessTo: helpURL.deletingLastPathComponent() )

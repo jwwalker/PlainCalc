@@ -73,7 +73,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate
 			
 			let task = URLSession.shared.dataTask(with: request,
 						completionHandler:
-						{(_: Data?, _: URLResponse?, error: Error?) in
+						{(_: Data?, _: URLResponse?, _ error: Error?) in
 							if let error
 							{
 								DispatchQueue.main.async
